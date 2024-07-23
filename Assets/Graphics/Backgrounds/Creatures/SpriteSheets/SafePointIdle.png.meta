@@ -1,0 +1,1664 @@
+fileFormatVersion: 2
+guid: ebdc9ea6a6664c94a80d52a6b4253cd3
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMasterTextureLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 1
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 100
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 2
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Server
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: SafePointIdle_0
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 9295
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9f8f955b94cdd0c41b3790c98e1d97cb
+      internalID: -2126931455
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_1
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 9295
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8f3cda81e09ba3c4e905b116be710593
+      internalID: 1271198187
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_2
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 9295
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1059aebcb44529642abf33dafca759e3
+      internalID: 840468083
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_3
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 9295
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60414b790a7454944887a7f71326105a
+      internalID: 2110542683
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_4
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 9295
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8692b7e48b52c7f4ab5297a321c09647
+      internalID: -1171963888
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_5
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 8580
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59d19352291d7f147b980fd805543d9d
+      internalID: -879892224
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_6
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 8580
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2a9412f9d6b095a4eaaf99eb0b7ec768
+      internalID: -1323419215
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_7
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 8580
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53152f469c1cb3644b4ee79a5e99edab
+      internalID: -1821288487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_8
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 8580
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 41e24cb6a0ec7934e89f5f1502a96e65
+      internalID: -1527233032
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_9
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 8580
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: de9bbbee4d38b7b45b6b4feb7e78b2a9
+      internalID: 1168295419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_10
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7865
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec8e20846443d6e469ce7bb4f4617fd4
+      internalID: 728832993
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_11
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 7865
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2008a484f37ac14eb7e365029b5bb6d
+      internalID: -1418900212
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_12
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 7865
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f78fbe45c4d36154ab6a702fc615e050
+      internalID: -525878759
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_13
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 7865
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c3b7dad88108f24aa0ce2aeaa90a02e
+      internalID: -1054083651
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_14
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 7865
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7d96f9762a2be934aa8f6fc3f7f97101
+      internalID: 1752939628
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_15
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 7150
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ec6011225ba119241bed1ea817bae30a
+      internalID: -779874897
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_16
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 7150
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7dc9c839f3a046947827cf7087c64fce
+      internalID: -541855457
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_17
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 7150
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 556e4c242746a87468f104c6e30dbf77
+      internalID: -25239821
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_18
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 7150
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9bf8c7d4a28a6ef42bfb502f3e4e8211
+      internalID: 237970334
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_19
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 7150
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5a3532f39525d5d489ccd5521bc9e09c
+      internalID: -1005085071
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_20
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 6435
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c165ccea35fbc7e40a14d2885c3e5d1d
+      internalID: -685506382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_21
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 6435
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9df55015137b3de4ebb3983bc06d989a
+      internalID: -513517346
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_22
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 6435
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9d17a018afff95b4aa4db3149710411c
+      internalID: 822025596
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_23
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 6435
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cfea78dffd641124bb2289e85dfe563e
+      internalID: 1561217673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_24
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 6435
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ee6956fc4a20d014790d2a6575946056
+      internalID: 758854958
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_25
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5720
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c109ebfef3ecb9a419068d460b55e2d3
+      internalID: 11960926
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_26
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 5720
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b2e8f02ffc223dd4bb5ac5717d5da80d
+      internalID: -1352310328
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_27
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 5720
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4422821984e07ba4098d99727d40e66b
+      internalID: 1070191419
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_28
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 5720
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a785e22bd76fc674095aee5827e6347d
+      internalID: 391905029
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_29
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 5720
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7cd00e67d4380924786f693cd3d14b44
+      internalID: -1440196552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_30
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 5005
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 2cbc8b0a164eb184b886273aa01936e0
+      internalID: 2115882734
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_31
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 5005
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68f6bf924ce3d0a408332b424cd4188b
+      internalID: -1635698978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_32
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 5005
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94fb8c6cad8cb144992b4caf5283a87c
+      internalID: 1227636183
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_33
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 5005
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4382ab641ef174b44b82283acac7f438
+      internalID: -1375563235
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_34
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 5005
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 09bc1441b88219040aefb25b6ba26be3
+      internalID: 2118458885
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_35
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 4290
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 50da28e6f02c1ba409ae701113869872
+      internalID: -1739119713
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_36
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 4290
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bedb3d934e076dd4bacf0fc6d37e1288
+      internalID: -559006487
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_37
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 4290
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c95312dc339f5947b72279ecbfa7f26
+      internalID: -1206570144
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_38
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 4290
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b1e776f0cda260244a38a03fb9e18a4c
+      internalID: 1212099644
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_39
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 4290
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0e0f124658fb59942b2575d8a42e0cbd
+      internalID: -2029627715
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_40
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 3575
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc5dae6a885b0c545b058db56b3d7018
+      internalID: -552301429
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_41
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 3575
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ef69a55e167076b4b998952b07ad205a
+      internalID: 1982536624
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_42
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 3575
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6736a9aa354556446bf28833db4b760e
+      internalID: 1987491278
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_43
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 3575
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 93ecb692d4a1e5a4a974372da258ba39
+      internalID: -1345952192
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_44
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 3575
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e05a5df140b538244b87945d64b0d4ba
+      internalID: 707693792
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_45
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2860
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1cf62a4aab14e3f4da006d3522dc9c8e
+      internalID: -189458868
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_46
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 2860
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1da90bcf1772d9d40b8e3aceea71e874
+      internalID: -238350350
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_47
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 2860
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 952d58f2586d48d4db9374ef3a164976
+      internalID: -1491246534
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_48
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 2860
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 6d272af24a243f14fabd9da133fcc593
+      internalID: -725187254
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_49
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 2860
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9c8df116cb754d44885252a7aa761dfb
+      internalID: -2081315213
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_50
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 2145
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 327fe6859dec7484ba902cd05cefb57a
+      internalID: 1343125388
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_51
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 2145
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 60edabcbd3f1a44409c06d84473a3d70
+      internalID: -21952017
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_52
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 2145
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c2a005ca76dfbde4d812c608b79fb063
+      internalID: 89739793
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_53
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 2145
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4d88f78f70d64a547a3cc872e02a94d1
+      internalID: -892674098
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_54
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 2145
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 47c0cb6a5c978344d956883f9ec8ee68
+      internalID: -1474684903
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_55
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1430
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f5bbd3b1c62e4e54e834315b6aa6fb46
+      internalID: -1361649089
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_56
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 1430
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61de4260780cc2e41aba04d2bfedc204
+      internalID: -251514257
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_57
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 1430
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 529dcc9df8514694085f2792b64c0e36
+      internalID: 1696890357
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_58
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 1430
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67bf48102057e0645a4472aa310a2169
+      internalID: -468165434
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_59
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 1430
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d582998155ca6eb41a6055728e264c64
+      internalID: -759702191
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_60
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 715
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 18dbb54b9e75048498d335d3d75d40c1
+      internalID: -60574844
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_61
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 715
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7fa808c94b27a5745aaa9272ca5ec21a
+      internalID: 1061116978
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_62
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 715
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a80d7565befecc64599273d5314db82a
+      internalID: -686563117
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_63
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 715
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c74d9b175df655a4499ebddbdb07a2a5
+      internalID: 68060576
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_64
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 715
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be4ab0c6c6665bb48b8b0b6d1654018c
+      internalID: 339294066
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_65
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c600296f58f744240bc35525089b810f
+      internalID: 2036124817
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_66
+      rect:
+        serializedVersion: 2
+        x: 859
+        y: 0
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8d2ba1ecbf7a48d46908d81c5c19f9e5
+      internalID: 755877688
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_67
+      rect:
+        serializedVersion: 2
+        x: 1718
+        y: 0
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9720c5ce6c2f8e147ae0c55381c18880
+      internalID: 1725210552
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_68
+      rect:
+        serializedVersion: 2
+        x: 2577
+        y: 0
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a3638fa3c9e4ec1428fe656f3ef160cf
+      internalID: 1917534439
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: SafePointIdle_69
+      rect:
+        serializedVersion: 2
+        x: 3436
+        y: 0
+        width: 859
+        height: 715
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bb863d90da6531341aa1dd47b3421e26
+      internalID: 1359150004
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      SafePointIdle_25: 11960926
+      SafePointIdle_0: -2126931455
+      SafePointIdle_1: 1271198187
+      SafePointIdle_33: -1375563235
+      SafePointIdle_5: -879892224
+      SafePointIdle_24: 758854958
+      SafePointIdle_54: -1474684903
+      SafePointIdle_29: -1440196552
+      SafePointIdle_10: 728832993
+      SafePointIdle_14: 1752939628
+      SafePointIdle_69: 1359150004
+      SafePointIdle_41: 1982536624
+      SafePointIdle_30: 2115882734
+      SafePointIdle_35: -1739119713
+      SafePointIdle_28: 391905029
+      SafePointIdle_57: 1696890357
+      SafePointIdle_9: 1168295419
+      SafePointIdle_34: 2118458885
+      SafePointIdle_20: -685506382
+      SafePointIdle_63: 68060576
+      SafePointIdle_68: 1917534439
+      SafePointIdle_21: -513517346
+      SafePointIdle_61: 1061116978
+      SafePointIdle_4: -1171963888
+      SafePointIdle_37: -1206570144
+      SafePointIdle_3: 2110542683
+      SafePointIdle_62: -686563117
+      SafePointIdle_53: -892674098
+      SafePointIdle_60: -60574844
+      SafePointIdle_23: 1561217673
+      SafePointIdle_44: 707693792
+      SafePointIdle_26: -1352310328
+      SafePointIdle_64: 339294066
+      SafePointIdle_2: 840468083
+      SafePointIdle_7: -1821288487
+      SafePointIdle_22: 822025596
+      SafePointIdle_49: -2081315213
+      SafePointIdle_67: 1725210552
+      SafePointIdle_45: -189458868
+      SafePointIdle_47: -1491246534
+      SafePointIdle_27: 1070191419
+      SafePointIdle_19: -1005085071
+      SafePointIdle_12: -525878759
+      SafePointIdle_15: -779874897
+      SafePointIdle_66: 755877688
+      SafePointIdle_13: -1054083651
+      SafePointIdle_11: -1418900212
+      SafePointIdle_59: -759702191
+      SafePointIdle_17: -25239821
+      SafePointIdle_38: 1212099644
+      SafePointIdle_40: -552301429
+      SafePointIdle_48: -725187254
+      SafePointIdle_31: -1635698978
+      SafePointIdle_65: 2036124817
+      SafePointIdle_55: -1361649089
+      SafePointIdle_58: -468165434
+      SafePointIdle_46: -238350350
+      SafePointIdle_36: -559006487
+      SafePointIdle_52: 89739793
+      SafePointIdle_6: -1323419215
+      SafePointIdle_16: -541855457
+      SafePointIdle_8: -1527233032
+      SafePointIdle_32: 1227636183
+      SafePointIdle_43: -1345952192
+      SafePointIdle_50: 1343125388
+      SafePointIdle_18: 237970334
+      SafePointIdle_39: -2029627715
+      SafePointIdle_42: 1987491278
+      SafePointIdle_56: -251514257
+      SafePointIdle_51: -21952017
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
