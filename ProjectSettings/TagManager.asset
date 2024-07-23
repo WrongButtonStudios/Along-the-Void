@@ -1,0 +1,71 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!78 &1
+TagManager:
+  serializedVersion: 2
+  tags:
+  - Trigger
+  - Ground
+  - Star
+  - ColorDetector
+  - Teleporter
+  - NotColorSwitch
+  - TeleportCollision
+  layers:
+  - Default
+  - TransparentFX
+  - Ignore Raycast
+  - 
+  - Water
+  - UI
+  - Ground
+  - Player
+  - Glow
+  - Wall
+  - Star
+  - Shroom
+  - Red Ground
+  - Blue Wall
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  m_SortingLayers:
+  - name: Default
+    uniqueID: 0
+    locked: 0
+  - name: Farthest Background
+    uniqueID: 1046794921
+    locked: 0
+  - name: Farther Background
+    uniqueID: 3529694667
+    locked: 0
+  - name: Background
+    uniqueID: 1707476995
+    locked: 0
+  - name: Level
+    uniqueID: 813942151
+    locked: 0
+  - name: Characters
+    uniqueID: 567050389
+    locked: 0
+  - name: Foreground
+    uniqueID: 2565774957
+    locked: 0
+  - name: HUD
+    uniqueID: 3011890113
+    locked: 0
