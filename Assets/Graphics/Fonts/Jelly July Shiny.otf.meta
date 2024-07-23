@@ -1,0 +1,22 @@
+fileFormatVersion: 2
+guid: 43367d62e2ba44b4b9f0e2f88329023c
+TrueTypeFontImporter:
+  externalObjects: {}
+  serializedVersion: 4
+  fontSize: 16
+  forceTextureCase: -2
+  characterSpacing: 0
+  characterPadding: 1
+  includeFontData: 1
+  fontNames:
+  - Jelly July Shiny
+  fallbackFontReferences:
+  - {fileID: 12800000, guid: b995ee6239e6fab42a154498d995a4fc, type: 3}
+  customCharacters: 
+  fontRenderingMode: 0
+  ascentCalculationMode: 1
+  useLegacyBoundsCalculation: 0
+  shouldRoundAdvanceValue: 1
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

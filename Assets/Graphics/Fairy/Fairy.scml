@@ -1,0 +1,317 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<spriter_data scml_version="1.0" generator="BrashMonkey Spriter" generator_version="r11">
+    <folder id="0" name="blue">
+        <file id="0" name="blue/blue_0000.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="blue/blue_0001.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="blue/blue_0002.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="blue/blue_0003.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="blue/blue_0004.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="blue/blue_0005.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="blue/blue_0006.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="blue/blue_0007.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="blue/blue_0008.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+        <file id="9" name="blue/blue_0009.png" width="312" height="363" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <folder id="1" name="green">
+        <file id="0" name="green/green_0000.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="green/green_0001.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="green/green_0002.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="green/green_0003.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="green/green_0004.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="green/green_0005.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="green/green_0006.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="green/green_0007.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="green/green_0008.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+        <file id="9" name="green/green_0009.png" width="354" height="315" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <folder id="2" name="red">
+        <file id="0" name="red/red_0000.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="red/red_0001.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="red/red_0002.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="red/red_0003.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="red/red_0004.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="red/red_0005.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="red/red_0006.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="red/red_0007.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="red/red_0008.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+        <file id="9" name="red/red_0009.png" width="328" height="333" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <folder id="3" name="yellow">
+        <file id="0" name="yellow/yellow_0000.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="1" name="yellow/yellow_0001.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="2" name="yellow/yellow_0002.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="3" name="yellow/yellow_0003.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="4" name="yellow/yellow_0004.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="5" name="yellow/yellow_0005.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="6" name="yellow/yellow_0006.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="7" name="yellow/yellow_0007.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="8" name="yellow/yellow_0008.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+        <file id="9" name="yellow/yellow_0009.png" width="304" height="326" pivot_x="0" pivot_y="1"/>
+    </folder>
+    <entity id="0" name="Fairy">
+        <animation id="0" name="Fairy blue" length="450" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="49">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="99">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="149">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+                <key id="4" time="198">
+                    <object_ref id="0" timeline="0" key="4" z_index="0"/>
+                </key>
+                <key id="5" time="249">
+                    <object_ref id="0" timeline="0" key="5" z_index="0"/>
+                </key>
+                <key id="6" time="298">
+                    <object_ref id="0" timeline="0" key="6" z_index="0"/>
+                </key>
+                <key id="7" time="349">
+                    <object_ref id="0" timeline="0" key="7" z_index="0"/>
+                </key>
+                <key id="8" time="398">
+                    <object_ref id="0" timeline="0" key="8" z_index="0"/>
+                </key>
+                <key id="9" time="450">
+                    <object_ref id="0" timeline="0" key="9" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="blue_0000">
+                <key id="0" spin="0">
+                    <object folder="0" file="0" x="-150" y="300"/>
+                </key>
+                <key id="1" time="49" spin="0">
+                    <object folder="0" file="1" x="-150" y="316"/>
+                </key>
+                <key id="2" time="99" spin="0">
+                    <object folder="0" file="2" x="-150" y="332"/>
+                </key>
+                <key id="3" time="149" spin="0">
+                    <object folder="0" file="3" x="-150" y="349"/>
+                </key>
+                <key id="4" time="198" spin="0">
+                    <object folder="0" file="4" x="-150" y="372"/>
+                </key>
+                <key id="5" time="249" spin="0">
+                    <object folder="0" file="5" x="-150" y="348"/>
+                </key>
+                <key id="6" time="298" spin="0">
+                    <object folder="0" file="6" x="-150" y="324"/>
+                </key>
+                <key id="7" time="349" spin="0">
+                    <object folder="0" file="7" x="-150" y="312"/>
+                </key>
+                <key id="8" time="398" spin="0">
+                    <object folder="0" file="8" x="-150" y="314"/>
+                </key>
+                <key id="9" time="450" spin="0">
+                    <object folder="0" file="9" x="-150" y="300"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="1" name="Fairy green" length="450" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="49">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="99">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="149">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+                <key id="4" time="198">
+                    <object_ref id="0" timeline="0" key="4" z_index="0"/>
+                </key>
+                <key id="5" time="249">
+                    <object_ref id="0" timeline="0" key="5" z_index="0"/>
+                </key>
+                <key id="6" time="298">
+                    <object_ref id="0" timeline="0" key="6" z_index="0"/>
+                </key>
+                <key id="7" time="349">
+                    <object_ref id="0" timeline="0" key="7" z_index="0"/>
+                </key>
+                <key id="8" time="398">
+                    <object_ref id="0" timeline="0" key="8" z_index="0"/>
+                </key>
+                <key id="9" time="450">
+                    <object_ref id="0" timeline="0" key="9" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="blue_0000">
+                <key id="0" spin="0">
+                    <object folder="1" file="0" x="-150" y="300"/>
+                </key>
+                <key id="1" time="49" spin="0">
+                    <object folder="1" file="1" x="-150" y="316"/>
+                </key>
+                <key id="2" time="99" spin="0">
+                    <object folder="1" file="2" x="-150" y="332"/>
+                </key>
+                <key id="3" time="149" spin="0">
+                    <object folder="1" file="3" x="-150" y="349"/>
+                </key>
+                <key id="4" time="198" spin="0">
+                    <object folder="1" file="4" x="-150" y="372"/>
+                </key>
+                <key id="5" time="249" spin="0">
+                    <object folder="1" file="5" x="-150" y="348"/>
+                </key>
+                <key id="6" time="298" spin="0">
+                    <object folder="1" file="6" x="-150" y="324"/>
+                </key>
+                <key id="7" time="349" spin="0">
+                    <object folder="1" file="7" x="-150" y="312"/>
+                </key>
+                <key id="8" time="398" spin="0">
+                    <object folder="1" file="8" x="-150" y="314"/>
+                </key>
+                <key id="9" time="450" spin="0">
+                    <object folder="1" file="9" x="-150" y="300"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="2" name="Fairy red" length="450" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="49">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="99">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="149">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+                <key id="4" time="198">
+                    <object_ref id="0" timeline="0" key="4" z_index="0"/>
+                </key>
+                <key id="5" time="249">
+                    <object_ref id="0" timeline="0" key="5" z_index="0"/>
+                </key>
+                <key id="6" time="298">
+                    <object_ref id="0" timeline="0" key="6" z_index="0"/>
+                </key>
+                <key id="7" time="349">
+                    <object_ref id="0" timeline="0" key="7" z_index="0"/>
+                </key>
+                <key id="8" time="398">
+                    <object_ref id="0" timeline="0" key="8" z_index="0"/>
+                </key>
+                <key id="9" time="450">
+                    <object_ref id="0" timeline="0" key="9" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="blue_0000">
+                <key id="0" spin="0">
+                    <object folder="2" file="0" x="-150" y="300"/>
+                </key>
+                <key id="1" time="49" spin="0">
+                    <object folder="2" file="1" x="-150" y="316"/>
+                </key>
+                <key id="2" time="99" spin="0">
+                    <object folder="2" file="2" x="-150" y="332"/>
+                </key>
+                <key id="3" time="149" spin="0">
+                    <object folder="2" file="3" x="-150" y="349"/>
+                </key>
+                <key id="4" time="198" spin="0">
+                    <object folder="2" file="4" x="-150" y="372"/>
+                </key>
+                <key id="5" time="249" spin="0">
+                    <object folder="2" file="5" x="-150" y="348"/>
+                </key>
+                <key id="6" time="298" spin="0">
+                    <object folder="2" file="6" x="-150" y="324"/>
+                </key>
+                <key id="7" time="349" spin="0">
+                    <object folder="2" file="7" x="-150" y="312"/>
+                </key>
+                <key id="8" time="398" spin="0">
+                    <object folder="2" file="8" x="-150" y="314"/>
+                </key>
+                <key id="9" time="450" spin="0">
+                    <object folder="2" file="9" x="-150" y="300"/>
+                </key>
+            </timeline>
+        </animation>
+        <animation id="3" name="Fairy yellow" length="450" interval="100">
+            <mainline>
+                <key id="0">
+                    <object_ref id="0" timeline="0" key="0" z_index="0"/>
+                </key>
+                <key id="1" time="49">
+                    <object_ref id="0" timeline="0" key="1" z_index="0"/>
+                </key>
+                <key id="2" time="99">
+                    <object_ref id="0" timeline="0" key="2" z_index="0"/>
+                </key>
+                <key id="3" time="149">
+                    <object_ref id="0" timeline="0" key="3" z_index="0"/>
+                </key>
+                <key id="4" time="198">
+                    <object_ref id="0" timeline="0" key="4" z_index="0"/>
+                </key>
+                <key id="5" time="249">
+                    <object_ref id="0" timeline="0" key="5" z_index="0"/>
+                </key>
+                <key id="6" time="298">
+                    <object_ref id="0" timeline="0" key="6" z_index="0"/>
+                </key>
+                <key id="7" time="349">
+                    <object_ref id="0" timeline="0" key="7" z_index="0"/>
+                </key>
+                <key id="8" time="398">
+                    <object_ref id="0" timeline="0" key="8" z_index="0"/>
+                </key>
+                <key id="9" time="450">
+                    <object_ref id="0" timeline="0" key="9" z_index="0"/>
+                </key>
+            </mainline>
+            <timeline id="0" name="blue_0000">
+                <key id="0" spin="0">
+                    <object folder="3" file="0" x="-150" y="300"/>
+                </key>
+                <key id="1" time="49" spin="0">
+                    <object folder="3" file="1" x="-150" y="316"/>
+                </key>
+                <key id="2" time="99" spin="0">
+                    <object folder="3" file="2" x="-150" y="332"/>
+                </key>
+                <key id="3" time="149" spin="0">
+                    <object folder="3" file="3" x="-150" y="349"/>
+                </key>
+                <key id="4" time="198" spin="0">
+                    <object folder="3" file="4" x="-150" y="372"/>
+                </key>
+                <key id="5" time="249" spin="0">
+                    <object folder="3" file="5" x="-150" y="348"/>
+                </key>
+                <key id="6" time="298" spin="0">
+                    <object folder="3" file="6" x="-150" y="324"/>
+                </key>
+                <key id="7" time="349" spin="0">
+                    <object folder="3" file="7" x="-150" y="312"/>
+                </key>
+                <key id="8" time="398" spin="0">
+                    <object folder="3" file="8" x="-150" y="314"/>
+                </key>
+                <key id="9" time="450" spin="0">
+                    <object folder="3" file="9" x="-150" y="300"/>
+                </key>
+            </timeline>
+        </animation>
+    </entity>
+</spriter_data>
