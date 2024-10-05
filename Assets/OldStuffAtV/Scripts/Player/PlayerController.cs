@@ -71,7 +71,7 @@ public class PlayerController : MonoBehaviour
     public ColorManager colorManager;
     public DashScript dash;
     public VFXManager gravityVFX;
-    public Surprise surprise;
+    public CineCamController surprise;
 
     //[SerializeField] PauseMenue pauseMenue;
 
