@@ -25,13 +25,13 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1293561927}
+  serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 5984963213870702169}
-  m_RootOrder: -1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &1293561930
 MonoBehaviour:
@@ -45,7 +45,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af15e20292293644e980e7bf6704d0ee, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Green: {fileID: 0}
   isGreenShining: 0
   pauseMenue: {fileID: 0}
 --- !u!61 &1293561929
@@ -58,6 +57,25 @@ BoxCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -79,7 +97,7 @@ PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Modification:
-    serializedVersion: 2
+    serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
     - target: {fileID: 3285260027729671800, guid: 33aed6ae38d7fd0478ca80ecfff47801, type: 3}
@@ -233,10 +251,18 @@ PrefabInstance:
     m_RemovedComponents:
     - {fileID: 3612506412188435192, guid: 33aed6ae38d7fd0478ca80ecfff47801, type: 3}
     - {fileID: 3612506412188435199, guid: 33aed6ae38d7fd0478ca80ecfff47801, type: 3}
+    m_RemovedGameObjects: []
     m_AddedGameObjects:
     - targetCorrespondingSourceObject: {fileID: 5237266721198132958, guid: 33aed6ae38d7fd0478ca80ecfff47801, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1293561928}
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5010553071536328829, guid: 33aed6ae38d7fd0478ca80ecfff47801, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 910421819}
+    - targetCorrespondingSourceObject: {fileID: 5010553071536328829, guid: 33aed6ae38d7fd0478ca80ecfff47801, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 910421818}
   m_SourcePrefab: {fileID: 100100000, guid: 33aed6ae38d7fd0478ca80ecfff47801, type: 3}
 --- !u!4 &5984963213870702169 stripped
 Transform:
@@ -258,6 +284,25 @@ PolygonCollider2D:
   m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -293,7 +338,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bounce: 100
   Player: {fileID: 0}
-  Green: {fileID: 0}
   material:
   - {fileID: 2100000, guid: 7d8dcd16a2085564d9a75eb51d7d097b, type: 2}
   - {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}

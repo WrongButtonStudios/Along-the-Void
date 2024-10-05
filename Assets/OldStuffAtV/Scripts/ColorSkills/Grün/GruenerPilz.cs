@@ -21,15 +21,7 @@ public class GruenerPilz : MonoBehaviour
 
     private void OnTriggerStay2D(Collider2D collision)
     {
-        
 
-        //if (collision.gameObject.tag == "ColorDetector" && !Green.greenIsActive && Green.redIsActive||
-        //    collision.gameObject.tag == "ColorDetector" && Green.greenIsActive && !Green.redIsActive)
-        //{
-
-        //    isGreenShining = true;
-
-        //}
         if (collision.gameObject.CompareTag("Player") /*&& Green.greenIsActive*/)
         {
             Debug.Log("BOING");
@@ -40,12 +32,6 @@ public class GruenerPilz : MonoBehaviour
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        //if (collision.gameObject.tag == "ColorDetector" && !Green.greenIsActive ||
-        //  collision.gameObject.tag == "ColorDetector" && Green.greenIsActive)
-
-        //{
-        //    isGreenShining = false;
-        //}
         if (collision.gameObject.CompareTag("Player") /*&& Green.greenIsActive*/)
         {
             SoundManager.sndMan.PlaySprungSound();
