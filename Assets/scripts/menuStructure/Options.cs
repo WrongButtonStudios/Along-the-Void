@@ -30,7 +30,7 @@ public class Options : MonoBehaviour
     public void SetMasterVolume()
     {
         float volume = masterSlider.value;
-        masterMixer.SetFloat("music", Mathf.Log10(volume) * 10);
+        masterMixer.SetFloat("master", Mathf.Log10(volume) * 10);
     }
     public void SetMusicVolume()
     {

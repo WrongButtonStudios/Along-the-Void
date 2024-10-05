@@ -11,6 +11,7 @@ TagManager:
   - Teleporter
   - NotColorSwitch
   - TeleportCollision
+  - Audio
   layers:
   - Default
   - TransparentFX
