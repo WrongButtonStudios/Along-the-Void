@@ -17,7 +17,7 @@ public class CineCamController : MonoBehaviour
     public bool canMoveKeyboard = false;
     public bool canMoveController = false;
     public GameObject[] cameraList;
-    private int currentCamera;
+    private int currentCameraIndex;
     public PlayerController playerController;
     public DashScript dashScript;
     [SerializeField] private Transform speedVFX;
@@ -29,7 +29,7 @@ public class CineCamController : MonoBehaviour
     {
         Debug.Log((int)RigidbodyConstraints2D.FreezeRotation + " " + (int)RigidbodyConstraints2D.FreezeAll); 
         Fairy = GetComponent<Rigidbody2D>();
-        currentCamera = 0;
+        currentCameraIndex = 0;
         for (int i = 0; i < cameraList.Length; i++)
         {
         }
@@ -45,10 +45,9 @@ public class CineCamController : MonoBehaviour
 
     void Update()
     {
-        if (canMoveController && playerController.isGrounded || canMoveKeyboard && playerController.isGrounded)
+        if ((canMoveController || canMoveKeyboard) && playerController.isGrounded)
         {
             playerController.Player.velocity = new Vector2(playerController.Player.velocity.x * 0.0001f, playerController.Player.velocity.y * 0.0001f);
-
             playerController.Player.constraints = RigidbodyConstraints2D.FreezeAll;
         }
         else
@@ -70,14 +69,17 @@ public class CineCamController : MonoBehaviour
             canMoveController = false;
             playerController.enabled = true;
             dashScript.enabled = true;
-            currentCamera++;
-            if (currentCamera < cameraList.Length)
+            currentCameraIndex++;
+            if (currentCameraIndex < cameraList.Length)
             {
-                cameraList[currentCamera - 1].gameObject.SetActive(false);
-                cameraList[currentCamera].gameObject.SetActive(true);
+                cameraList[currentCameraIndex - 1].gameObject.SetActive(false);
+                cameraList[currentCameraIndex].gameObject.SetActive(true);
             }
         }
+    }
 
+    private void FixedUpdate()
+    {
         MovementController();
         FarCam();
         Movement();
@@ -96,7 +98,7 @@ public class CineCamController : MonoBehaviour
             }
             else
             {
-                //To-Do überprüfen ob bewegungen dadurch auf der Y Achse ruckartig werden
+                //To-Do: überprüfen ob bewegungen dadurch auf der Y Achse ruckartig werden
                 Fairy.velocity = new Vector2(velocityX, velocityY);
             }
 
@@ -104,7 +106,7 @@ public class CineCamController : MonoBehaviour
             {
                 Debug.Log("Jawohl");
                 speedVFX.localScale = speedVFXSizeNormal;
-                currentCamera = 3;
+                currentCameraIndex = 3;
                 SetNewCamera();
             }
         }
@@ -113,7 +115,7 @@ public class CineCamController : MonoBehaviour
         {
             Debug.Log("YES");
             speedVFX.localScale = speedVFXSizeNormal;
-            currentCamera = 0;
+            currentCameraIndex = 0;
             SetNewCamera();
         }
     }
@@ -123,21 +125,21 @@ public class CineCamController : MonoBehaviour
         if (playerController.Geschwindigkeit > 20f && !canMoveController && playerController.Direction > 0f && !canMoveKeyboard)
         {
             speedVFX.localScale = speedVFXSizeNormal;
-            currentCamera = 2;
+            currentCameraIndex = 2;
             SetNewCamera();
         }
 
         if (playerController.Geschwindigkeit > 20f && !canMoveController && playerController.Direction < 0f && !canMoveKeyboard)
         {
             speedVFX.localScale = speedVFXSizeNormal;
-            currentCamera = 5;
+            currentCameraIndex = 5;
             SetNewCamera();
         }
 
         if (playerController.Geschwindigkeit < 20f && !canMoveController && !canMoveKeyboard && playerController.isGrounded)
         {
             speedVFX.localScale = speedVFXSizeNormal;
-            currentCamera = 1;
+            currentCameraIndex = 1;
             SetNewCamera();
         }
     }
@@ -147,7 +149,7 @@ public class CineCamController : MonoBehaviour
         if (Input.GetAxis("Left Trigger") > 0f && !canMoveController && !canMoveKeyboard || Input.GetKey("q") && !canMoveController && !canMoveKeyboard || !playerController.isGrounded && playerController.Direction == 0f && dashScript.canDash == true)
         {
             speedVFX.localScale = increasedSpeedVFX;
-            currentCamera = 4;
+            currentCameraIndex = 4;
             SetNewCamera();
         }
     }
@@ -184,7 +186,7 @@ public class CineCamController : MonoBehaviour
     {
         for (int i = 0; i < cameraList.Length; i++)
         {
-            bool setActive = i == currentCamera; 
+            bool setActive = i == currentCameraIndex; 
             cameraList[i].gameObject.SetActive(setActive); 
         }
     }
