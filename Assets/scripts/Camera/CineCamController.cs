@@ -27,6 +27,7 @@ public class CineCamController : MonoBehaviour
 
     void Start()
     {
+        Debug.Log((int)RigidbodyConstraints2D.FreezeRotation + " " + (int)RigidbodyConstraints2D.FreezeAll); 
         Fairy = GetComponent<Rigidbody2D>();
         currentCamera = 0;
         for (int i = 0; i < cameraList.Length; i++)
@@ -44,7 +45,6 @@ public class CineCamController : MonoBehaviour
 
     void Update()
     {
-
         if (canMoveController && playerController.isGrounded || canMoveKeyboard && playerController.isGrounded)
         {
             playerController.Player.velocity = new Vector2(playerController.Player.velocity.x * 0.0001f, playerController.Player.velocity.y * 0.0001f);
@@ -76,113 +76,84 @@ public class CineCamController : MonoBehaviour
                 cameraList[currentCamera - 1].gameObject.SetActive(false);
                 cameraList[currentCamera].gameObject.SetActive(true);
             }
-
         }
 
         MovementController();
         FarCam();
-
         Movement();
+    }
 
-        void Movement()
+    void Movement()
+    {
+        if (RecievedInput())
         {
-            if (RecievedInput())
+            float velocityX = Direction * Geschwindigkeit;
+            float velocityY = -DirectionVertical * Geschwindigkeit;
+
+            if (Direction == 0f && DirectionVertical == 0f)
             {
-                // if (Direction > 0f)
-                // {
-                //     Fairy.velocity = new Vector2(Direction * Geschwindigkeit, Fairy.velocity.y);
-                // }
-                //
-                // if (Direction < 0f)
-                // {
-                //     Fairy.velocity = new Vector2(Direction * Geschwindigkeit, Fairy.velocity.y);
-                // }
-                //
-                // if (DirectionVertical > 0f)
-                // {
-                //     Fairy.velocity = new Vector2(Fairy.velocity.x, -DirectionVertical * Geschwindigkeit);
-                // }
-                //
-                // if (DirectionVertical < 0f)
-                // {
-                //     Fairy.velocity = new Vector2(Fairy.velocity.x, -DirectionVertical * Geschwindigkeit);
-                // }
-                //
-                // if (Direction == 0f && DirectionVertical == 0f)
-                // {
-                //     Fairy.velocity = new Vector2(0f, 0f);
-                // }
-                // Berechne die neue X- und Y-Geschwindigkeit
-                float velocityX = Direction * Geschwindigkeit;
-                float velocityY = -DirectionVertical * Geschwindigkeit;
-
-                if (Direction == 0f && DirectionVertical == 0f)
-                {
-                    Fairy.velocity = Vector2.zero;
-                }
-                else
-                {
-                    Fairy.velocity = new Vector2(velocityX, velocityY);
-                }
-
-
-                if (Input.GetAxis("Left Trigger") > 0f && canMoveController && !canMoveKeyboard || Input.GetKey("q") && canMoveKeyboard && !canMoveController)
-                {
-                    Debug.Log("Jawohl");
-                    speedVFX.localScale = speedVFXSizeNormal;
-                    currentCamera = 3;
-                    SetNewCamera();
-                }
+                Fairy.velocity = Vector2.zero;
+            }
+            else
+            {
+                //To-Do überprüfen ob bewegungen dadurch auf der Y Achse ruckartig werden
+                Fairy.velocity = new Vector2(velocityX, velocityY);
             }
 
-            if ((Input.GetAxis("Left Trigger") < 1f && canMoveController) && !canMoveKeyboard || !Input.GetKey("q") && canMoveKeyboard && !canMoveController)
+            if (Input.GetAxis("Left Trigger") > 0f && canMoveController && !canMoveKeyboard || Input.GetKey("q") && canMoveKeyboard && !canMoveController)
             {
-                Debug.Log("YES");
+                Debug.Log("Jawohl");
                 speedVFX.localScale = speedVFXSizeNormal;
-                currentCamera = 0;
+                currentCamera = 3;
                 SetNewCamera();
             }
         }
 
-        void MovementController()
+        if ((Input.GetAxis("Left Trigger") < 1f && canMoveController) && !canMoveKeyboard || !Input.GetKey("q") && canMoveKeyboard && !canMoveController)
         {
-            if (playerController.Geschwindigkeit > 20f && !canMoveController && playerController.Direction > 0f && !canMoveKeyboard)
-            {
-                speedVFX.localScale = speedVFXSizeNormal;
-                currentCamera = 2;
-                SetNewCamera();
-            }
+            Debug.Log("YES");
+            speedVFX.localScale = speedVFXSizeNormal;
+            currentCamera = 0;
+            SetNewCamera();
+        }
+    }
 
-            if (playerController.Geschwindigkeit > 20f && !canMoveController && playerController.Direction < 0f && !canMoveKeyboard)
-            {
-
-                speedVFX.localScale = speedVFXSizeNormal;
-                currentCamera = 5;
-                SetNewCamera();
-            }
-
-            if (playerController.Geschwindigkeit < 20f && !canMoveController && !canMoveKeyboard && playerController.isGrounded)
-            {
-                speedVFX.localScale = speedVFXSizeNormal;
-                currentCamera = 1;
-                SetNewCamera();
-            }
+    void MovementController()
+    {
+        if (playerController.Geschwindigkeit > 20f && !canMoveController && playerController.Direction > 0f && !canMoveKeyboard)
+        {
+            speedVFX.localScale = speedVFXSizeNormal;
+            currentCamera = 2;
+            SetNewCamera();
         }
 
-        void FarCam()
+        if (playerController.Geschwindigkeit > 20f && !canMoveController && playerController.Direction < 0f && !canMoveKeyboard)
         {
-            if (Input.GetAxis("Left Trigger") > 0f && !canMoveController && !canMoveKeyboard || Input.GetKey("q") && !canMoveController && !canMoveKeyboard || !playerController.isGrounded && playerController.Direction == 0f && dashScript.canDash == true)
-            {
-                speedVFX.localScale = increasedSpeedVFX;
-                currentCamera = 4;
-                SetNewCamera(); 
-            }
+            speedVFX.localScale = speedVFXSizeNormal;
+            currentCamera = 5;
+            SetNewCamera();
+        }
+
+        if (playerController.Geschwindigkeit < 20f && !canMoveController && !canMoveKeyboard && playerController.isGrounded)
+        {
+            speedVFX.localScale = speedVFXSizeNormal;
+            currentCamera = 1;
+            SetNewCamera();
+        }
+    }
+
+    void FarCam()
+    {
+        if (Input.GetAxis("Left Trigger") > 0f && !canMoveController && !canMoveKeyboard || Input.GetKey("q") && !canMoveController && !canMoveKeyboard || !playerController.isGrounded && playerController.Direction == 0f && dashScript.canDash == true)
+        {
+            speedVFX.localScale = increasedSpeedVFX;
+            currentCamera = 4;
+            SetNewCamera();
         }
     }
 
     bool RecievedInput()
     {
-
         bool recievedInputController = Input.GetKeyDown(KeyCode.Joystick1Button9);
         bool recievedInputKeyboard = Input.GetKeyDown("f");
         if (recievedInputController || recievedInputKeyboard)
