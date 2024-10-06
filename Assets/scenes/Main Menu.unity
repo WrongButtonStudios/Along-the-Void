@@ -2099,7 +2099,7 @@ Transform:
   - {fileID: 262592783}
   - {fileID: 182844635}
   - {fileID: 1394615512}
-  m_Father: {fileID: 2097883387}
+  m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1216065566
 GameObject:
@@ -4437,7 +4437,6 @@ RectTransform:
   - {fileID: 2020530806}
   - {fileID: 762004051}
   - {fileID: 1280975242}
-  - {fileID: 1124348602}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
@@ -4453,4 +4452,5 @@ SceneRoots:
   - {fileID: 1216065570}
   - {fileID: 2097883387}
   - {fileID: 1366268993}
+  - {fileID: 1124348602}
   - {fileID: 958199917}
