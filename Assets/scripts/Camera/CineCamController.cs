@@ -184,10 +184,10 @@ public class CineCamController : MonoBehaviour
 
     void SetNewCamera()
     {
-        for (int i = 0; i < cameraList.Length; i++)
+        foreach (GameObject cam in cameraList)
         {
-            bool setActive = i == currentCameraIndex; 
-            cameraList[i].gameObject.SetActive(setActive); 
+            bool setActive = cameraList[currentCameraIndex] == cam; 
+            cam.SetActive(setActive); 
         }
     }
 
