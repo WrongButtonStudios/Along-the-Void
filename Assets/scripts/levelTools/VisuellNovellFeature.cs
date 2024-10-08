@@ -19,13 +19,25 @@ public class VisuellNovellFeature : MonoBehaviour
 
     private IEnumerator Dialog(float time)
     {
+        bool renderedText = false; 
         dialogcounter = 0;
         while (dialogcounter < DIaloges.Count)
         {
-            text.text = string.Empty;
-            _textToShow = DIaloges[dialogcounter];
-            FadeInText();
-            yield return new WaitForSeconds(time/ DIaloges.Count);
+            if (!renderedText) 
+            {
+                renderedText = true; 
+                text.text = string.Empty;
+                _textToShow = DIaloges[dialogcounter];
+                FadeInText();
+            }
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                dialogcounter++;
+                renderedText = false;
+                Debug.Log("Space"); 
+                yield return new WaitForSeconds(time / DIaloges.Count);
+            }
+            yield return new WaitForSeconds(time / DIaloges.Count);
         }
 
     }
@@ -43,6 +55,5 @@ public class VisuellNovellFeature : MonoBehaviour
             text.text = currentText;
             yield return new WaitForSeconds(time);
         }
-        dialogcounter++;
     }
 }
