@@ -5,37 +5,53 @@ using TMPro;
 
 public class VisuellNovellFeature : MonoBehaviour
 {
-    [SerializeField]
-    private string _textToShow = "";
-    private bool wait; 
     public TextMeshProUGUI text;
     public List<string> DIaloges = new List<string>();
-    private int dialogcounter;
 
+    [SerializeField]
+    private string _textToShow = "";
+    private bool _wait;
+    private bool renderedText;
+    private int _dialogcounter;
+    private bool _isActive = false;
+    private bool _continue = false; 
+    
     private void Start()
     {
         StartCoroutine(Dialog(1)); 
     }
+    private void Update()
+    {
+        if(_isActive)
+        {
+            //to-do Entferne diese Input logik, wenn die Input Mappings für das neue InputSystem Existiteren
+            if (Input.GetKeyDown(KeyCode.Space)) 
+            {
+                _continue = true; 
+            }
 
+            if (_continue) 
+            {
+                _continue = false;
+                _dialogcounter++;
+                renderedText = false;
+                Debug.Log("Space");
+            }
+        }
+    }
     private IEnumerator Dialog(float time)
     {
-        bool renderedText = false; 
-        dialogcounter = 0;
-        while (dialogcounter < DIaloges.Count)
+        _isActive=true; 
+         renderedText = false; 
+        _dialogcounter = 0;
+        while (_dialogcounter < DIaloges.Count)
         {
             if (!renderedText) 
             {
                 renderedText = true; 
                 text.text = string.Empty;
-                _textToShow = DIaloges[dialogcounter];
+                _textToShow = DIaloges[_dialogcounter];
                 FadeInText();
-            }
-            if (Input.GetKeyDown(KeyCode.Space)) 
-            {
-                dialogcounter++;
-                renderedText = false;
-                Debug.Log("Space"); 
-                yield return new WaitForSeconds(time / DIaloges.Count);
             }
             yield return new WaitForSeconds(time / DIaloges.Count);
         }
