@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class creditsController : MonoBehaviour
+public class CreditsController : MonoBehaviour
 {
     [SerializeField] GameObject creditsCanvas;
     [SerializeField] GameObject mainMenu;
