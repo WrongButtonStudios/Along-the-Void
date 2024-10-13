@@ -41,10 +41,9 @@ public class DialogPool : MonoBehaviour
         {
             if(dialog.activeSelf == false) 
             {
-                Debug.Log("found dialog succefully"); 
                 return dialog; 
             }
         }
-        throw new System.Exception("There is no Dialog left"); 
+        throw new System.Exception("There is no _dialog left"); 
     }
 }

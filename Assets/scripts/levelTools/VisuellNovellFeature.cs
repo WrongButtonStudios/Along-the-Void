@@ -31,9 +31,13 @@ public class VisuellNovellFeature : MonoBehaviour
     private bool runDialog;
     private bool inCourountine = false;
 
-    public void StartDialog()
+    public void StartDialog(List<string> texts)
     {
-        runDialog = true; 
+        Dialoges.Clear();
+        Dialoges = texts;
+        _dialogcounter = 0; 
+        _currentStep = Step.FadeInSpeechBubble;
+        runDialog = true;
     }
     private void DialogStateHandle() 
     {
@@ -56,7 +60,13 @@ public class VisuellNovellFeature : MonoBehaviour
             }
         
         }
-    } 
+    }
+
+    public void ResetDialog() 
+    {
+        _dialogcounter = 0;
+        _currentStep = Step.FadeInText; 
+    }
     private void Update()
     {
         if(_isActive)
