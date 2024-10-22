@@ -24,6 +24,7 @@ public class characterController : MonoBehaviour
         public playerStates currentState;
         public bool isMoving;
         public bool isGrounded;
+        public bool isFrozen;
     }
 
     private Rigidbody2D rb;
@@ -183,6 +184,7 @@ public class characterController : MonoBehaviour
     {
         return statusData;
     }
+
     public void getMoveInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
