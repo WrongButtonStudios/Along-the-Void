@@ -18535,7 +18535,6 @@ GameObject:
   - component: {fileID: 523573450}
   - component: {fileID: 523573451}
   - component: {fileID: 523573453}
-  - component: {fileID: 523573455}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -18703,6 +18702,7 @@ MonoBehaviour:
     currentState: 1
     isMoving: 0
     isGrounded: 0
+    isFrozen: 0
   maxSpeed: 60
   acceleration: 100
   accelerationFactorFromDot:
@@ -18734,53 +18734,6 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 64
---- !u!114 &523573455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523573449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b353e7bf402dff84f99ff565faa65cd8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  statusData:
-    currentState: 1
-    isMoving: 0
-    isGrounded: 0
-  maxSpeed: 60
-  acceleration: 50
-  accelerationFactorFromDot:
-    serializedVersion: 2
-    m_Curve:
-    - serializedVersion: 3
-      time: -1
-      value: 5
-      inSlope: -4
-      outSlope: -2.1
-      tangentMode: 69
-      weightedMode: 3
-      inWeight: 0
-      outWeight: 0.33333334
-    - serializedVersion: 3
-      time: 1
-      value: 0.8
-      inSlope: 0.15457201
-      outSlope: 0.15457201
-      tangentMode: 0
-      weightedMode: 0
-      inWeight: 0.21666664
-      outWeight: 0
-    m_PreInfinity: 2
-    m_PostInfinity: 2
-    m_RotationOrder: 4
-  counterMoveForce: 30
-  groundedDistance: 1.1
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 0
 --- !u!1 &546674103
 GameObject:
   m_ObjectHideFlags: 0
