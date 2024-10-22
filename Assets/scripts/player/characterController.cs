@@ -86,6 +86,12 @@ public class characterController : MonoBehaviour
                 baseMovement();
                 break;
 
+                if(statusData.isFrozen)
+                {
+                    Debug.Log("Frozen");
+                    break;
+                }
+
             default:
                 Debug.LogError("state not implemented");
                 break;
