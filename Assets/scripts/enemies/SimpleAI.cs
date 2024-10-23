@@ -30,7 +30,7 @@ public class SimpleAI : MonoBehaviour
     private bool _isOnPoint;
     private int _curWayPoint = 0;
     private Rigidbody2D _rb;
-
+    private Vector3 offset;
 
     // Start is called before the first frame update
     void Awake()
@@ -38,6 +38,10 @@ public class SimpleAI : MonoBehaviour
         _rb = this.GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        offset = new Vector3(0, (this.transform.localScale.y / 4), 0);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -104,14 +108,13 @@ public class SimpleAI : MonoBehaviour
         if (CheckForObstacle() && IsGrounded())
             Jump(); //if yes, Jump
 
-        if (IsGrounded())
-            _rb.AddForce(CalculateMovementForce() * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        _rb.AddForce(CalculateMovementForce() * Time.fixedDeltaTime, ForceMode2D.Impulse);
 
         ClampVelocity();
     }
     private bool CheckForObstacle()
     {
-        if (Physics2D.Raycast(transform.position, transform.right * GetNewXDirection(), 2f, ~_ignoreLayer))
+        if (Physics2D.Raycast(transform.position - offset, transform.right * GetNewXDirection(), 2f, ~_ignoreLayer))
             return true;
         else
             return false; 
@@ -126,6 +129,7 @@ public class SimpleAI : MonoBehaviour
     private Vector2 CalculateMovementForce() 
     {
         Vector2 dir = (_wayPoints[_curWayPoint].position - transform.position).normalized;
+        dir.y = 0; 
         Vector2 force = dir * _speed;
         return force; 
     }

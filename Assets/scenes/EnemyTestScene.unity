@@ -835,8 +835,8 @@ MonoBehaviour:
   _ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
-  _jumpForce: 25
-  _stoppingDistance: 0.5
+  _jumpForce: 35
+  _stoppingDistance: 2
 --- !u!50 &1171351776
 Rigidbody2D:
   serializedVersion: 4
