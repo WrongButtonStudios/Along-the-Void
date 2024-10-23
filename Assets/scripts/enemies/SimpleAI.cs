@@ -25,8 +25,10 @@ public class SimpleAI : MonoBehaviour
     private LayerMask _ignoreLayer;
     [SerializeField]
     private float _jumpForce;
+    [SerializeField]
+    private float _stoppingDistance = 1f; 
     private bool _isOnPoint;
-    private int _curWayPoint = -1;
+    private int _curWayPoint = 0;
     private Rigidbody2D _rb;
 
 
@@ -62,7 +64,7 @@ public class SimpleAI : MonoBehaviour
     private void TurnAround() 
     {
         Vector3 newScale = transform.localScale;
-        newScale.x *= -1;
+        newScale.x = -1 * GetNewXDirection(); 
         transform.localScale = newScale; 
     }
 
@@ -72,30 +74,44 @@ public class SimpleAI : MonoBehaviour
     }
     private void Patrol()
     {
-        if (_isOnPoint || _curWayPoint == -1) 
-        {
-            _curWayPoint = GetRandomWaypoint();
-            TurnAround(); 
-            _isOnPoint = false; 
-        }
-        float distToWayPoint = (_wayPoints[_curWayPoint].position - transform.position).sqrMagnitude; 
-        if (distToWayPoint > (0.2f * 0.2f)) 
-        {
-            if (CheckForObstacle() && IsGrounded())
-                Jump(); 
+        if (_isOnPoint)
+            SetUpNewWayPoint(); 
 
-            _rb.AddForce(CalculateMovementForce() * Time.fixedDeltaTime, ForceMode2D.Impulse);
-            ClampVelocity(); 
-        } else 
-        {
-            _isOnPoint = true; 
-        }
-                       
+        float distToWayPoint = (_wayPoints[_curWayPoint].position - transform.position).sqrMagnitude; 
+        
+        if (distToWayPoint > (_stoppingDistance*_stoppingDistance)) 
+            HandleMovement(); 
+        else 
+            _isOnPoint = true;
     }
 
+    private float GetNewXDirection() 
+    {
+        Vector2 dir = _wayPoints[_curWayPoint].position - transform.position;
+        return Mathf.Sign(dir.x); 
+    }
+
+    void SetUpNewWayPoint() 
+    {
+        _curWayPoint = GetRandomWaypoint();
+        TurnAround();
+        _isOnPoint = false;
+    }
+
+    void HandleMovement() 
+    {
+        //Check if Obstacle is in the Way and if Entity is grounded 
+        if (CheckForObstacle() && IsGrounded())
+            Jump(); //if yes, Jump
+
+        if (IsGrounded())
+            _rb.AddForce(CalculateMovementForce() * Time.fixedDeltaTime, ForceMode2D.Impulse);
+
+        ClampVelocity();
+    }
     private bool CheckForObstacle()
     {
-        if (Physics2D.Raycast(transform.position, transform.right * -1, 2f, ~_ignoreLayer))
+        if (Physics2D.Raycast(transform.position, transform.right * GetNewXDirection(), 2f, ~_ignoreLayer))
             return true;
         else
             return false; 
