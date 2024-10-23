@@ -13,7 +13,7 @@ public class VisuellNovellFeature : MonoBehaviour
         FadeInText, 
         FadeOutSpeechBubble
     }
-    public TextMeshProUGUI text;
+    public TextMeshPro text;
     public List<string> Dialoges = new List<string>();
 
     [SerializeField]
@@ -29,15 +29,19 @@ public class VisuellNovellFeature : MonoBehaviour
     private bool _continue = false;
     private Step _currentStep = Step.FadeInSpeechBubble;
     private bool runDialog;
-    private bool inCourountine = false; 
+    private bool inCourountine = false;
 
-    private void Start()
+    public void StartDialog(List<string> texts)
     {
+        Dialoges.Clear();
+        Dialoges = texts;
+        _dialogcounter = 0; 
+        _currentStep = Step.FadeInSpeechBubble;
         runDialog = true;
     }
-
-    private void RunDialog() 
+    private void DialogStateHandle() 
     {
+        _isActive = true; 
         if (runDialog) 
         {
             switch (_currentStep) 
@@ -50,17 +54,24 @@ public class VisuellNovellFeature : MonoBehaviour
                     break;
                 case Step.FadeOutSpeechBubble:
                     //TextPref.SetActive(false);
-                    runDialog = false; 
+                    runDialog = false;
+                    _isActive = false; 
                     return; 
             }
         
         }
-    } 
+    }
+
+    public void ResetDialog() 
+    {
+        _dialogcounter = 0;
+        _currentStep = Step.FadeInText; 
+    }
     private void Update()
     {
         if(_isActive)
         {
-            //to-do Entferne diese Input logik, wenn die Input Mappings für das neue InputSystem Existiteren
+            //to-do Entferne diese Input logik, wenn die Input Mappings für das neue InputSystem Existieren
             if (Input.GetKeyDown(KeyCode.Space)) 
             {
                 _continue = true; 
@@ -75,7 +86,7 @@ public class VisuellNovellFeature : MonoBehaviour
             }
         }
         if(!inCourountine)
-            RunDialog();
+            DialogStateHandle();
     }
 
 
