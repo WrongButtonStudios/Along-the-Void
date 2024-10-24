@@ -167,15 +167,59 @@
                     "isPartOfComposite": true
                 },
                 {
-                    "name": "",
-                    "id": "430eb992-570f-4370-b720-795d9e21f6d9",
-                    "path": "<Gamepad>/rightStick",
+                    "name": "faceButtons",
+                    "id": "0169ec84-5d2e-40b3-ad0b-9e2487e4c9bd",
+                    "path": "2DVector",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "fairySelect",
+                    "isComposite": true,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "up",
+                    "id": "27110fbe-b76f-477a-b65b-538208d9b52e",
+                    "path": "<Gamepad>/buttonNorth",
                     "interactions": "",
                     "processors": "",
                     "groups": ";gamepad",
                     "action": "fairySelect",
                     "isComposite": false,
-                    "isPartOfComposite": false
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "down",
+                    "id": "f74cc807-b2d1-4dd7-8634-0c8337361034",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";gamepad",
+                    "action": "fairySelect",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "left",
+                    "id": "d5d2c742-f3f3-40fc-9fc2-d7151df427c7",
+                    "path": "<Gamepad>/buttonWest",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";gamepad",
+                    "action": "fairySelect",
+                    "isComposite": false,
+                    "isPartOfComposite": true
+                },
+                {
+                    "name": "right",
+                    "id": "f3fdf22a-aeaa-43f1-b570-8889e8d6dc9b",
+                    "path": "<Gamepad>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";gamepad",
+                    "action": "fairySelect",
+                    "isComposite": false,
+                    "isPartOfComposite": true
                 }
             ]
         }
