@@ -63,7 +63,7 @@ public class SimpleAI : MonoBehaviour
                 stateChanged = ChangedState();
                 if (stateChanged)
                     return;
-                //Hount(); 
+                Hount(); 
                 Debug.Log("sui lan, willst du stress amk?!"); 
                 break;
             case State.Attack:
@@ -71,7 +71,7 @@ public class SimpleAI : MonoBehaviour
                 if (stateChanged)
                     return;
                 Debug.Log("sui lan, isch mach disch Messer amk!");
-                //Attack(); 
+                Attack(); 
                 break;
 
         }
@@ -119,8 +119,8 @@ public class SimpleAI : MonoBehaviour
         LookAtTarget();
         if (CheckForObstacle())
             Jump();
-            
-        _rb.AddForce(CalculateMovementForce() * Time.fixedDeltaTime, ForceMode2D.Impulse);
+
+        _rb.AddForce(CalculateMovementForce(_wayPoints[_curWayPoint].position) * Time.fixedDeltaTime, ForceMode2D.Impulse);
 
         //ClampVelocity();
     }
@@ -149,9 +149,9 @@ public class SimpleAI : MonoBehaviour
             _rb.velocity = speed; 
         }
     }
-    private Vector2 CalculateMovementForce() 
+    private Vector2 CalculateMovementForce(Vector3 targetPos) 
     {
-        Vector2 dir = (_wayPoints[_curWayPoint].position - transform.position).normalized;
+        Vector2 dir = (targetPos - transform.position).normalized;
         dir.y = 0; 
         Vector2 force = dir * _speed;
         return force; 
@@ -159,12 +159,12 @@ public class SimpleAI : MonoBehaviour
 
     private void Hount()
     {
-        throw new System.NotImplementedException();
+        _rb.AddForce(CalculateMovementForce(_playerPos.position) * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
 
     private void Attack()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Erfolgreich schaden hinzugefpügt zum Spieler. Also theoretisch metisch"); 
     }
     private int GetRandomWaypoint() 
     {
