@@ -19,7 +19,6 @@ public class SaverExample : MonoBehaviour
     private void SaveGame()
     {
 
-
     }
 
     private void LoadGame()
