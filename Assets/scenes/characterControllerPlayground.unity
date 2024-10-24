@@ -1296,6 +1296,7 @@ GameObject:
   m_Component:
   - component: {fileID: 120382970}
   - component: {fileID: 120382971}
+  - component: {fileID: 120382972}
   m_Layer: 0
   m_Name: Circle
   m_TagString: Untagged
@@ -1360,7 +1361,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: -2413806693520163455, guid: a86470a33a6bf42c4b3595704624658b, type: 3}
-  m_Color: {r: 0.1875536, g: 0.4528302, b: 0.027767902, a: 1}
+  m_Color: {r: 0.11372549, g: 0.7058824, b: 0.078431375, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -1370,6 +1371,23 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &120382972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 120382969}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c5dabab3c846cdf44a96c8acb4a8599f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  player: {fileID: 523573454}
+  greenColor: {r: 0.11372549, g: 0.7058824, b: 0.078431375, a: 1}
+  redColor: {r: 0.78431374, g: 0, b: 0, a: 1}
+  blueColor: {r: 0, g: 0.17254902, b: 0.9137255, a: 1}
+  yellowColor: {r: 0.81960785, g: 0.8509804, b: 0.043137256, a: 1}
 --- !u!1 &188665762
 GameObject:
   m_ObjectHideFlags: 0
