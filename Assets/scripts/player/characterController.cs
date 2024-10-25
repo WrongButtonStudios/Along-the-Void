@@ -71,6 +71,15 @@ public class characterController : MonoBehaviour
             case playerStates.dead:
                 break;
 
+            //state falltrough to green so rbin can test. this isnt final
+            case playerStates.red:
+            case playerStates.blue:
+            case playerStates.yellow:
+            case playerStates.burntGreen:
+            case playerStates.burntRed:
+            case playerStates.burntBlue:
+            case playerStates.burntYellow:
+
             case playerStates.green:
                 statusData.isGrounded = checkGrounded(out RaycastHit2D groundHit);
 
@@ -103,8 +112,17 @@ public class characterController : MonoBehaviour
         
     }
 
-    public void transitionToState(playerStates targetState)
+    public void transitionToState(playerStates targetState, bool force = false)
     {
+        //super ugly. again so robin can test
+        if (force)
+        {
+            Debug.LogWarning("force transition to " + targetState.ToString());
+
+            statusData.currentState = targetState;
+            return;
+        }
+
         bool transitionSuccesful = false;
         playerStates originState = statusData.currentState;
 

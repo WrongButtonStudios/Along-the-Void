@@ -46,6 +46,33 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: fairyMask-1
+    uniqueID: 425736669
+    locked: 0
+  - name: fairyMask0
+    uniqueID: 388180405
+    locked: 0
+  - name: fairyMask1
+    uniqueID: 1679860181
+    locked: 0
+  - name: fairyMask2
+    uniqueID: 1149375995
+    locked: 0
+  - name: fairyMask3
+    uniqueID: 3968569919
+    locked: 0
+  - name: fairyMask4
+    uniqueID: 460077207
+    locked: 0
+  - name: fairyMask5
+    uniqueID: 89363059
+    locked: 0
+  - name: fairyMask6
+    uniqueID: 2138714269
+    locked: 0
+  - name: fairyMask7
+    uniqueID: 970593867
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0
