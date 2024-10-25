@@ -30,7 +30,7 @@ public class SimpleAI : MonoBehaviour
     private bool _isOnPoint;
     private int _curWayPoint = 0;
     private Rigidbody2D _rb;
-
+    private Vector3 offset;
 
     // Start is called before the first frame update
     void Awake()
@@ -38,6 +38,10 @@ public class SimpleAI : MonoBehaviour
         _rb = this.GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        offset = new Vector3(0, (this.transform.localScale.y / 4), 0);
+    }
     // Update is called once per frame
     void Update()
     {
@@ -46,22 +50,34 @@ public class SimpleAI : MonoBehaviour
 
     private void ExecuteState() 
     {
-        switch(_curState)
+        bool stateChanged = false; 
+        switch (_curState)
         {
             case State.Patrol:
+                stateChanged = ChangedState();
+                if (stateChanged)
+                    return;
                 Patrol(); 
                 break;
             case State.Hount:
+                stateChanged = ChangedState();
+                if (stateChanged)
+                    return;
                 Hount(); 
+                Debug.Log("sui lan, willst du stress amk?!"); 
                 break;
             case State.Attack:
+                stateChanged = ChangedState();
+                if (stateChanged)
+                    return;
+                Debug.Log("sui lan, isch mach disch Messer amk!");
                 Attack(); 
                 break;
 
         }
     }
 
-    private void TurnAround() 
+    private void LookAtTarget() 
     {
         Vector3 newScale = transform.localScale;
         newScale.x = -1 * GetNewXDirection(); 
@@ -70,7 +86,8 @@ public class SimpleAI : MonoBehaviour
 
     void Jump() 
     {
-        _rb.AddForce(Vector2.up * _jumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse); 
+        if(IsGrounded())
+            _rb.AddForce(Vector2.up * _jumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse); 
     }
     private void Patrol()
     {
@@ -93,57 +110,65 @@ public class SimpleAI : MonoBehaviour
 
     void SetUpNewWayPoint() 
     {
-        _curWayPoint = GetRandomWaypoint();
-        TurnAround();
+        _curWayPoint = GetRandomWaypoint(); 
         _isOnPoint = false;
     }
 
     void HandleMovement() 
     {
-        //Check if Obstacle is in the Way and if Entity is grounded 
-        if (CheckForObstacle() && IsGrounded())
-            Jump(); //if yes, Jump
+        LookAtTarget();
+        if (CheckForObstacle())
+            Jump();
 
-        if (IsGrounded())
-            _rb.AddForce(CalculateMovementForce() * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        _rb.AddForce(CalculateMovementForce(_wayPoints[_curWayPoint].position) * Time.fixedDeltaTime, ForceMode2D.Impulse);
 
-        ClampVelocity();
+        //ClampVelocity();
     }
     private bool CheckForObstacle()
     {
-        if (Physics2D.Raycast(transform.position, transform.right * GetNewXDirection(), 2f, ~_ignoreLayer))
+        Vector3 rayOrigin = transform.position - offset;
+        float direction = GetNewXDirection();
+        float rayDistance = 1f;
+
+        RaycastHit2D hitLow = Physics2D.Raycast(rayOrigin, Vector2.right * direction, rayDistance, ~_ignoreLayer);
+        RaycastHit2D hitMid = Physics2D.Raycast(rayOrigin + new Vector3(0, 0.5f, 0), Vector2.right * direction, rayDistance, ~_ignoreLayer);
+
+        if (hitLow || hitMid)
             return true;
-        else
-            return false; 
+
+        return false;
     }
+
     private void ClampVelocity() 
     {
-        if(_rb.velocity.magnitude > _speed*3) 
+        if(_rb.velocity.x > _speed) 
         {
-            _rb.velocity = _rb.velocity.normalized * _speed * Time.fixedDeltaTime; 
+            Vector3 speed = _rb.velocity.normalized;
+            speed.x *= _speed * Time.fixedDeltaTime;
+            speed.y = _rb.velocity.y; //ignoring y achxis for jumping 
+            _rb.velocity = speed; 
         }
     }
-    private Vector2 CalculateMovementForce() 
+    private Vector2 CalculateMovementForce(Vector3 targetPos) 
     {
-        Vector2 dir = (_wayPoints[_curWayPoint].position - transform.position).normalized;
+        Vector2 dir = (targetPos - transform.position).normalized;
+        dir.y = 0; 
         Vector2 force = dir * _speed;
         return force; 
     }
 
     private void Hount()
     {
-        throw new System.NotImplementedException();
+        _rb.AddForce(CalculateMovementForce(_playerPos.position) * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
 
     private void Attack()
     {
-        throw new System.NotImplementedException();
+        Debug.Log("Erfolgreich schaden hinzugefpügt zum Spieler. Also theoretisch metisch"); 
     }
     private int GetRandomWaypoint() 
     {
-        int newWP = _curWayPoint;
-
-        newWP = Random.Range(0, _wayPoints.Count - 1);
+        int newWP = Random.Range(0, _wayPoints.Count - 1);
         if (newWP == _curWayPoint && newWP < _wayPoints.Count - 1)
             newWP++; 
         else 
@@ -152,14 +177,35 @@ public class SimpleAI : MonoBehaviour
         return newWP; 
     }
 
+    private bool ChangedState() 
+    {
+        if(Vector2.Distance(_playerPos.position, transform.position) < 5f && _curState != State.Hount) 
+        {
+            _curState = State.Hount;
+            return true; 
+        } 
+        
+        if (Vector2.Distance(_playerPos.position, transform.position) < 1f && _curState != State.Attack)
+        {
+            _curState = State.Attack;
+            return true;
+        }
+
+        if (Vector2.Distance(_playerPos.position, transform.position) > 5f && _curState != State.Patrol)
+        {
+            _curState = State.Patrol;
+            return true;
+        }
+        return false;
+    }
     private bool IsGrounded() 
     {
-        if (Physics2D.Raycast(transform.position, Vector2.up * -1, 1f, ~_ignoreLayer))
+        if (Physics2D.Raycast(transform.position, Vector2.up * -1, 0.75f, ~_ignoreLayer))
         {
             Debug.Log("Grounded"); 
             return true;
         }
-        
+        Debug.Log("Ich bin Fly wie ein Flugzeug"); 
         return false; 
     }
 }
