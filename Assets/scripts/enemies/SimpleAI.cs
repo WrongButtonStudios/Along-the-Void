@@ -26,7 +26,9 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private float _jumpForce;
     [SerializeField]
-    private float _stoppingDistance = 1f; 
+    private float _stoppingDistance = 1f;
+    [SerializeField]
+    private EnemyType _type; 
     private bool _isOnPoint;
     private int _curWayPoint = 0;
     private Rigidbody2D _rb;
