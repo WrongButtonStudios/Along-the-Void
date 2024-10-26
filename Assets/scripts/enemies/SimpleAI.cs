@@ -17,6 +17,7 @@ public class SimpleAI : MonoBehaviour
     private List<Transform> _wayPoints = new List<Transform>();
     [SerializeField]
     private Transform _playerPos;
+    public Transform PlayerPos { get { return _playerPos;  } }
     [SerializeField]
     private float _speed;
     [SerializeField]
@@ -79,18 +80,7 @@ public class SimpleAI : MonoBehaviour
         }
     }
 
-    private void LookAtTarget() 
-    {
-        Vector3 newScale = transform.localScale;
-        newScale.x = -1 * GetNewXDirection(); 
-        transform.localScale = newScale; 
-    }
-
-    void Jump() 
-    {
-        if(IsGrounded())
-            _rb.AddForce(Vector2.up * _jumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse); 
-    }
+    
     private void Patrol()
     {
         if (_isOnPoint)
@@ -104,7 +94,7 @@ public class SimpleAI : MonoBehaviour
             _isOnPoint = true;
     }
 
-    private float GetNewXDirection() 
+    public float GetNewXDirection() 
     {
         Vector2 dir = _wayPoints[_curWayPoint].position - transform.position;
         return Mathf.Sign(dir.x); 
@@ -116,19 +106,11 @@ public class SimpleAI : MonoBehaviour
         _isOnPoint = false;
     }
 
-    private bool CheckForObstacle()
+    public void LookAtTarget()
     {
-        Vector3 rayOrigin = transform.position - offset;
-        float direction = GetNewXDirection();
-        float rayDistance = 1f;
-
-        RaycastHit2D hitLow = Physics2D.Raycast(rayOrigin, Vector2.right * direction, rayDistance, ~_ignoreLayer);
-        RaycastHit2D hitMid = Physics2D.Raycast(rayOrigin + new Vector3(0, 0.5f, 0), Vector2.right * direction, rayDistance, ~_ignoreLayer);
-
-        if (hitLow || hitMid)
-            return true;
-
-        return false;
+        Vector3 newScale = transform.localScale;
+        newScale.x = -1 * GetNewXDirection();
+        transform.localScale = newScale;
     }
 
     private int GetNextWayPoint() 
@@ -162,14 +144,5 @@ public class SimpleAI : MonoBehaviour
             return true;
         }
         return false;
-    }
-
-    private bool IsGrounded() 
-    {
-        if (Physics2D.Raycast(transform.position, -Vector2.up, 0.75f, ~_ignoreLayer))
-        {
-            return true;
-        }
-        return false; 
     }
 }
