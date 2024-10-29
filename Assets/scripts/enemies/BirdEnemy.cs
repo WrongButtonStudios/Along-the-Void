@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class BirdEnemy : EnemyType
+public class BirdEnemy : MonoBehaviour
 {
     [SerializeField]
     private float _speed;
@@ -23,17 +23,17 @@ public class BirdEnemy : EnemyType
     {
         _rb = GetComponent<Rigidbody2D>(); 
     }
-    public override void Attack()
+    public void Attack()
     {
         int randomAttack = Random.Range(0, 1);
 
-        if (randomAttack == 0)
-            DashAttack();
-        else
-            SlimeBallAttack();
+            if (randomAttack == 0)
+                DashAttack();
+            else
+                SlimeBallAttack();
     }
 
-    public override void Movement(Vector3 targetPos)
+    public  void Movement(Vector3 targetPos)
     {
         _rb.AddForce(CalculateMovementForce(targetPos) * _speed * Time.fixedDeltaTime, ForceMode2D.Impulse); 
     }
@@ -74,7 +74,7 @@ public class BirdEnemy : EnemyType
         _canSpitSlimeball = true; 
     }
 
-    public override void Hount()
+    public void Haunt()
     {
         Vector2 targetPos = _playerPos.position + (Vector3.up * 3);
         _rb.AddForce(CalculateMovementForce(targetPos) * _speed * Time.fixedDeltaTime, ForceMode2D.Impulse);

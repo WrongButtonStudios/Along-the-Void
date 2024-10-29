@@ -30,8 +30,6 @@ public class SimpleAI : MonoBehaviour
     private float _reconizedPlayerRange = 7.5f;
     [SerializeField]
     private float _stoppingDistance = 1f;
-    [SerializeField]
-    private EnemyType _type; 
     private bool _isOnPoint;
     private int _curWayPoint = 0;
     private Rigidbody2D _rb;
@@ -62,19 +60,16 @@ public class SimpleAI : MonoBehaviour
                 stateChanged = ChangedState();
                 if (stateChanged)
                     return;
-                Patrol(); 
                 break;
             case State.Hount:
                 stateChanged = ChangedState();
                 if (stateChanged)
                     return;
-                _type.Hount(); 
                 break;
             case State.Attack:
                 stateChanged = ChangedState();
                 if (stateChanged)
                     return;
-                _type.Attack(); 
                 break;
 
         }
@@ -88,8 +83,10 @@ public class SimpleAI : MonoBehaviour
 
         float distToWayPoint = (_wayPoints[_curWayPoint].position - transform.position).sqrMagnitude;
 
-        if (distToWayPoint > (_stoppingDistance * _stoppingDistance))
-            _type.Movement(_wayPoints[_curWayPoint].position); 
+        if (distToWayPoint > (_stoppingDistance * _stoppingDistance)) 
+        {
+            //hier sollte Gegner sich bewegen
+        }
         else
             _isOnPoint = true;
     }

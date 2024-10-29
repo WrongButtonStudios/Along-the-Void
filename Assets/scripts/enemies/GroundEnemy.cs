@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundEnemy : EnemyType
+public class GroundEnemy : MonoBehaviour
 {
     [SerializeField]
     private float _speed;
@@ -25,17 +25,17 @@ public class GroundEnemy : EnemyType
     {
         offset = new Vector3(0, (this.transform.localScale.y / 4), 0);
     }
-    public override void Attack()
+    public void Attack()
     {
         Debug.Log("Hier sollte der Spieler schaden nehmen"); 
     }
 
-    public override void Hount()
+    public void Haunt()
     {
         Movement(_enemy.PlayerPos.position);
     }
 
-    public override void Movement(Vector3 targetPos)
+    public void Movement(Vector3 targetPos)
     {
         _enemy.LookAtTarget(); 
         if (CheckForObstacle() && IsGrounded())
