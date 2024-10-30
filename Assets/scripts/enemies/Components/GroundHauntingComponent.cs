@@ -1,18 +1,22 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class GroundHauntingComponent : MonoBehaviour
+public class GroundHauntingComponent : MonoBehaviour, IHauntingComponent
 {
-    // Start is called before the first frame update
-    void Start()
+    private SimpleAI _entity; 
+
+    public GroundHauntingComponent(SimpleAI entity) 
     {
-        
+        _entity = entity; 
+    }
+    public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start)
+    {
+        return (dest - start).sqrMagnitude; 
     }
 
-    // Update is called once per frame
-    void Update()
+    public void Haunt(Vector3 target)
     {
-        
+        Vector2 dir = (target - transform.position).normalized;
+        Vector2 movementForce = dir * _entity.Speed;
+        _entity.RB.AddForce(movementForce * Time.fixedDeltaTime, ForceMode2D.Impulse); 
     }
 }

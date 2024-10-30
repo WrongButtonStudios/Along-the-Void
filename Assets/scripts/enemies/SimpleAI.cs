@@ -5,12 +5,22 @@ using UnityEngine;
 
 public class SimpleAI : MonoBehaviour
 {
-    private enum State 
+    private enum State
     {
-        Patrol, 
-        Hount, 
+        Patrol,
+        Hount,
         Attack
     }
+
+    private enum EnemyType
+    {
+        GroundEnemyCloseCombat,
+        GroundEnemyFarCombat,
+        FlyingEnemy
+    }
+
+    [SerializeField]
+    private EnemyType _type; 
     [SerializeField]
     private State _curState = State.Patrol;
     [SerializeField]
@@ -35,18 +45,46 @@ public class SimpleAI : MonoBehaviour
     private Rigidbody2D _rb;
     private Vector3 offset;
 
+    //Components 
+    private IHauntingComponent _hauntingComponent; 
+    private IPatrolComponent _patrolComponent;
+
+    //Getter
+    public Rigidbody2D RB { get { return _rb; } }
+    public float Speed { get { return _speed; } }
+    public List<Transform> WayPoints { get { return _wayPoints; } }
+    public float StoppingDistance { get { return _stoppingDistance; } }
+    public LayerMask IgnoreLayer {  get { return _ignoreLayer; } }
+
+    public float JumpForce { get { return _jumpForce; } }
+
     void Awake()
     {
         _rb = this.GetComponent<Rigidbody2D>();
+        Initialize(); 
     }
 
+    private void Initialize()
+    {
+        switch (_type) 
+        {
+            case EnemyType.FlyingEnemy:
+                _hauntingComponent = new FlyingHauntComponent(this);
+                _patrolComponent = new FlyingPatrolComponent(this);
+                break;
+            case EnemyType.GroundEnemyCloseCombat:
+                _hauntingComponent = new GroundHauntingComponent(this);
+                _patrolComponent = new GroundPatrolComponent(this);
+                break;
+        }
+    }
     private void Start()
     {
         offset = new Vector3(0, (this.transform.localScale.y / 4), 0);
     }
 
 
-    void Update()
+    void FixedUpdate()
     {
         ExecuteState();     
     }
@@ -60,11 +98,13 @@ public class SimpleAI : MonoBehaviour
                 stateChanged = ChangedState();
                 if (stateChanged)
                     return;
+                _patrolComponent.Patrol(); 
                 break;
             case State.Hount:
                 stateChanged = ChangedState();
                 if (stateChanged)
                     return;
+                _hauntingComponent.Haunt(_playerPos.position);
                 break;
             case State.Attack:
                 stateChanged = ChangedState();
@@ -129,7 +169,7 @@ public class SimpleAI : MonoBehaviour
             return true; 
         } 
          
-        if (Vector2.Distance(_playerPos.position, transform.position) < _attackRange && _curState != State.Attack)
+        if (_hauntingComponent.GetDistanceToTargetSqr(_playerPos.position, transform.position) < (_attackRange*_attackRange) && _curState != State.Attack)
         {
             _curState = State.Attack;
             return true;
