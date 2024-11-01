@@ -158,8 +158,9 @@ MonoBehaviour:
   _jumpForce: 30
   _rb: {fileID: 32846117}
   _ignoreLayer:
-    serializedVersion: 2
     m_Bits: 8
+  _enemy: {fileID: 0}
+  offset: {x: 0, y: 0, z: 0}
 --- !u!114 &32846116
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -172,6 +173,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86dd44ee85f1c7241a44c323c3b2aa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _types: 0000000001000000
+  _weapons: 0000000001000000
   _curState: 0
   _wayPoints:
   - {fileID: 990174359}
@@ -185,7 +188,9 @@ MonoBehaviour:
   _jumpForce: 10
   _reconizedPlayerRange: 15
   _stoppingDistance: 1
-  _type: {fileID: 32846115}
+  _attackComponentCount: 1
+  _patrolComponentCount: 1
+  _hauntComponentCount: 1
 --- !u!50 &32846117
 Rigidbody2D:
   serializedVersion: 4
@@ -1789,6 +1794,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86dd44ee85f1c7241a44c323c3b2aa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _types: 
+  _weapons: 
   _curState: 0
   _wayPoints:
   - {fileID: 886836871}
@@ -1804,7 +1811,9 @@ MonoBehaviour:
   _jumpForce: 10
   _reconizedPlayerRange: 15
   _stoppingDistance: 1
-  _type: {fileID: 1171351779}
+  _attackComponentCount: 1
+  _patrolComponentCount: 1
+  _hauntComponentCount: 1
 --- !u!50 &1171351776
 Rigidbody2D:
   serializedVersion: 4
@@ -1911,6 +1920,8 @@ MonoBehaviour:
   _dashSpeedFactor: 1.5
   _slimeball: {fileID: 381043207}
   _slimeballSpawner: {fileID: 2064917761}
+  _rb: {fileID: 0}
+  _canSpitSlimeball: 1
 --- !u!1 &1249718705
 GameObject:
   m_ObjectHideFlags: 0
