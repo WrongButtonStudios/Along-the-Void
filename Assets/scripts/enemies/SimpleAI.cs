@@ -101,11 +101,6 @@ public class SimpleAI : MonoBehaviour
             }
         }
     }
-    private void Start()
-    {
-        offset = new Vector3(0, (this.transform.localScale.y / 4), 0);
-    }
-
 
     void FixedUpdate()
     {
