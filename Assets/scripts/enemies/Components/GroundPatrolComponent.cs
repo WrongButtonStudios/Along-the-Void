@@ -81,10 +81,9 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         _entity.RB.AddForce(moveForce * Time.fixedDeltaTime, ForceMode2D.Impulse); 
     }
 
-    void Jump()
+    private void Jump()
     {
-        if (IsGrounded())
-            _entity.RB.AddForce(Vector2.up * _entity.JumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        _entity.RB.AddForce(Vector2.up * _entity.JumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
     private bool IsGrounded()
     {

@@ -101,6 +101,21 @@ public class SimpleAI : MonoBehaviour
             }
         }
     }
+    void AddAttackComponent()
+    {
+        foreach(WeaponsAttached weapon in _weapons) 
+        {
+            switch(weapon)
+            {
+                case WeaponsAttached.CloseCombat:
+                    _attackComponents.Add(new CloseCombatAttackComponent(this)); 
+                    break;
+                case WeaponsAttached.FarCombat:
+                    _attackComponents.Add(new FarCombatAttackComponent(this));
+                    break; 
+            }
+        }
+    }
 
     void FixedUpdate()
     {
@@ -126,21 +141,6 @@ public class SimpleAI : MonoBehaviour
         }
     }
 
-
-    public float GetNewXDirection()
-    {
-        Vector2 dir = _wayPoints[_curWayPoint].position - transform.position;
-        return Mathf.Sign(dir.x);
-    }
-
-    public void LookAtTarget()
-    {
-        Vector3 newScale = transform.localScale;
-        newScale.x = -1 * GetNewXDirection();
-        transform.localScale = newScale;
-    }
-
-
     private bool ChangedState()
     {
         float distance = Vector2.Distance(_playerPos.position, transform.position);
@@ -164,19 +164,4 @@ public class SimpleAI : MonoBehaviour
         return false;
     }
 
-    void AddAttackComponent()
-    {
-        foreach(WeaponsAttached weapon in _weapons) 
-        {
-            switch(weapon)
-            {
-                case WeaponsAttached.CloseCombat:
-                    _attackComponents.Add(new CloseCombatAttackComponent(this)); 
-                    break;
-                case WeaponsAttached.FarCombat:
-                    _attackComponents.Add(new FarCombatAttackComponent(this));
-                    break; 
-            }
-        }
-    }
 }
