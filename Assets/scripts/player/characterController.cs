@@ -48,6 +48,9 @@ public class characterController : MonoBehaviour
 
     private void Update()
     {
+        //this line was added in linux to test out the code editor and git
+        //TEST
+
         statusData.isMoving = moveInput.magnitude != 0;
     }
 
