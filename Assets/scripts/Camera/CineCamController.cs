@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class CineCamController : MonoBehaviour
-{
+{/*
     public float Direction = 0f;
     public float DirectionVertical = 0f;
     public float RightTrigger = 0f;
@@ -190,5 +190,5 @@ public class CineCamController : MonoBehaviour
             cam.SetActive(setActive); 
         }
     }
-
+*/
 }
