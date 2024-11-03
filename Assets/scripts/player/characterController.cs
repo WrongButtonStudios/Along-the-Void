@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -37,8 +38,12 @@ public class characterController : MonoBehaviour
     [SerializeField] private float counterMoveForce = 30f;
     [SerializeField] private float inAirTurnSpeed = 2f; //will turn player to allogn local up to world up when in air
     [Space]
+    [SerializeField] private float rideHeight = 1f;
+    [SerializeField] private float maxRideHeight = 1f;
+    [SerializeField] private float rideSpringStrenght = 1f;
+    [SerializeField] private float rideSpringDamper = 1f;
+
     [SerializeField] private float groundedDistance = 1.1f;
-    [SerializeField] private float groundCheckRadius = 0.5f;
     [SerializeField] private LayerMask groundLayer;
 
     private Vector2 moveInput;
@@ -59,8 +64,6 @@ public class characterController : MonoBehaviour
         handleStateTransitions();
 
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
-
-        stopResidualMovement();
     }
 
     public void handleStates()
@@ -92,6 +95,8 @@ public class characterController : MonoBehaviour
                 }
 
                 baseMovement();
+                
+                hoverAboveGround(groundHit);
                 break;
 
             default:
@@ -167,15 +172,6 @@ public class characterController : MonoBehaviour
         }
     }
 
-    private void stopResidualMovement()
-    {
-        // only stop movement if grounded, not moving, and velocity is low
-        if (statusData.isGrounded && !statusData.isMoving && rb.velocity.magnitude < 0.1f)
-        {
-            rb.velocity = Vector2.zero; // Set velocity to zero to stop residual movement
-        }
-    }          
-
     public void movePlayer()
     {
         float accelerationToAdd = acceleration * moveInput.normalized.x;
@@ -186,6 +182,22 @@ public class characterController : MonoBehaviour
 
         rb.AddForce(forceToAdd, ForceMode2D.Force);
     }
+
+    public void hoverAboveGround(RaycastHit2D groundHit)
+    {
+        if(statusData.isGrounded && !statusData.isMoving)
+        {
+            if(groundHit.distance < maxRideHeight)
+            {
+                float distanceToGround = groundHit.distance;
+                Vector2 upForce = Vector2.up * (rideHeight - distanceToGround) * rideSpringStrenght;
+                Vector2 dampingForce = -rb.velocity * rideSpringDamper;
+
+                rb.AddForce(upForce + dampingForce, ForceMode2D.Force);
+            }
+        }
+    }
+
     public void counterMovePlayer()
     {
         Vector2 horizontalVelocity = Vector2.right * Vector2.Dot(rb.velocity, transform.right);
@@ -202,7 +214,21 @@ public class characterController : MonoBehaviour
 
     public bool checkGrounded(out RaycastHit2D hit)
     {
-        return hit = Physics2D.CircleCast(transform.position, groundCheckRadius, -transform.up, groundedDistance, groundLayer);
+        hit = Physics2D.Raycast(transform.position, -transform.up, Mathf.Infinity, groundLayer);
+        
+        if(hit.collider != null)
+        {
+            if(statusData.isGrounded)
+            {
+                return hit.distance <= maxRideHeight;
+            }
+            else
+            {
+                return hit.distance <= groundedDistance;
+            }
+        }
+
+        return false;
     }
 
     //call this to check player status data outside of this script
