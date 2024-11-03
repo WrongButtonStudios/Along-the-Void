@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -40,7 +41,6 @@ public class characterController : MonoBehaviour
     [SerializeField] private float groundCheckRadius = 0.5f;
     [SerializeField] private LayerMask groundLayer;
 
-
     private Vector2 moveInput;
 
     private void Awake()
@@ -60,10 +60,7 @@ public class characterController : MonoBehaviour
 
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
 
-        if(rb.velocity.normalized.magnitude < 0.01f)
-        {
-            rb.velocity = Vector2.zero;
-        }
+        stopResidualMovement();
     }
 
     public void handleStates()
@@ -96,12 +93,6 @@ public class characterController : MonoBehaviour
 
                 baseMovement();
                 break;
-
-                if(statusData.isFrozen)
-                {
-                    Debug.Log("Frozen");
-                    break;
-                }
 
             default:
                 Debug.LogError("state not implemented");
@@ -175,6 +166,15 @@ public class characterController : MonoBehaviour
             counterMovePlayer();
         }
     }
+
+    private void stopResidualMovement()
+    {
+        // only stop movement if grounded, not moving, and velocity is low
+        if (statusData.isGrounded && !statusData.isMoving && rb.velocity.magnitude < 0.1f)
+        {
+            rb.velocity = Vector2.zero; // Set velocity to zero to stop residual movement
+        }
+    }          
 
     public void movePlayer()
     {
