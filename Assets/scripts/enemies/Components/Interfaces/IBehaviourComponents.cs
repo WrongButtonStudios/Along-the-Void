@@ -1,12 +1,16 @@
 
 using UnityEngine;
 
-public interface IAttackComponent 
+public interface IComponent
+{
+    public void Init(SimpleAI entity); 
+} 
+public interface IAttackComponent : IComponent 
 {
     public void Attack(); 
 }
 
-public interface IPatrolComponent 
+public interface IPatrolComponent : IComponent
 {
     public void Patrol();
 
@@ -20,7 +24,7 @@ public interface IPatrolComponent
     public void Movement(Vector2 target); 
 }
 
-public interface IHauntingComponent 
+public interface IHauntingComponent : IComponent
 {
     public void Haunt(Vector3 target);
 

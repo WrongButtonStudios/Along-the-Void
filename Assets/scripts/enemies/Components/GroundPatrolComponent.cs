@@ -8,10 +8,6 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     private int _curWayPoint;
     private bool _isOnPoint;
 
-    public GroundPatrolComponent(SimpleAI entity) 
-    {
-        _entity = entity; 
-    }
     public int GetNextWayPoint()
     {
         if (_curWayPoint < _entity.WayPoints.Count - 1)
@@ -81,10 +77,9 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         _entity.RB.AddForce(moveForce * Time.fixedDeltaTime, ForceMode2D.Impulse); 
     }
 
-    void Jump()
+    private void Jump()
     {
-        if (IsGrounded())
-            _entity.RB.AddForce(Vector2.up * _entity.JumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        _entity.RB.AddForce(Vector2.up * _entity.JumpForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
     }
     private bool IsGrounded()
     {
@@ -93,5 +88,10 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
             return true;
         }
         return false;
+    }
+
+    public void Init(SimpleAI entity)
+    {
+        _entity = entity; 
     }
 }
