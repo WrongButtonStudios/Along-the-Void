@@ -26,6 +26,7 @@ public class characterController : MonoBehaviour
         public playerStates currentState;
         public bool isMoving;
         public bool isGrounded;
+        public bool isDash;
         public bool isFrozen;
     }
 
@@ -45,25 +46,30 @@ public class characterController : MonoBehaviour
 
     [SerializeField] private float groundedDistance = 1.1f;
     [SerializeField] private LayerMask groundLayer;
+    [Space]
+    [SerializeField] private float deccendGravityMultiplier = 2f;
+    [SerializeField] private float dashStrenght = 50f;
+
 
     private Vector2 moveInput;
+    private bool dashInput;
+    private bool lastDashInput;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
-    {
-        statusData.isMoving = moveInput.magnitude != 0;
-    }
-
     private void FixedUpdate()
     {
+        statusData.isMoving = moveInput.x != 0;
+
         handleStates();
         handleStateTransitions();
 
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
+
+        lastDashInput = dashInput;
     }
 
     public void handleStates()
@@ -92,10 +98,29 @@ public class characterController : MonoBehaviour
                 else
                 {
                     transform.up = Vector2.Lerp(transform.up, Vector2.up, Time.deltaTime * inAirTurnSpeed);
+                
+                    if (rb.velocity.y < 0)
+                    {
+                        rb.AddForce(Physics2D.gravity * deccendGravityMultiplier, ForceMode2D.Force);
+                    }
+                }
+
+                if(dashInput && !lastDashInput && !statusData.isDash)
+                {
+                    statusData.isDash = true;
+
+                    if(moveInput.magnitude != 0)
+                    {
+                        rb.AddForce(moveInput * dashStrenght, ForceMode2D.Impulse);
+                    }
+                    else
+                    {
+                        rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
+                    }
                 }
 
                 baseMovement();
-                
+
                 hoverAboveGround(groundHit);
                 break;
 
@@ -185,13 +210,16 @@ public class characterController : MonoBehaviour
 
     public void hoverAboveGround(RaycastHit2D groundHit)
     {
-        if(statusData.isGrounded && !statusData.isMoving)
+        if(statusData.isGrounded && !statusData.isMoving && !statusData.isDash)
         {
             if(groundHit.distance < maxRideHeight)
             {
+                Vector2 yVelocity = rb.velocity;
+                yVelocity.x = 0;
+
                 float distanceToGround = groundHit.distance;
                 Vector2 upForce = Vector2.up * (rideHeight - distanceToGround) * rideSpringStrenght;
-                Vector2 dampingForce = -rb.velocity * rideSpringDamper;
+                Vector2 dampingForce = -yVelocity * rideSpringDamper;
 
                 rb.AddForce(upForce + dampingForce, ForceMode2D.Force);
             }
@@ -231,6 +259,11 @@ public class characterController : MonoBehaviour
         return false;
     }
 
+    private void OnCollisionStay2D()
+    {
+        statusData.isDash = false;
+    }
+
     //call this to check player status data outside of this script
     public playerStatusData getPlayerStatus()
     {
@@ -244,6 +277,13 @@ public class characterController : MonoBehaviour
 
     public void getDashInput(InputAction.CallbackContext context)
     {
-        
+        if(context.performed)
+        {
+            dashInput = true;
+        }
+        else if(context.canceled)
+        {
+            dashInput = false;
+        }
     }
 }
