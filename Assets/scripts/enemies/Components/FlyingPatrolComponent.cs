@@ -8,11 +8,6 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     private int _curWayPoint;
     private bool _isOnPoint;
 
-    public FlyingPatrolComponent(SimpleAI entity)
-    {
-        _entity = entity;
-    }
-
     public int GetNextWayPoint()
     {
         if (_curWayPoint < _entity.WayPoints.Count - 1)
@@ -27,6 +22,11 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     {
         Vector2 dir = _entity.WayPoints[_curWayPoint].position - _entity.transform.position;
         return Mathf.Sign(dir.x);
+    }
+
+    public void Init(SimpleAI entity)
+    {
+        _entity = entity; 
     }
 
     public void LookAtTarget()

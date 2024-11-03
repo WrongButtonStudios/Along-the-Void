@@ -53,14 +53,19 @@ public class SimpleAI : MonoBehaviour
     private int _patrolComponentCount = 1;
     [SerializeField, Range(1, 2)]
     private int _hauntComponentCount = 1;
+
+    //Placeholder VFX stuff
+    [SerializeField]
+    private GameObject _attackEffect; 
     
-    private int _curWayPoint = 0;
     private Rigidbody2D _rb;
 
+    
+
     //Components 
-    private List<IHauntingComponent> _hauntingComponents;
-    private List<IPatrolComponent> _patrolComponents;
-    private List<IAttackComponent> _attackComponents;
+    private List<IHauntingComponent> _hauntingComponents = new List<IHauntingComponent>();
+    private List<IPatrolComponent> _patrolComponents= new List<IPatrolComponent>();
+    private List<IAttackComponent> _attackComponents = new List<IAttackComponent>();
 
 
     //Getter
@@ -69,6 +74,8 @@ public class SimpleAI : MonoBehaviour
     public List<Transform> WayPoints { get { return _wayPoints; } }
     public float StoppingDistance { get { return _stoppingDistance; } }
     public LayerMask IgnoreLayer { get { return _ignoreLayer; } }
+    public GameObject AttackVFX { get { return _attackEffect;  } }
+    public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
 
     public float JumpForce { get { return _jumpForce; } }
 
@@ -91,12 +98,20 @@ public class SimpleAI : MonoBehaviour
             switch (type)
             {
                 case EnemyType.FlyingEnemy:
-                    _hauntingComponents.Add(new FlyingHauntComponent(this));
-                    _patrolComponents.Add(new FlyingPatrolComponent(this));
+                    var FlyingHaunting = this.gameObject.AddComponent<FlyingHauntComponent>();
+                    FlyingHaunting.Init(this);
+                    _hauntingComponents.Add(FlyingHaunting);
+                    var FlyingPatrol = this.gameObject.AddComponent<FlyingPatrolComponent>();
+                    FlyingPatrol.Init(this);
+                    _patrolComponents.Add(FlyingPatrol);
                     break;
                 case EnemyType.GroundEnemy:
-                    _hauntingComponents.Add(new GroundHauntingComponent(this));
-                    _patrolComponents.Add(new GroundPatrolComponent(this));
+                    var groundHaunting = this.gameObject.AddComponent<GroundHauntingComponent>();
+                    groundHaunting.Init(this);
+                    _hauntingComponents.Add(groundHaunting);
+                    var groundPatrol = this.gameObject.AddComponent<GroundPatrolComponent>();
+                    groundPatrol.Init(this);
+                    _patrolComponents.Add(groundPatrol);
                     break;
             }
         }
@@ -108,10 +123,14 @@ public class SimpleAI : MonoBehaviour
             switch(weapon)
             {
                 case WeaponsAttached.CloseCombat:
-                    _attackComponents.Add(new CloseCombatAttackComponent(this)); 
+                    var closeCombat = this.gameObject.AddComponent<CloseCombatAttackComponent>();
+                    closeCombat.Init(this);
+                    _attackComponents.Add(closeCombat);
                     break;
                 case WeaponsAttached.FarCombat:
-                    _attackComponents.Add(new FarCombatAttackComponent(this));
+                    var farCombat = this.gameObject.AddComponent<FarCombatAttackComponent>();
+                    farCombat.Init(this); 
+                    _attackComponents.Add(farCombat);
                     break; 
             }
         }
@@ -124,8 +143,8 @@ public class SimpleAI : MonoBehaviour
 
     private void ExecuteState()
     {
-        if (ChangedState())
-            return;
+        //if (ChangedState())
+            //return;
         switch (_curState)
         {
             case State.Patrol:
@@ -163,5 +182,4 @@ public class SimpleAI : MonoBehaviour
         }
         return false;
     }
-
 }

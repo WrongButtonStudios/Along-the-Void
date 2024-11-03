@@ -8,10 +8,6 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     private int _curWayPoint;
     private bool _isOnPoint;
 
-    public GroundPatrolComponent(SimpleAI entity) 
-    {
-        _entity = entity; 
-    }
     public int GetNextWayPoint()
     {
         if (_curWayPoint < _entity.WayPoints.Count - 1)
@@ -92,5 +88,10 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
             return true;
         }
         return false;
+    }
+
+    public void Init(SimpleAI entity)
+    {
+        _entity = entity; 
     }
 }
