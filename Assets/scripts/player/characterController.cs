@@ -34,8 +34,10 @@ public class characterController : MonoBehaviour
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private AnimationCurve accelerationFactorFromDot;
     [SerializeField] private float counterMoveForce = 30f;
+    [SerializeField] private float inAirTurnSpeed = 2f; //will turn player to allogn local up to world up when in air
     [Space]
     [SerializeField] private float groundedDistance = 1.1f;
+    [SerializeField] private float groundCheckRadius = 0.5f;
     [SerializeField] private LayerMask groundLayer;
 
 
@@ -89,7 +91,7 @@ public class characterController : MonoBehaviour
                 }
                 else
                 {
-                    transform.up = Vector2.up;
+                    transform.up = Vector2.Lerp(transform.up, Vector2.up, Time.deltaTime * inAirTurnSpeed);
                 }
 
                 baseMovement();
@@ -200,7 +202,7 @@ public class characterController : MonoBehaviour
 
     public bool checkGrounded(out RaycastHit2D hit)
     {
-        return hit = Physics2D.Raycast(transform.position, -transform.up, groundedDistance, groundLayer);
+        return hit = Physics2D.CircleCast(transform.position, groundCheckRadius, -transform.up, groundedDistance, groundLayer);
     }
 
     //call this to check player status data outside of this script
