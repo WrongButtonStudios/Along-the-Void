@@ -98,26 +98,15 @@ public class characterController : MonoBehaviour
                 else
                 {
                     transform.up = Vector2.Lerp(transform.up, Vector2.up, Time.deltaTime * inAirTurnSpeed);
-                
+
+                    //this ads downwards force to make the gravity more gamey. does alot for gamefeel
                     if (rb.velocity.y < 0)
                     {
                         rb.AddForce(Physics2D.gravity * deccendGravityMultiplier, ForceMode2D.Force);
                     }
                 }
 
-                if(dashInput && !lastDashInput && !statusData.isDash)
-                {
-                    statusData.isDash = true;
-
-                    if(moveInput.magnitude != 0)
-                    {
-                        rb.AddForce(moveInput * dashStrenght, ForceMode2D.Impulse);
-                    }
-                    else
-                    {
-                        rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
-                    }
-                }
+                dash();
 
                 baseMovement();
 
@@ -206,6 +195,23 @@ public class characterController : MonoBehaviour
         forceToAdd = forceToAdd * accelerationFactorFromDot.Evaluate(Vector2.Dot(forceToAdd.normalized, rb.velocity.normalized));
 
         rb.AddForce(forceToAdd, ForceMode2D.Force);
+    }
+
+    public void dash()
+    {
+        if(dashInput && !lastDashInput && !statusData.isDash)
+        {
+            statusData.isDash = true;
+
+            if(moveInput.magnitude != 0)
+            {
+                rb.AddForce(moveInput * dashStrenght, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
+            }
+        }
     }
 
     public void hoverAboveGround(RaycastHit2D groundHit)
