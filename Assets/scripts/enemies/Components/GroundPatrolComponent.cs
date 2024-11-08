@@ -94,4 +94,9 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     {
         _entity = entity; 
     }
+
+    public bool ReachedDestination()
+    {
+        return _isOnPoint; 
+    }
 }

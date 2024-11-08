@@ -44,12 +44,15 @@ public class SimpleAI : MonoBehaviour
     private float _jumpForce;
     [SerializeField]
     private float _reconizedPlayerRange = 7.5f;
-
+    float _stoppingDistance = 1; 
     //Placeholder VFX stuff
     [SerializeField]
-    private GameObject _attackEffect; 
+    private GameObject _attackEffect;
+    
     
     private Rigidbody2D _rb;
+    private int _selectedWeapon;
+    private int _selectedPatrolComponent; 
 
     //Components 
     private List<IHauntingComponent> _hauntingComponents = new List<IHauntingComponent>();
@@ -64,6 +67,8 @@ public class SimpleAI : MonoBehaviour
     public LayerMask IgnoreLayer { get { return _ignoreLayer; } }
     public GameObject AttackVFX { get { return _attackEffect;  } }
     public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
+
+
 
     public float JumpForce { get { return _jumpForce; } }
 
@@ -132,9 +137,8 @@ public class SimpleAI : MonoBehaviour
 
     private void ExecuteState()
     {
-        int maxWeapons = _weapons.Count * 2; 
         int patrolAndHauntComponent = Random.Range(0, _patrolComponents.Count - 1);
-        int weapon = Random.Range(0, maxWeapons - 1); 
+        SelectNewWeapon(); 
         ChangedState(); 
         switch (_curState)
         {
@@ -145,7 +149,7 @@ public class SimpleAI : MonoBehaviour
                 _hauntingComponents[patrolAndHauntComponent].Haunt(_playerPos.position);
                 break;
             case State.Attack:
-                _attackComponents[(weapon/2)].Attack(); 
+                _attackComponents[_selectedWeapon].Attack(); 
                 break;
         }
     }
@@ -181,4 +185,24 @@ public class SimpleAI : MonoBehaviour
             SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
         }
     }
+
+    private void SelectNewWeapon()
+    {
+        if (_attackComponents[_selectedWeapon].FinnishedAttack())
+        {
+            int oldWeapon = _selectedWeapon; 
+            _selectedWeapon = Random.Range(0, _attackComponents.Count - 1);
+            _attackComponents[oldWeapon].ResetAttackStatus(); 
+        }
+    }
+
+    private void SelectMovementComponent()
+    {
+        if (_patrolComponents[_selectedPatrolComponent].ReachedDestination())
+        {
+            _selectedPatrolComponent = 
+        }
+    }
+
+
 }

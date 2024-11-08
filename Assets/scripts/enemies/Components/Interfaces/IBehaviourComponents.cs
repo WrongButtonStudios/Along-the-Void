@@ -7,7 +7,9 @@ public interface IComponent
 } 
 public interface IAttackComponent : IComponent 
 {
-    public void Attack(); 
+    public void Attack();
+    public bool FinnishedAttack();
+    public void ResetAttackStatus(); 
 }
 
 public interface IPatrolComponent : IComponent
@@ -21,7 +23,11 @@ public interface IPatrolComponent : IComponent
 
     public int GetNextWayPoint();
 
-    public void Movement(Vector2 target); 
+    public void Movement(Vector2 target);
+
+    public bool ReachedDestination();
+
+    // auf klo
 }
 
 public interface IHauntingComponent : IComponent

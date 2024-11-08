@@ -5,10 +5,16 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private SimpleAI _entity;
     private bool _isCoolingDown = false;
     private float _bodyCheckSpeed;
-    private bool _bodyCheck = false; 
+    private bool _bodyCheck = false;
+    private bool _finnishedAttacking; 
     public void Attack()
     {
         BodyCheck(); 
+    }
+
+    public bool FinnishedAttack()
+    {
+        return _finnishedAttacking; 
     }
 
     public void Init(SimpleAI entity)
@@ -32,11 +38,19 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
         }
 
+        
+
         if (!IsGrounded() && !_isCoolingDown && _bodyCheck)
         {
             _bodyCheck = false; 
             _isCoolingDown = true;
-            _entity.RB.AddForce(ChargeDir * _bodyCheckSpeed, ForceMode2D.Impulse); 
+            _entity.RB.AddForce(ChargeDir * _bodyCheckSpeed, ForceMode2D.Impulse);
+            _finnishedAttacking = false; 
+        }
+
+        if (IsGrounded() && _isCoolingDown)
+        {
+            _finnishedAttacking = false; 
         }
     }
 
@@ -47,6 +61,11 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             return true;
         }
         return false;
+    }
+
+    public void ResetAttackStatus()
+    {
+        _finnishedAttacking = false; 
     }
 
 
