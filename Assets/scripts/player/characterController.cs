@@ -33,7 +33,8 @@ public class characterController : MonoBehaviour
     private Rigidbody2D rb;
 
     [SerializeField] private playerStatusData statusData = new playerStatusData();
-    [SerializeField] private float maxSpeed = 60f;
+    [SerializeField] private float maxMovementSpeed = 60f;
+    [SerializeField] private float maxSpeedChangeSpeed = 1f;
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private AnimationCurve accelerationFactorFromDot;
     [SerializeField] private float counterMoveForce = 30f;
@@ -43,14 +44,15 @@ public class characterController : MonoBehaviour
     [SerializeField] private float maxRideHeight = 1f;
     [SerializeField] private float rideSpringStrenght = 1f;
     [SerializeField] private float rideSpringDamper = 1f;
-
     [SerializeField] private float groundedDistance = 1.1f;
     [SerializeField] private LayerMask groundLayer;
     [Space]
     [SerializeField] private float deccendGravityMultiplier = 2f;
     [SerializeField] private float dashStrenght = 50f;
+    [SerializeField] private float dashMaxSpeed = 100f;
 
-
+    private float maxSpeed;
+    
     private Vector2 moveInput;
     private bool dashInput;
     private bool lastDashInput;
@@ -60,9 +62,19 @@ public class characterController : MonoBehaviour
         rb = GetComponent<Rigidbody2D>();
     }
 
+    private void Start()
+    {
+        maxSpeed = maxMovementSpeed;
+    }
+
     private void FixedUpdate()
     {
         statusData.isMoving = moveInput.x != 0;
+
+        if(maxSpeed > maxMovementSpeed)
+        {
+            maxSpeed = Mathf.Lerp(maxSpeed, maxMovementSpeed, maxSpeedChangeSpeed * Time.deltaTime);
+        }
 
         handleStates();
         handleStateTransitions();
@@ -79,7 +91,7 @@ public class characterController : MonoBehaviour
             case playerStates.dead:
                 break;
 
-            //state falltrough to green so rbin can test. this isnt final
+            //state falltrough to green so robin can test. this isnt final
             case playerStates.red:
             case playerStates.blue:
             case playerStates.yellow:
@@ -202,6 +214,7 @@ public class characterController : MonoBehaviour
         if(dashInput && !lastDashInput && !statusData.isDash)
         {
             statusData.isDash = true;
+            maxSpeed = dashMaxSpeed;
 
             if(moveInput.magnitude != 0)
             {
