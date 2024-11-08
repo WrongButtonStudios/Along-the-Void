@@ -59,6 +59,11 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
             _isOnPoint = true;
     }
 
+    public bool ReachedDestination()
+    {
+        return _isOnPoint; 
+    }
+
     public void SetUpNewWayPoint()
     {
         _curWayPoint = GetNextWayPoint();

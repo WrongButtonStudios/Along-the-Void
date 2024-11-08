@@ -288,10 +288,6 @@ MonoBehaviour:
     m_Bits: 8
   _jumpForce: 7
   _reconizedPlayerRange: 15
-  _stoppingDistance: 1
-  _attackComponentCount: 1
-  _patrolComponentCount: 1
-  _hauntComponentCount: 1
   _attackEffect: {fileID: 3521297393984580208, guid: d083a79c39bc94f23bd2410af0ea2e48, type: 3}
 --- !u!212 &302486999
 SpriteRenderer:
