@@ -12,6 +12,7 @@ TagManager:
   - NotColorSwitch
   - TeleportCollision
   - Audio
+  - CheckpointDetector
   layers:
   - Default
   - TransparentFX

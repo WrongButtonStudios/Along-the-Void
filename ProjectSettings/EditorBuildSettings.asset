@@ -5,34 +5,25 @@ EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_Scenes:
-  - enabled: 0
-    path: Assets/OldScenes/MainMenu.unity
-    guid: 43e524ed640ed1e4aad2533de3cc6cda
-  - enabled: 0
-    path: Assets/OldScenes/GameLevel/DemoLevel/DemoLevel.unity
-    guid: 78b23993c9c82244d88c63b2e0709d4d
-  - enabled: 0
-    path: Assets/OldScenes/GameLevel/DemoLevel/GameOver_DemoLevel.unity
-    guid: 3ba95c5a9e06b4947a6b05f58b57ce45
-  - enabled: 0
-    path: Assets/OldScenes/GameLevel/DemoLevel/EndScreen_DemoLevel.unity
-    guid: e0d5384e094fd3e4c9ffc25af5171498
   - enabled: 1
     path: Assets/scenes/Main Menu.unity
     guid: 53b9e75fea8e21e46b795a349fe40543
   - enabled: 1
     path: Assets/scenes/world 1/Level 1.unity
     guid: 247e295ffca413a42bd5d312ff60b279
-  - enabled: 0
-    path: Assets/scenes/world 1/Level 2.unity
-    guid: 027020a5a27f4b34bbd9da21d98a3a42
-  - enabled: 0
-    path: Assets/scenes/world 1/Level 3.unity
-    guid: 356a16cde901ec94685258d4c12d4055
-  - enabled: 0
-    path: Assets/scenes/world 1/Level 4.unity
-    guid: c28cf109dfc23b74592f9a84a253a4ba
-  - enabled: 0
-    path: Assets/scenes/world 1/Level 5.unity
-    guid: 1daff499d7c5606499f16fe89a812998
+  - enabled: 1
+    path: Assets/scenes/characterControllerPlayground.unity
+    guid: 9351b7ef5a4c16a48ac5005df0e5f1bc
+  - enabled: 1
+    path: Assets/scenes/EnemyTestScene.unity
+    guid: c4cfc88941b44894db8ed9386e2651f2
+  - enabled: 1
+    path: Assets/scenes/slimeballtese.unity
+    guid: f425ef9c6f4d24143b65c115eb7a3470
+  - enabled: 1
+    path: Assets/scenes/Testing Rooms.unity
+    guid: f6ff3776edefbad47821b49a47a42d66
+  - enabled: 1
+    path: Assets/scenes/visuelnovel.unity
+    guid: bb5dfc1fc21a14341a9f90d5db8b2d63
   m_configObjects: {}
