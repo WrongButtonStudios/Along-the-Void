@@ -80,7 +80,7 @@ public class fairyController : MonoBehaviour
 
             lineRenderer.SetPosition(1, lineTragetPos);
 
-            if (selectInput.magnitude > 0.5f)
+            if (selectInput.magnitude > 0.1f)
             {
                 selectPos = lineTragetPos;
             }
@@ -90,7 +90,7 @@ public class fairyController : MonoBehaviour
             lineRenderer.SetPosition(1, Vector3.zero);
         }
 
-        if (lastSelectMagnitude > 0.5f && selectInput.magnitude < Mathf.Epsilon)
+        if (selectInput.magnitude > Mathf.Epsilon)
         {
             int closestFairyIndex = -1;
             float closestDistance = Mathf.Infinity;
