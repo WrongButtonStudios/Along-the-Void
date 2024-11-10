@@ -33,6 +33,10 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
     public void Patrol()
     {
+        if (_entity.RB.simulated == false)
+        {
+            _entity.RB.simulated = true;
+        }
         if (_isOnPoint)
             SetUpNewWayPoint();
 
