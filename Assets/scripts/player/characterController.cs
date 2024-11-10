@@ -1,5 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
+using UnityEditor;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -24,46 +26,62 @@ public class characterController : MonoBehaviour
         public playerStates currentState;
         public bool isMoving;
         public bool isGrounded;
+        public bool isDash;
         public bool isFrozen;
     }
 
     private Rigidbody2D rb;
 
     [SerializeField] private playerStatusData statusData = new playerStatusData();
-    [SerializeField] private float maxSpeed = 60f;
+    [SerializeField] private float maxMovementSpeed = 60f;
+    [SerializeField] private float maxSpeedChangeSpeed = 1f;
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private AnimationCurve accelerationFactorFromDot;
     [SerializeField] private float counterMoveForce = 30f;
     [SerializeField] private float inAirTurnSpeed = 2f; //will turn player to allogn local up to world up when in air
     [Space]
+    [SerializeField] private float rideHeight = 1f;
+    [SerializeField] private float maxRideHeight = 1f;
+    [SerializeField] private float rideSpringStrenght = 1f;
+    [SerializeField] private float rideSpringDamper = 1f;
     [SerializeField] private float groundedDistance = 1.1f;
-    [SerializeField] private float groundCheckRadius = 0.5f;
     [SerializeField] private LayerMask groundLayer;
+    [Space]
+    [SerializeField] private float deccendGravityMultiplier = 2f;
+    [SerializeField] private float dashStrenght = 50f;
+    [SerializeField] private float dashMaxSpeed = 100f;
 
-
+    private float maxSpeed;
+    
     private Vector2 moveInput;
+    private bool dashInput;
+    private bool lastDashInput;
 
     private void Awake()
     {
         rb = GetComponent<Rigidbody2D>();
     }
 
-    private void Update()
+    private void Start()
     {
-        statusData.isMoving = moveInput.magnitude != 0;
+        maxSpeed = maxMovementSpeed;
     }
 
     private void FixedUpdate()
     {
+        statusData.isMoving = moveInput.x != 0;
+
+        if(maxSpeed > maxMovementSpeed)
+        {
+            maxSpeed = Mathf.Lerp(maxSpeed, maxMovementSpeed, maxSpeedChangeSpeed * Time.deltaTime);
+        }
+
         handleStates();
         handleStateTransitions();
 
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
 
-        if(rb.velocity.normalized.magnitude < 0.01f)
-        {
-            rb.velocity = Vector2.zero;
-        }
+        lastDashInput = dashInput;
     }
 
     public void handleStates()
@@ -73,7 +91,7 @@ public class characterController : MonoBehaviour
             case playerStates.dead:
                 break;
 
-            //state falltrough to green so rbin can test. this isnt final
+            //state falltrough to green so robin can test. this isnt final
             case playerStates.red:
             case playerStates.blue:
             case playerStates.yellow:
@@ -92,16 +110,20 @@ public class characterController : MonoBehaviour
                 else
                 {
                     transform.up = Vector2.Lerp(transform.up, Vector2.up, Time.deltaTime * inAirTurnSpeed);
+
+                    //this ads downwards force to make the gravity more gamey. does alot for gamefeel
+                    if (rb.velocity.y < 0)
+                    {
+                        rb.AddForce(Physics2D.gravity * deccendGravityMultiplier, ForceMode2D.Force);
+                    }
                 }
+
+                dash();
 
                 baseMovement();
-                break;
 
-                if(statusData.isFrozen)
-                {
-                    Debug.Log("Frozen");
-                    break;
-                }
+                hoverAboveGround(groundHit);
+                break;
 
             default:
                 Debug.LogError("state not implemented");
@@ -186,6 +208,43 @@ public class characterController : MonoBehaviour
 
         rb.AddForce(forceToAdd, ForceMode2D.Force);
     }
+
+    public void dash()
+    {
+        if(dashInput && !lastDashInput && !statusData.isDash)
+        {
+            statusData.isDash = true;
+            maxSpeed = dashMaxSpeed;
+
+            if(moveInput.magnitude != 0)
+            {
+                rb.AddForce(moveInput * dashStrenght, ForceMode2D.Impulse);
+            }
+            else
+            {
+                rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
+            }
+        }
+    }
+
+    public void hoverAboveGround(RaycastHit2D groundHit)
+    {
+        if(statusData.isGrounded && !statusData.isMoving && !statusData.isDash)
+        {
+            if(groundHit.distance < maxRideHeight)
+            {
+                Vector2 yVelocity = rb.velocity;
+                yVelocity.x = 0;
+
+                float distanceToGround = groundHit.distance;
+                Vector2 upForce = Vector2.up * (rideHeight - distanceToGround) * rideSpringStrenght;
+                Vector2 dampingForce = -yVelocity * rideSpringDamper;
+
+                rb.AddForce(upForce + dampingForce, ForceMode2D.Force);
+            }
+        }
+    }
+
     public void counterMovePlayer()
     {
         Vector2 horizontalVelocity = Vector2.right * Vector2.Dot(rb.velocity, transform.right);
@@ -202,7 +261,26 @@ public class characterController : MonoBehaviour
 
     public bool checkGrounded(out RaycastHit2D hit)
     {
-        return hit = Physics2D.CircleCast(transform.position, groundCheckRadius, -transform.up, groundedDistance, groundLayer);
+        hit = Physics2D.Raycast(transform.position, -transform.up, Mathf.Infinity, groundLayer);
+        
+        if(hit.collider != null)
+        {
+            if(statusData.isGrounded)
+            {
+                return hit.distance <= maxRideHeight;
+            }
+            else
+            {
+                return hit.distance <= groundedDistance;
+            }
+        }
+
+        return false;
+    }
+
+    private void OnCollisionStay2D()
+    {
+        statusData.isDash = false;
     }
 
     //call this to check player status data outside of this script
@@ -218,6 +296,13 @@ public class characterController : MonoBehaviour
 
     public void getDashInput(InputAction.CallbackContext context)
     {
-        
+        if(context.performed)
+        {
+            dashInput = true;
+        }
+        else if(context.canceled)
+        {
+            dashInput = false;
+        }
     }
 }
