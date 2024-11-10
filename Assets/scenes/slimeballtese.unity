@@ -273,7 +273,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 86dd44ee85f1c7241a44c323c3b2aa88, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _types: 00000000
+  _types: 0000000001000000
   _weapons: 0000000001000000
   _curState: 2
   _wayPoints:
@@ -810,7 +810,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!50 &1617796751
 Rigidbody2D:
   serializedVersion: 4
@@ -899,7 +899,7 @@ Transform:
   m_GameObject: {fileID: 1617796750}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 906.5, y: 552.2604, z: 0}
+  m_LocalPosition: {x: 1153.4, y: 552.2604, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

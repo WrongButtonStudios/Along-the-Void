@@ -17,6 +17,7 @@ public interface IPatrolComponent : IComponent
     public void Patrol();
 
     public void SetUpNewWayPoint();
+
     public float GetXDirection();
 
     public void LookAtTarget();
@@ -26,8 +27,7 @@ public interface IPatrolComponent : IComponent
     public void Movement(Vector2 target);
 
     public bool ReachedDestination();
-
-    // auf klo
+ 
 }
 
 public interface IHauntingComponent : IComponent

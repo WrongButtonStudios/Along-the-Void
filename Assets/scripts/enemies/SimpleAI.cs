@@ -137,16 +137,18 @@ public class SimpleAI : MonoBehaviour
 
     private void ExecuteState()
     {
-        int patrolAndHauntComponent = Random.Range(0, _patrolComponents.Count - 1);
-        SelectNewWeapon(); 
-        ChangedState(); 
+        SelectNewWeapon();
+        SelectMovementComponent();
+        Debug.Log(_selectedPatrolComponent); 
+        ChangedState();
+
         switch (_curState)
         {
             case State.Patrol:
-                _patrolComponents[patrolAndHauntComponent].Patrol();
+                _patrolComponents[_selectedPatrolComponent].Patrol();
                 break;
             case State.Hount:
-                _hauntingComponents[patrolAndHauntComponent].Haunt(_playerPos.position);
+                _hauntingComponents[_selectedPatrolComponent].Haunt(_playerPos.position);
                 break;
             case State.Attack:
                 _attackComponents[_selectedWeapon].Attack(); 
@@ -200,7 +202,7 @@ public class SimpleAI : MonoBehaviour
     {
         if (_patrolComponents[_selectedPatrolComponent].ReachedDestination())
         {
-            _selectedPatrolComponent = 
+            _selectedPatrolComponent = Random.Range(0, _patrolComponents.Count - 1);
         }
     }
 
