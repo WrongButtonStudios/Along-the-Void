@@ -1,7 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.SceneManagement;
 
 public class SimpleAI : MonoBehaviour
 {
@@ -45,28 +44,20 @@ public class SimpleAI : MonoBehaviour
     private float _jumpForce;
     [SerializeField]
     private float _reconizedPlayerRange = 7.5f;
-    [SerializeField]
-    private float _stoppingDistance = 1f;
-    [SerializeField, Range(1, 2)]
-    private int _attackComponentCount = 1;
-    [SerializeField, Range(1, 2)]
-    private int _patrolComponentCount = 1;
-    [SerializeField, Range(1, 2)]
-    private int _hauntComponentCount = 1;
-
+    float _stoppingDistance = 1; 
     //Placeholder VFX stuff
     [SerializeField]
-    private GameObject _attackEffect; 
+    private GameObject _attackEffect;
+    
     
     private Rigidbody2D _rb;
-
-    
+    private int _selectedWeapon;
+    private int _selectedPatrolComponent; 
 
     //Components 
     private List<IHauntingComponent> _hauntingComponents = new List<IHauntingComponent>();
     private List<IPatrolComponent> _patrolComponents= new List<IPatrolComponent>();
     private List<IAttackComponent> _attackComponents = new List<IAttackComponent>();
-
 
     //Getter
     public Rigidbody2D RB { get { return _rb; } }
@@ -76,6 +67,8 @@ public class SimpleAI : MonoBehaviour
     public LayerMask IgnoreLayer { get { return _ignoreLayer; } }
     public GameObject AttackVFX { get { return _attackEffect;  } }
     public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
+
+
 
     public float JumpForce { get { return _jumpForce; } }
 
@@ -116,6 +109,7 @@ public class SimpleAI : MonoBehaviour
             }
         }
     }
+
     void AddAttackComponent()
     {
         foreach(WeaponsAttached weapon in _weapons) 
@@ -143,20 +137,22 @@ public class SimpleAI : MonoBehaviour
 
     private void ExecuteState()
     {
-        //if (ChangedState())
-            //return;
+        SelectNewWeapon();
+        SelectMovementComponent();
+        Debug.Log(_selectedPatrolComponent); 
+        ChangedState();
+
         switch (_curState)
         {
             case State.Patrol:
-                _patrolComponents[0].Patrol();
+                _patrolComponents[_selectedPatrolComponent].Patrol();
                 break;
             case State.Hount:
-                _hauntingComponents[0].Haunt(_playerPos.position);
+                _hauntingComponents[_selectedPatrolComponent].Haunt(_playerPos.position);
                 break;
             case State.Attack:
-                _attackComponents[0].Attack(); 
+                _attackComponents[_selectedWeapon].Attack(); 
                 break;
-
         }
     }
 
@@ -182,4 +178,33 @@ public class SimpleAI : MonoBehaviour
         }
         return false;
     }
+
+    //TO-DO: remove this when enemys leave the testing phase outside of the game
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Player"))
+        {
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
+        }
+    }
+
+    private void SelectNewWeapon()
+    {
+        if (_attackComponents[_selectedWeapon].FinnishedAttack())
+        {
+            int oldWeapon = _selectedWeapon; 
+            _selectedWeapon = Random.Range(0, _attackComponents.Count - 1);
+            _attackComponents[oldWeapon].ResetAttackStatus(); 
+        }
+    }
+
+    private void SelectMovementComponent()
+    {
+        if (_patrolComponents[_selectedPatrolComponent].ReachedDestination())
+        {
+            _selectedPatrolComponent = Random.Range(0, _patrolComponents.Count - 1);
+        }
+    }
+
+
 }

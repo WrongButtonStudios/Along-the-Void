@@ -46,6 +46,10 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
 
     public void Patrol()
     {
+        if (_entity.RB.simulated == true)
+        {
+            _entity.RB.simulated = false; 
+        }
         if (_isOnPoint)
             SetUpNewWayPoint();
 
@@ -57,6 +61,11 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
         }
         else
             _isOnPoint = true;
+    }
+
+    public bool ReachedDestination()
+    {
+        return _isOnPoint; 
     }
 
     public void SetUpNewWayPoint()
