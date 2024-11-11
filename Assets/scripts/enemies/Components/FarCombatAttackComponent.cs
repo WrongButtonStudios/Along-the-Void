@@ -8,7 +8,8 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     private GameObject _attackEffect;
     private float _speed = 100f;
     private Rigidbody2D _rb;
-    private bool _isCoolingDown = false; 
+    private bool _isCoolingDown = false;
+    private bool _finnishedAttacking; 
 
     public void Init(SimpleAI entity)
     {
@@ -52,4 +53,13 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         _isCoolingDown = false; 
     }
 
+    public bool FinnishedAttack()
+    {
+        return _finnishedAttacking; 
+    }
+
+    public void ResetAttackStatus()
+    {
+        _finnishedAttacking = false; 
+    }
 }
