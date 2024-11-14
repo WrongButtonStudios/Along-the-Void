@@ -453,6 +453,22 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: 2038674b-aad1-4c96-a0b0-acc334e945cf
     m_ActionName: characterController/fairySelect[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 523573454}
+        m_TargetAssemblyTypeName: characterController, Assembly-CSharp
+        m_MethodName: getTriggerPlayerFeatureInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d3e9e9f6-a1ec-4a87-8586-d35b7832d607
+    m_ActionName: characterController/triggertPlayerFeature[/Keyboard/q]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -470,13 +486,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b353e7bf402dff84f99ff565faa65cd8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  rb: {fileID: 0}
   statusData:
     currentState: 1
     isMoving: 0
     isGrounded: 1
     isDash: 0
     isFrozen: 0
-  maxSpeed: 60
+  maxMovementSpeed: 60
+  maxSpeedChangeSpeed: 1
   acceleration: 100
   accelerationFactorFromDot:
     serializedVersion: 2
@@ -514,6 +532,7 @@ MonoBehaviour:
     m_Bits: 64
   deccendGravityMultiplier: 1.5
   dashStrenght: 15
+  dashMaxSpeed: 100
 --- !u!1 &787400016
 GameObject:
   m_ObjectHideFlags: 3
