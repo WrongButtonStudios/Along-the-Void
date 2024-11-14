@@ -31,6 +31,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": true
+                },
+                {
+                    "name": "triggertPlayerFeature",
+                    "type": "Button",
+                    "id": "d3e9e9f6-a1ec-4a87-8586-d35b7832d607",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -220,6 +229,28 @@
                     "action": "fairySelect",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "cd5f2fe2-4ea9-4016-9d7e-bb77bf93c859",
+                    "path": "<Keyboard>/q",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keyboard",
+                    "action": "triggertPlayerFeature",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "df2761a2-0163-484d-9029-4359602ce54d",
+                    "path": "<Gamepad>/leftShoulder",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";gamepad",
+                    "action": "triggertPlayerFeature",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         }

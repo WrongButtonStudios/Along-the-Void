@@ -7,13 +7,17 @@ public class Timer : MonoBehaviour
     [SerializeField, Tooltip("max time the player has for the level in minutes")]
     private float _duration = 15;
     [SerializeField]
-    private Slider _slider; //remove this when color drain effect is finnished 
+    private Slider _slider; //remove this when color drain effect is finnished
+
+    [Header("Debugging")]
+    [SerializeField]
+    private float _timeScale = 1; 
     private float _durationInSeconds;
     private float _timeLeft; 
     // Start is called before the first frame update
     void Start()
     {
-        Time.timeScale = 2; 
+        Time.timeScale = _timeScale; 
         _durationInSeconds = _duration * 60f;
         _timeLeft = _durationInSeconds;
         _slider.maxValue = _durationInSeconds;

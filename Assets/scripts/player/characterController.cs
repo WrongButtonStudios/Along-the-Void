@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using Unity.VisualScripting;
 using UnityEditor;
 using UnityEngine;
@@ -30,7 +31,7 @@ public class characterController : MonoBehaviour
         public bool isFrozen;
     }
 
-    private Rigidbody2D rb;
+    public Rigidbody2D rb;
 
     [SerializeField] private playerStatusData statusData = new playerStatusData();
     [SerializeField] private float maxMovementSpeed = 60f;
@@ -52,10 +53,13 @@ public class characterController : MonoBehaviour
     [SerializeField] private float dashMaxSpeed = 100f;
 
     private float maxSpeed;
-    
+
+    private List<IplayerFeature> playerFeatures = new List<IplayerFeature>();
+
     private Vector2 moveInput;
     private bool dashInput;
     private bool lastDashInput;
+    private bool triggerPlayerFeatureInput;
 
     private void Awake()
     {
@@ -65,6 +69,13 @@ public class characterController : MonoBehaviour
     private void Start()
     {
         maxSpeed = maxMovementSpeed;
+
+        playerFeatures.Add(new playerStompAttack());
+
+        foreach(IplayerFeature iplayerFeature in playerFeatures)
+        {
+            iplayerFeature.initFeauture(this);
+        }
     }
 
     private void FixedUpdate()
@@ -116,6 +127,13 @@ public class characterController : MonoBehaviour
                     {
                         rb.AddForce(Physics2D.gravity * deccendGravityMultiplier, ForceMode2D.Force);
                     }
+                }
+
+                if(triggerPlayerFeatureInput)
+                {
+                    playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture();
+
+                    triggerPlayerFeatureInput = false;
                 }
 
                 dash();
@@ -303,6 +321,18 @@ public class characterController : MonoBehaviour
         else if(context.canceled)
         {
             dashInput = false;
+        }
+    }
+
+    public void getTriggerPlayerFeatureInput(InputAction.CallbackContext context)
+    {
+        if(context.performed)
+        {
+            triggerPlayerFeatureInput = true;
+        }
+        else if(context.canceled)
+        {
+            triggerPlayerFeatureInput = false;            
         }
     }
 }

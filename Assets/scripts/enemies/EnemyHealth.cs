@@ -20,6 +20,14 @@ public class EnemyHealth : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Space))
+        {
+            GetDamage(_health); 
+        }
+    }
+
     private void Die()
     {
         this.gameObject.SetActive(false); 
