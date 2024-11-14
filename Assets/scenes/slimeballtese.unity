@@ -254,6 +254,7 @@ GameObject:
   - component: {fileID: 302487001}
   - component: {fileID: 302487002}
   - component: {fileID: 302487003}
+  - component: {fileID: 302487004}
   m_Layer: 3
   m_Name: Gegner
   m_TagString: Untagged
@@ -463,6 +464,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
+--- !u!114 &302487004
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 302486997}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f4988a6217e3c4bd9982b2034a0c8bc6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _health: 10
+  _colorItem: {fileID: 5153027381051683973, guid: d8557764941084010bc525a4bf96f32f, type: 3}
 --- !u!1 &716850637
 GameObject:
   m_ObjectHideFlags: 0
@@ -1116,6 +1131,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _duration: 1
   _slider: {fileID: 1448306380}
+  _timeScale: 1
 --- !u!4 &1315028395
 Transform:
   m_ObjectHideFlags: 0
