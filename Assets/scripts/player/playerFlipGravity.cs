@@ -31,13 +31,16 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
 
     public void triggerFeauture()
     {
-        List<Collider2D> colliders = new List<Collider2D>();
-
-        characterController.rb.OverlapCollider(contactFilter, colliders);
-
-        if(colliders.Count > 0)
+        if(characterController.getPlayerStatus().isGrounded)
         {
-            characterController.rb.gravityScale = -characterController.rb.gravityScale;
+            List<Collider2D> colliders = new List<Collider2D>();
+
+            characterController.rb.OverlapCollider(contactFilter, colliders);
+
+            if(colliders.Count > 0)
+            {
+                characterController.rb.gravityScale = -characterController.rb.gravityScale;
+            }
         }
     }
 

@@ -16,9 +16,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
     public void triggerFeauture()
     {
-        characterController.playerStatusData playerStatusData = characterController.getPlayerStatus();
-
-        if(!playerStatusData.isGrounded)
+        if(!characterController.getPlayerStatus().isGrounded)
         {
             characterController.rb.AddForce(Vector2.down * downForce, ForceMode2D.Impulse);
         }
