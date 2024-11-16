@@ -70,7 +70,11 @@ public class characterController : MonoBehaviour
     {
         maxSpeed = maxMovementSpeed;
 
-        playerFeatures.Add(new playerStompAttack());
+        IplayerFeature playerStompAttack = this.AddComponent<playerStompAttack>();
+        playerFeatures.Add(playerStompAttack);
+
+        IplayerFeature playerFlipGravity = this.AddComponent<playerFlipGravity>();
+        playerFeatures.Add(playerFlipGravity);
 
         foreach(IplayerFeature iplayerFeature in playerFeatures)
         {
@@ -103,35 +107,35 @@ public class characterController : MonoBehaviour
                 break;
 
             //state falltrough to green so robin can test. this isnt final
-            case playerStates.red:
             case playerStates.blue:
             case playerStates.yellow:
             case playerStates.burntGreen:
             case playerStates.burntRed:
             case playerStates.burntBlue:
             case playerStates.burntYellow:
-
             case playerStates.green:
-                statusData.isGrounded = checkGrounded(out RaycastHit2D groundHit);
-
-                if (statusData.isGrounded)
-                {
-                    transform.up = groundHit.normal;
-                }
-                else
-                {
-                    transform.up = Vector2.Lerp(transform.up, Vector2.up, Time.deltaTime * inAirTurnSpeed);
-
-                    //this ads downwards force to make the gravity more gamey. does alot for gamefeel
-                    if (rb.velocity.y < 0)
-                    {
-                        rb.AddForce(Physics2D.gravity * deccendGravityMultiplier, ForceMode2D.Force);
-                    }
-                }
+                RaycastHit2D groundHit = doGroundedCheck();
 
                 if(triggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture();
+
+                    triggerPlayerFeatureInput = false;
+                }
+
+                dash();
+
+                baseMovement();
+
+                hoverAboveGround(groundHit);
+                break;
+
+            case playerStates.red:
+                groundHit = doGroundedCheck();
+
+                if(triggerPlayerFeatureInput)
+                {
+                    playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().triggerFeauture();
 
                     triggerPlayerFeatureInput = false;
                 }
@@ -189,6 +193,35 @@ public class characterController : MonoBehaviour
                         transitionSuccesful = true;
                         break;
 
+                    case playerStates.red:
+                        statusData.currentState = playerStates.red;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    default:
+                        Debug.LogError("state transition target not implemented");
+                        break;
+                }
+                break;
+
+            case playerStates.red:
+                rb.gravityScale = Mathf.Abs(rb.gravityScale);
+
+                switch (targetState)
+                {
+                    case playerStates.dead:
+                        statusData.currentState = playerStates.dead;
+                        
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.green:
+                        statusData.currentState = playerStates.green;
+
+                        transitionSuccesful = true;
+                        break;
+
                     default:
                         Debug.LogError("state transition target not implemented");
                         break;
@@ -227,6 +260,28 @@ public class characterController : MonoBehaviour
         rb.AddForce(forceToAdd, ForceMode2D.Force);
     }
 
+    public RaycastHit2D doGroundedCheck()
+    {
+        statusData.isGrounded = checkGrounded(out RaycastHit2D groundHit);
+
+        if (statusData.isGrounded)
+        {
+            transform.up = groundHit.normal * rb.gravityScale;
+        }
+        else
+        {
+            transform.up = Vector2.Lerp(transform.up, Vector2.up, Time.deltaTime * inAirTurnSpeed);
+
+            //this ads downwards force to make the gravity more gamey. does alot for gamefeel
+            if (rb.velocity.y * rb.gravityScale < 0)
+            {
+                rb.AddForce((Physics2D.gravity * rb.gravityScale) * deccendGravityMultiplier, ForceMode2D.Force);
+            }
+        }
+
+        return groundHit;
+    }
+
     public void dash()
     {
         if(dashInput && !lastDashInput && !statusData.isDash)
@@ -255,7 +310,7 @@ public class characterController : MonoBehaviour
                 yVelocity.x = 0;
 
                 float distanceToGround = groundHit.distance;
-                Vector2 upForce = Vector2.up * (rideHeight - distanceToGround) * rideSpringStrenght;
+                Vector2 upForce = (Vector2.up * rb.gravityScale) * (rideHeight - distanceToGround) * rideSpringStrenght;
                 Vector2 dampingForce = -yVelocity * rideSpringDamper;
 
                 rb.AddForce(upForce + dampingForce, ForceMode2D.Force);
@@ -279,7 +334,7 @@ public class characterController : MonoBehaviour
 
     public bool checkGrounded(out RaycastHit2D hit)
     {
-        hit = Physics2D.Raycast(transform.position, -transform.up, Mathf.Infinity, groundLayer);
+        hit = Physics2D.Raycast(transform.position, -transform.up * rb.gravityScale, Mathf.Infinity, groundLayer);
         
         if(hit.collider != null)
         {

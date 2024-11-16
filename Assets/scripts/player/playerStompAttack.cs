@@ -6,7 +6,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 {
     private characterController characterController;
 
-    [SerializeField] private float downForce = 500f;
+    [SerializeField] private float downForce = 50f;
 
 
     public void initFeauture(characterController characterController)
@@ -16,8 +16,6 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
     public void triggerFeauture()
     {
-        print("bububu");
-
         characterController.playerStatusData playerStatusData = characterController.getPlayerStatus();
 
         if(!playerStatusData.isGrounded)

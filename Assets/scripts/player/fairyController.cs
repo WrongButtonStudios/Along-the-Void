@@ -55,19 +55,23 @@ public class fairyController : MonoBehaviour
         switch (fairys[selectedFairy].color)
         {
             case fairy.fairyColor.green:
-                player.transitionToState(characterController.playerStates.green, true);
+                player.transitionToState(characterController.playerStates.green);
                 break;
 
             case fairy.fairyColor.red:
-                player.transitionToState(characterController.playerStates.red, true);
+                player.transitionToState(characterController.playerStates.red);
                 break;
 
             case fairy.fairyColor.blue:
-                player.transitionToState(characterController.playerStates.blue, true);
+                //player.transitionToState(characterController.playerStates.blue, true);
+
+                Debug.LogWarning("im going to implement this very soon");
                 break;
 
             case fairy.fairyColor.yellow:
-                player.transitionToState(characterController.playerStates.yellow, true);
+                //player.transitionToState(characterController.playerStates.yellow, true);
+
+                Debug.LogWarning("im going to implement this very soon");
                 break;
         }
     }
