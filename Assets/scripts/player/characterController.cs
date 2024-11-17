@@ -35,6 +35,8 @@ public class characterController : MonoBehaviour
     public Rigidbody2D rb;
 
     [SerializeField] private playerStatusData statusData = new playerStatusData();
+
+    //variable block used for movement
     [SerializeField] private float maxMovementSpeed = 60f;
     [SerializeField] private float maxSpeedChangeSpeed = 1f;
     [SerializeField] private float acceleration = 50f;
@@ -42,6 +44,8 @@ public class characterController : MonoBehaviour
     [SerializeField] private float counterMoveForce = 30f;
     [SerializeField] private float inAirTurnSpeed = 2f; //will turn player to allogn local up to world up when in air
     [Space]
+
+    //variable block used for hovering while staning
     [SerializeField] private float rideHeight = 1f;
     [SerializeField] private float maxRideHeight = 1f;
     [SerializeField] private float rideSpringStrenght = 1f;
@@ -49,6 +53,8 @@ public class characterController : MonoBehaviour
     [SerializeField] private float groundedDistance = 1.1f;
     [SerializeField] private LayerMask groundLayer;
     [Space]
+
+    //variable block for dash and falling bs
     [SerializeField] private float deccendGravityMultiplier = 2f;
     [SerializeField] private float dashStrenght = 50f;
     [SerializeField] private float dashMaxSpeed = 100f;
@@ -205,6 +211,8 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.green:
+                //mache ich sachen beimm state ausgang
+
                 switch (targetState)
                 {
                     case playerStates.dead:
@@ -215,6 +223,8 @@ public class characterController : MonoBehaviour
 
                     case playerStates.red:
                         statusData.currentState = playerStates.red;
+
+                        //special shiot bei specifische green to red transistion
 
                         statusData.isFrozen = false;
 
