@@ -63,9 +63,9 @@ public class fairyController : MonoBehaviour
                 break;
 
             case fairy.fairyColor.blue:
-                //player.transitionToState(characterController.playerStates.blue, true);
+                player.transitionToState(characterController.playerStates.blue);
 
-                Debug.LogWarning("im going to implement this very soon");
+                //Debug.LogWarning("im going to implement this very soon");
                 break;
 
             case fairy.fairyColor.yellow:

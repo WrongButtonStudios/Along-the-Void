@@ -29,6 +29,7 @@ public class characterController : MonoBehaviour
         public bool isGrounded;
         public bool isDash;
         public bool isFrozen;
+        public bool isOnFire;
     }
 
     public Rigidbody2D rb;
@@ -76,6 +77,9 @@ public class characterController : MonoBehaviour
         IplayerFeature playerFlipGravity = this.AddComponent<playerFlipGravity>();
         playerFeatures.Add(playerFlipGravity);
 
+        IplayerFeature playerClimbWall = this.AddComponent<playerClimbWall>();
+        playerFeatures.Add(playerClimbWall);
+
         foreach(IplayerFeature iplayerFeature in playerFeatures)
         {
             iplayerFeature.initFeauture(this);
@@ -107,7 +111,6 @@ public class characterController : MonoBehaviour
                 break;
 
             //state falltrough to green so robin can test. this isnt final
-            case playerStates.blue:
             case playerStates.yellow:
             case playerStates.burntGreen:
             case playerStates.burntRed:
@@ -136,6 +139,23 @@ public class characterController : MonoBehaviour
                 if(triggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().triggerFeauture();
+
+                    triggerPlayerFeatureInput = false;
+                }
+
+                dash();
+
+                baseMovement();
+
+                hoverAboveGround(groundHit);
+                break;
+
+            case playerStates.blue:
+                groundHit = doGroundedCheck();
+
+                if(triggerPlayerFeatureInput)
+                {
+                    playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
 
                     triggerPlayerFeatureInput = false;
                 }
@@ -196,6 +216,14 @@ public class characterController : MonoBehaviour
                     case playerStates.red:
                         statusData.currentState = playerStates.red;
 
+                        statusData.isFrozen = false;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.blue:
+                        statusData.currentState = playerStates.blue;
+
                         transitionSuccesful = true;
                         break;
 
@@ -218,6 +246,45 @@ public class characterController : MonoBehaviour
 
                     case playerStates.green:
                         statusData.currentState = playerStates.green;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.blue:
+                        statusData.currentState = playerStates.blue;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    default:
+                        Debug.LogError("state transition target not implemented");
+                        break;
+                }
+                break;
+
+            case playerStates.blue:
+                rb.gravityScale = 1;
+
+                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().climbMovementActive = false;
+
+                switch (targetState)
+                {
+                    case playerStates.dead:
+                        statusData.currentState = playerStates.dead;
+                        
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.green:
+                        statusData.currentState = playerStates.green;
+
+                        transitionSuccesful = true;
+                        break;
+                        
+                    case playerStates.red:
+                        statusData.currentState = playerStates.red;
+
+                        statusData.isFrozen = false;
 
                         transitionSuccesful = true;
                         break;
@@ -280,6 +347,28 @@ public class characterController : MonoBehaviour
         }
 
         return groundHit;
+    }
+
+    public void setOnFire()
+    {
+        switch(statusData.currentState)
+        {
+            case playerStates.green:
+            case playerStates.burntGreen:
+                statusData.isOnFire = true;
+                break;
+        }
+    }
+
+    public void freeze()
+    {
+        switch(statusData.currentState)
+        {
+            case playerStates.blue:
+            case playerStates.burntBlue:
+                statusData.isFrozen = true;
+                break;
+        }
     }
 
     public void dash()
@@ -389,5 +478,16 @@ public class characterController : MonoBehaviour
         {
             triggerPlayerFeatureInput = false;            
         }
+    }
+
+    //not the biggest fan of this but i will change that when i do input shits correctly
+    public Vector2 returnMoveInput()
+    {
+        return moveInput;
+    }
+
+    public AnimationCurve returnAccelerationCurve()
+    {
+        return accelerationFactorFromDot;
     }
 }
