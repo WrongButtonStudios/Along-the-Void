@@ -86,7 +86,10 @@ public class characterController : MonoBehaviour
         IplayerFeature playerClimbWall = this.AddComponent<playerClimbWall>();
         playerFeatures.Add(playerClimbWall);
 
-        foreach(IplayerFeature iplayerFeature in playerFeatures)
+        IplayerFeature playerKamiboost = this.AddComponent<playerKamiboost>();
+        playerFeatures.Add(playerKamiboost);
+
+        foreach (IplayerFeature iplayerFeature in playerFeatures)
         {
             iplayerFeature.initFeauture(this);
         }
@@ -117,11 +120,11 @@ public class characterController : MonoBehaviour
                 break;
 
             //state falltrough to green so robin can test. this isnt final
-            case playerStates.yellow:
             case playerStates.burntGreen:
             case playerStates.burntRed:
             case playerStates.burntBlue:
             case playerStates.burntYellow:
+
             case playerStates.green:
                 RaycastHit2D groundHit = doGroundedCheck();
 
@@ -162,6 +165,23 @@ public class characterController : MonoBehaviour
                 if(triggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
+
+                    triggerPlayerFeatureInput = false;
+                }
+
+                dash();
+
+                baseMovement();
+
+                hoverAboveGround(groundHit);
+                break;
+
+            case playerStates.yellow:
+                groundHit = doGroundedCheck();
+
+                if (triggerPlayerFeatureInput)
+                {
+                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture();
 
                     triggerPlayerFeatureInput = false;
                 }
@@ -234,6 +254,14 @@ public class characterController : MonoBehaviour
                     case playerStates.blue:
                         statusData.currentState = playerStates.blue;
 
+                        statusData.isOnFire = false;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.yellow:
+                        statusData.currentState = playerStates.yellow;
+
                         transitionSuccesful = true;
                         break;
 
@@ -263,6 +291,14 @@ public class characterController : MonoBehaviour
                     case playerStates.blue:
                         statusData.currentState = playerStates.blue;
 
+                        statusData.isOnFire = false;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.yellow:
+                        statusData.currentState = playerStates.yellow;
+
                         transitionSuccesful = true;
                         break;
 
@@ -273,7 +309,14 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.blue:
+                //Random
+                //Random
+                //Random
+                //Magic Number shit? Why gravityScale = 1 bei blue, aber nicht bei grün?
                 rb.gravityScale = 1;
+                //Random
+                //Random
+                //Random
 
                 playerFeatures.OfType<playerClimbWall>().FirstOrDefault().climbMovementActive = false;
 
@@ -295,6 +338,63 @@ public class characterController : MonoBehaviour
                         statusData.currentState = playerStates.red;
 
                         statusData.isFrozen = false;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.yellow:
+                        statusData.currentState = playerStates.yellow;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    default:
+                        Debug.LogError("state transition target not implemented");
+                        break;
+                }
+                break;
+
+            case playerStates.yellow:
+                //Random
+                //Random
+                //Random
+                //Magic Number shit? Why gravityScale = 1 bei blue, aber nicht bei grün?
+                rb.gravityScale = 1;
+                //Random
+                //Random
+                //Random
+                switch (targetState)
+                {
+                    case playerStates.dead:
+                        statusData.currentState = playerStates.dead;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.green:
+                        statusData.currentState = playerStates.green;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.red:
+                        statusData.currentState = playerStates.red;
+
+                        statusData.isFrozen = false;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.blue:
+                        statusData.currentState = playerStates.blue;
+
+                        statusData.isOnFire = false;
+
+                        transitionSuccesful = true;
+                        break;
+
+                    case playerStates.yellow:
+                        statusData.currentState = playerStates.yellow;
 
                         transitionSuccesful = true;
                         break;
@@ -382,7 +482,7 @@ public class characterController : MonoBehaviour
     }
 
     public void dash()
-    {
+    {       
         if(dashInput && !lastDashInput && !statusData.isDash)
         {
             statusData.isDash = true;
