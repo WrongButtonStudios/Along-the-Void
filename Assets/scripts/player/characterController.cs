@@ -29,6 +29,7 @@ public class characterController : MonoBehaviour
         public bool isGrounded;
         public bool isDash;
         public bool isFrozen;
+        public bool isOnFire;
     }
 
     public Rigidbody2D rb;
@@ -215,6 +216,8 @@ public class characterController : MonoBehaviour
                     case playerStates.red:
                         statusData.currentState = playerStates.red;
 
+                        statusData.isFrozen = false;
+
                         transitionSuccesful = true;
                         break;
 
@@ -261,7 +264,7 @@ public class characterController : MonoBehaviour
 
             case playerStates.blue:
                 rb.gravityScale = 1;
-                
+
                 playerFeatures.OfType<playerClimbWall>().FirstOrDefault().climbMovementActive = false;
 
                 switch (targetState)
@@ -280,6 +283,8 @@ public class characterController : MonoBehaviour
                         
                     case playerStates.red:
                         statusData.currentState = playerStates.red;
+
+                        statusData.isFrozen = false;
 
                         transitionSuccesful = true;
                         break;
@@ -342,6 +347,28 @@ public class characterController : MonoBehaviour
         }
 
         return groundHit;
+    }
+
+    public void setOnFire()
+    {
+        switch(statusData.currentState)
+        {
+            case playerStates.green:
+            case playerStates.burntGreen:
+                statusData.isOnFire = true;
+                break;
+        }
+    }
+
+    public void freeze()
+    {
+        switch(statusData.currentState)
+        {
+            case playerStates.blue:
+            case playerStates.burntBlue:
+                statusData.isFrozen = true;
+                break;
+        }
     }
 
     public void dash()
