@@ -21,7 +21,7 @@ public class ColorDrop : MonoBehaviour
     }
     private void HealLowestFairy()
     {
-        float lowestHP = -1;
+        float lowestHP = float.MaxValue;
         fairy.fairyData fairyToHeal = new fairy.fairyData(); 
         foreach (fairy.fairyData hp in _fairyController.fairys)
         {
@@ -31,6 +31,8 @@ public class ColorDrop : MonoBehaviour
                 lowestHP = hp.colorAmount; 
             }
         }
-        fairyToHeal.colorAmount = 1f; 
+        fairyToHeal.colorAmount = 1f;
+        Destroy(this.gameObject); 
+
     }
 }
