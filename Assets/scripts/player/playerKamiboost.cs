@@ -49,13 +49,18 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
             if (colliders.Count > 0)
             {
-                //characterController.rb.gravityScale = 0;
-                Debug.Log("Okayooo");
+                characterController.rb.gravityScale = 0;
                 characterController.rb.velocity = new Vector2 (characterController.rb.velocity.x, 0);
                 characterController.rb.AddForce(Vector2.right * 20000);
-
-
             }
+        }
+    }
+
+    public void OnTriggerExit2D(Collider2D collider)
+    {
+        if (LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
+        {
+            characterController.rb.gravityScale = 1;
         }
     }
 
