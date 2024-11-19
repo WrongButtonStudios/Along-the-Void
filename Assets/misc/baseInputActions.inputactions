@@ -40,6 +40,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "purerHass",
+                    "type": "Button",
+                    "id": "8c18c11b-2c9f-4ab3-b6ac-a4d7dacee3ff",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -249,6 +258,17 @@
                     "processors": "",
                     "groups": ";gamepad",
                     "action": "triggertPlayerFeature",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "db9fb01c-3973-4051-84d4-c9cb75154fc5",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keyboard",
+                    "action": "purerHass",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -26,4 +26,6 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/visuelnovel.unity
     guid: bb5dfc1fc21a14341a9f90d5db8b2d63
-  m_configObjects: {}
+  m_configObjects:
+    com.unity.input.settings: {fileID: 11400000, guid: 676964add9f2cb8409ab34deca54c42d, type: 2}
+    com.unity.input.settings.actions: {fileID: -944628639613478452, guid: eb2909755d28aa54da4635f816b42fbe, type: 3}

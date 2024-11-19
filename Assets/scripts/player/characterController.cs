@@ -66,6 +66,7 @@ public class characterController : MonoBehaviour
     private Vector2 moveInput;
     private bool dashInput;
     private bool lastDashInput;
+    private bool purerHassInput;
     private bool triggerPlayerFeatureInput;
 
     private void Awake()
@@ -107,6 +108,7 @@ public class characterController : MonoBehaviour
         handleStates();
         handleStateTransitions();
 
+        
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, maxSpeed);
 
         lastDashInput = dashInput;
@@ -593,6 +595,7 @@ public class characterController : MonoBehaviour
     //not the biggest fan of this but i will change that when i do input shits correctly
     public Vector2 returnMoveInput()
     {
+        
         return moveInput;
     }
 
@@ -600,4 +603,15 @@ public class characterController : MonoBehaviour
     {
         return accelerationFactorFromDot;
     }
+
+    public void getpurerHassInput(InputAction.CallbackContext context)
+    {
+        if (context.performed)
+        {
+            Debug.Log("ÖffnePauseMenü und verhindere, dass der Player weiter Input bekommt!");
+        }
+    }
 }
+
+
+
