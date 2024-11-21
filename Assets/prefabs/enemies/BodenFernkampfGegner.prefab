@@ -137,10 +137,7 @@ MonoBehaviour:
   _types: 00000000
   _weapons: 01000000
   _curState: 2
-  _wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _wayPointsHolder: {fileID: 2328232770798355321}
   _playerPos: {fileID: 0}
   _speed: 10
   _attackRange: 8

@@ -498,6 +498,7 @@ GameObject:
   - component: {fileID: 523573450}
   - component: {fileID: 523573451}
   - component: {fileID: 523573453}
+  - component: {fileID: 523573455}
   m_Layer: 0
   m_Name: player
   m_TagString: Untagged
@@ -725,6 +726,18 @@ MonoBehaviour:
   deccendGravityMultiplier: 1.5
   dashStrenght: 15
   dashMaxSpeed: 100
+--- !u!114 &523573455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523573449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d265431282f6414bb37a664adbd1c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &787400016
 GameObject:
   m_ObjectHideFlags: 3
