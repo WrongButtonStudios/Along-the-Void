@@ -1,30 +1,52 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class playerStompAttack : MonoBehaviour, IplayerFeature
 {
     private characterController characterController;
 
-    [SerializeField] private float downForce = 50f;
+    [SerializeField] private float downForce = 300f;
     [SerializeField] private float maxSpeed = 150f;
 
+    private bool doShit = false;
+
+    public void FixedUpdate()
+    {
+        if(characterController.getPlayerStatus().isGrounded)
+        {
+            endFeauture();
+        }
+
+        if(doShit)
+        {
+            characterController.setMaxSpeed(maxSpeed);
+            characterController.rb.AddForce(Vector2.down * downForce, ForceMode2D.Force);
+        }
+    }
 
     public void initFeauture(characterController characterController)
     {
         this.characterController = characterController;
     }
 
-    public void triggerFeauture()
+    public void triggerFeauture(bool useInput = false, bool input = false)
     {
+        if(!useInput)
+        {
+            Debug.LogError("this feature needs input to work!");
+            return;
+        }
+
         if(!characterController.getPlayerStatus().isGrounded)
         {
-            characterController.rb.AddForce(Vector2.down * downForce, ForceMode2D.Impulse);
+            doShit = input;
         }
     }
 
     public void endFeauture()
     {
-        
+        doShit = false;
     }
 }

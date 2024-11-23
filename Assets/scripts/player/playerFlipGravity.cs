@@ -29,7 +29,7 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
         this.characterController = characterController;
     }
 
-    public void triggerFeauture()
+    public void triggerFeauture(bool useInput = false, bool input = false)
     {
         if(characterController.getPlayerStatus().isGrounded)
         {

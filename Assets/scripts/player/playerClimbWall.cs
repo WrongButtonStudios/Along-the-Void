@@ -61,7 +61,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
 
     }
 
-    public void triggerFeauture()
+    public void triggerFeauture(bool useInput = false, bool input = false)
     {
         List<Collider2D> colliders = new List<Collider2D>();
 

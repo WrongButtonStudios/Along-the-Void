@@ -133,12 +133,7 @@ public class characterController : MonoBehaviour
             case playerStates.green:
                 RaycastHit2D groundHit = doGroundedCheck();
 
-                if(triggerPlayerFeatureInput)
-                {
-                    playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture();
-
-                    triggerPlayerFeatureInput = false;
-                }
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, triggerPlayerFeatureInput);
 
                 dash();
 
