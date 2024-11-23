@@ -7,4 +7,6 @@ public interface IplayerFeature
     public void initFeauture(characterController characterController);
 
     public void triggerFeauture();
+
+    public void endFeauture();
 }

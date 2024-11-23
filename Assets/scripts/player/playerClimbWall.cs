@@ -74,12 +74,17 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
         }
     }
 
+    public void endFeauture()
+    {
+        characterController.rb.gravityScale = 1;
+        climbMovementActive = false;
+    }
+
     public void OnTriggerExit2D(Collider2D collider)
     {
         if(LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
         {
-            characterController.rb.gravityScale = 1;
-            climbMovementActive = false;
+            endFeauture();
         }
     }
 }
