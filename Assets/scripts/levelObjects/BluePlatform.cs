@@ -9,7 +9,7 @@ public class BluePlatform : MonoBehaviour
     public int speed = 5;
     public List<Vector3> waypoints = new List<Vector3>();
     int currentWaypoint = 0;
-    bool vorwärts = true;
+    bool forward = true;
     void Start()
     {
         foreach (Transform child in transform)
@@ -17,42 +17,38 @@ public class BluePlatform : MonoBehaviour
             waypoints.Add(child.transform.position);
         }
     }
-
     void Update()
     {
-        if (currentWaypoint < waypoints.Count && vorwärts)
+        if (currentWaypoint < waypoints.Count && forward)
         {
             transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint], Time.deltaTime * speed);
 
             if (transform.position == waypoints[currentWaypoint])
             {
                 currentWaypoint++;
-                Console.WriteLine(currentWaypoint);
+                Debug.Log(currentWaypoint);
             }
         }
         if (currentWaypoint == waypoints.Count)
         {
-            vorwärts = false;
+            forward = false;
             currentWaypoint--;
-            Console.WriteLine(currentWaypoint);
+            Debug.Log(currentWaypoint);
         }
-        if (currentWaypoint > waypoints.Count && !vorwärts)
+        if (currentWaypoint > 0 && !forward)
         {
             transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint], Time.deltaTime * speed);
 
             if (transform.position == waypoints[currentWaypoint])
             {
                 currentWaypoint--;
-                Console.WriteLine(currentWaypoint);
+                Debug.Log(currentWaypoint);
             }
         }
         if (currentWaypoint == 0)
         {
-            vorwärts = true;
-            Console.WriteLine(currentWaypoint);
+            forward = true;
+            Debug.Log(currentWaypoint);
         }
-
-
-
     }
 }
