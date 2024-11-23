@@ -7,10 +7,10 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     private SimpleAI _entity;
     private int _curWayPoint;
     private bool _isOnPoint;
-
+    private List<Vector2> _wayPoints = new List<Vector2>();
     public int GetNextWayPoint()
     {
-        if (_curWayPoint < _entity.WayPoints.Count - 1)
+        if (_curWayPoint < _wayPoints.Count - 1)
             _curWayPoint++;
         else
             _curWayPoint = 0;
@@ -20,7 +20,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
     public float GetXDirection()
     {
-        Vector2 dir = _entity.WayPoints[_curWayPoint].position - _entity.transform.position;
+        Vector2 dir = _wayPoints[_curWayPoint] - (Vector2)_entity.transform.position;
         return Mathf.Sign(dir.x);
     }
 
@@ -40,13 +40,13 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         if (_isOnPoint)
             SetUpNewWayPoint();
 
-        float distToWayPoint = (_entity.WayPoints[_curWayPoint].position - _entity.transform.position).sqrMagnitude;
+        float distToWayPoint = (_wayPoints[_curWayPoint] - (Vector2)_entity.transform.position).sqrMagnitude;
 
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
         {
             if (CheckForObstacle() && IsGrounded())
                 Jump();
-            Movement(_entity.WayPoints[_curWayPoint].position); 
+            Movement(_wayPoints[_curWayPoint]); 
 
         }
         else
@@ -96,7 +96,11 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
     public void Init(SimpleAI entity)
     {
-        _entity = entity; 
+        _entity = entity;
+        foreach (Transform wp in _entity.WayPoints.transform)
+        {
+            _wayPoints.Add(wp.position);
+        }
     }
 
     public bool ReachedDestination()
