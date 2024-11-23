@@ -14,8 +14,8 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
     private string defaultLayerName = "blueSlimeArea";
 
 
-    [SerializeField] private float maxMovementSpeed = 60f;
-    [SerializeField] private float maxSpeedChangeSpeed = 1f;
+    //[SerializeField] private float maxMovementSpeed = 60f;
+    //[SerializeField] private float maxSpeedChangeSpeed = 1f;
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private AnimationCurve accelerationFactorFromDot;
 

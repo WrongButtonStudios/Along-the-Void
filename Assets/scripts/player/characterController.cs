@@ -233,8 +233,6 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.green:
-                //mache ich sachen beimm state ausgang
-
                 switch (targetState)
                 {
                     case playerStates.dead:
@@ -245,8 +243,6 @@ public class characterController : MonoBehaviour
 
                     case playerStates.red:
                         statusData.currentState = playerStates.red;
-
-                        //special shiot bei specifische green to red transistion
 
                         statusData.isFrozen = false;
 
@@ -311,14 +307,16 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.blue:
-                //Random
-                //Random
-                //Random
-                //Magic Number shit? Why gravityScale = 1 bei blue, aber nicht bei grün?
+                //Magic Number shit? Why gravityScale = 1 bei blue, aber nicht bei grï¿½n?
+
+                    // keanus sinnvolle antwort:
+                        // sowie ich das wankranchseln gelÃ¶st habe setzt es den gravity scale vom player auf 0 beim klettern. 
+                        // beendest du das kletern willst du das die gravity scale wieder auf 1 gesetzt wird. das passiert in dem player feature.
+                        // wechselst du deinen state soll dies auch geschehen. das wird dan hier gehandelt. 
+                        // wird angepasst damit das hier nicht mehr passiert.
+
                 rb.gravityScale = 1;
-                //Random
-                //Random
-                //Random
+
 
                 playerFeatures.OfType<playerClimbWall>().FirstOrDefault().climbMovementActive = false;
 
@@ -357,14 +355,8 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.yellow:
-                //Random
-                //Random
-                //Random
-                //Magic Number shit? Why gravityScale = 1 bei blue, aber nicht bei grün?
                 rb.gravityScale = 1;
-                //Random
-                //Random
-                //Random
+
                 switch (targetState)
                 {
                     case playerStates.dead:
@@ -391,12 +383,6 @@ public class characterController : MonoBehaviour
                         statusData.currentState = playerStates.blue;
 
                         statusData.isOnFire = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.yellow:
-                        statusData.currentState = playerStates.yellow;
 
                         transitionSuccesful = true;
                         break;
@@ -461,6 +447,11 @@ public class characterController : MonoBehaviour
         return groundHit;
     }
 
+    public void setMaxSpeed(float maxSpeedToSet)
+    {
+        maxSpeed = maxSpeedToSet;
+    }
+
     public void setOnFire()
     {
         switch(statusData.currentState)
@@ -488,7 +479,7 @@ public class characterController : MonoBehaviour
         if(dashInput && !lastDashInput && !statusData.isDash)
         {
             statusData.isDash = true;
-            maxSpeed = dashMaxSpeed;
+            setMaxSpeed(dashMaxSpeed);
 
             if(moveInput.magnitude != 0)
             {
@@ -608,7 +599,7 @@ public class characterController : MonoBehaviour
     {
         if (context.performed)
         {
-            Debug.Log("ÖffnePauseMenü und verhindere, dass der Player weiter Input bekommt!");
+            Debug.Log("ï¿½ffnePauseMenï¿½ und verhindere, dass der Player weiter Input bekommt!");
         }
     }
 }
