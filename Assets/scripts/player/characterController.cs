@@ -133,12 +133,7 @@ public class characterController : MonoBehaviour
             case playerStates.green:
                 RaycastHit2D groundHit = doGroundedCheck();
 
-                if(triggerPlayerFeatureInput)
-                {
-                    playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture();
-
-                    triggerPlayerFeatureInput = false;
-                }
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, triggerPlayerFeatureInput);
 
                 dash();
 
@@ -236,6 +231,7 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.green:
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().endFeauture();
                 switch (targetState)
                 {
                     case playerStates.dead:
@@ -273,7 +269,7 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.red:
-                rb.gravityScale = Mathf.Abs(rb.gravityScale);
+                playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().endFeauture();
 
                 switch (targetState)
                 {
@@ -318,11 +314,8 @@ public class characterController : MonoBehaviour
                         // wechselst du deinen state soll dies auch geschehen. das wird dan hier gehandelt. 
                         // wird angepasst damit das hier nicht mehr passiert.
 
-                rb.gravityScale = 1;
-
-
-                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().climbMovementActive = false;
-
+                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
+                        //hier oben die angepoasste variante damits nichtmehr hier ist.
                 switch (targetState)
                 {
                     case playerStates.dead:
@@ -358,7 +351,7 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.yellow:
-                rb.gravityScale = 1;
+                playerFeatures.OfType<playerKamiboost>().FirstOrDefault().endFeauture();
 
                 switch (targetState)
                 {

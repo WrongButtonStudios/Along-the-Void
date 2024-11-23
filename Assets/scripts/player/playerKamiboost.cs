@@ -21,17 +21,6 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = layerMask;
     }
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 
 
     public void initFeauture(characterController characterController)
@@ -39,7 +28,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         this.characterController = characterController;
     }
 
-    public void triggerFeauture()
+    public void triggerFeauture(bool useInput = false, bool input = false)
     {
         if (!characterController.getPlayerStatus().isGrounded)
         {
@@ -56,12 +45,16 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         }
     }
 
+    public void endFeauture()
+    {
+        characterController.rb.gravityScale = 1;
+    }
+
     public void OnTriggerExit2D(Collider2D collider)
     {
         if (LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
         {
-            characterController.rb.gravityScale = 1;
+            endFeauture();
         }
     }
-
 }
