@@ -31,7 +31,7 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private State _curState = State.Patrol;
     [SerializeField]
-    private List<Transform> _wayPoints = new List<Transform>();
+    private GameObject _wayPointsHolder; 
     [SerializeField]
     private Transform _playerPos;
     [SerializeField]
@@ -62,7 +62,7 @@ public class SimpleAI : MonoBehaviour
     //Getter
     public Rigidbody2D RB { get { return _rb; } }
     public float Speed { get { return _speed; } }
-    public List<Transform> WayPoints { get { return _wayPoints; } }
+    public GameObject WayPoints { get { return _wayPointsHolder; } }
     public float StoppingDistance { get { return _stoppingDistance; } }
     public LayerMask IgnoreLayer { get { return _ignoreLayer; } }
     public GameObject AttackVFX { get { return _attackEffect;  } }
@@ -139,7 +139,6 @@ public class SimpleAI : MonoBehaviour
     {
         SelectNewWeapon();
         SelectMovementComponent();
-        Debug.Log(_selectedPatrolComponent); 
         ChangedState();
 
         switch (_curState)
