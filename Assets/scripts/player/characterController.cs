@@ -25,6 +25,7 @@ public class characterController : MonoBehaviour
     public struct playerStatusData
     {
         public playerStates currentState;
+        public bool isAllowedToMove;
         public bool isMoving;
         public bool isGrounded;
         public bool isDash;
@@ -76,6 +77,8 @@ public class characterController : MonoBehaviour
 
     private void Start()
     {
+        statusData.isAllowedToMove = true;
+
         maxSpeed = maxMovementSpeed;
 
         IplayerFeature playerStompAttack = this.AddComponent<playerStompAttack>();
@@ -404,9 +407,22 @@ public class characterController : MonoBehaviour
         }
     }
 
+    public void disableMovement()
+    {
+        statusData.isAllowedToMove = false;
+    }
+
+    public void enableMovement()
+    {
+        statusData.isAllowedToMove = true;
+    }
+
     public void baseMovement()
     {
-        movePlayer();
+        if(statusData.isAllowedToMove)
+        {
+            movePlayer();
+        }
 
         if (!statusData.isMoving && statusData.isGrounded)
         {
@@ -593,14 +609,6 @@ public class characterController : MonoBehaviour
     public AnimationCurve returnAccelerationCurve()
     {
         return accelerationFactorFromDot;
-    }
-
-    public void getpurerHassInput(InputAction.CallbackContext context)
-    {
-        if (context.performed)
-        {
-            Debug.Log("�ffnePauseMen� und verhindere, dass der Player weiter Input bekommt!");
-        }
     }
 }
 
