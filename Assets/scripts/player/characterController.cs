@@ -492,6 +492,11 @@ public class characterController : MonoBehaviour
 
     public void dash()
     {       
+        if(!statusData.isAllowedToMove)
+        {
+            return;
+        }
+
         if(dashInput && !lastDashInput && !statusData.isDash)
         {
             statusData.isDash = true;
