@@ -29,7 +29,7 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
         this.characterController = characterController;
     }
 
-    public void triggerFeauture()
+    public void triggerFeauture(bool useInput = false, bool input = false)
     {
         if(characterController.getPlayerStatus().isGrounded)
         {
@@ -43,12 +43,16 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
             }
         }
     }
+    public void endFeauture()
+    {
+        characterController.rb.gravityScale = Mathf.Abs(characterController.rb.gravityScale);
+    }
 
     public void OnTriggerExit2D(Collider2D collider)
     {
         if(LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
         {
-            characterController.rb.gravityScale = Mathf.Abs(characterController.rb.gravityScale);
+            endFeauture();
         }
     }
 }

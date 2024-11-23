@@ -14,8 +14,8 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
     private string defaultLayerName = "blueSlimeArea";
 
 
-    [SerializeField] private float maxMovementSpeed = 60f;
-    [SerializeField] private float maxSpeedChangeSpeed = 1f;
+    //[SerializeField] private float maxMovementSpeed = 60f;
+    //[SerializeField] private float maxSpeedChangeSpeed = 1f;
     [SerializeField] private float acceleration = 50f;
     [SerializeField] private AnimationCurve accelerationFactorFromDot;
 
@@ -61,7 +61,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
 
     }
 
-    public void triggerFeauture()
+    public void triggerFeauture(bool useInput = false, bool input = false)
     {
         List<Collider2D> colliders = new List<Collider2D>();
 
@@ -74,12 +74,17 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
         }
     }
 
+    public void endFeauture()
+    {
+        characterController.rb.gravityScale = 1;
+        climbMovementActive = false;
+    }
+
     public void OnTriggerExit2D(Collider2D collider)
     {
         if(LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
         {
-            characterController.rb.gravityScale = 1;
-            climbMovementActive = false;
+            endFeauture();
         }
     }
 }
