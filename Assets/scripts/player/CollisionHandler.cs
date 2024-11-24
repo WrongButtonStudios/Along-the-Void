@@ -35,7 +35,7 @@ public class CollisionHandler : MonoBehaviour
                 if (_fairyController.fairys[i].color == fairy.fairyColor.red)
                 {
                     //deale damage
-                    _fairyController.fairys[i].ReduceColorAmount(0.25f);
+                    _fairyController.fairys[i].colorAmount -= 0.25f;
                     Debug.Log(_fairyController.fairys[i].colorAmount); 
                     break; 
                 }
