@@ -1,21 +1,21 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
-using System.Linq;
-using Unity.VisualScripting;
-using UnityEditor.Callbacks;
-using UnityEditor.UI;
 using UnityEngine;
+using System.Collections.Generic;
 
 public class playerFlipGravity : MonoBehaviour, IplayerFeature
 {
     private characterController characterController;
     private ContactFilter2D contactFilter = new ContactFilter2D();
-    private string defaultLayerName = "redSlimeArea";
+    private readonly string defaultLayerName = "redSlimeArea";
+
+    private bool isActive = false;
+    private bool isAscending = false;
+    private float lastFlipTime;
+    [SerializeField] private float groundCheckDelay = 0.01f;
 
     public LayerMask layerMask;
+    public float ascendGravityScale = 3f;
 
-    public void Awake()
+    private void Awake()
     {
         layerMask = LayerMask.GetMask(defaultLayerName);
 
@@ -24,31 +24,66 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
         contactFilter.layerMask = layerMask;
     }
 
+    private void FixedUpdate()
+    {
+        if (!isActive) return;
+
+        if (isAscending)
+        {
+            if (Time.time - lastFlipTime <= groundCheckDelay || !characterController.getPlayerStatus().isGrounded)
+            {
+                characterController.rb.gravityScale = -ascendGravityScale;
+            }
+            else
+            {
+                isAscending = false;
+                characterController.rb.gravityScale = -1f;
+            }
+        }
+    }
+
     public void initFeauture(characterController characterController)
     {
         this.characterController = characterController;
     }
 
-    public void triggerFeauture()
+    public void triggerFeauture(bool useInput = false, bool input = false)
     {
-        if(characterController.getPlayerStatus().isGrounded)
+        if (!characterController.getPlayerStatus().isGrounded) return;
+
+        List<Collider2D> colliders = new List<Collider2D>();
+        characterController.rb.OverlapCollider(contactFilter, colliders);
+
+        if (colliders.Count > 0)
         {
-            List<Collider2D> colliders = new List<Collider2D>();
-
-            characterController.rb.OverlapCollider(contactFilter, colliders);
-
-            if(colliders.Count > 0)
+            if (isActive)
             {
-                characterController.rb.gravityScale = -characterController.rb.gravityScale;
+                endFeauture();
+            }
+            else
+            {
+                isActive = true;
+                isAscending = true;
+
+                lastFlipTime = Time.time;
+                
+                characterController.rb.gravityScale = -ascendGravityScale;
             }
         }
     }
 
-    public void OnTriggerExit2D(Collider2D collider)
+    public void endFeauture()
     {
-        if(LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
+        isActive = false;
+        isAscending = false;
+        characterController.rb.gravityScale = 1f;
+    }
+
+    private void OnTriggerExit2D(Collider2D collider)
+    {
+        if (LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
         {
-            characterController.rb.gravityScale = Mathf.Abs(characterController.rb.gravityScale);
+            endFeauture();
         }
     }
 }

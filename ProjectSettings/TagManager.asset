@@ -13,6 +13,7 @@ TagManager:
   - TeleportCollision
   - Audio
   - CheckpointDetector
+  - Checkpoint
   layers:
   - Default
   - TransparentFX
@@ -32,7 +33,7 @@ TagManager:
   - 
   - redSlimeArea
   - blueSlimeArea
-  - 
+  - yellowDustArea
   - 
   - 
   - 

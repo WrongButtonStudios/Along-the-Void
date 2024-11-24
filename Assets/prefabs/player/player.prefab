@@ -99,7 +99,7 @@ GameObject:
   - component: {fileID: 8166850662447740485}
   m_Layer: 0
   m_Name: player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -331,6 +331,10 @@ MonoBehaviour:
         m_CallState: 2
     m_ActionId: d3e9e9f6-a1ec-4a87-8586-d35b7832d607
     m_ActionName: characterController/triggertPlayerFeature[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8c18c11b-2c9f-4ab3-b6ac-a4d7dacee3ff
+    m_ActionName: characterController/purerHass[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
