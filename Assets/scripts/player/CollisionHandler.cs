@@ -7,7 +7,7 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     private fairyController _fairyController = null;
-    private characterController _cc;
+    private characterController _cc; 
     
     private enum PlayerColor 
     {
@@ -27,8 +27,10 @@ public class CollisionHandler : MonoBehaviour
     {
         Debug.Log("trigger entered"); 
         var playerColor = GetPlayerColor();
-        if (CompareName("SpikeRed", collision.gameObject) && playerColor == PlayerColor.red) 
+        
+        if (collision.gameObject.layer == 19 && playerColor == PlayerColor.red) 
         {
+            Debug.Log("Autsch roter spike"); 
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name)
             for(int i = 0; i < _fairyController.fairys.Capacity; ++i)
             {
@@ -41,19 +43,6 @@ public class CollisionHandler : MonoBehaviour
                 }
             }
         }
-    }
-
-    private bool CompareName(string name, GameObject objToCompare) 
-    {
-        string otherName  = string.Empty;
-        char[] fullName = objToCompare.name.ToCharArray();
-        if (fullName.Length < name.Length)
-            return false; 
-        for(int i = 0; i < name.Length; ++i)
-        {
-            otherName += fullName[i]; 
-        }
-        return otherName==name; 
     }
 
     private PlayerColor GetPlayerColor() 
