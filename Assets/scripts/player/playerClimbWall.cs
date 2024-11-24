@@ -12,16 +12,11 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
     private characterController characterController;
     private ContactFilter2D contactFilter = new ContactFilter2D();
     private string defaultLayerName = "blueSlimeArea";
-
-
-    //[SerializeField] private float maxMovementSpeed = 60f;
-    //[SerializeField] private float maxSpeedChangeSpeed = 1f;
-    [SerializeField] private float acceleration = 50f;
-    [SerializeField] private AnimationCurve accelerationFactorFromDot;
-
     public LayerMask layerMask;
 
-    public bool climbMovementActive = false;
+    public blueSlime currentBlueSlime;
+
+    private float currentPosOnLine;
 
     public void Awake()
     {
@@ -34,31 +29,21 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
 
     public void FixedUpdate()
     {
-        if(climbMovementActive)
+        if(currentBlueSlime == null)
         {
-            Vector2 moveInput = characterController.returnMoveInput();
-
-            moveClimbPlayer(moveInput);
+            return;
         }
-    }
 
-    public void moveClimbPlayer(Vector2 moveInput)
-    {
-        float accelerationToAdd = acceleration * moveInput.normalized.y;
+        currentPosOnLine += -characterController.returnMoveInput().y / 100;
+        currentPosOnLine = Mathf.Clamp(currentPosOnLine, 0, 1);
 
-        Vector2 forceToAdd = transform.up * accelerationToAdd;
-
-        forceToAdd = forceToAdd * accelerationFactorFromDot.Evaluate(Vector2.Dot(forceToAdd.normalized, characterController.rb.velocity.normalized));
-
-        characterController.rb.AddForce(forceToAdd, ForceMode2D.Force);
+        getPositionOnLine(currentBlueSlime.getLine(), currentPosOnLine, out Vector2 pos);
+        characterController.rb.MovePosition(pos);
     }
 
     public void initFeauture(characterController characterController)
     {
         this.characterController = characterController;
-
-        accelerationFactorFromDot = characterController.returnAccelerationCurve();
-
     }
 
     public void triggerFeauture(bool useInput = false, bool input = false)
@@ -69,15 +54,29 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
 
         if(colliders.Count > 0)
         {
-            characterController.rb.gravityScale = 0;
-            climbMovementActive = !climbMovementActive;
+            if(currentBlueSlime == null)
+            {
+                currentBlueSlime = colliders[0].GetComponent<blueSlime>();
+
+                characterController.disableMovement();
+
+                getClosestPointOnLine(out Vector2 closestPointOnLine, out float posOnLine);
+                characterController.rb.MovePosition(closestPointOnLine);
+                characterController.rb.velocity = Vector2.zero;
+
+                currentPosOnLine = posOnLine;
+            }else
+            {
+                endFeauture();
+            }
         }
     }
 
     public void endFeauture()
     {
-        characterController.rb.gravityScale = 1;
-        climbMovementActive = false;
+        currentBlueSlime = null;
+
+        characterController.enableMovement();
     }
 
     public void OnTriggerExit2D(Collider2D collider)
@@ -86,5 +85,34 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
         {
             endFeauture();
         }
+    }
+
+    public bool getClosestPointOnLine(out Vector2 closestPointOnLine, out float posOnLine)
+    {
+        if(currentBlueSlime != null)
+        {
+            blueSlime.line line = currentBlueSlime.getLine();
+
+            Vector2 lineVector = line.pointB - line.pointA;
+            Vector2 playerVector = characterController.rb.position - line.pointA;
+            
+            float projectionLength = Vector3.Dot(playerVector, lineVector) / Vector3.Dot(lineVector, lineVector);
+            float t = Mathf.Clamp01(projectionLength);
+        
+            closestPointOnLine = line.pointA + t * lineVector; 
+
+            posOnLine = t;
+            return true;
+        }
+
+        posOnLine = -1;
+        closestPointOnLine = Vector2.zero;
+        return false;
+    }
+
+    public bool getPositionOnLine(blueSlime.line line, float t, out Vector2 position)
+    {
+        position = line.pointA + t * (line.pointB - line.pointA);
+        return true;
     }
 }
