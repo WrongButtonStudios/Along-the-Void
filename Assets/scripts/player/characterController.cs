@@ -67,7 +67,6 @@ public class characterController : MonoBehaviour
     private Vector2 moveInput;
     private bool dashInput;
     private bool lastDashInput;
-    private bool purerHassInput;
     private bool triggerPlayerFeatureInput;
 
     private void Awake()
