@@ -26,23 +26,17 @@ public class CollisionHandler : MonoBehaviour
     public void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
         Debug.Log("trigger entered"); 
-        if (CompareName("SpikeRed", collision.gameObject)) 
+        var playerColor = GetPlayerColor();
+        if (CompareName("SpikeRed", collision.gameObject) && playerColor == PlayerColor.red) 
         {
-            //SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
-            var playerColor = GetPlayerColor();
-            switch(playerColor) 
+            //SceneManager.LoadScene(SceneManager.GetActiveScene().name)
+            for(int i = 0; i < _fairyController.fairys.Capacity; ++i)
             {
-                case PlayerColor.red:
-                    break;
-                case PlayerColor.green:
-                    break;
-                case PlayerColor.blue:
-                    break;
-                case PlayerColor.yellow:
-                    break;
-                case PlayerColor.unknown:
-                    Debug.LogError("Couldnt deal Damage: Unknown Color");
-                    return; 
+                if (_fairyController.fairys[i].color == fairy.fairyColor.red)
+                {
+                    //deale damage
+                    break; 
+                }
             }
         }
     }
@@ -50,7 +44,9 @@ public class CollisionHandler : MonoBehaviour
     private bool CompareName(string name, GameObject objToCompare) 
     {
         string otherName  = string.Empty;
-        char[] fullName = objToCompare.name.ToCharArray(); 
+        char[] fullName = objToCompare.name.ToCharArray();
+        if (fullName.Length < name.Length)
+            return false; 
         for(int i = 0; i < name.Length; ++i)
         {
             otherName += fullName[i]; 
