@@ -1,17 +1,17 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using System.Collections.Generic;
-
-
 public class BluePlatform : MonoBehaviour
 {
     public int speed = 5;
     public List<Vector3> waypoints = new List<Vector3>();
     int currentWaypoint = 0;
     bool forward = true;
+    private characterController playerController;
+    Collider2D myCollider;
     void Start()
     {
+        playerController = FindObjectOfType<characterController>();
+        myCollider = GetComponent<Collider2D>();
         foreach (Transform child in transform)
         {
             waypoints.Add(child.transform.position);
@@ -19,6 +19,14 @@ public class BluePlatform : MonoBehaviour
     }
     void Update()
     {
+        if (playerController.getPlayerStatus().currentState == characterController.playerStates.blue || playerController.getPlayerStatus().currentState == characterController.playerStates.burntBlue)
+        {
+            myCollider.enabled = true;
+        }
+        else
+        {
+            myCollider.enabled = false;
+        }
         if (currentWaypoint < waypoints.Count && forward)
         {
             transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint], Time.deltaTime * speed);
