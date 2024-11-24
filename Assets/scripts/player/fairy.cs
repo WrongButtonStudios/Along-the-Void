@@ -18,6 +18,11 @@ public class fairy : MonoBehaviour
         public fairyColor color;
         [Range(0, 1)]public float colorAmount;
         public GameObject fairyObject;
+
+        public void ReduceColorAmount(float amountToRecude)
+        {
+            colorAmount -= amountToRecude; 
+        }
     }
 
     public GameObject shape;
