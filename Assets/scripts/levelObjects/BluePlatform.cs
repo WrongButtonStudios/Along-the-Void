@@ -3,60 +3,61 @@ using System.Collections.Generic;
 public class BluePlatform : MonoBehaviour
 {
     public int speed = 5;
-    public List<Vector3> waypoints = new List<Vector3>();
+    public List<Vector2> waypoints = new List<Vector2>();
     int currentWaypoint = 0;
-    bool forward = true;
+    public bool forward;
     private characterController playerController;
     Collider2D myCollider;
+    private Rigidbody2D rb;
+
     void Start()
     {
+        rb = GetComponent<Rigidbody2D>();
         playerController = FindObjectOfType<characterController>();
         myCollider = GetComponent<Collider2D>();
+
         foreach (Transform child in transform)
         {
             waypoints.Add(child.transform.position);
         }
     }
+
     void Update()
     {
         if (playerController.getPlayerStatus().currentState == characterController.playerStates.blue || playerController.getPlayerStatus().currentState == characterController.playerStates.burntBlue)
         {
             myCollider.enabled = true;
         }
+
         else
         {
             myCollider.enabled = false;
         }
-        if (currentWaypoint < waypoints.Count && forward)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint], Time.deltaTime * speed);
 
-            if (transform.position == waypoints[currentWaypoint])
-            {
-                currentWaypoint++;
-                Debug.Log(currentWaypoint);
-            }
-        }
-        if (currentWaypoint == waypoints.Count)
+        Vector2 newPosition = Vector2.MoveTowards(rb.position, waypoints[currentWaypoint], speed * Time.fixedDeltaTime);
+        rb.MovePosition(newPosition);
+
+        if (forward && Vector2.Distance(rb.position, waypoints[currentWaypoint]) < 0.1f && currentWaypoint < waypoints.Count)
         {
-            forward = false;
-            currentWaypoint--;
             Debug.Log(currentWaypoint);
-        }
-        if (currentWaypoint > 0 && !forward)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, waypoints[currentWaypoint], Time.deltaTime * speed);
-
-            if (transform.position == waypoints[currentWaypoint])
+            currentWaypoint++;
+            if (currentWaypoint == waypoints.Count)
             {
+                forward = false;
                 currentWaypoint--;
-                Debug.Log(currentWaypoint);
+                Debug.Log("Backwards");
             }
         }
-        if (currentWaypoint == 0)
+
+        if (!forward && currentWaypoint > 0 && Vector2.Distance(rb.position, waypoints[currentWaypoint]) < 0.1f)
         {
-            forward = true;
-            Debug.Log(currentWaypoint);
+            currentWaypoint--;
+            Debug.Log("Further backwards");
+            if (currentWaypoint == 0)
+            {
+                forward = true;
+                Debug.Log("Forwards again");
+            }
         }
     }
 }
