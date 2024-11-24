@@ -13,7 +13,7 @@ public class fairy : MonoBehaviour
     }
 
     [System.Serializable]
-    public struct fairyData
+    public class fairyData
     {
         public fairyColor color;
         [Range(0, 1)]public float colorAmount;
