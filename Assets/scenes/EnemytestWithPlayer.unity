@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BodenFernkampfGegner
       objectReference: {fileID: 0}
+    - target: {fileID: 787545043193850315, guid: ef16d2a71b2614138bf90a3e73de584a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2085400478144688284, guid: ef16d2a71b2614138bf90a3e73de584a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 339
@@ -1874,6 +1878,10 @@ PrefabInstance:
     - target: {fileID: 886285197383857268, guid: 1728a02253ebf462aa1207356e666153, type: 3}
       propertyPath: m_Name
       value: FlugNahkampfGegner
+      objectReference: {fileID: 0}
+    - target: {fileID: 886285197383857268, guid: 1728a02253ebf462aa1207356e666153, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2598049842539389971, guid: 1728a02253ebf462aa1207356e666153, type: 3}
       propertyPath: m_LocalPosition.x
