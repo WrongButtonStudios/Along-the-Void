@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BodenFernkampfGegner
       objectReference: {fileID: 0}
+    - target: {fileID: 787545043193850315, guid: ef16d2a71b2614138bf90a3e73de584a, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 2085400478144688284, guid: ef16d2a71b2614138bf90a3e73de584a, type: 3}
       propertyPath: m_LocalPosition.x
       value: 339
@@ -308,7 +312,7 @@ GameObject:
   - component: {fileID: 274480853}
   - component: {fileID: 274480852}
   - component: {fileID: 274480851}
-  m_Layer: 0
+  m_Layer: 19
   m_Name: SpikeRed
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -661,6 +665,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: d3e9e9f6-a1ec-4a87-8586-d35b7832d607
     m_ActionName: characterController/triggertPlayerFeature[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 8c18c11b-2c9f-4ab3-b6ac-a4d7dacee3ff
+    m_ActionName: characterController/purerHass[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -681,6 +689,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   statusData:
     currentState: 1
+    isAllowedToMove: 0
     isMoving: 0
     isGrounded: 1
     isDash: 0
@@ -738,6 +747,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d265431282f6414bb37a664adbd1c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _redSpike:
+    serializedVersion: 2
+    m_Bits: 524288
 --- !u!1 &787400016
 GameObject:
   m_ObjectHideFlags: 3
@@ -1759,7 +1771,7 @@ SpriteShapeRenderer:
   m_Enabled: 1
   m_CastShadows: 1
   m_ReceiveShadows: 1
-  m_DynamicOccludee: 1
+  m_DynamicOccludee: 0
   m_StaticShadowCaster: 0
   m_MotionVectors: 1
   m_LightProbeUsage: 1
@@ -1874,6 +1886,10 @@ PrefabInstance:
     - target: {fileID: 886285197383857268, guid: 1728a02253ebf462aa1207356e666153, type: 3}
       propertyPath: m_Name
       value: FlugNahkampfGegner
+      objectReference: {fileID: 0}
+    - target: {fileID: 886285197383857268, guid: 1728a02253ebf462aa1207356e666153, type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2598049842539389971, guid: 1728a02253ebf462aa1207356e666153, type: 3}
       propertyPath: m_LocalPosition.x
