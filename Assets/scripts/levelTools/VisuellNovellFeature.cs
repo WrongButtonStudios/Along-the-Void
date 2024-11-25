@@ -7,10 +7,10 @@ using System.Runtime.CompilerServices;
 public class VisuellNovellFeature : MonoBehaviour
 {
 
-    private enum Step 
+    private enum Step
     {
-        FadeInSpeechBubble, 
-        FadeInText, 
+        FadeInSpeechBubble,
+        FadeInText,
         FadeOutSpeechBubble
     }
     public TextMeshPro text;
@@ -21,27 +21,30 @@ public class VisuellNovellFeature : MonoBehaviour
     [SerializeField]
     private GameObject TextPref;
     [SerializeField]
-    private Vector3 _desiredSize = new Vector3(1, 1, 1); 
+    private Vector3 _desiredSize = new Vector3(1, 1, 1);
     private bool _wait;
     private bool renderedText;
     private int _dialogcounter;
+    [SerializeField]
     private bool _isActive = false;
     private bool _continue = false;
     private Step _currentStep = Step.FadeInSpeechBubble;
-    private bool runDialog;
+    private bool runDialog = true;
+    private bool _finnishedDialog = false; 
     private bool inCourountine = false;
 
     public void StartDialog(List<string> texts)
     {
-        Dialoges.Clear();
-        Dialoges = texts;
         _dialogcounter = 0; 
         _currentStep = Step.FadeInSpeechBubble;
-        runDialog = true;
+        foreach (string t in texts)
+        {
+            Dialoges.Add(t);
+        }
+        _isActive = true; 
     }
     private void DialogStateHandle() 
     {
-        _isActive = true; 
         if (runDialog) 
         {
             switch (_currentStep) 
@@ -55,7 +58,8 @@ public class VisuellNovellFeature : MonoBehaviour
                 case Step.FadeOutSpeechBubble:
                     //TextPref.SetActive(false);
                     runDialog = false;
-                    _isActive = false; 
+                    _isActive = false;
+                    _finnishedDialog = true; 
                     return; 
             }
         
@@ -71,8 +75,8 @@ public class VisuellNovellFeature : MonoBehaviour
     {
         if(_isActive)
         {
-            //to-do Entferne diese Input logik, wenn die Input Mappings für das neue InputSystem Existieren
-            if (Input.GetKeyDown(KeyCode.Space)) 
+            //to-do Entferne diese Input logik, wenn die Input Mappings f?r das neue InputSystem Existieren
+            if (Input.GetKeyDown(KeyCode.E)) 
             {
                 _continue = true; 
             }
@@ -95,7 +99,6 @@ public class VisuellNovellFeature : MonoBehaviour
         inCourountine = true; 
         _isActive=true; 
          renderedText = false; 
-        _dialogcounter = 0;
         while (_dialogcounter < Dialoges.Count)
         {
             if (!renderedText) 
@@ -145,5 +148,10 @@ public class VisuellNovellFeature : MonoBehaviour
         }
         _currentStep = Step.FadeInText;
         inCourountine = false; 
+    }
+
+    public bool FinnishedDialog()
+    {
+        return _finnishedDialog; 
     }
 }
