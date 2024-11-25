@@ -15,15 +15,27 @@ EditorBuildSettings:
     path: Assets/scenes/characterControllerPlayground.unity
     guid: 9351b7ef5a4c16a48ac5005df0e5f1bc
   - enabled: 1
+    path: Assets/scenes/EnemytestWithPlayer.unity
+    guid: 70eb9cdd00ed84d9694f396dd8fa7d78
+  - enabled: 1
+    path: Assets/scenes/LosingScreen.unity
+    guid: da46f18c6873d47ae9b56e55002422b6
+  - enabled: 1
+    path: Assets/scenes/Marvins_Spielwiese 1.unity
+    guid: aa45361085e2c974281ab8df8a0090b9
+  - enabled: 1
+    path: Assets/scenes/Robins_Spielwiese.unity
+    guid: 92bcee1a8b300984da8e61131e4cdf3b
+  - enabled: 0
     path: Assets/scenes/EnemyTestScene.unity
     guid: c4cfc88941b44894db8ed9386e2651f2
-  - enabled: 1
+  - enabled: 0
     path: Assets/scenes/slimeballtese.unity
     guid: f425ef9c6f4d24143b65c115eb7a3470
   - enabled: 1
     path: Assets/scenes/Testing Rooms.unity
     guid: f6ff3776edefbad47821b49a47a42d66
-  - enabled: 1
+  - enabled: 0
     path: Assets/scenes/visuelnovel.unity
     guid: bb5dfc1fc21a14341a9f90d5db8b2d63
   m_configObjects:
