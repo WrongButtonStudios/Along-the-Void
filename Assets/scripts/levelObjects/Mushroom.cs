@@ -30,4 +30,6 @@ public class Mushroom : MonoBehaviour
             collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * JumpForce, ForceMode2D.Impulse);
         }
     }
+
+
 }
