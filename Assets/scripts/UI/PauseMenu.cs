@@ -5,7 +5,28 @@ public class PauseMenu : MonoBehaviour
 {
     [SerializeField] GameObject pauseMenuCanvas;
     [SerializeField] GameObject optionsCanvas;
+    private static PauseMenu instance;
+    void Awake()
+    {
+        DontDestroyOnLoad(gameObject); // Verhindert, dass dieses Objekt zerstört wird
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(gameObject);
+        }
+        else
+        {
+            Destroy(gameObject); // Zerstöre zusätzliche Instanzen
+        }
+    }
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            pauseMenuCanvas.SetActive(true);
+        }
+    }
     public void Resume()
     {
         pauseMenuCanvas.SetActive(false);
@@ -25,4 +46,6 @@ public class PauseMenu : MonoBehaviour
         SceneManager.LoadScene("Main Menu");
         Time.timeScale = 1;
     }
+
+
 }
