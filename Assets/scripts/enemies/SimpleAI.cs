@@ -4,6 +4,15 @@ using UnityEngine.SceneManagement;
 
 public class SimpleAI : MonoBehaviour
 {
+
+    public enum Color
+    {
+        Red,
+        Blue,
+        Green,
+        Yellow
+    }
+
     private enum State
     {
         Patrol,
@@ -25,13 +34,14 @@ public class SimpleAI : MonoBehaviour
 
     [SerializeField]
     private List<EnemyType> _types;
-
+    [SerializeField]
+    private Color _enemyColor = Color.Red;
     [SerializeField]
     private List<WeaponsAttached> _weapons;
     [SerializeField]
     private State _curState = State.Patrol;
     [SerializeField]
-    private GameObject _wayPointsHolder; 
+    private GameObject _wayPointsHolder;
     [SerializeField]
     private Transform _playerPos;
     [SerializeField]
@@ -44,11 +54,12 @@ public class SimpleAI : MonoBehaviour
     private float _jumpForce;
     [SerializeField]
     private float _reconizedPlayerRange = 7.5f;
-    float _stoppingDistance = 1; 
+    float _stoppingDistance = 1;
     //Placeholder VFX stuff
     [SerializeField]
     private GameObject _attackEffect;
-    
+    [SerializeField]
+    private EnemyStatusEffect _statusEffect; 
     
     private Rigidbody2D _rb;
     private int _selectedWeapon;
@@ -67,6 +78,7 @@ public class SimpleAI : MonoBehaviour
     public LayerMask IgnoreLayer { get { return _ignoreLayer; } }
     public GameObject AttackVFX { get { return _attackEffect;  } }
     public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
+    public Color EnemyColor { get { return _enemyColor;  } }
 
 
 
@@ -140,7 +152,8 @@ public class SimpleAI : MonoBehaviour
         SelectNewWeapon();
         SelectMovementComponent();
         ChangedState();
-
+        if (_statusEffect.Status == EnemyStatusEffect.EnemyStatus.Frozen)
+            return; 
         switch (_curState)
         {
             case State.Patrol:
