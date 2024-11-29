@@ -160,6 +160,42 @@ public class characterController : MonoBehaviour
 
     }
 
+    private void TransitionEndPlayerFeature() 
+    {
+        switch (statusData.currentState) 
+        {
+            case playerStates.dead:
+                break;
+            case playerStates.green:
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().endFeauture();
+                break;
+            case playerStates.red:
+                playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().endFeauture();
+                break; 
+            case playerStates.yellow:
+                playerFeatures.OfType<playerKamiboost>().FirstOrDefault().endFeauture();
+                break;
+            case playerStates.blue:
+                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
+                break;
+            default:
+                Debug.LogError("unhandlet state: " + statusData.currentState);
+                break; 
+        }
+    }
+
+    private void HandlePlayerBuffsForNewState(playerStates targetState) 
+    {
+        switch (targetState) 
+        {
+            case playerStates.blue: 
+                statusData.isOnFire = false;
+                break;
+            case playerStates.red: 
+                statusData.isFrozen = false;
+                break;
+        }
+    }
     public void transitionToState(playerStates targetState, bool force = false)
     {
         //super ugly. again so robin can test
@@ -179,180 +215,16 @@ public class characterController : MonoBehaviour
             Debug.LogWarning("is allready in target state");
             return;
         }
-
-        switch (statusData.currentState)
-        {
-            case playerStates.dead:
-                Debug.LogWarning("cant transition out of dead state");
-                break;
-
-            case playerStates.green:
-                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().endFeauture();
-                switch (targetState)
-                {
-                    case playerStates.dead:
-                        statusData.currentState = playerStates.dead;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.red:
-                        statusData.currentState = playerStates.red;
-
-                        statusData.isFrozen = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.blue:
-                        statusData.currentState = playerStates.blue;
-
-                        statusData.isOnFire = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.yellow:
-                        statusData.currentState = playerStates.yellow;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    default:
-                        Debug.LogError("state transition target not implemented");
-                        break;
-                }
-                break;
-
-            case playerStates.red:
-                playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().endFeauture();
-
-                switch (targetState)
-                {
-                    case playerStates.dead:
-                        statusData.currentState = playerStates.dead;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.green:
-                        statusData.currentState = playerStates.green;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.blue:
-                        statusData.currentState = playerStates.blue;
-
-                        statusData.isOnFire = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.yellow:
-                        statusData.currentState = playerStates.yellow;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    default:
-                        Debug.LogError("state transition target not implemented");
-                        break;
-                }
-                break;
-
-            case playerStates.blue:
-                //Magic Number shit? Why gravityScale = 1 bei blue, aber nicht bei gr�n?
-
-                // keanus sinnvolle antwort:
-                // sowie ich das wankranchseln gelöst habe setzt es den gravity scale vom player auf 0 beim klettern. 
-                // beendest du das kletern willst du das die gravity scale wieder auf 1 gesetzt wird. das passiert in dem player feature.
-                // wechselst du deinen state soll dies auch geschehen. das wird dan hier gehandelt. 
-                // wird angepasst damit das hier nicht mehr passiert.
-
-                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
-                //hier oben die angepoasste variante damits nichtmehr hier ist.
-                switch (targetState)
-                {
-                    case playerStates.dead:
-                        statusData.currentState = playerStates.dead;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.green:
-                        statusData.currentState = playerStates.green;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.red:
-                        statusData.currentState = playerStates.red;
-
-                        statusData.isFrozen = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.yellow:
-                        statusData.currentState = playerStates.yellow;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    default:
-                        Debug.LogError("state transition target not implemented");
-                        break;
-                }
-                break;
-
-            case playerStates.yellow:
-                playerFeatures.OfType<playerKamiboost>().FirstOrDefault().endFeauture();
-
-                switch (targetState)
-                {
-                    case playerStates.dead:
-                        statusData.currentState = playerStates.dead;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.green:
-                        statusData.currentState = playerStates.green;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.red:
-                        statusData.currentState = playerStates.red;
-
-                        statusData.isFrozen = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.blue:
-                        statusData.currentState = playerStates.blue;
-
-                        statusData.isOnFire = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    default:
-                        Debug.LogError("state transition target not implemented");
-                        break;
-                }
-                break;
-
-            default:
-                Debug.LogError("state transition origin not implemented");
-                break;
-        }
-
+        TransitionEndPlayerFeature();
+        statusData.currentState = targetState;
+        transitionSuccesful = statusData.currentState == targetState; 
         if (transitionSuccesful)
         {
+            HandlePlayerBuffsForNewState(targetState);
             Debug.Log("transition from " + originState.ToString() + " to " + targetState.ToString());
+        } else 
+        {
+            Debug.LogError("Transition failed"); 
         }
     }
 
