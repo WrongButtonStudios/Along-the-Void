@@ -179,7 +179,7 @@ public class characterController : MonoBehaviour
                 playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
                 break;
             default:
-                Debug.LogError("unhandlet state: " + statusData.currentState);
+                Debug.LogError("unhandled state: " + statusData.currentState);
                 break; 
         }
     }
@@ -194,6 +194,9 @@ public class characterController : MonoBehaviour
             case playerStates.red: 
                 statusData.isFrozen = false;
                 break;
+            default:
+                Debug.Log("nothing changed on current player buffs");
+                break; 
         }
     }
     public void transitionToState(playerStates targetState, bool force = false)

@@ -2163,6 +2163,10 @@ PrefabInstance:
       propertyPath: _playerPos
       value: 
       objectReference: {fileID: 523573452}
+    - target: {fileID: 3084580096809157857, guid: 1728a02253ebf462aa1207356e666153, type: 3}
+      propertyPath: _statusEffect
+      value: 
+      objectReference: {fileID: 1303540157}
     - target: {fileID: 4222125195175678737, guid: 1728a02253ebf462aa1207356e666153, type: 3}
       propertyPath: m_GravityScale
       value: 0
