@@ -13,7 +13,7 @@ public class InputController : MonoBehaviour
 
     //public gettter 
     public bool DashInput { get { return dashInput; } }
-    public bool LastDashInput { get { return lastDashInput; } }
+    public bool LastDashInput; 
     public bool TriggerPlayerFeatureInput { get { return triggerPlayerFeatureInput; } }
     public Vector2 MoveInput { get { return moveInput; } }
     public void getMoveInput(InputAction.CallbackContext context)

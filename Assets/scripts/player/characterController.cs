@@ -54,6 +54,8 @@ public class characterController : MonoBehaviour
     private CollisionHandler _collision;
     [SerializeField]
     private CharachterBuffs _buffs;
+    [SerializeField]
+    private InputController _input; 
 
     private void Awake()
     {
@@ -84,7 +86,7 @@ public class characterController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        statusData.isMoving = moveInput.x != 0;
+        statusData.isMoving = _input.MoveInput.x != 0;
 
 
         _movement.ClampVelocity();
@@ -94,7 +96,7 @@ public class characterController : MonoBehaviour
 
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, _movement.GetMaxSpeed());
 
-        lastDashInput = dashInput;
+        _input.LastDashInput = _input.DashInput;
     }
 
     public void handleStates()
@@ -112,7 +114,6 @@ public class characterController : MonoBehaviour
 
             case playerStates.green:
                 playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, triggerPlayerFeatureInput);
-
                 break;
 
             case playerStates.red:

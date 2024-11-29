@@ -701,6 +701,7 @@ MonoBehaviour:
   _movement: {fileID: 523573458}
   _collision: {fileID: 523573455}
   _buffs: {fileID: 523573457}
+  _input: {fileID: 523573456}
 --- !u!114 &523573455
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -730,6 +731,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84471dd0ac9ee8b48a104106c06e64db, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  LastDashInput: 0
 --- !u!114 &523573457
 MonoBehaviour:
   m_ObjectHideFlags: 0
