@@ -50,7 +50,7 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
     public void triggerFeauture(bool useInput = false, bool input = false)
     {
         if (!characterController.getPlayerStatus().isGrounded) return;
-
+        Debug.Log("reverse gravity mf"); 
         List<Collider2D> colliders = new List<Collider2D>();
         characterController.rb.OverlapCollider(contactFilter, colliders);
 

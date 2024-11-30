@@ -111,6 +111,7 @@ public class CharachterMovement : MonoBehaviour
 
         if (_input.DashInput && !_input.LastDashInput && !_controller.StatusData.isDash)
         {
+            Debug.Log("Execute dash..."); 
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed);
 
