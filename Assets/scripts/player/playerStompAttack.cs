@@ -13,6 +13,11 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
     private bool doShit = false;
 
+    private void Start()
+    {
+        _movement = this.GetComponent<CharachterMovement>(); 
+    }
+
     public void FixedUpdate()
     {
         if(characterController.getPlayerStatus().isGrounded)

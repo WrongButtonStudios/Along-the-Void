@@ -714,11 +714,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d265431282f6414bb37a664adbd1c8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _cc: {fileID: 523573454}
+  _cc: {fileID: 0}
   _movement: {fileID: 523573458}
   _groundLayer:
     serializedVersion: 2
-    m_Bits: 64
+    m_Bits: 0
 --- !u!114 &523573456
 MonoBehaviour:
   m_ObjectHideFlags: 0
