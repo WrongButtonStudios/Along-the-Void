@@ -48,13 +48,9 @@ public class characterController : MonoBehaviour
     private bool triggerPlayerFeatureInput;
 
     //Dependencys 
-    [SerializeField]
     private CharachterMovement _movement;
-    [SerializeField]
     private CollisionHandler _collision;
-    [SerializeField]
     private CharachterBuffs _buffs;
-    [SerializeField]
     private InputController _input; 
 
     private void Awake()
@@ -82,6 +78,12 @@ public class characterController : MonoBehaviour
         {
             iplayerFeature.initFeauture(this);
         }
+
+        //load in Dependencys
+        _movement = this.GetComponent<CharachterMovement>();
+        _collision = this.GetComponent<CollisionHandler>();
+        _buffs = this.GetComponent<CharachterBuffs>();
+        _input = this.GetComponent<InputController>(); 
     }
 
     private void FixedUpdate()
