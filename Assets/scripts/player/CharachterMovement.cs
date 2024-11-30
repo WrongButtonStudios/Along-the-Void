@@ -62,6 +62,7 @@ public class CharachterMovement : MonoBehaviour
     {
         return maxSpeed; 
     }
+
     public void disableMovement()
     {
         _controller.StatusData.isAllowedToMove = false;

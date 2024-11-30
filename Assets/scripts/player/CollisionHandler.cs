@@ -7,9 +7,7 @@ using UnityEngine.SceneManagement;
 public class CollisionHandler : MonoBehaviour
 {
     private fairyController _fairyController = null;
-    [SerializeField]
-    private characterController _cc;
-    [SerializeField]
+    private characterController _cc; 
     private CharachterMovement _movement;
 
     [SerializeField]
@@ -26,7 +24,8 @@ public class CollisionHandler : MonoBehaviour
     private void Start()
     {
         _fairyController = GameObject.FindObjectOfType<fairyController>();
-        _cc = this.gameObject.GetComponent<characterController>(); 
+        _cc = this.gameObject.GetComponent<characterController>();
+        _movement = this.GetComponent<CharachterMovement>(); 
     }
 
     public bool checkGrounded(out RaycastHit2D hit)
