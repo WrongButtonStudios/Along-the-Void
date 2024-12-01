@@ -42,7 +42,7 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "purerHass",
+                    "name": "Pausemenu",
                     "type": "Button",
                     "id": "8c18c11b-2c9f-4ab3-b6ac-a4d7dacee3ff",
                     "expectedControlType": "",
@@ -268,7 +268,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";keyboard",
-                    "action": "purerHass",
+                    "action": "Pausemenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }
