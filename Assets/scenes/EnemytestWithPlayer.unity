@@ -503,6 +503,9 @@ GameObject:
   - component: {fileID: 523573451}
   - component: {fileID: 523573453}
   - component: {fileID: 523573455}
+  - component: {fileID: 523573458}
+  - component: {fileID: 523573457}
+  - component: {fileID: 523573456}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -615,8 +618,8 @@ MonoBehaviour:
   m_ActionEvents:
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 523573454}
-        m_TargetAssemblyTypeName: characterController, Assembly-CSharp
+      - m_Target: {fileID: 523573456}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
         m_MethodName: getMoveInput
         m_Mode: 0
         m_Arguments:
@@ -631,8 +634,8 @@ MonoBehaviour:
     m_ActionName: characterController/move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
   - m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 523573454}
-        m_TargetAssemblyTypeName: characterController, Assembly-CSharp
+      - m_Target: {fileID: 523573456}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
         m_MethodName: getDashInput
         m_Mode: 0
         m_Arguments:
@@ -662,7 +665,19 @@ MonoBehaviour:
     m_ActionId: 2038674b-aad1-4c96-a0b0-acc334e945cf
     m_ActionName: characterController/fairySelect[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
   - m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 523573456}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: getTriggerPlayerFeatureInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_ActionId: d3e9e9f6-a1ec-4a87-8586-d35b7832d607
     m_ActionName: characterController/triggertPlayerFeature[/Keyboard/q]
   - m_PersistentCalls:
@@ -695,6 +710,58 @@ MonoBehaviour:
     isDash: 0
     isFrozen: 0
     isOnFire: 0
+--- !u!114 &523573455
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523573449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d265431282f6414bb37a664adbd1c8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundLayer:
+    serializedVersion: 2
+    m_Bits: 64
+--- !u!114 &523573456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523573449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 84471dd0ac9ee8b48a104106c06e64db, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  LastDashInput: 0
+--- !u!114 &523573457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523573449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 09121ba89c02e0c4db4c5034990627f8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &523573458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 523573449}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c342cc3f29474c84cbf034791ab8e603, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
   maxMovementSpeed: 60
   maxSpeedChangeSpeed: 1
   acceleration: 100
@@ -735,18 +802,8 @@ MonoBehaviour:
   deccendGravityMultiplier: 1.5
   dashStrenght: 15
   dashMaxSpeed: 100
---- !u!114 &523573455
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 523573449}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4d265431282f6414bb37a664adbd1c8d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _controller: {fileID: 523573454}
+  _input: {fileID: 523573456}
 --- !u!1 &787400016
 GameObject:
   m_ObjectHideFlags: 3
@@ -1258,6 +1315,35 @@ Transform:
   - {fileID: 940425404}
   m_Father: {fileID: 523573452}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1303540149 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 7718880005212449956, guid: 1728a02253ebf462aa1207356e666153, type: 3}
+  m_PrefabInstance: {fileID: 2000314276}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1303540155 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3084580096809157857, guid: 1728a02253ebf462aa1207356e666153, type: 3}
+  m_PrefabInstance: {fileID: 2000314276}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303540149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 86dd44ee85f1c7241a44c323c3b2aa88, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1303540157
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1303540149}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1149e31d4b254cebb4b39567917f851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entity: {fileID: 1303540155}
 --- !u!1 &1659808815
 GameObject:
   m_ObjectHideFlags: 0
@@ -2085,6 +2171,10 @@ PrefabInstance:
       propertyPath: _playerPos
       value: 
       objectReference: {fileID: 523573452}
+    - target: {fileID: 3084580096809157857, guid: 1728a02253ebf462aa1207356e666153, type: 3}
+      propertyPath: _statusEffect
+      value: 
+      objectReference: {fileID: 1303540157}
     - target: {fileID: 4222125195175678737, guid: 1728a02253ebf462aa1207356e666153, type: 3}
       propertyPath: m_GravityScale
       value: 0
@@ -2103,7 +2193,10 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 6908817925292692402, guid: 1728a02253ebf462aa1207356e666153, type: 3}
       insertIndex: -1
       addedObject: {fileID: 874357809}
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 7718880005212449956, guid: 1728a02253ebf462aa1207356e666153, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1303540157}
   m_SourcePrefab: {fileID: 100100000, guid: 1728a02253ebf462aa1207356e666153, type: 3}
 --- !u!1 &2008749117
 GameObject:

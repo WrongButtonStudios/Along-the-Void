@@ -9,8 +9,14 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
     [SerializeField] private float downForce = 300f;
     [SerializeField] private float maxSpeed = 150f;
+    [SerializeField] private CharacterMovement _movement; 
 
     private bool doShit = false;
+
+    private void Start()
+    {
+        _movement = this.GetComponent<CharacterMovement>(); 
+    }
 
     public void FixedUpdate()
     {
@@ -21,7 +27,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
         if(doShit)
         {
-            characterController.setMaxSpeed(maxSpeed);
+         _movement.setMaxSpeed(maxSpeed);
             characterController.rb.AddForce(Vector2.down * downForce, ForceMode2D.Force);
         }
     }

@@ -17,6 +17,8 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
     public blueSlime currentBlueSlime;
 
     private float currentPosOnLine;
+    private InputController _input;
+    private CharacterMovement _movement; 
 
     public void Awake()
     {
@@ -25,8 +27,14 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
         contactFilter.useTriggers = true;
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = layerMask;
+
     }
 
+    void Start() 
+    {
+        _input = this.GetComponent<InputController>(); 
+        _movement = this.GetComponent<CharacterMovement>();
+    }
     public void FixedUpdate()
     {
         if(currentBlueSlime == null)
@@ -34,7 +42,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
             return;
         }
 
-        currentPosOnLine += -characterController.returnMoveInput().y / 100;
+        currentPosOnLine += -_input.MoveInput.y / 100;
         currentPosOnLine = Mathf.Clamp(currentPosOnLine, 0, 1);
 
         getPositionOnLine(currentBlueSlime.getLine(), currentPosOnLine, out Vector2 pos);
@@ -58,7 +66,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
             {
                 currentBlueSlime = colliders[0].GetComponent<blueSlime>();
 
-                characterController.disableMovement();
+                _movement.disableMovement();
 
                 getClosestPointOnLine(out Vector2 closestPointOnLine, out float posOnLine);
                 characterController.rb.MovePosition(closestPointOnLine);
@@ -76,7 +84,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
     {
         currentBlueSlime = null;
 
-        characterController.enableMovement();
+        _movement.enableMovement();
     }
 
     public void OnTriggerExit2D(Collider2D collider)
