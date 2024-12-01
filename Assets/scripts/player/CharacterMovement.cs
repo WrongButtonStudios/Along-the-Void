@@ -121,7 +121,8 @@ public class CharacterMovement : MonoBehaviour
             }
             else
             {
-                _controller.rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
+                //_controller.rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
+                Debug.LogError("Es gibt kein Sprung Keanu!!!!!! Das ist gegegens Game Design! Beste Grüße, dein Nils <3"); 
             }
         }
     }
