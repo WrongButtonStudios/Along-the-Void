@@ -191,15 +191,6 @@ public class SimpleAI : MonoBehaviour
         return false;
     }
 
-    //TO-DO: remove this when enemys leave the testing phase outside of the game
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.CompareTag("Player"))
-        {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().name); 
-        }
-    }
-
     private void SelectNewWeapon()
     {
         if (_attackComponents[_selectedWeapon].FinnishedAttack())
