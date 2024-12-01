@@ -6,7 +6,9 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private bool _isCoolingDown = false;
     private float _bodyCheckSpeed;
     private bool _bodyCheck = false;
-    private bool _finnishedAttacking; 
+    private bool _finnishedAttacking;
+    private bool _isAttacking;
+
     public void Attack()
     {
         BodyCheck(); 
@@ -25,6 +27,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void BodyCheck()
     {
+        _isAttacking = true; 
         Vector2 pos = _entity.transform.position;
         Vector2 ChargeDir = (_entity.PlayerPos - pos).normalized;
 
@@ -45,12 +48,13 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             _bodyCheck = false; 
             _isCoolingDown = true;
             _entity.RB.AddForce(ChargeDir * _bodyCheckSpeed, ForceMode2D.Impulse);
-            _finnishedAttacking = false; 
+            _finnishedAttacking = true; 
         }
 
         if (IsGrounded() && _isCoolingDown)
         {
-            _finnishedAttacking = false; 
+            _finnishedAttacking = false;
+            _isAttacking = false; 
         }
     }
 
@@ -68,5 +72,8 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         _finnishedAttacking = false; 
     }
 
-
+    public bool IsAttacking()
+    {
+        return _isAttacking; 
+    }
 }

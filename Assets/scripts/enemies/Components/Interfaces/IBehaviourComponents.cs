@@ -9,6 +9,7 @@ public interface IAttackComponent : IComponent
 {
     public void Attack();
     public bool FinnishedAttack();
+    public bool IsAttacking(); 
     public void ResetAttackStatus(); 
 }
 

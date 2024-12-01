@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
@@ -12,10 +13,10 @@ public class CollisionHandler : MonoBehaviour
 
     [SerializeField]
     private LayerMask _groundLayer; 
-    private enum PlayerColor 
+    public enum PlayerColor 
     {
-        red, 
         green, 
+        red, 
         blue, 
         yellow,
         unknown
@@ -26,6 +27,20 @@ public class CollisionHandler : MonoBehaviour
         _fairyController = GameObject.FindObjectOfType<fairyController>();
         _cc = this.gameObject.GetComponent<characterController>();
         _movement = this.GetComponent<CharacterMovement>(); 
+    }
+
+    public void GetDamage(float v, PlayerColor colorRequiered)
+    {
+        for (int i = 0; i < _fairyController.fairys.Capacity; ++i)
+        {
+            if ((int)_fairyController.fairys[i].color == (int)colorRequiered)
+            {
+                //deale damage
+                _fairyController.fairys[i].colorAmount -= v;
+                Debug.Log(_fairyController.fairys[i].colorAmount);
+                break;
+            }
+        }
     }
 
     public bool checkGrounded(out RaycastHit2D hit)
@@ -81,22 +96,13 @@ public class CollisionHandler : MonoBehaviour
         
         if (collision.gameObject.layer == 19 && playerColor == PlayerColor.red) 
         {
-            Debug.Log("Autsch roter spike"); 
+            Debug.Log("Autsch roter spike");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name)
-            for(int i = 0; i < _fairyController.fairys.Capacity; ++i)
-            {
-                if (_fairyController.fairys[i].color == fairy.fairyColor.red)
-                {
-                    //deale damage
-                    _fairyController.fairys[i].colorAmount -= 0.25f;
-                    Debug.Log(_fairyController.fairys[i].colorAmount); 
-                    break; 
-                }
-            }
+            GetDamage(0.25f, PlayerColor.red);
         }
     }
 
-    private PlayerColor GetPlayerColor() 
+    public PlayerColor GetPlayerColor() 
     {
         if (_cc.getPlayerStatus().currentState == characterController.playerStates.red || _cc.getPlayerStatus().currentState == characterController.playerStates.burntRed)
         {

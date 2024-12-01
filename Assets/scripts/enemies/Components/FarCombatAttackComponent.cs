@@ -9,7 +9,8 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     private float _speed = 100f;
     private Rigidbody2D _rb;
     private bool _isCoolingDown = false;
-    private bool _finnishedAttacking; 
+    private bool _finnishedAttacking;
+    public bool _isAttacking = false; 
 
     public void Init(SimpleAI entity)
     {
@@ -19,6 +20,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     {
         if (!_isCoolingDown)
         {
+            _isAttacking = true; 
             _isCoolingDown = true;
             _attackEffect = Instantiate(_entity.AttackVFX, _entity.transform.position, Quaternion.identity);
              _rb = _attackEffect.GetComponent<Rigidbody2D>(); 
@@ -27,6 +29,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
                  _rb = _attackEffect.AddComponent<Rigidbody2D>();
              }
              FireSlimeBall();
+            _isAttacking = false; 
             StartCoroutine(CoolDown()); 
         }
     }
@@ -61,5 +64,10 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     public void ResetAttackStatus()
     {
         _finnishedAttacking = false; 
+    }
+
+    public bool IsAttacking()
+    {
+        return _isAttacking; 
     }
 }

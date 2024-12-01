@@ -209,5 +209,8 @@ public class SimpleAI : MonoBehaviour
         }
     }
 
-
+    public IAttackComponent GetActiveAttackComponent()
+    {
+        return _attackComponents[_selectedWeapon]; 
+    }
 }
