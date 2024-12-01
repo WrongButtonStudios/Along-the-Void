@@ -9,13 +9,13 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
     [SerializeField] private float downForce = 300f;
     [SerializeField] private float maxSpeed = 150f;
-    [SerializeField] private CharachterMovement _movement; 
+    [SerializeField] private CharacterMovement _movement; 
 
     private bool doShit = false;
 
     private void Start()
     {
-        _movement = this.GetComponent<CharachterMovement>(); 
+        _movement = this.GetComponent<CharacterMovement>(); 
     }
 
     public void FixedUpdate()
