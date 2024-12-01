@@ -1,6 +1,7 @@
 using UnityEngine;
 public class Mushroom : MonoBehaviour
 {
+    [ExecuteAlways]
     public float JumpForce = 25f;
     [SerializeField] private GameObject player;
     private characterController playerController;
@@ -16,20 +17,18 @@ public class Mushroom : MonoBehaviour
         {
             Debug.LogError("Player not found! Make sure there is a GameObject tagged as 'Player'.");
         }
-
-        JumpForce = GetComponent<Mushroom>().JumpForce;
     }
     private void Update()
     {
         if (playerController.getPlayerStatus().currentState == characterController.playerStates.green)
         {
-            GetComponent<CapsuleCollider2D>().enabled = true;
+            GetComponent<BoxCollider2D>().enabled = true;
         }
 
         else
         {
             {
-                GetComponent<CapsuleCollider2D>().enabled = false;
+                GetComponent<BoxCollider2D>().enabled = false;
             }
         }
     }

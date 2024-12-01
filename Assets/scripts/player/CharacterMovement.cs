@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CharachterMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
 
     private float maxSpeed;
@@ -62,6 +62,7 @@ public class CharachterMovement : MonoBehaviour
     {
         return maxSpeed; 
     }
+
     public void disableMovement()
     {
         _controller.StatusData.isAllowedToMove = false;
@@ -110,6 +111,7 @@ public class CharachterMovement : MonoBehaviour
 
         if (_input.DashInput && !_input.LastDashInput && !_controller.StatusData.isDash)
         {
+            Debug.Log("Execute dash..."); 
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed);
 

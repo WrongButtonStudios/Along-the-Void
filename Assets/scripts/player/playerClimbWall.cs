@@ -18,7 +18,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
 
     private float currentPosOnLine;
     private InputController _input;
-    private CharachterMovement _movement; 
+    private CharacterMovement _movement; 
 
     public void Awake()
     {
@@ -33,7 +33,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
     void Start() 
     {
         _input = this.GetComponent<InputController>(); 
-        _movement = this.GetComponent<CharachterMovement>();
+        _movement = this.GetComponent<CharacterMovement>();
     }
     public void FixedUpdate()
     {
