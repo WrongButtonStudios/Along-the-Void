@@ -48,6 +48,7 @@ GameObject:
   - component: {fileID: 6218677396020010743}
   - component: {fileID: 6828278771258527970}
   - component: {fileID: 7149369088525759097}
+  - component: {fileID: 8433209108079582829}
   m_Layer: 3
   m_Name: Enemy
   m_TagString: Untagged
@@ -135,12 +136,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _types: 00000000
+  _enemyColor: 0
   _weapons: 00000000
   _curState: 2
-  _wayPoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  _wayPointsHolder: {fileID: 307357165916198810}
   _playerPos: {fileID: 0}
   _speed: 10
   _attackRange: 8
@@ -150,6 +149,7 @@ MonoBehaviour:
   _jumpForce: 7
   _reconizedPlayerRange: 15
   _attackEffect: {fileID: 3521297393984580208, guid: d083a79c39bc94f23bd2410af0ea2e48, type: 3}
+  _statusEffect: {fileID: 8433209108079582829}
 --- !u!50 &2645315878321888483
 Rigidbody2D:
   serializedVersion: 4
@@ -271,6 +271,19 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _health: 10
   _colorItem: {fileID: 5153027381051683973, guid: d8557764941084010bc525a4bf96f32f, type: 3}
+--- !u!114 &8433209108079582829
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 431113496814487339}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d1149e31d4b254cebb4b39567917f851, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entity: {fileID: 3868494440188138871}
 --- !u!1 &4089601838756030552
 GameObject:
   m_ObjectHideFlags: 0

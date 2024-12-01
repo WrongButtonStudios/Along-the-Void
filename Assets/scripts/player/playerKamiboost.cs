@@ -6,7 +6,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 {
 
     private characterController characterController;
-    private CharachterMovement characterMovement;
+    private CharacterMovement characterMovement;
     private ContactFilter2D contactFilter = new ContactFilter2D();
     private string defaultLayerName = "yellowDustArea";
     public int kamiBoostSpeed = 300;
@@ -28,7 +28,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     public void initFeauture(characterController characterController)
     {
         this.characterController = characterController;
-        this.characterMovement = characterController.GetComponent<CharachterMovement>();
+        this.characterMovement = characterController.GetComponent<CharacterMovement>();
     }
 
 
