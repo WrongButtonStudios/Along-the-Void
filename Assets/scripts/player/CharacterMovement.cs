@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CharachterMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
 
     private float maxSpeed;

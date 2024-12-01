@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using static characterController;
 
-public class CharachterDebuffs : MonoBehaviour
+public class CharacterDebuffs : MonoBehaviour
 {
     // Start is called before the first frame update
     private characterController _controller; 

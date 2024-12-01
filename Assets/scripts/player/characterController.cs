@@ -43,9 +43,9 @@ public class characterController : MonoBehaviour
     private List<IplayerFeature> playerFeatures = new List<IplayerFeature>();
 
     //Dependencys 
-    private CharachterMovement _movement;
+    private CharacterMovement _movement;
     private CollisionHandler _collision;
-    private CharachterDebuffs _buffs;
+    private CharacterDebuffs _buffs;
     private InputController _input; 
 
     private void Awake()
@@ -75,9 +75,9 @@ public class characterController : MonoBehaviour
         }
 
         //load in Dependencys
-        _movement = this.GetComponent<CharachterMovement>();
+        _movement = this.GetComponent<CharacterMovement>();
         _collision = this.GetComponent<CollisionHandler>();
-        _buffs = this.GetComponent<CharachterDebuffs>();
+        _buffs = this.GetComponent<CharacterDebuffs>();
         _input = this.GetComponent<InputController>(); 
     }
 
