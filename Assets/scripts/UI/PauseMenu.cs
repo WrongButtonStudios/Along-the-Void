@@ -7,20 +7,23 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] GameObject optionsCanvas;
     private static PauseMenu instance;
     private Vector2 respawnPos = new Vector2(0, 0);
-    public GameObject player;
+    private GameObject player;
     void Awake()
     {
-        DontDestroyOnLoad(gameObject); // Verhindert, dass dieses Objekt zerstört wird
-        if (instance == null)
+        if (GetComponent<characterController>() != null)
         {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
+            DontDestroyOnLoad(gameObject); // Verhindert, dass dieses Objekt zerstört wird
+            if (instance == null)
+            {
+                instance = this;
+                DontDestroyOnLoad(gameObject);
+            }
+            else
+            {
+                Destroy(gameObject); // Zerstöre zusätzliche Instanzen
+            }
+            respawnPos = new Vector2(player.transform.position.x, player.transform.position.y);
         }
-        else
-        {
-            Destroy(gameObject); // Zerstöre zusätzliche Instanzen
-        }
-        respawnPos = new Vector2(player.transform.position.x, player.transform.position.y);
     }
 
     private void Update()
@@ -52,6 +55,7 @@ public class PauseMenu : MonoBehaviour
     public void RespawnButton()
     {
 
+        if (GetComponent<characterController>() != null)
         {
             characterController cc = gameObject.GetComponent<characterController>();
             cc.rb.velocity = Vector2.zero;

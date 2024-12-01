@@ -479,7 +479,7 @@ GameObject:
   m_Component:
   - component: {fileID: 390963452}
   m_Layer: 0
-  m_Name: Checkpoint1 (2)
+  m_Name: Checkpoint3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -641,7 +641,7 @@ Transform:
   m_GameObject: {fileID: 795057318}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -1.332, y: 0.9, z: -0.2003384}
+  m_LocalPosition: {x: -1.53, y: 9.2, z: -0.2003384}
   m_LocalScale: {x: 0.15795542, y: 2.7277687, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -2300,7 +2300,7 @@ GameObject:
   - component: {fileID: 2142117475}
   - component: {fileID: 2142117474}
   - component: {fileID: 2142117473}
-  - component: {fileID: 2142117472}
+  - component: {fileID: 2142117477}
   - component: {fileID: 2142117476}
   m_Layer: 0
   m_Name: Platform
@@ -2309,21 +2309,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!114 &2142117472
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2142117471}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63cd409f47f7d5447a4dccb7887206c4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 5
-  waypoints: []
-  forward: 0
 --- !u!61 &2142117473
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -2466,6 +2451,21 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &2142117477
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2142117471}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 52f045e0f91312e4783f187be45e7a54, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  waypoints: []
+  forward: 1
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
