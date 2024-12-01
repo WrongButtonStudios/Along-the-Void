@@ -45,7 +45,7 @@ public class characterController : MonoBehaviour
     //Dependencys 
     private CharachterMovement _movement;
     private CollisionHandler _collision;
-    private CharachterBuffs _buffs;
+    private CharachterDebuffs _buffs;
     private InputController _input; 
 
     private void Awake()
@@ -77,7 +77,7 @@ public class characterController : MonoBehaviour
         //load in Dependencys
         _movement = this.GetComponent<CharachterMovement>();
         _collision = this.GetComponent<CollisionHandler>();
-        _buffs = this.GetComponent<CharachterBuffs>();
+        _buffs = this.GetComponent<CharachterDebuffs>();
         _input = this.GetComponent<InputController>(); 
     }
 
