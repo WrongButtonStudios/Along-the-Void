@@ -19,7 +19,7 @@ public class InputController : MonoBehaviour
     public void getMoveInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-        Debug.Log(moveInput); 
+        //Debug.Log(moveInput); 
     }
 
     public void getDashInput(InputAction.CallbackContext context)

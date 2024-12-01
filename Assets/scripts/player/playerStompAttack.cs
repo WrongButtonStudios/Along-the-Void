@@ -35,6 +35,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
     public void initFeauture(characterController characterController)
     {
         this.characterController = characterController;
+        Debug.LogError("this feature needs input to work!");
     }
 
     public void triggerFeauture(bool useInput = false, bool input = false)
