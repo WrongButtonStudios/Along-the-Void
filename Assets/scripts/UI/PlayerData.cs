@@ -1,11 +1,10 @@
 using System.Collections;
 using System.Collections.Generic;
-using UnityEditorInternal;
 using UnityEngine;
 
 public class PlayerData
 {
-    static int[] numberOfFairies; 
+    static int[] numberOfFairies;
     static int numberOfGreenFairy = 1;
     static int numberOfRedFairy;
     static int numberOfBlueFairy;

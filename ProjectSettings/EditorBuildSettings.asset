@@ -26,18 +26,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/scenes/Robins_Spielwiese.unity
     guid: 92bcee1a8b300984da8e61131e4cdf3b
-  - enabled: 0
-    path: Assets/scenes/EnemyTestScene.unity
-    guid: c4cfc88941b44894db8ed9386e2651f2
-  - enabled: 0
-    path: Assets/scenes/slimeballtese.unity
-    guid: f425ef9c6f4d24143b65c115eb7a3470
   - enabled: 1
     path: Assets/scenes/Testing Rooms.unity
     guid: f6ff3776edefbad47821b49a47a42d66
-  - enabled: 0
-    path: Assets/scenes/visuelnovel.unity
-    guid: bb5dfc1fc21a14341a9f90d5db8b2d63
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: 676964add9f2cb8409ab34deca54c42d, type: 2}
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: eb2909755d28aa54da4635f816b42fbe, type: 3}
