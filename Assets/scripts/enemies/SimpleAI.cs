@@ -79,6 +79,7 @@ public class SimpleAI : MonoBehaviour
     public GameObject AttackVFX { get { return _attackEffect;  } }
     public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
     public Color EnemyColor { get { return _enemyColor;  } }
+    public float MaxRange { get { return _attackRange; } }
 
 
 
