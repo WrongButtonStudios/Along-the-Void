@@ -80,6 +80,7 @@ public class SimpleAI : MonoBehaviour
     public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
     public Color EnemyColor { get { return _enemyColor;  } }
     public float MaxRange { get { return _attackRange; } }
+    public EnemyStatusEffect StatusEffect { get { return _statusEffect; } }
 
 
 
@@ -174,6 +175,8 @@ public class SimpleAI : MonoBehaviour
         float distance = Vector2.Distance(_playerPos.position, transform.position);
         if (distance < _reconizedPlayerRange && distance > _attackRange && _curState != State.Hount)
         {
+            if(_curState == State.Attack)
+                _attackComponents[_selectedWeapon].Exit();
             _curState = State.Hount;
             return true;
         }
@@ -186,6 +189,8 @@ public class SimpleAI : MonoBehaviour
 
         if (Vector2.Distance(_playerPos.position, transform.position) > _reconizedPlayerRange && _curState != State.Patrol)
         {
+            if (_curState == State.Attack)
+                _attackComponents[_selectedWeapon].Exit();
             _curState = State.Patrol;
             return true;
         }

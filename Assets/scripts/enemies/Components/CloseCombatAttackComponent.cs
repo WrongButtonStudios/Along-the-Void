@@ -37,11 +37,6 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         }
     }
 
-    void FixedUpdate() // remove this after debugging
-    {
-        Debug.Log(_curPhase + " " + _entity.RB.velocity.magnitude); 
-    }
-
     public bool FinnishedAttack()
     {
         return _finnishedAttacking; 
@@ -104,7 +99,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         Vector2 distance = ((Vector2)_entity.transform.position - _entity.PlayerPos); //variable has bad naming but i dont know a better one
         _entity.RB.AddForce(distance.normalized * _entity.Speed);
         float distanceSqr = distance.sqrMagnitude;
-        if (distanceSqr > (2 * 2) && distanceSqr < (4 * 4))
+        if (distanceSqr < (5 * 5) == false)
         {
             _curPhase = AttackPhases.Charge;
             _isCoolingDown = false;
@@ -141,5 +136,10 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     public bool IsAttacking()
     {
         return _isAttacking; 
+    }
+
+    public void Exit()
+    {
+        Unfreeze(); 
     }
 }
