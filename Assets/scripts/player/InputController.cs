@@ -19,6 +19,7 @@ public class InputController : MonoBehaviour
     public void getMoveInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
+        //Debug.Log(moveInput); 
     }
 
     public void getDashInput(InputAction.CallbackContext context)
@@ -26,6 +27,7 @@ public class InputController : MonoBehaviour
         if (context.performed)
         {
             dashInput = true;
+
         }
         else if (context.canceled)
         {
@@ -43,5 +45,10 @@ public class InputController : MonoBehaviour
         {
             triggerPlayerFeatureInput = false;
         }
+    }
+
+    public void ResetTriggerPlayerFeature()
+    {
+        triggerPlayerFeatureInput = false; 
     }
 }

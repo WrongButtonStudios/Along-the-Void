@@ -9,13 +9,13 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
     [SerializeField] private float downForce = 300f;
     [SerializeField] private float maxSpeed = 150f;
-    [SerializeField] private CharachterMovement _movement; 
+    [SerializeField] private CharacterMovement _movement; 
 
     private bool doShit = false;
 
     private void Start()
     {
-        _movement = this.GetComponent<CharachterMovement>(); 
+        _movement = this.GetComponent<CharacterMovement>(); 
     }
 
     public void FixedUpdate()
@@ -35,6 +35,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
     public void initFeauture(characterController characterController)
     {
         this.characterController = characterController;
+        Debug.LogError("this feature needs input to work!");
     }
 
     public void triggerFeauture(bool useInput = false, bool input = false)

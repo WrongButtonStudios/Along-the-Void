@@ -42,15 +42,10 @@ public class characterController : MonoBehaviour
 
     private List<IplayerFeature> playerFeatures = new List<IplayerFeature>();
 
-    private Vector2 moveInput;
-    private bool dashInput;
-    private bool lastDashInput;
-    private bool triggerPlayerFeatureInput;
-
     //Dependencys 
-    private CharachterMovement _movement;
+    private CharacterMovement _movement;
     private CollisionHandler _collision;
-    private CharachterBuffs _buffs;
+    private CharacterDebuffs _buffs;
     private InputController _input; 
 
     private void Awake()
@@ -80,9 +75,9 @@ public class characterController : MonoBehaviour
         }
 
         //load in Dependencys
-        _movement = this.GetComponent<CharachterMovement>();
+        _movement = this.GetComponent<CharacterMovement>();
         _collision = this.GetComponent<CollisionHandler>();
-        _buffs = this.GetComponent<CharachterBuffs>();
+        _buffs = this.GetComponent<CharacterDebuffs>();
         _input = this.GetComponent<InputController>(); 
     }
 
@@ -115,34 +110,34 @@ public class characterController : MonoBehaviour
             case playerStates.burntYellow:
 
             case playerStates.green:
-                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, triggerPlayerFeatureInput);
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, _input.TriggerPlayerFeatureInput);
                 break;
 
             case playerStates.red:
 
-                if (triggerPlayerFeatureInput)
+                if (_input.TriggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().triggerFeauture();
 
-                    triggerPlayerFeatureInput = false;
+                    _input.ResetTriggerPlayerFeature();
                 }
                 break;
 
             case playerStates.blue:
-                if (triggerPlayerFeatureInput)
+                if (_input.TriggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
 
-                    triggerPlayerFeatureInput = false;
+                    _input.ResetTriggerPlayerFeature();
                 }
                 break;
 
             case playerStates.yellow:
-                if (triggerPlayerFeatureInput)
+                if (_input.TriggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture();
 
-                    triggerPlayerFeatureInput = false;
+                    _input.ResetTriggerPlayerFeature();
                 }
                 break;
 

@@ -6,8 +6,10 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 {
 
     private characterController characterController;
+    private CharacterMovement characterMovement;
     private ContactFilter2D contactFilter = new ContactFilter2D();
     private string defaultLayerName = "yellowDustArea";
+    public int kamiBoostSpeed = 300;
 
     public LayerMask layerMask;
 
@@ -26,7 +28,10 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     public void initFeauture(characterController characterController)
     {
         this.characterController = characterController;
+        this.characterMovement = characterController.GetComponent<CharacterMovement>();
     }
+
+
 
     public void triggerFeauture(bool useInput = false, bool input = false)
     {
@@ -38,9 +43,16 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
             if (colliders.Count > 0)
             {
+                characterMovement.disableMovement();
                 characterController.rb.gravityScale = 0;
-                characterController.rb.velocity = new Vector2 (characterController.rb.velocity.x, 0);
-                characterController.rb.AddForce(Vector2.right * 20000);
+
+                //Ich muss einfach an die Velocity Diggaaaaaa!!!
+                characterController.rb.velocity = new Vector2(characterController.rb.velocity.x, 0);
+                //Ich muss einfach an die Velocity Diggaaaaaa!!!
+                characterMovement.setMaxSpeed(kamiBoostSpeed);
+                characterController.rb.AddForce(Vector2.right * kamiBoostSpeed);
+
+
             }
         }
     }
@@ -48,6 +60,8 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     public void endFeauture()
     {
         characterController.rb.gravityScale = 1;
+        characterMovement.enableMovement();
+
     }
 
     public void OnTriggerExit2D(Collider2D collider)

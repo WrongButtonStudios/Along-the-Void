@@ -8,7 +8,7 @@ public class CollisionHandler : MonoBehaviour
 {
     private fairyController _fairyController = null;
     private characterController _cc; 
-    private CharachterMovement _movement;
+    private CharacterMovement _movement;
 
     [SerializeField]
     private LayerMask _groundLayer; 
@@ -25,7 +25,7 @@ public class CollisionHandler : MonoBehaviour
     {
         _fairyController = GameObject.FindObjectOfType<fairyController>();
         _cc = this.gameObject.GetComponent<characterController>();
-        _movement = this.GetComponent<CharachterMovement>(); 
+        _movement = this.GetComponent<CharacterMovement>(); 
     }
 
     public bool checkGrounded(out RaycastHit2D hit)

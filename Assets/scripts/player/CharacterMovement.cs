@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
-public class CharachterMovement : MonoBehaviour
+public class CharacterMovement : MonoBehaviour
 {
 
     private float maxSpeed;
@@ -111,6 +111,7 @@ public class CharachterMovement : MonoBehaviour
 
         if (_input.DashInput && !_input.LastDashInput && !_controller.StatusData.isDash)
         {
+            Debug.Log("Execute dash..."); 
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed);
 
@@ -120,7 +121,8 @@ public class CharachterMovement : MonoBehaviour
             }
             else
             {
-                _controller.rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
+                //_controller.rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
+                Debug.LogError("Es gibt kein Sprung Keanu!!!!!! Das ist gegegens Game Design! Beste Grüße, dein Nils <3"); 
             }
         }
     }
