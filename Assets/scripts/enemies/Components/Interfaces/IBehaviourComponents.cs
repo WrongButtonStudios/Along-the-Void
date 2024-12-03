@@ -9,7 +9,9 @@ public interface IAttackComponent : IComponent
 {
     public void Attack();
     public bool FinnishedAttack();
-    public void ResetAttackStatus(); 
+    public bool IsAttacking(); 
+    public void ResetAttackStatus();
+    public void Exit(); 
 }
 
 public interface IPatrolComponent : IComponent

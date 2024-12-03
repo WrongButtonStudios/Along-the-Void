@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,32 +6,93 @@ using UnityEngine;
 public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 {
     private SimpleAI _entity;
+    private float _fireRangeSQR;
     private GameObject _attackEffect;
     private float _speed = 100f;
     private Rigidbody2D _rb;
     private bool _isCoolingDown = false;
-    private bool _finnishedAttacking; 
+    private bool _finnishedAttacking;
+    public bool _isAttacking = false;
+
+    private AttackPhases _curPhase = AttackPhases.Charge;
+    private bool _clearedForce;
+    private bool _switchedFromeOtherState = true; 
+    private enum AttackPhases
+    {
+        Charge,
+        Attack
+    }
 
     public void Init(SimpleAI entity)
     {
         _entity = entity;
+        _fireRangeSQR = _entity.MaxRange / 2 * (_entity.MaxRange / 2);
     }
     public void Attack()
     {
-        if (!_isCoolingDown)
+        switch (_curPhase)
         {
-            _isCoolingDown = true;
-            _attackEffect = Instantiate(_entity.AttackVFX, _entity.transform.position, Quaternion.identity);
-             _rb = _attackEffect.GetComponent<Rigidbody2D>(); 
-             if (_rb == null)
-             {
-                 _rb = _attackEffect.AddComponent<Rigidbody2D>();
-             }
-             FireSlimeBall();
-            StartCoroutine(CoolDown()); 
+            case AttackPhases.Charge:
+                Charge();
+                break;
+            case AttackPhases.Attack:
+                Shoot();
+                break;
+            default:
+                Debug.LogError("This isnt a defined Phase...");
+                break;
         }
     }
 
+    private void Charge()
+    {
+        if (_switchedFromeOtherState)
+        {
+            _switchedFromeOtherState = false; 
+            ClearForce();
+        }
+        if (_clearedForce)
+            Unfreeze(); 
+        Vector2 direction = _entity.PlayerPos - (Vector2)transform.position;
+        if (direction.sqrMagnitude > _fireRangeSQR)
+        {
+            _entity.RB.AddForce(direction.normalized * _entity.Speed * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        }
+        else if (direction.sqrMagnitude <= _fireRangeSQR)
+        {
+            _curPhase = AttackPhases.Attack;
+            ClearForce();
+            return;
+
+        }
+    }
+
+    private void Shoot()
+    {
+        Vector2 direction = _entity.PlayerPos - (Vector2)transform.position;
+        if (direction.sqrMagnitude <= _fireRangeSQR)
+        {
+            if (!_isCoolingDown)
+            {
+                _isAttacking = true;
+                _isCoolingDown = true;
+                _attackEffect = Instantiate(_entity.AttackVFX, _entity.transform.position, Quaternion.identity);
+                _attackEffect.GetComponent<EnemyCollisionHandler>().Init(_entity.StatusEffect, _entity); 
+                _rb = _attackEffect.GetComponent<Rigidbody2D>();
+                if (_rb == null)
+                {
+                    _rb = _attackEffect.AddComponent<Rigidbody2D>();
+                }
+                FireSlimeBall();
+                _isAttacking = false;
+                StartCoroutine(CoolDown());
+            }
+        }
+        else
+        {
+            _curPhase = AttackPhases.Charge; 
+        }
+    }
     private void FireSlimeBall()
     {
         Vector2 targetPos = _entity.PlayerPos;
@@ -45,6 +107,19 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         Vector2 gravity = Physics2D.gravity * _rb.gravityScale;
         float estimateFlyDuration = linearDir.magnitude / _speed; 
         return ((gravity*-1) * estimateFlyDuration) * Time.fixedDeltaTime; 
+    }
+
+    private void ClearForce()
+    {
+        _clearedForce = true;
+        _entity.RB.constraints = RigidbodyConstraints2D.FreezePosition;
+        _entity.RB.velocity = Vector2.zero;
+    }
+
+    private void Unfreeze()
+    {
+        _clearedForce = false;
+        _entity.RB.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
     }
 
     private IEnumerator CoolDown()
@@ -62,4 +137,19 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     {
         _finnishedAttacking = false; 
     }
+
+    public bool IsAttacking()
+    {
+        return _isAttacking; 
+    }
+
+    public void Exit()
+    {
+        Unfreeze(); 
+        _isCoolingDown = false;
+        _isAttacking = false;
+        _switchedFromeOtherState = true;
+
+    }
 }
+

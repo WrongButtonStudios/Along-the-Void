@@ -44,7 +44,7 @@ public class characterController : MonoBehaviour
 
     //Dependencys 
     private CharacterMovement _movement;
-    private CollisionHandler _collision;
+    public CollisionHandler Collision { get; private set;  }
     private CharacterDebuffs _buffs;
     private InputController _input; 
 
@@ -76,7 +76,7 @@ public class characterController : MonoBehaviour
 
         //load in Dependencys
         _movement = this.GetComponent<CharacterMovement>();
-        _collision = this.GetComponent<CollisionHandler>();
+        Collision = this.GetComponent<CollisionHandler>();
         _buffs = this.GetComponent<CharacterDebuffs>();
         _input = this.GetComponent<InputController>(); 
     }
@@ -145,7 +145,7 @@ public class characterController : MonoBehaviour
                 Debug.LogError("state not implemented");
                 break;
         }
-        RaycastHit2D groundHit = _collision.doGroundedCheck();
+        RaycastHit2D groundHit = Collision.doGroundedCheck();
         _movement.dash();
 
         _movement.baseMovement();

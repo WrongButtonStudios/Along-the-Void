@@ -79,6 +79,8 @@ public class SimpleAI : MonoBehaviour
     public GameObject AttackVFX { get { return _attackEffect;  } }
     public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
     public Color EnemyColor { get { return _enemyColor;  } }
+    public float MaxRange { get { return _attackRange; } }
+    public EnemyStatusEffect StatusEffect { get { return _statusEffect; } }
 
 
 
@@ -170,9 +172,11 @@ public class SimpleAI : MonoBehaviour
 
     private bool ChangedState()
     {
-        float distance = Vector2.Distance(_playerPos.position, transform.position);
-        if (distance < _reconizedPlayerRange && distance > _attackRange && _curState != State.Hount)
+        float distanceSqr = _hauntingComponents[0].GetDistanceToTargetSqr(_playerPos.position, transform.position);
+        if (distanceSqr < (_reconizedPlayerRange*_reconizedPlayerRange) && distanceSqr > (_attackRange*_attackRange) && _curState != State.Hount)
         {
+            if(_curState == State.Attack)
+                _attackComponents[_selectedWeapon].Exit();
             _curState = State.Hount;
             return true;
         }
@@ -183,8 +187,10 @@ public class SimpleAI : MonoBehaviour
             return true;
         }
 
-        if (Vector2.Distance(_playerPos.position, transform.position) > _reconizedPlayerRange && _curState != State.Patrol)
+        if (_hauntingComponents[0].GetDistanceToTargetSqr(_playerPos.position, transform.position) > (_reconizedPlayerRange*_reconizedPlayerRange) && _curState != State.Patrol)
         {
+            if (_curState == State.Attack)
+                _attackComponents[_selectedWeapon].Exit();
             _curState = State.Patrol;
             return true;
         }
@@ -209,5 +215,8 @@ public class SimpleAI : MonoBehaviour
         }
     }
 
-
+    public IAttackComponent GetActiveAttackComponent()
+    {
+        return _attackComponents[_selectedWeapon]; 
+    }
 }
