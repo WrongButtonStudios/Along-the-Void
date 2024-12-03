@@ -33,11 +33,9 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         switch (_curPhase)
         {
             case AttackPhases.Charge:
-                Debug.Log("Huh...Charging"); 
                 Charge();
                 break;
             case AttackPhases.Attack:
-                Debug.Log("Huh...Fireing");
                 Shoot();
                 break;
             default:
@@ -63,14 +61,9 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         else if (direction.sqrMagnitude <= _fireRangeSQR)
         {
             _curPhase = AttackPhases.Attack;
-            Debug.Log("switched to Attack state");
             ClearForce();
             return;
 
-        }
-        else
-        {
-            Debug.LogError("ich sollte hier gar nicht rein..."); 
         }
     }
 
@@ -118,7 +111,6 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void ClearForce()
     {
-        Debug.LogWarning("Cleare force");  
         _clearedForce = true;
         _entity.RB.constraints = RigidbodyConstraints2D.FreezePosition;
         _entity.RB.velocity = Vector2.zero;
@@ -153,8 +145,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     public void Exit()
     {
-        Unfreeze();
-        Debug.LogWarning("Exit mexit"); 
+        Unfreeze(); 
         _isCoolingDown = false;
         _isAttacking = false;
         _switchedFromeOtherState = true;
