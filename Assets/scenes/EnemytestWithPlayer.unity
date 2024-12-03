@@ -2391,6 +2391,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: BodenNahkampfGegner
       objectReference: {fileID: 0}
+    - target: {fileID: 4089601838756030552, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5044598077448992619, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
       propertyPath: m_LocalPosition.x
       value: 13.99

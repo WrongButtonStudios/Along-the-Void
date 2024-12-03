@@ -33,9 +33,11 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         switch (_curPhase)
         {
             case AttackPhases.Charge:
+                Debug.Log("Huh...Charging"); 
                 Charge();
                 break;
             case AttackPhases.Attack:
+                Debug.Log("Huh...Fireing");
                 Shoot();
                 break;
             default:
@@ -56,11 +58,19 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         Vector2 direction = _entity.PlayerPos - (Vector2)transform.position;
         if (direction.sqrMagnitude > _fireRangeSQR)
         {
-            _entity.RB.AddForce(direction.normalized * _entity.Speed);
+            _entity.RB.AddForce(direction.normalized * _entity.Speed * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        }
+        else if (direction.sqrMagnitude <= _fireRangeSQR)
+        {
+            _curPhase = AttackPhases.Attack;
+            Debug.Log("switched to Attack state");
+            ClearForce();
+            return;
+
         }
         else
         {
-            _curPhase = AttackPhases.Attack; 
+            Debug.LogError("ich sollte hier gar nicht rein..."); 
         }
     }
 
@@ -69,7 +79,6 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         Vector2 direction = _entity.PlayerPos - (Vector2)transform.position;
         if (direction.sqrMagnitude <= _fireRangeSQR)
         {
-            ClearForce(); 
             if (!_isCoolingDown)
             {
                 _isAttacking = true;
@@ -109,6 +118,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void ClearForce()
     {
+        Debug.LogWarning("Cleare force");  
         _clearedForce = true;
         _entity.RB.constraints = RigidbodyConstraints2D.FreezePosition;
         _entity.RB.velocity = Vector2.zero;
@@ -144,6 +154,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     public void Exit()
     {
         Unfreeze();
+        Debug.LogWarning("Exit mexit"); 
         _isCoolingDown = false;
         _isAttacking = false;
         _switchedFromeOtherState = true;
