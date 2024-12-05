@@ -101,6 +101,7 @@ GameObject:
   - component: {fileID: 7452507083668688901}
   - component: {fileID: 4101192342703305825}
   - component: {fileID: 5427037132920156623}
+  - component: {fileID: 6291066242271056879}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -300,6 +301,30 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 8c18c11b-2c9f-4ab3-b6ac-a4d7dacee3ff
     m_ActionName: characterController/purerHass[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5427037132920156623}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: ActivateWarmode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eaf89aa8-277c-42a3-acec-0165043bedf6
+    m_ActionName: characterController/UseWarmode[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dcdeccb9-b6e9-4814-9339-2b6ec7926edb
+    m_ActionName: MainMenu/BackButton[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 83453d3a-c155-4f23-80d3-7046c32e6c89
+    m_ActionName: MainMenu/Interact
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -399,6 +424,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   LastDashInput: 0
+--- !u!114 &6291066242271056879
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247461398459608850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e7c01406e6868407486547668b3e0fe0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _colorLossAmount: 0.05
 --- !u!1 &3881638506002448785
 GameObject:
   m_ObjectHideFlags: 0
