@@ -10,12 +10,19 @@ public class InputController : MonoBehaviour
     private bool dashInput;
     private bool lastDashInput;
     private bool triggerPlayerFeatureInput;
-
+    private characterController _cc;
+    private Warmodes _warmode; 
     //public gettter 
     public bool DashInput { get { return dashInput; } }
     public bool LastDashInput; 
     public bool TriggerPlayerFeatureInput { get { return triggerPlayerFeatureInput; } }
     public Vector2 MoveInput { get { return moveInput; } }
+
+    private void Start()
+    {
+        _cc = this.GetComponent<characterController>();
+        _warmode = this.GetComponent<Warmodes>(); 
+    }
     public void getMoveInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
@@ -50,5 +57,13 @@ public class InputController : MonoBehaviour
     public void ResetTriggerPlayerFeature()
     {
         triggerPlayerFeatureInput = false; 
+    }
+
+    public void ActivateWarmode()
+    {
+        if (_warmode.IsActive == false)
+            _warmode.UseWarmode(_cc.StatusData.currentState);
+        else
+            Debug.Log("All ready using warmode..."); 
     }
 }

@@ -10,6 +10,7 @@ public class CollisionHandler : MonoBehaviour
     private fairyController _fairyController = null;
     private characterController _cc; 
     private CharacterMovement _movement;
+    private Warmodes _warmode; 
 
     [SerializeField]
     private LayerMask _groundLayer; 
@@ -26,10 +27,11 @@ public class CollisionHandler : MonoBehaviour
     {
         _fairyController = GameObject.FindObjectOfType<fairyController>();
         _cc = this.gameObject.GetComponent<characterController>();
-        _movement = this.GetComponent<CharacterMovement>(); 
+        _movement = this.GetComponent<CharacterMovement>();
+        _warmode = this.GetComponent<Warmodes>(); 
     }
 
-    public void GetDamage(float v, PlayerColor colorRequiered)
+    public float GetDamage(float v, PlayerColor colorRequiered)
     {
         for (int i = 0; i < _fairyController.fairys.Capacity; ++i)
         {
@@ -37,10 +39,11 @@ public class CollisionHandler : MonoBehaviour
             {
                 //deale damage
                 _fairyController.fairys[i].colorAmount -= v;
-                Debug.Log(_fairyController.fairys[i].colorAmount);
-                break;
+                return _fairyController.fairys[i].colorAmount; 
             }
         }
+        Debug.LogError("fairy for this color does not exist"); 
+        return -1; 
     }
 
     public bool checkGrounded(out RaycastHit2D hit)
@@ -99,6 +102,12 @@ public class CollisionHandler : MonoBehaviour
             Debug.Log("Autsch roter spike");
             //SceneManager.LoadScene(SceneManager.GetActiveScene().name)
             GetDamage(0.25f, PlayerColor.red);
+        }
+
+        bool destroyObstacle = collision.gameObject.layer == 14 && playerColor == PlayerColor.red && _warmode.IsActive; 
+        if (destroyObstacle)
+        {
+            Destroy(collision.gameObject); 
         }
     }
 
