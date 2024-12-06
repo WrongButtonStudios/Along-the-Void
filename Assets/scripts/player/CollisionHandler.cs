@@ -154,4 +154,17 @@ public class CollisionHandler : MonoBehaviour
         else
             return PlayerColor.unknown;
     }
+
+    public characterController.playerStates GetNewColor()
+    {
+        for (int i = 0; i < _fairyController.fairys.Capacity; ++i)
+        {
+            if (_fairyController.fairys[i].colorAmount > 0)
+            {
+                return (characterController.playerStates)i+1; 
+            }
+        }
+
+        throw new System.Exception("alle tot oder so, mies gelaufen"); 
+    }
 }

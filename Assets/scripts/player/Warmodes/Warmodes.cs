@@ -9,6 +9,7 @@ public class Warmodes : MonoBehaviour
     private CollisionHandler _collisionHandler;
     private characterController _cc;
     private float _curHP;
+    private GameObject _activeTurret; 
 
     [SerializeField, Tooltip("Defines the amount of the color/hp loss per second. Max Coloramount/Fairry = 1")]
     private float _colorLossAmount = 0.05f;
@@ -35,7 +36,7 @@ public class Warmodes : MonoBehaviour
         _curHP =  _collisionHandler.GetDamage(_colorLossAmount*Time.deltaTime, _collisionHandler.GetPlayerColor(_curWarMode));
         if (_curHP <= 0)
         {
-            _isActive = false; 
+            DeactivateWarmode(); 
         }
     }
     public void UseWarmode(characterController.playerStates color)
@@ -67,7 +68,24 @@ public class Warmodes : MonoBehaviour
         _isActive = true;
         _cc.StatusData.currentState = characterController.playerStates.burntBlue;
         _curWarMode = _cc.StatusData.currentState; 
-        Instantiate(_turret, transform.position, Quaternion.identity);
+        _activeTurret = Instantiate(_turret, transform.position, Quaternion.identity);
+    }
+
+    private void DeactivateWarmode()
+    {
+        _isActive = false; 
+        var newState = _collisionHandler.GetNewColor();
+        _cc.transitionToState(newState); 
+        switch (_curWarMode)
+        {
+            case characterController.playerStates.burntBlue:
+                Destroy(_activeTurret);
+                _activeTurret = null;
+                break;
+            default:
+                Debug.LogWarning("Other stuff is not implemented, does not need specific stuff to be done to deactivate");
+                break;
+        }
     }
 
 }
