@@ -295,7 +295,7 @@
                 {
                     "name": "",
                     "id": "3c8e620c-6771-4d79-9d44-293acf96e59c",
-                    "path": "<XInputController>/leftTrigger",
+                    "path": "<XInputController>/rightTrigger",
                     "interactions": "",
                     "processors": "",
                     "groups": "",

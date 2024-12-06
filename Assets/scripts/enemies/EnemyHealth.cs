@@ -6,7 +6,7 @@ public class EnemyHealth : MonoBehaviour
 {
 
     [SerializeField]
-    private float _health = 10;
+    private float _health = 1;
     [SerializeField]
     private GameObject _colorItem; 
 
