@@ -4,12 +4,14 @@ using UnityEngine;
 
 public class EnemyCollisionHandler : MonoBehaviour
 {
+
     private EnemyStatusEffect _statusEffects;
     private SimpleAI _enemy;
-    
+    private EnemyHealth _health;
     private bool _dealDamage = true;
     [SerializeField]
-    private bool _isSlimeBall = false; 
+    private bool _isSlimeBall = false;
+
 
     private void Start()
     {
@@ -17,7 +19,7 @@ public class EnemyCollisionHandler : MonoBehaviour
         {
             _statusEffects = this.GetComponent<EnemyStatusEffect>();
             _enemy = this.GetComponent<SimpleAI>();
-            
+            _health = this.GetComponent<EnemyHealth>(); 
         }
     }
 
@@ -52,6 +54,12 @@ public class EnemyCollisionHandler : MonoBehaviour
             {
                 _statusEffects.BurnEnemy(); 
             }
+        }
+
+        if (collision.gameObject.GetComponent<IceBullet>())
+        {
+            _statusEffects.FreezeEnemy();
+            _health.GetDamage(0.1f); 
         }
     }
 

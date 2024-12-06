@@ -154,19 +154,24 @@ public class SimpleAI : MonoBehaviour
         SelectNewWeapon();
         SelectMovementComponent();
         ChangedState();
-        if (_statusEffect.Status == EnemyStatusEffect.EnemyStatus.Frozen)
-            return; 
-        switch (_curState)
+        if (_statusEffect.Status != EnemyStatusEffect.EnemyStatus.Frozen)
         {
-            case State.Patrol:
-                _patrolComponents[_selectedPatrolComponent].Patrol();
-                break;
-            case State.Hount:
-                _hauntingComponents[_selectedPatrolComponent].Haunt(_playerPos.position);
-                break;
-            case State.Attack:
-                _attackComponents[_selectedWeapon].Attack(); 
-                break;
+            switch (_curState)
+            {
+                case State.Patrol:
+                    _patrolComponents[_selectedPatrolComponent].Patrol();
+                    break;
+                case State.Hount:
+                    _hauntingComponents[_selectedPatrolComponent].Haunt(_playerPos.position);
+                    break;
+                case State.Attack:
+                    _attackComponents[_selectedWeapon].Attack();
+                    break;
+            }
+        }
+        else
+        {
+            _rb.constraints = RigidbodyConstraints2D.FreezeAll; 
         }
     }
 

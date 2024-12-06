@@ -8,7 +8,8 @@ public class EnemyHealth : MonoBehaviour
     [SerializeField]
     private float _health = 1;
     [SerializeField]
-    private GameObject _colorItem; 
+    private GameObject _colorItem;
+
 
     public void GetDamage(float damage)
     {
