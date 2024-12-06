@@ -2069,7 +2069,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &6560082784700872394
 RectTransform:
   m_ObjectHideFlags: 0
@@ -2170,7 +2170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c381573a3ea7945bb7f8fffb7aa8f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  resolutionDropdown: {fileID: 4576006927393510455}
+  resolutionDropdown: {fileID: 0}
 --- !u!1 &2756494519958084288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2873,6 +2873,7 @@ GameObject:
   - component: {fileID: 2444092450231951874}
   - component: {fileID: 307175194735320550}
   - component: {fileID: 6129819403698243772}
+  - component: {fileID: 1204761174618109493}
   m_Layer: 0
   m_Name: UI Prefab
   m_TagString: Untagged
@@ -2972,6 +2973,18 @@ MonoBehaviour:
   m_InputActionsPerSecond: 10
   m_RepeatDelay: 0.5
   m_ForceModuleActive: 0
+--- !u!114 &1204761174618109493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3859999397310275924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3c5a9bcc1b229a44cba35fd817113fbf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &3917661642832753961
 GameObject:
   m_ObjectHideFlags: 0
