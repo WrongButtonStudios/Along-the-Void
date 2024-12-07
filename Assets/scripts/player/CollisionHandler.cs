@@ -132,4 +132,39 @@ public class CollisionHandler : MonoBehaviour
         else
             return PlayerColor.unknown; 
     }
+
+    public PlayerColor GetPlayerColor(characterController.playerStates color)
+    {
+        if (color == characterController.playerStates.red || _cc.getPlayerStatus().currentState == characterController.playerStates.burntRed)
+        {
+            return PlayerColor.red;
+        }
+        else if (color == characterController.playerStates.green || color == characterController.playerStates.burntGreen)
+        {
+            return PlayerColor.green;
+        }
+        else if (color == characterController.playerStates.blue || color == characterController.playerStates.burntBlue)
+        {
+            return PlayerColor.blue;
+        }
+        else if (color == characterController.playerStates.yellow || color == characterController.playerStates.burntYellow)
+        {
+            return PlayerColor.yellow;
+        }
+        else
+            return PlayerColor.unknown;
+    }
+
+    public characterController.playerStates GetNewColor()
+    {
+        for (int i = 0; i < _fairyController.fairys.Capacity; ++i)
+        {
+            if (_fairyController.fairys[i].colorAmount > 0)
+            {
+                return (characterController.playerStates)i+1; 
+            }
+        }
+
+        throw new System.Exception("alle tot oder so, mies gelaufen"); 
+    }
 }

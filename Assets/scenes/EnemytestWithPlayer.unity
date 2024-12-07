@@ -858,6 +858,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _colorLossAmount: 0.05
+  _turret: {fileID: 7369785609382215585, guid: d40ecc27f0f2d472abc0e5b111426990, type: 3}
 --- !u!1 &787400016
 GameObject:
   m_ObjectHideFlags: 3

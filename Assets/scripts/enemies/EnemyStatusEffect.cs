@@ -31,8 +31,8 @@ public class EnemyStatusEffect : MonoBehaviour
 
     public void FreezeEnemy()
     {
-        if (_entity.EnemyColor == SimpleAI.Color.Blue)
-            _status = EnemyStatus.Frozen;
+        Debug.Log("ice Ice baby"); 
+        _status = EnemyStatus.Frozen;
     }
 
     public void BurnEnemy()
