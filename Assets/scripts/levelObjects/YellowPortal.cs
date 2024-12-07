@@ -7,7 +7,7 @@ public class YellowPortal : MonoBehaviour
     [Header("Portal Settings")]
     public bool isTeleporting = false; // False = Cannon Portal, True = Teleport Portal
     [SerializeField] private GameObject linkedPortal;
-    [SerializeField] private float teleportCooldown = 1f;
+    [SerializeField] private float cooldown = 1f;
 
     [Header("Cannon Portal Settings")]
     [SerializeField] private float cannonHoldTime = 2f;
@@ -119,7 +119,6 @@ public class YellowPortal : MonoBehaviour
 
         canTeleport = false;
 
-        Vector2 originalVelocity = playerRb.velocity;
         playerRb.velocity = Vector2.zero;
         playerRb.isKinematic = true;
 
@@ -132,7 +131,6 @@ public class YellowPortal : MonoBehaviour
         {
             // Stelle Original-Zustand wieder her
             playerRb.isKinematic = false;
-            playerRb.velocity = originalVelocity;
             StartCoroutine(ScalePlayerOverTime(player, originalPlayerScale, 0.5f));
             yield break;
         }
@@ -141,7 +139,8 @@ public class YellowPortal : MonoBehaviour
         playerRb.isKinematic = false;
 
         Vector2 normalizedDirection = transform.TransformDirection(ejectionDirection).normalized;
-        playerRb.velocity = normalizedDirection * ejectionForce;
+        // Hier verwenden wir AddForce statt velocity
+        playerRb.AddForce(normalizedDirection * ejectionForce, ForceMode2D.Impulse);
 
         StartCoroutine(StartCooldown());
     }
@@ -164,7 +163,7 @@ public class YellowPortal : MonoBehaviour
 
     private IEnumerator StartCooldown()
     {
-        yield return new WaitForSeconds(teleportCooldown);
+        yield return new WaitForSeconds(cooldown);
         canTeleport = true;
     }
 

@@ -122,6 +122,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &136307271 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 8212076076976092908, guid: 2b05bb3b5b3ccd84ea87b781e5135bd1, type: 3}
+  m_PrefabInstance: {fileID: 1933214123}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &203072783
 GameObject:
   m_ObjectHideFlags: 0
@@ -887,6 +892,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerController: {fileID: 0}
+  lastState: 0
 --- !u!4 &459590296
 Transform:
   m_ObjectHideFlags: 0
@@ -4627,6 +4633,14 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6291066242271056879, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: _turret
+      value: 
+      objectReference: {fileID: 136307271}
+    - target: {fileID: 6291066242271056879, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: _slowMotionTimeScale
+      value: 0.3
+      objectReference: {fileID: 0}
     - target: {fileID: 7452507083668688901, guid: 688c8c139e34db96d829deaa698192af, type: 3}
       propertyPath: dashMaxSpeed
       value: 100
@@ -4780,6 +4794,10 @@ PrefabInstance:
     - target: {fileID: 3084758070342047978, guid: 1af530a5ea5024a4bac82d944b7d5c2a, type: 3}
       propertyPath: m_Direction
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4851124147517037560, guid: 1af530a5ea5024a4bac82d944b7d5c2a, type: 3}
+      propertyPath: ejectionForce
+      value: 5000
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 0}
