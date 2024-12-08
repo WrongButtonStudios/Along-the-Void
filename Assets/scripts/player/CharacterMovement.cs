@@ -50,7 +50,7 @@ public class CharacterMovement : MonoBehaviour
         maxSpeed = maxMovementSpeed; 
     }
 
-    public void ClampVelocity() 
+    public void lerpCurrentMaxSpeedToMaxSpeed()
     {
         if (maxSpeed > maxMovementSpeed)
         {
@@ -121,8 +121,8 @@ public class CharacterMovement : MonoBehaviour
             }
             else
             {
-                //_controller.rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
-                Debug.LogError("Es gibt kein Sprung Keanu!!!!!! Das ist gegegens Game Design! Beste Grüße, dein Nils <3"); 
+                _controller.rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
+                //Debug.LogError("Es gibt kein Sprung Keanu!!!!!! Das ist gegegens Game Design! Beste Grüße, dein Nils <3"); 
             }
         }
     }
