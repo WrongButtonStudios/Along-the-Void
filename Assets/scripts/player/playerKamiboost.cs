@@ -38,7 +38,9 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             characterController.rb.velocity = new Vector2(characterController.rb.velocity.x, 0);
             //Ich muss einfach an die Velocity Diggaaaaaa!!!
             characterMovement.setMaxSpeed(kamiBoostSpeed);
+            //Muss überarbeitet werden!
             characterController.rb.AddForce(characterController._input.MoveInput * kamiBoostSpeed);
+            //Muss überarbeitet werden!
         }
     }
 

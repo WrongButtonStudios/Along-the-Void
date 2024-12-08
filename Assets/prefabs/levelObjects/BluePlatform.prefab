@@ -107,7 +107,7 @@ GameObject:
   - component: {fileID: 6980828547917931172}
   - component: {fileID: 4383111594140519225}
   m_Layer: 0
-  m_Name: BluaPlatform
+  m_Name: BluePlatform
   m_TagString: Blue
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
