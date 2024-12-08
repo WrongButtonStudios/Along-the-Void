@@ -35,6 +35,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
         _input = this.GetComponent<InputController>(); 
         _movement = this.GetComponent<CharacterMovement>();
     }
+    
     public void FixedUpdate()
     {
         if(currentBlueSlime == null)

@@ -189,7 +189,8 @@ public class characterController : MonoBehaviour
             return;
         }
 
-        switch (statusData.currentState)
+        //state exit
+        switch(statusData.currentState)
         {
             case playerStates.dead:
                 Debug.LogWarning("cant transition out of dead state");
@@ -197,158 +198,94 @@ public class characterController : MonoBehaviour
 
             case playerStates.green:
                 playerFeatures.OfType<playerStompAttack>().FirstOrDefault().endFeauture();
-                
-                switch (targetState)
-                {
-                    case playerStates.dead:
-                        statusData.currentState = playerStates.dead;
-                        
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.red:
-                        statusData.currentState = playerStates.red;
-
-                        statusData.isFrozen = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.blue:
-                        statusData.currentState = playerStates.blue;
-
-                        statusData.isOnFire = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.yellow:
-                        statusData.currentState = playerStates.yellow;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    default:
-                        Debug.LogError("state transition target not implemented");
-                        break;
-                }
                 break;
 
             case playerStates.red:
                 playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().endFeauture();
-
-                switch (targetState)
-                {
-                    case playerStates.dead:
-                        statusData.currentState = playerStates.dead;
-                        
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.green:
-                        statusData.currentState = playerStates.green;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.blue:
-                        statusData.currentState = playerStates.blue;
-
-                        statusData.isOnFire = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.yellow:
-                        statusData.currentState = playerStates.yellow;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    default:
-                        Debug.LogError("state transition target not implemented");
-                        break;
-                }
                 break;
 
             case playerStates.blue:
                 playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
-
-                switch (targetState)
-                {
-                    case playerStates.dead:
-                        statusData.currentState = playerStates.dead;
-                        
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.green:
-                        statusData.currentState = playerStates.green;
-
-                        transitionSuccesful = true;
-                        break;
-                        
-                    case playerStates.red:
-                        statusData.currentState = playerStates.red;
-
-                        statusData.isFrozen = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.yellow:
-                        statusData.currentState = playerStates.yellow;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    default:
-                        Debug.LogError("state transition target not implemented");
-                        break;
-                }
                 break;
 
             case playerStates.yellow:
                 playerFeatures.OfType<playerKamiboost>().FirstOrDefault().endFeauture();
+                break;
 
-                switch (targetState)
-                {
-                    case playerStates.dead:
-                        statusData.currentState = playerStates.dead;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.green:
-                        statusData.currentState = playerStates.green;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.red:
-                        statusData.currentState = playerStates.red;
-
-                        statusData.isFrozen = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    case playerStates.blue:
-                        statusData.currentState = playerStates.blue;
-
-                        statusData.isOnFire = false;
-
-                        transitionSuccesful = true;
-                        break;
-
-                    default:
-                        Debug.LogError("state transition target not implemented");
-                        break;
-                }
+            case playerStates.burntGreen:
+            case playerStates.burntRed:
+            case playerStates.burntBlue:
+            case playerStates.burntYellow:
                 break;
 
             default:
                 Debug.LogError("state transition origin not implemented");
+                break;
+        }
+
+        //state entry
+        switch (targetState)
+        {
+            case playerStates.dead:
+                statusData.currentState = playerStates.dead;
+                        
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.green:
+                statusData.currentState = playerStates.green;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.red:
+                statusData.currentState = playerStates.red;
+
+                statusData.isFrozen = false;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.blue:
+                statusData.currentState = playerStates.blue;
+
+                statusData.isOnFire = false;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.yellow:
+                statusData.currentState = playerStates.yellow;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.burntGreen:
+                statusData.currentState = playerStates.burntGreen;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.burntRed:
+                statusData.currentState = playerStates.burntRed;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.burntBlue:
+                statusData.currentState = playerStates.burntBlue;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.burntYellow:
+                statusData.currentState = playerStates.burntYellow;
+
+                transitionSuccesful = true;
+                break;
+
+            default:
+                Debug.LogError("state transition target not implemented");
                 break;
         }
 

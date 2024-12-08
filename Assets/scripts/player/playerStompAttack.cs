@@ -27,7 +27,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
         if(doStompAttack)
         {
-         _movement.setMaxSpeed(maxSpeed);
+            _movement.setMaxSpeed(maxSpeed);
             characterController.rb.AddForce(Vector2.down * downForce, ForceMode2D.Force);
         }
     }
@@ -35,7 +35,6 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
     public void initFeauture(characterController characterController)
     {
         this.characterController = characterController;
-        Debug.LogError("this feature needs input to work!");
     }
 
     public void triggerFeauture(bool useInput = false, bool input = false)

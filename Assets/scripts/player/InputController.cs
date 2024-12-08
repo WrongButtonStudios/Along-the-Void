@@ -24,6 +24,7 @@ public class InputController : MonoBehaviour
         _cc = this.GetComponent<characterController>();
         _warmode = this.GetComponent<Warmodes>(); 
     }
+    
     public void getMoveInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
