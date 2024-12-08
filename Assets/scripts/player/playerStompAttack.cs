@@ -11,7 +11,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
     [SerializeField] private float maxSpeed = 150f;
     [SerializeField] private CharacterMovement _movement; 
 
-    private bool doShit = false;
+    private bool doStompAttack = false;
 
     private void Start()
     {
@@ -25,7 +25,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
             endFeauture();
         }
 
-        if(doShit)
+        if(doStompAttack)
         {
          _movement.setMaxSpeed(maxSpeed);
             characterController.rb.AddForce(Vector2.down * downForce, ForceMode2D.Force);
@@ -48,12 +48,12 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
         if(!characterController.getPlayerStatus().isGrounded)
         {
-            doShit = input;
+            doStompAttack = input;
         }
     }
 
     public void endFeauture()
     {
-        doShit = false;
+        doStompAttack = false;
     }
 }
