@@ -12,6 +12,7 @@ public class InputController : MonoBehaviour
     private bool triggerPlayerFeatureInput;
     private characterController _cc;
     private Warmodes _warmode; 
+    
     //public gettter 
     public bool DashInput { get { return dashInput; } }
     public bool LastDashInput; 
