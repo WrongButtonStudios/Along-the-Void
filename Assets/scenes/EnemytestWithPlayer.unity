@@ -857,6 +857,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c01406e6868407486547668b3e0fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fairyController: {fileID: 1002189003}
   _colorLossAmount: 0.05
   _turret: {fileID: 7369785609382215585, guid: d40ecc27f0f2d472abc0e5b111426990, type: 3}
 --- !u!1 &787400016

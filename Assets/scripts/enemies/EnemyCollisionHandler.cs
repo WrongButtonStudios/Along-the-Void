@@ -44,12 +44,7 @@ public class EnemyCollisionHandler : MonoBehaviour
         if (player != null)
         {
             var warmode = player.gameObject.GetComponent<Warmodes>();
-            bool playerusesRedWarmode =
-            (
-                player.getPlayerStatus().currentState == characterController.playerStates.red ||
-                player.getPlayerStatus().currentState == characterController.playerStates.burntRed
-            )
-            && warmode.IsActive; 
+            bool playerusesRedWarmode = warmode.CurWarMode == characterController.playerStates.burntRed && warmode.IsActive; 
             if (playerusesRedWarmode)
             {
                 _statusEffects.BurnEnemy(); 

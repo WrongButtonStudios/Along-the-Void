@@ -48,7 +48,7 @@ public class fairyController : MonoBehaviour
     }
 
     //for debugging and testing. this isnt how its supposed to be done
-    private void debugSetPlayerState()
+    public void debugSetPlayerState()
     {
         characterController player = FindObjectOfType<characterController>();
 

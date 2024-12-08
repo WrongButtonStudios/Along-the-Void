@@ -104,7 +104,7 @@ public class CollisionHandler : MonoBehaviour
             GetDamage(0.25f, PlayerColor.red);
         }
 
-        bool destroyObstacle = collision.gameObject.layer == 14 && playerColor == PlayerColor.red && _warmode.IsActive; 
+        bool destroyObstacle = collision.gameObject.layer == 14 && _warmode.CurWarMode == characterController.playerStates.burntRed && _warmode.IsActive; 
         if (destroyObstacle)
         {
             Destroy(collision.gameObject); 
