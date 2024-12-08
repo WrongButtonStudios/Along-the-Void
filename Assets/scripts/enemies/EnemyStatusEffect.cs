@@ -31,7 +31,7 @@ public class EnemyStatusEffect : MonoBehaviour
 
     public void FreezeEnemy()
     {
-        Debug.Log("ice Ice baby"); 
+        Debug.Log("Ice Ice baby"); 
         _status = EnemyStatus.Frozen;
     }
 
