@@ -4,21 +4,26 @@ using UnityEngine;
 
 public class Warmodes : MonoBehaviour
 {
+
+    [SerializeField]
+    private fairyController _fairyController;
     private bool _isActive = false;
     private CharacterDebuffs _characterDebuffs;
     private CollisionHandler _collisionHandler;
     private characterController _cc;
+
     private float _curHP;
-    private GameObject _activeTurret; 
+    private GameObject _activeTurret;
 
     [SerializeField, Tooltip("Defines the amount of the color/hp loss per second. Max Coloramount/Fairry = 1")]
     private float _colorLossAmount = 0.05f;
     [SerializeField, Tooltip("The Ice Shooting turret for the Bluewarmode")]
     private GameObject _turret;
 
-    private characterController.playerStates _curWarMode; 
+    private characterController.playerStates _curWarMode;
 
     public bool IsActive { get { return _isActive; } }
+    public characterController.playerStates CurWarMode { get { return _curWarMode;  } }
 
     private void Start()
     {
@@ -39,6 +44,7 @@ public class Warmodes : MonoBehaviour
             DeactivateWarmode(); 
         }
     }
+
     public void UseWarmode(characterController.playerStates color)
     {
         switch (color)
@@ -74,8 +80,7 @@ public class Warmodes : MonoBehaviour
     private void DeactivateWarmode()
     {
         _isActive = false; 
-        var newState = _collisionHandler.GetNewColor();
-        _cc.transitionToState(newState); 
+        _fairyController.debugSetPlayerState(); 
         switch (_curWarMode)
         {
             case characterController.playerStates.burntBlue:
