@@ -46,7 +46,7 @@ public class characterController : MonoBehaviour
     private CharacterMovement _movement;
     public CollisionHandler Collision { get; private set;  }
     private CharacterDebuffs _buffs;
-    private InputController _input; 
+    public InputController _input; 
 
     private void Awake()
     {
@@ -150,12 +150,10 @@ public class characterController : MonoBehaviour
             case playerStates.yellow:
                 groundHit = Collision.doGroundedCheck();
 
-                if (_input.TriggerPlayerFeatureInput)
-                {
-                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture();
-
-                    _input.ResetTriggerPlayerFeature();
-                }
+                
+                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, _input.TriggerPlayerFeatureInput);
+                   // _input.ResetTriggerPlayerFeature();
+                
 
                 _movement.dash();
                 _movement.baseMovement();
