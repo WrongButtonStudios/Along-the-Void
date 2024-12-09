@@ -71,10 +71,13 @@ public class Warmodes : MonoBehaviour
 
     private void BlueWarMode()
     {
-        _isActive = true;
-        _cc.StatusData.currentState = characterController.playerStates.burntBlue;
-        _curWarMode = _cc.StatusData.currentState; 
-        _activeTurret = Instantiate(_turretPref, transform.position, Quaternion.identity);
+        if (_activeTurret == null)
+        {
+            _isActive = true;
+            _cc.StatusData.currentState = characterController.playerStates.burntBlue;
+            _curWarMode = _cc.StatusData.currentState; 
+            _activeTurret = Instantiate(_turretPref, transform.position, Quaternion.identity);
+        }
     }
 
     private void DeactivateWarmode()
