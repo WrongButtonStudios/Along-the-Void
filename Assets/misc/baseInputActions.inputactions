@@ -363,6 +363,132 @@
                     "isPartOfComposite": false
                 }
             ]
+        },
+        {
+            "name": "PauseMenu",
+            "id": "45f95ccd-a2fc-4ea6-8277-10cafbb31127",
+            "actions": [
+                {
+                    "name": "Open Pause Menu",
+                    "type": "Button",
+                    "id": "a7a52481-45d5-419b-bfb0-2ad930e8d0a1",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "Close Pause Menu",
+                    "type": "Button",
+                    "id": "6d4a5965-f844-4d94-9466-c83e0aa436c3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "f9f43c20-198f-44cd-a48c-ec16a6875a33",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keyboard",
+                    "action": "Open Pause Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a82df386-fca7-43f4-bd61-0937acd9fd4a",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";gamepad",
+                    "action": "Open Pause Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "e7590f75-a47d-4c3b-b939-e27ca6e0651d",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keyboard",
+                    "action": "Close Pause Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "6add8b72-b934-4eb9-b59d-bc04009e3b2a",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Close Pause Menu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Controller",
+            "id": "6a917184-8dee-4ffe-83b6-a93d7d1472a2",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "6c7783c2-505e-4811-b32b-8c575f886406",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "a2cb8047-c94b-4a5d-af23-2be5d0169c84",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
+            "name": "Keyboard",
+            "id": "2cf3a9bb-aa84-44c9-99f5-bacc7390c3d1",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "9a145223-1744-461e-a5ca-845303bcc751",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "c06db979-670f-4c0c-b7e9-215aca78d2f5",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": [

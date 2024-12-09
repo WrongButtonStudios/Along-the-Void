@@ -11,14 +11,13 @@ public class Warmodes : MonoBehaviour
     private CharacterDebuffs _characterDebuffs;
     private CollisionHandler _collisionHandler;
     private characterController _cc;
-
     private float _curHP;
     private GameObject _activeTurret;
 
     [SerializeField, Tooltip("Defines the amount of the color/hp loss per second. Max Coloramount/Fairry = 1")]
     private float _colorLossAmount = 0.05f;
     [SerializeField, Tooltip("The Ice Shooting turret for the Bluewarmode")]
-    private GameObject _turret;
+    private GameObject _turretPref;
 
     private characterController.playerStates _curWarMode;
 
@@ -29,7 +28,7 @@ public class Warmodes : MonoBehaviour
     {
         _characterDebuffs = this.GetComponent<CharacterDebuffs>();
         _collisionHandler = this.GetComponent<CollisionHandler>();
-        _cc = this.GetComponent<characterController>(); 
+        _cc = this.GetComponent<characterController>();
     }
 
     private void Update()
@@ -38,7 +37,7 @@ public class Warmodes : MonoBehaviour
         if (!_isActive)
             return;
 
-        _curHP =  _collisionHandler.GetDamage(_colorLossAmount*Time.deltaTime, _collisionHandler.GetPlayerColor(_curWarMode));
+        _curHP =  PlayerDamageHandler.GetDamage(_colorLossAmount*Time.deltaTime, PlayerUttillitys.GetPlayerColor(_curWarMode), _fairyController);
         if (_curHP <= 0)
         {
             DeactivateWarmode(); 
@@ -71,10 +70,13 @@ public class Warmodes : MonoBehaviour
 
     private void BlueWarMode()
     {
-        _isActive = true;
-        _cc.StatusData.currentState = characterController.playerStates.burntBlue;
-        _curWarMode = _cc.StatusData.currentState; 
-        _activeTurret = Instantiate(_turret, transform.position, Quaternion.identity);
+        if (_activeTurret == null)
+        {
+            _isActive = true;
+            _cc.StatusData.currentState = characterController.playerStates.burntBlue;
+            _curWarMode = _cc.StatusData.currentState; 
+            _activeTurret = Instantiate(_turretPref, transform.position, Quaternion.identity);
+        }
     }
 
     private void DeactivateWarmode()
