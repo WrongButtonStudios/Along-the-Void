@@ -32,7 +32,7 @@ public class GraficSettings : MonoBehaviour
         List<string> options = new List<string>();
         for (int i = 0; i < filteredResolutions.Count; i++)
         {
-            string resolutionOption = filteredResolutions[i].width + "x" + filteredResolutions[i].height + "  " + filteredResolutions[i].refreshRateRatio + " Hz";
+            string resolutionOption = filteredResolutions[i].width + "x" + filteredResolutions[i].height + "  " + filteredResolutions[i].refreshRateRatio + "Hz";
             options.Add(resolutionOption);
             if (filteredResolutions[i].width == Screen.width && filteredResolutions[i].height == Screen.height)
             {

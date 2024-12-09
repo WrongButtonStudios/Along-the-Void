@@ -4,7 +4,7 @@ using UnityEngine;
 public class BluePlatform : MonoBehaviour
 {
     public int speed = 5;
-    public List<Vector2> waypoints = new List<Vector2>();
+    private List<Vector2> waypoints = new List<Vector2>();
     int currentWaypoint = 0;
     public bool forward = true;
     private characterController playerController;

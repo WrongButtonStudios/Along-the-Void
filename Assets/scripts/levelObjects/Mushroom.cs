@@ -32,11 +32,11 @@ public class Mushroom : MonoBehaviour
             }
         }
     }
-    private void OnCollisionEnter2D(Collision2D collision)
+    private void OnTriggerEnter2D(Collider2D other)
     {
-        if (playerController.getPlayerStatus().currentState == characterController.playerStates.green && collision.gameObject.CompareTag("Player"))
+        if (playerController.getPlayerStatus().currentState == characterController.playerStates.green && other.gameObject.CompareTag("Player"))
         {
-            collision.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * JumpForce, ForceMode2D.Impulse);
+            other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * JumpForce, ForceMode2D.Impulse);
         }
     }
 

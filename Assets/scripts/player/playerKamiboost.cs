@@ -9,7 +9,8 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     private CharacterMovement characterMovement;
     private ContactFilter2D contactFilter = new ContactFilter2D();
     private string defaultLayerName = "yellowDustArea";
-    public int kamiBoostSpeed = 300;
+    public int kamiBoostSpeed = 200;
+    private bool doKamiboost = false;
 
     public LayerMask layerMask;
 
@@ -22,6 +23,25 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         contactFilter.useTriggers = true;
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = layerMask;
+    }
+
+    public void FixedUpdate()
+    {
+        
+
+        if (doKamiboost)
+        {
+            characterMovement.disableMovement();
+            characterController.rb.gravityScale = 0;
+
+            //Ich muss einfach an die Velocity Diggaaaaaa!!!
+            characterController.rb.velocity = new Vector2(characterController.rb.velocity.x, 0);
+            //Ich muss einfach an die Velocity Diggaaaaaa!!!
+            characterMovement.setMaxSpeed(kamiBoostSpeed);
+            //Muss überarbeitet werden!
+            characterController.rb.AddForce(characterController._input.MoveInput * kamiBoostSpeed);
+            //Muss überarbeitet werden!
+        }
     }
 
 
@@ -43,16 +63,12 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
             if (colliders.Count > 0)
             {
-                characterMovement.disableMovement();
-                characterController.rb.gravityScale = 0;
+                doKamiboost = input;
+            }
 
-                //Ich muss einfach an die Velocity Diggaaaaaa!!!
-                characterController.rb.velocity = new Vector2(characterController.rb.velocity.x, 0);
-                //Ich muss einfach an die Velocity Diggaaaaaa!!!
-                characterMovement.setMaxSpeed(kamiBoostSpeed);
-                characterController.rb.AddForce(Vector2.right * kamiBoostSpeed);
-
-
+            if (input == false)
+            {
+                endFeauture();
             }
         }
     }
@@ -61,7 +77,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     {
         characterController.rb.gravityScale = 1;
         characterMovement.enableMovement();
-
+        doKamiboost = false;
     }
 
     public void OnTriggerExit2D(Collider2D collider)
