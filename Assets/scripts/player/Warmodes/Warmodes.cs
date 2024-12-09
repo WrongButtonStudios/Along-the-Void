@@ -18,7 +18,7 @@ public class Warmodes : MonoBehaviour
     [SerializeField, Tooltip("Defines the amount of the color/hp loss per second. Max Coloramount/Fairry = 1")]
     private float _colorLossAmount = 0.05f;
     [SerializeField, Tooltip("The Ice Shooting turret for the Bluewarmode")]
-    private GameObject _turret;
+    private GameObject _turretPref;
 
     private characterController.playerStates _curWarMode;
 
@@ -74,7 +74,7 @@ public class Warmodes : MonoBehaviour
         _isActive = true;
         _cc.StatusData.currentState = characterController.playerStates.burntBlue;
         _curWarMode = _cc.StatusData.currentState; 
-        _activeTurret = Instantiate(_turret, transform.position, Quaternion.identity);
+        _activeTurret = Instantiate(_turretPref, transform.position, Quaternion.identity);
     }
 
     private void DeactivateWarmode()
