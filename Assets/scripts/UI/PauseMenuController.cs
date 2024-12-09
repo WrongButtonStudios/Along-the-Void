@@ -2,6 +2,7 @@ using UnityEngine;
 
 public class PauseMenuController : MonoBehaviour
 {
+
     public void OpenMenu()
     {
         gameObject.SetActive(true);
