@@ -36,7 +36,7 @@ public class EnemyCollisionHandler : MonoBehaviour
         {
             if (player != null)
             {
-                player.Collision.GetDamage(0.35f, player.Collision.GetPlayerColor());
+                PlayerDamageHandler.GetDamage(0.35f, PlayerUttillitys.GetPlayerColor(player), FindAnyObjectByType<fairyController>()); //this is not final, because with that multiplayer wouldnt work!
                 StartCoroutine(DamageCooldown(0.25f)); 
             }
         }

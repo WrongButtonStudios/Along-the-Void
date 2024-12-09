@@ -11,7 +11,6 @@ public class Warmodes : MonoBehaviour
     private CharacterDebuffs _characterDebuffs;
     private CollisionHandler _collisionHandler;
     private characterController _cc;
-
     private float _curHP;
     private GameObject _activeTurret;
 
@@ -29,7 +28,7 @@ public class Warmodes : MonoBehaviour
     {
         _characterDebuffs = this.GetComponent<CharacterDebuffs>();
         _collisionHandler = this.GetComponent<CollisionHandler>();
-        _cc = this.GetComponent<characterController>(); 
+        _cc = this.GetComponent<characterController>();
     }
 
     private void Update()
@@ -38,7 +37,7 @@ public class Warmodes : MonoBehaviour
         if (!_isActive)
             return;
 
-        _curHP =  _collisionHandler.GetDamage(_colorLossAmount*Time.deltaTime, _collisionHandler.GetPlayerColor(_curWarMode));
+        _curHP =  PlayerDamageHandler.GetDamage(_colorLossAmount*Time.deltaTime, PlayerUttillitys.GetPlayerColor(_curWarMode), _fairyController);
         if (_curHP <= 0)
         {
             DeactivateWarmode(); 
