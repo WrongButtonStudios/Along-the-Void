@@ -12,6 +12,7 @@ public class InputController : MonoBehaviour
     private bool triggerPlayerFeatureInput;
     private characterController _cc;
     private Warmodes _warmode; 
+    
     //public gettter 
     public bool DashInput { get { return dashInput; } }
     public bool LastDashInput; 
@@ -23,6 +24,7 @@ public class InputController : MonoBehaviour
         _cc = this.GetComponent<characterController>();
         _warmode = this.GetComponent<Warmodes>(); 
     }
+    
     public void getMoveInput(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();

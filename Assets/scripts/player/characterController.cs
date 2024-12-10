@@ -46,7 +46,7 @@ public class characterController : MonoBehaviour
     private CharacterMovement _movement;
     public CollisionHandler Collision { get; private set;  }
     private CharacterDebuffs _buffs;
-    private InputController _input; 
+    public InputController _input; 
 
     private void Awake()
     {
@@ -86,10 +86,8 @@ public class characterController : MonoBehaviour
         statusData.isMoving = _input.MoveInput.x != 0;
 
 
-        _movement.ClampVelocity();
+        _movement.lerpCurrentMaxSpeedToMaxSpeed();
         handleStates();
-        handleStateTransitions();
-
 
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, _movement.GetMaxSpeed());
 
@@ -110,10 +108,17 @@ public class characterController : MonoBehaviour
             case playerStates.burntYellow:
 
             case playerStates.green:
+                RaycastHit2D groundHit = Collision.doGroundedCheck();
+        
                 playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, _input.TriggerPlayerFeatureInput);
+        
+                _movement.dash();
+                _movement.baseMovement();
+                _movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.red:
+                groundHit = Collision.doGroundedCheck();
 
                 if (_input.TriggerPlayerFeatureInput)
                 {
@@ -121,82 +126,47 @@ public class characterController : MonoBehaviour
 
                     _input.ResetTriggerPlayerFeature();
                 }
+
+                _movement.dash();
+                _movement.baseMovement();
+                _movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.blue:
+                groundHit = Collision.doGroundedCheck();
+
                 if (_input.TriggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
 
                     _input.ResetTriggerPlayerFeature();
                 }
+
+                _movement.dash();
+                _movement.baseMovement();
+                _movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.yellow:
-                if (_input.TriggerPlayerFeatureInput)
-                {
-                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture();
+                groundHit = Collision.doGroundedCheck();
 
-                    _input.ResetTriggerPlayerFeature();
-                }
+                
+                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, _input.TriggerPlayerFeatureInput);
+                   // _input.ResetTriggerPlayerFeature();
+                
+
+                _movement.dash();
+                _movement.baseMovement();
+                _movement.hoverAboveGround(groundHit);
                 break;
 
             default:
                 Debug.LogError("state not implemented");
                 break;
         }
-        RaycastHit2D groundHit = Collision.doGroundedCheck();
-        _movement.dash();
-
-        _movement.baseMovement();
-
-        _movement.hoverAboveGround(groundHit);
     }
 
-    public void handleStateTransitions()
-    {
-
-    }
-
-    private void TransitionEndPlayerFeature() 
-    {
-        switch (statusData.currentState) 
-        {
-            case playerStates.dead:
-                break;
-            case playerStates.green:
-                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().endFeauture();
-                break;
-            case playerStates.red:
-                playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().endFeauture();
-                break; 
-            case playerStates.yellow:
-                playerFeatures.OfType<playerKamiboost>().FirstOrDefault().endFeauture();
-                break;
-            case playerStates.blue:
-                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
-                break;
-            default:
-                Debug.LogError("unhandled state: " + statusData.currentState);
-                break; 
-        }
-    }
-
-    private void HandlePlayerBuffsForNewState(playerStates targetState) 
-    {
-        switch (targetState) 
-        {
-            case playerStates.blue: 
-                statusData.isOnFire = false;
-                break;
-            case playerStates.red: 
-                statusData.isFrozen = false;
-                break;
-            default:
-                Debug.Log("nothing changed on current player buffs");
-                break; 
-        }
-    }
+    
     public void transitionToState(playerStates targetState, bool force = false)
     {
         //super ugly. again so robin can test
@@ -216,14 +186,112 @@ public class characterController : MonoBehaviour
             Debug.LogWarning("is allready in target state");
             return;
         }
-        TransitionEndPlayerFeature();
-        statusData.currentState = targetState;
-        transitionSuccesful = statusData.currentState == targetState; 
+
+        //state exit
+        switch(statusData.currentState)
+        {
+            case playerStates.dead:
+                Debug.LogWarning("cant transition out of dead state");
+                break;
+
+            case playerStates.green:
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().endFeauture();
+                break;
+
+            case playerStates.red:
+                playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().endFeauture();
+                break;
+
+            case playerStates.blue:
+                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
+                break;
+
+            case playerStates.yellow:
+                playerFeatures.OfType<playerKamiboost>().FirstOrDefault().endFeauture();
+                break;
+
+            case playerStates.burntGreen:
+            case playerStates.burntRed:
+            case playerStates.burntBlue:
+            case playerStates.burntYellow:
+                break;
+
+            default:
+                Debug.LogError("state transition origin not implemented");
+                break;
+        }
+
+        //state entry
+        switch (targetState)
+        {
+            case playerStates.dead:
+                statusData.currentState = playerStates.dead;
+                        
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.green:
+                statusData.currentState = playerStates.green;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.red:
+                statusData.currentState = playerStates.red;
+
+                statusData.isFrozen = false;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.blue:
+                statusData.currentState = playerStates.blue;
+
+                statusData.isOnFire = false;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.yellow:
+                statusData.currentState = playerStates.yellow;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.burntGreen:
+                statusData.currentState = playerStates.burntGreen;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.burntRed:
+                statusData.currentState = playerStates.burntRed;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.burntBlue:
+                statusData.currentState = playerStates.burntBlue;
+
+                transitionSuccesful = true;
+                break;
+
+            case playerStates.burntYellow:
+                statusData.currentState = playerStates.burntYellow;
+
+                transitionSuccesful = true;
+                break;
+
+            default:
+                Debug.LogError("state transition target not implemented");
+                break;
+        }
+
         if (transitionSuccesful)
         {
-            HandlePlayerBuffsForNewState(targetState);
             Debug.Log("transition from " + originState.ToString() + " to " + targetState.ToString());
-        } else 
+        }
+        else 
         {
             Debug.LogError("Transition failed"); 
         }

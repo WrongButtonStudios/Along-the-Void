@@ -308,6 +308,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6291066242271056879, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: _fairyController
+      value: 
+      objectReference: {fileID: 89978498}
     - target: {fileID: 8166850662447740485, guid: 688c8c139e34db96d829deaa698192af, type: 3}
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 

@@ -60,7 +60,10 @@ public class YellowPortal : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collider)
     {
-        if (!collider.CompareTag("Player") || !canTeleport) return;
+        if (!collider.CompareTag("Player") || !canTeleport)
+        {
+            return;
+        }
 
         // Prüfe ob der Spieler gelb ist
         if (!IsPlayerYellow(collider.gameObject))
@@ -99,7 +102,9 @@ public class YellowPortal : MonoBehaviour
 
                 // Teleportiere den Spieler
                 Vector2 teleportDirection = linkedPortal.transform.right * (playerRb.velocity.magnitude);
-                playerRb.transform.position = linkedPortal.transform.position;
+
+
+                playerRb.position = linkedPortal.transform.position;
                 playerRb.velocity = teleportDirection;
 
                 // Starte Cooldown für beide Portale

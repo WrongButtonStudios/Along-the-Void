@@ -146,6 +146,7 @@ MonoBehaviour:
     isDash: 0
     isFrozen: 0
     isOnFire: 0
+  _input: {fileID: 0}
 --- !u!50 &6023778915909287075
 Rigidbody2D:
   serializedVersion: 4
@@ -325,6 +326,22 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 83453d3a-c155-4f23-80d3-7046c32e6c89
     m_ActionName: MainMenu/Interact
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a7a52481-45d5-419b-bfb0-2ad930e8d0a1
+    m_ActionName: PauseMenu/Open Pause Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d4a5965-f844-4d94-9466-c83e0aa436c3
+    m_ActionName: PauseMenu/Close Pause Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6c7783c2-505e-4811-b32b-8c575f886406
+    m_ActionName: Controller/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 9a145223-1744-461e-a5ca-845303bcc751
+    m_ActionName: Keyboard/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -436,7 +453,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7c01406e6868407486547668b3e0fe0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _fairyController: {fileID: 0}
   _colorLossAmount: 0.05
+  _turretPref: {fileID: 7369785609382215585, guid: d40ecc27f0f2d472abc0e5b111426990, type: 3}
 --- !u!1 &3881638506002448785
 GameObject:
   m_ObjectHideFlags: 0
