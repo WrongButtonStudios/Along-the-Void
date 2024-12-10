@@ -1,43 +1,51 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering.LookDev;
 
-public class SelectedMonitor : MonoBehaviour
+public class ButtonSelector : MonoBehaviour
 {
-    public GameObject mainMenu, options, graphicSettings, credits, loadGame;
-    public GameObject mainMenuFirstButton, optionsFirstButton, graphicFirstButton, creditsFirstButton, loadFirstButton;
+    public GameObject currentWindow;
+    public GameObject currentWindowFirstButton;
+    private PlayerInput playerInput;
 
 
 
 
     private void Start()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
+        playerInput = GetComponent<PlayerInput>();
+        // if (playerInput.currentActionMap.name == "Controller")
+        {
+            SelectButton();
+        }
     }
 
-    public void OpenMainMenu()
+    private void Update()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(mainMenuFirstButton);
+        //if (playerInput.currentActionMap.name == "Controller")
+        {
+            HandleNavigation();
+        }
     }
-    public void OpenOptions()
+
+    private void SelectButton()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(optionsFirstButton);
+        if (currentWindow != null)
+        {
+            EventSystem.current.SetSelectedGameObject(null);
+            if (currentWindowFirstButton != null)
+            {
+                EventSystem.current.SetSelectedGameObject(currentWindowFirstButton);
+            }
+        }
     }
-    public void OpenGraphicSettings()
+
+    private void HandleNavigation()
     {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(graphicFirstButton);
-    }
-    public void OpenCredits()
-    {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(creditsFirstButton);
-    }
-    public void OpenLoadGame()
-    {
-        EventSystem.current.SetSelectedGameObject(null);
-        EventSystem.current.SetSelectedGameObject(loadFirstButton);
+        if (EventSystem.current.currentSelectedGameObject == null)
+        {
+            SelectButton();
+        }
     }
 }
