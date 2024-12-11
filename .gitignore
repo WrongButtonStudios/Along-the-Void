@@ -97,3 +97,7 @@ fmod_editor.log
 
 # Unity Cache Server files
 [Cc]ache/*
+
+# Ignoriere alle temporären und Cache-Dateien von FMOD Studio
+Assets/Plugins/FMOD/Cache/
+fmod_editor.log
