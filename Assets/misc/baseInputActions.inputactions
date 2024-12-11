@@ -435,6 +435,34 @@
             ]
         },
         {
+            "name": "PauseMenuBack",
+            "id": "4ad2a65e-1743-4cd3-8f4e-966a6e133937",
+            "actions": [
+                {
+                    "name": "New action",
+                    "type": "Button",
+                    "id": "7f095e2e-bfa6-4faf-92d0-bddc7280b309",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "074f36cf-3ab2-4339-be09-29673c4f6aa4",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "New action",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
+        },
+        {
             "name": "Controller",
             "id": "6a917184-8dee-4ffe-83b6-a93d7d1472a2",
             "actions": [

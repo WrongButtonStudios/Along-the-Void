@@ -9,8 +9,13 @@ public class PauseMenu : MonoBehaviour
     private static PauseMenu instance;
     private Vector2 respawnPos = new Vector2(0, 0);
     private GameObject player;
+    private @BaseInputActions charController;
+
     void Awake()
     {
+        charController = new @BaseInputActions();
+        charController.characterController.Pausemenu.performed += ctx => PauseeMenu();
+        charController.characterController.Enable();
         if (GetComponent<characterController>() != null)
         {
             DontDestroyOnLoad(gameObject); // Verhindert, dass dieses Objekt zerstört wird
@@ -26,13 +31,10 @@ public class PauseMenu : MonoBehaviour
             respawnPos = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
-
-    private void Update()
+    private void PauseeMenu()
     {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            pauseMenuCanvas.SetActive(true);
-        }
+        Time.timeScale = 0;
+        pauseMenuCanvas.SetActive(true);
     }
     public void Resume()
     {
