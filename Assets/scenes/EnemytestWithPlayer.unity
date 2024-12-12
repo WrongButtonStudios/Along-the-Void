@@ -1944,14 +1944,14 @@ PrefabInstance:
     - target: {fileID: 3868494440188138871, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
       propertyPath: _playerPos
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 1804044471}
     - target: {fileID: 4089601838756030552, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
       propertyPath: m_Name
       value: BodenNahkampfGegner
       objectReference: {fileID: 0}
     - target: {fileID: 4089601838756030552, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5044598077448992619, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
       propertyPath: m_LocalPosition.x
