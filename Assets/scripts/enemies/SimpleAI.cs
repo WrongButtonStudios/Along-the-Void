@@ -171,7 +171,7 @@ public class SimpleAI : MonoBehaviour
         }
         else
         {
-            _rb.constraints = RigidbodyConstraints2D.FreezePositionX; 
+            _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
     }
 
