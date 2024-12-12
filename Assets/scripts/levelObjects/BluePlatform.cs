@@ -10,6 +10,7 @@ public class BluePlatform : MonoBehaviour
     private characterController playerController;
     Collider2D myCollider;
     private Rigidbody2D rb;
+    private Vector2 _lastPosition; 
 
     void Start()
     {
@@ -23,7 +24,7 @@ public class BluePlatform : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate() //bewegungen immer im FixedUpdate
     {
         if (playerController.getPlayerStatus().currentState == characterController.playerStates.blue || playerController.getPlayerStatus().currentState == characterController.playerStates.burntBlue)
         {
@@ -58,5 +59,11 @@ public class BluePlatform : MonoBehaviour
                 Debug.Log("Forwards again");
             }
         }
+        _lastPosition = rb.position; 
+    }
+
+    public Vector2 GetPlattformVelocity()
+    {
+        return (rb.position - _lastPosition) / Time.fixedDeltaTime; 
     }
 }

@@ -102,6 +102,7 @@ GameObject:
   - component: {fileID: 4101192342703305825}
   - component: {fileID: 5427037132920156623}
   - component: {fileID: 6291066242271056879}
+  - component: {fileID: 27437897402313827}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -342,6 +343,10 @@ MonoBehaviour:
       m_Calls: []
     m_ActionId: 9a145223-1744-461e-a5ca-845303bcc751
     m_ActionName: Keyboard/New action
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 7f095e2e-bfa6-4faf-92d0-bddc7280b309
+    m_ActionName: PauseMenuBack/New action
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -456,6 +461,51 @@ MonoBehaviour:
   _fairyController: {fileID: 0}
   _colorLossAmount: 0.05
   _turretPref: {fileID: 7369785609382215585, guid: d40ecc27f0f2d472abc0e5b111426990, type: 3}
+--- !u!61 &27437897402313827
+BoxCollider2D:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247461398459608850}
+  m_Enabled: 1
+  m_Density: 1
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_ForceSendLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ForceReceiveLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_ContactCaptureLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_CallbackLayers:
+    serializedVersion: 2
+    m_Bits: 4294967295
+  m_IsTrigger: 1
+  m_UsedByEffector: 0
+  m_UsedByComposite: 0
+  m_Offset: {x: -0.0000038146973, y: 0.005088806}
+  m_SpriteTilingProperty:
+    border: {x: 0, y: 0, z: 0, w: 0}
+    pivot: {x: 0, y: 0}
+    oldSize: {x: 0, y: 0}
+    newSize: {x: 0, y: 0}
+    adaptiveTilingThreshold: 0
+    drawMode: 0
+    adaptiveTiling: 0
+  m_AutoTiling: 0
+  serializedVersion: 2
+  m_Size: {x: 2.140007, y: 2.170517}
+  m_EdgeRadius: 0
 --- !u!1 &3881638506002448785
 GameObject:
   m_ObjectHideFlags: 0

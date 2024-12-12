@@ -10,10 +10,11 @@ public class CollisionHandler : MonoBehaviour
     private fairyController _fairyController = null;
     private characterController _cc; 
     private CharacterMovement _movement;
-    private Warmodes _warmode; 
-
+    private Warmodes _warmode;
+    private bool _isOnPlattform = false; 
     [SerializeField]
     private LayerMask _groundLayer;
+    private BluePlatform _plattform; 
 
     private void Start()
     {
@@ -21,6 +22,12 @@ public class CollisionHandler : MonoBehaviour
         _cc = this.gameObject.GetComponent<characterController>();
         _movement = this.GetComponent<CharacterMovement>();
         _warmode = this.GetComponent<Warmodes>(); 
+    }
+
+    private void FixedUpdate()
+    {
+        if (_isOnPlattform)
+            _cc.rb.velocity += _plattform.GetPlattformVelocity();
     }
 
     public RaycastHit2D doGroundedCheck()
@@ -67,11 +74,15 @@ public class CollisionHandler : MonoBehaviour
     private void OnCollisionStay2D()
     {
         _cc.StatusData.isDash = false;
+
     }
 
     public void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
         Debug.Log("trigger entered");         
+        bool destroyObstacle = collision.gameObject.layer == 14 && _warmode.CurWarMode == characterController.playerStates.burntRed && _warmode.IsActive;
+        _plattform = collision.GetComponent<BluePlatform>();
+        bool stayOnPlattform = PlayerUttillitys.GetPlayerColor(_cc) == PlayerColor.blue && _plattform != null;  
         if (collision.gameObject.layer == 19 && PlayerUttillitys.GetPlayerColor(_cc) == PlayerColor.red) 
         {
             Debug.Log("Autsch roter spike");
@@ -79,10 +90,25 @@ public class CollisionHandler : MonoBehaviour
             PlayerDamageHandler.GetDamage(0.25f, PlayerColor.red, _fairyController);
         }
 
-        bool destroyObstacle = collision.gameObject.layer == 14 && _warmode.CurWarMode == characterController.playerStates.burntRed && _warmode.IsActive; 
         if (destroyObstacle)
         {
             Destroy(collision.gameObject); 
+        }
+
+        if (stayOnPlattform)
+        {
+            _isOnPlattform = true;
+            _cc.rb.velocity = new Vector2(0, 0);
+        }
+
+    }
+
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (_isOnPlattform)
+        {
+            _isOnPlattform = false; 
+            _plattform = null; 
         }
     }
 }
