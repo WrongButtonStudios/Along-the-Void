@@ -264,6 +264,22 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 27437897402313827, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: m_Size.x
+      value: 1.3035202
+      objectReference: {fileID: 0}
+    - target: {fileID: 27437897402313827, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: m_Size.y
+      value: 0.39297485
+      objectReference: {fileID: 0}
+    - target: {fileID: 27437897402313827, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: m_Offset.x
+      value: -0.052288055
+      objectReference: {fileID: 0}
+    - target: {fileID: 27437897402313827, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: m_Offset.y
+      value: -0.88368225
+      objectReference: {fileID: 0}
     - target: {fileID: 3247461398459608850, guid: 688c8c139e34db96d829deaa698192af, type: 3}
       propertyPath: m_Name
       value: player
@@ -2528,7 +2544,7 @@ BoxCollider2D:
   m_GameObject: {fileID: 2142117471}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 6200000, guid: 0385dd31163c8b4d8957fce8ef0cd296, type: 2}
+  m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
     m_Bits: 0

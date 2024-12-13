@@ -27,7 +27,7 @@ public class CollisionHandler : MonoBehaviour
     private void FixedUpdate()
     {
         if (_isOnPlattform)
-            _cc.rb.velocity += _plattform.GetPlattformVelocity();
+            transform.position += (Vector3)_plattform.GetDeltaPosition();
     }
 
     public RaycastHit2D doGroundedCheck()
