@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 
 public class PauseMenu : MonoBehaviour
@@ -10,6 +11,7 @@ public class PauseMenu : MonoBehaviour
     private Vector2 respawnPos = new Vector2(0, 0);
     private GameObject player;
     private @BaseInputActions charController;
+    private PlayerInput playerInput;
 
     void Awake()
     {
@@ -31,6 +33,11 @@ public class PauseMenu : MonoBehaviour
             respawnPos = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
+    private void Start()
+    {
+        playerInput = GetComponent<PlayerInput>(); //Gets Action Maps
+        SwitchToMenu(); //Changes current Action Map to PauseMenu action map
+    }
     private void PauseeMenu()
     {
         Time.timeScale = 0;
@@ -38,13 +45,15 @@ public class PauseMenu : MonoBehaviour
     }
     public void Resume()
     {
-        pauseMenuCanvas.SetActive(false);
+        SwitchToIngame();
         Time.timeScale = 1;
+        pauseMenuCanvas.SetActive(false);
     }
     public void Restart()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SwitchToIngame();
         Time.timeScale = 1;
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
     public void Options()
     {
@@ -52,17 +61,26 @@ public class PauseMenu : MonoBehaviour
     }
     public void MainMenu()
     {
-        SceneManager.LoadScene("Main Menu");
+        SwitchToMenu();
         Time.timeScale = 1;
+        SceneManager.LoadScene("Main Menu");
     }
     public void RespawnButton()
     {
-
+        SwitchToIngame();
         if (GetComponent<characterController>() != null)
         {
             characterController cc = gameObject.GetComponent<characterController>();
             cc.rb.velocity = Vector2.zero;
             cc.rb.position = respawnPos;
         }
+    }
+    private void SwitchToMenu()
+    {
+        playerInput.SwitchCurrentActionMap("PauseMenu");
+    }
+    private void SwitchToIngame()
+    {
+        playerInput.SwitchCurrentActionMap("characterController");
     }
 }

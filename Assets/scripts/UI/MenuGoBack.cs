@@ -1,24 +1,21 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Threading;
-using UnityEditor.UI;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MenuGoBack : MonoBehaviour
+public class MenuGoBack : MonoBehaviour //Zieht sich Action maps, aktiviert den Back-Button, deaktiviert diesen wieder wenn tieferliegende Menueebenen geschlossen werden, schlieﬂt tieferliegende Ebenen und aktiviert hoeherliegende
 {
     public GameObject higherMenu;
-    private @BaseInputActions controls;
+    private PlayerInput playerInput;
 
     private void Awake()
     {
-        controls = new @BaseInputActions();
+        playerInput = GetComponent<PlayerInput>();
+        playerInput.SwitchCurrentActionMap("MainMenu");
         controls.MainMenu.BackButton.performed += ctx => GoBack();
-        controls.MainMenu.Enable();
     }
 
     void GoBack()
     {
+        controls.MainMenu.BackButton.performed -= ctx => GoBack();
         higherMenu.SetActive(true);
         gameObject.SetActive(false);
     }
