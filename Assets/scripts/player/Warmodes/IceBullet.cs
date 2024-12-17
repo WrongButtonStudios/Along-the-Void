@@ -29,6 +29,7 @@ public class IceBullet : MonoBehaviour
             _timePassed = 0; 
         }
 
-        _rb.AddForce(this.transform.right * _force * Time.fixedDeltaTime); 
+        _rb.AddForce(this.transform.right * _force * Time.fixedDeltaTime);
+        //kommentar um n neuen push mit dem namen "currently not merge ready" zu machen 
     }
 }
