@@ -5,17 +5,19 @@ public class MenuGoBack : MonoBehaviour //Zieht sich Action maps, aktiviert den 
 {
     public GameObject higherMenu;
     private PlayerInput playerInput;
+    private InputAction goBack;
 
     private void Awake()
     {
-        playerInput = GetComponent<PlayerInput>();
-        playerInput.SwitchCurrentActionMap("MainMenu");
-        controls.MainMenu.BackButton.performed += ctx => GoBack();
+        playerInput = FindObjectOfType<PlayerInput>();
+        playerInput.SwitchCurrentActionMap("PauseMenu");
+        goBack = playerInput.actions["BackButton"];
+        goBack.performed += OnGoBackPerformed;
     }
 
-    void GoBack()
+    void OnGoBackPerformed(InputAction.CallbackContext context)
     {
-        controls.MainMenu.BackButton.performed -= ctx => GoBack();
+        goBack.performed -= OnGoBackPerformed;
         higherMenu.SetActive(true);
         gameObject.SetActive(false);
     }

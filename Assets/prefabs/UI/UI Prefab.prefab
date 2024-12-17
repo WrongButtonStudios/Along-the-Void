@@ -7065,7 +7065,6 @@ GameObject:
   - component: {fileID: 7000245212292051029}
   - component: {fileID: 5473853551918911370}
   - component: {fileID: 4524073801801381539}
-  - component: {fileID: 8374611171614239569}
   m_Layer: 5
   m_Name: Pause Menu Canvas
   m_TagString: Untagged
@@ -7174,18 +7173,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentWindow: {fileID: 8194782128819953403}
   currentWindowFirstButton: {fileID: 7500784364695370881}
---- !u!114 &8374611171614239569
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8194782128819953403}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b386e2f208a2d414a8e3258bf1abe6ed, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &8201275499754194127
 GameObject:
   m_ObjectHideFlags: 0

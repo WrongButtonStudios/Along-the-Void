@@ -3,21 +3,21 @@ using UnityEngine.InputSystem;
 
 public class ClosePauseMenu : MonoBehaviour //Zieht sich Action Maps, aktiviert den Close Pause Menu Button, schliesst PauseMenu und wechselt Action Map zu ingame
 {
-    public @BaseInputActions pauseMenu;
     private PlayerInput playerInput;
+    private InputAction closePauseMenu;
+    public GameObject pauseMenu;
     void Start()
     {
+        playerInput = FindObjectOfType<PlayerInput>();
+        closePauseMenu = playerInput.actions["Pausemenu"];
+        closePauseMenu.performed += OnClosePauseMenu;
         playerInput.SwitchCurrentActionMap("PauseMenu");
-        pauseMenu = new @BaseInputActions();
-        pauseMenu.PauseMenu.ClosePauseMenu.performed += ctx => CloseePauseMenu();
-        pauseMenu.PauseMenu.Enable();
-        playerInput = GetComponent<PlayerInput>();
+        closePauseMenu = playerInput.actions["ClosePauseMenu"];
     }
 
-    private void CloseePauseMenu()
+    private void OnClosePauseMenu(InputAction.CallbackContext context)
     {
-        pauseMenu.PauseMenu.ClosePauseMenu.performed -= ctx => CloseePauseMenu();
-        pauseMenu.PauseMenu.Disable();
+        Debug.Log("Megaschwängelllle");
         playerInput.SwitchCurrentActionMap("characterController");
         this.gameObject.SetActive(false);
     }
