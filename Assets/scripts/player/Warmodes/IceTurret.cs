@@ -41,7 +41,10 @@ public class IceTurret : MonoBehaviour
         {
             foreach (Transform t in _gunBarrels)
             {
-                Instantiate(_iceBullet, t.position, t.rotation);
+                var iceBullet = IceBulletPool.Instance.GetPooledIceBullet();
+                iceBullet.transform.position = t.position;
+                iceBullet.transform.rotation = t.rotation;
+                iceBullet.SetActive(true); 
             }
             StartCoroutine(CooldownYield()); 
         }

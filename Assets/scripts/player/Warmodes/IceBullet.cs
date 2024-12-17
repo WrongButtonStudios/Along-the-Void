@@ -20,9 +20,14 @@ public class IceBullet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        _timePassed += Time.fixedDeltaTime; 
+        if (this.isActiveAndEnabled == false)
+            return; 
+        _timePassed += Time.fixedDeltaTime;
         if (_timePassed >= _lifeDuration)
-            Destroy(this.gameObject);
+        {
+            this.gameObject.SetActive(false);
+            _timePassed = 0; 
+        }
 
         _rb.AddForce(this.transform.right * _force * Time.fixedDeltaTime); 
     }

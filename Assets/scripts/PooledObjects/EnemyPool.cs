@@ -37,6 +37,7 @@ public class EnemyPool : MonoBehaviour
         else if (EnemyPool.PooledEnemys.gameObject != this.gameObject)
         {
             Destroy(this.gameObject);
+            return; 
         }
 
         InstantiateEnemys(); 

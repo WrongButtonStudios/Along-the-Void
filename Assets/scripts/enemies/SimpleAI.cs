@@ -89,6 +89,7 @@ public class SimpleAI : MonoBehaviour
     void Awake()
     {
         _rb = this.GetComponent<Rigidbody2D>();
+        _playerPos = GameObject.FindObjectOfType<characterController>().transform;
         Initialize();
     }
 

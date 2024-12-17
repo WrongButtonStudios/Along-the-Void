@@ -1,0 +1,52 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &5991724963887276992
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7494448949290973282}
+  - component: {fileID: 6168702762144600682}
+  m_Layer: 0
+  m_Name: EnemyPool
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7494448949290973282
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5991724963887276992}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 445.81046, y: 132.78377, z: -0.64991033}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &6168702762144600682
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5991724963887276992}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a2e71b97f1e94428d82699bb6f0ee7fd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _groundCloseCombatEnemyCount: 5
+  _groundFarCombatEnemyCount: 5
+  _FlyingEnemyCount: 5
+  _groundCCEnemyPref: {fileID: 4089601838756030552, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
+  _groundFCEnemyPref: {fileID: 787545043193850315, guid: ef16d2a71b2614138bf90a3e73de584a, type: 3}
+  _flyingEnemyPref: {fileID: 3321275590547091638, guid: 911a851106f524a0189e214b7499f388, type: 3}
