@@ -1,15 +1,19 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour
 {
+    private PlayerInput playerInput;
+    private void Start()
+    {
+        SwitchToMenu(); //Changes current Action Map to PauseMenu action map        
+    }
     public void PlayGame()
     {
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         SceneManager.LoadSceneAsync(1);
+        playerInput = GetComponent<PlayerInput>(); //Gets Action Maps
+        SwitchToIngame(); //Switches current Action Map to characterController on game start
     }
 
     public void PlayCredits()
@@ -20,5 +24,13 @@ public class MainMenu : MonoBehaviour
     public void QuitGame()
     {
         Application.Quit();
+    }
+    private void SwitchToMenu()
+    {
+        playerInput.SwitchCurrentActionMap("PauseMenu");
+    }
+    private void SwitchToIngame()
+    {
+        playerInput.SwitchCurrentActionMap("characterController");
     }
 }

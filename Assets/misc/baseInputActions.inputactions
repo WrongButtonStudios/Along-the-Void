@@ -317,15 +317,6 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
-                },
-                {
-                    "name": "Interact",
-                    "type": "Button",
-                    "id": "83453d3a-c155-4f23-80d3-7046c32e6c89",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -350,17 +341,6 @@
                     "action": "BackButton",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6e6ccb06-b607-4cc6-87af-42832f8d3c04",
-                    "path": "<XInputController>/buttonSouth",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";gamepad",
-                    "action": "Interact",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
@@ -369,7 +349,7 @@
             "id": "45f95ccd-a2fc-4ea6-8277-10cafbb31127",
             "actions": [
                 {
-                    "name": "Open Pause Menu",
+                    "name": "OpenPauseMenu",
                     "type": "Button",
                     "id": "a7a52481-45d5-419b-bfb0-2ad930e8d0a1",
                     "expectedControlType": "",
@@ -378,9 +358,18 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Close Pause Menu",
+                    "name": "ClosePauseMenu",
                     "type": "Button",
                     "id": "6d4a5965-f844-4d94-9466-c83e0aa436c3",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "BackButton",
+                    "type": "Button",
+                    "id": "3d70aa9e-82e7-42a9-82c6-994f478aca38",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -395,7 +384,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";keyboard",
-                    "action": "Open Pause Menu",
+                    "action": "OpenPauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -406,7 +395,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";gamepad",
-                    "action": "Open Pause Menu",
+                    "action": "OpenPauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -417,7 +406,7 @@
                     "interactions": "",
                     "processors": "",
                     "groups": ";keyboard",
-                    "action": "Close Pause Menu",
+                    "action": "ClosePauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -428,35 +417,29 @@
                     "interactions": "",
                     "processors": "",
                     "groups": "",
-                    "action": "Close Pause Menu",
+                    "action": "ClosePauseMenu",
                     "isComposite": false,
                     "isPartOfComposite": false
-                }
-            ]
-        },
-        {
-            "name": "PauseMenuBack",
-            "id": "4ad2a65e-1743-4cd3-8f4e-966a6e133937",
-            "actions": [
-                {
-                    "name": "New action",
-                    "type": "Button",
-                    "id": "7f095e2e-bfa6-4faf-92d0-bddc7280b309",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                }
-            ],
-            "bindings": [
+                },
                 {
                     "name": "",
-                    "id": "074f36cf-3ab2-4339-be09-29673c4f6aa4",
-                    "path": "",
+                    "id": "c586bdfb-552b-49d2-9bd8-573d6d3be5c2",
+                    "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
-                    "action": "New action",
+                    "groups": ";keyboard",
+                    "action": "BackButton",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "17a20c5e-e5c0-40ef-af81-4f6cb584d884",
+                    "path": "<XInputController>/buttonEast",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";gamepad",
+                    "action": "BackButton",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

@@ -1,32 +1,23 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.InputSystem;
-using UnityEngine.Rendering.LookDev;
 
 public class ButtonSelector : MonoBehaviour
 {
     public GameObject currentWindow;
     public GameObject currentWindowFirstButton;
-    private PlayerInput playerInput;
+
 
 
 
 
     private void Start()
     {
-        playerInput = GetComponent<PlayerInput>();
-        // if (playerInput.currentActionMap.name == "Controller")
-        {
-            SelectButton();
-        }
+        SelectButton(); //Selects the chosen first button on Menu Window start
     }
 
     private void Update()
     {
-        //if (playerInput.currentActionMap.name == "Controller")
-        {
-            HandleNavigation();
-        }
+        HandleNavigation(); //Re-selects the chosen first button on Menu, when no button is selected
     }
 
     private void SelectButton()
