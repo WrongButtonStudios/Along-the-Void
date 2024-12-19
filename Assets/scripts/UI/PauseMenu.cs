@@ -14,9 +14,8 @@ public class PauseMenu : MonoBehaviour
     private PlayerInput playerInput;
     private InputAction openPauseMenu;
     private InputAction closePauseMenu;
-    private bool isClosed = false;
-    private bool isDebounce = false; // Fügt ein neues Flag für Debouncing hinzu.
-
+    private bool isOpend = false;
+    private bool isDebounce = false; // F?gt ein neues Flag f?r Debouncing hinzu.
     private void Start()
     {
         player = GameObject.FindGameObjectWithTag("Player");
@@ -34,7 +33,7 @@ public class PauseMenu : MonoBehaviour
 
         if (GetComponent<characterController>() != null)
         {
-            DontDestroyOnLoad(gameObject); // Verhindert, dass dieses Objekt zerstört wird
+            DontDestroyOnLoad(gameObject); // Verhindert, dass dieses Objekt zerst?rt wird
             if (instance == null)
             {
                 instance = this;
@@ -42,20 +41,20 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject); // Zerstöre zusätzliche Instanzen
+                Destroy(gameObject); // Zerst?re zus?tzliche Instanzen
             }
             respawnPos = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
     private IEnumerator ResetDebounce()
     {
-        yield return new WaitForSecondsRealtime(0.1f); // Wartet 0.1 Sekunden (reale Zeit, unabhängig von TimeScale)
+        yield return new WaitForSecondsRealtime(0.1f); // Wartet 0.1 Sekunden (reale Zeit, unabh?ngig von TimeScale)
         isDebounce = false;
     }
 
     private void OnPauseMenuPerformed(InputAction.CallbackContext context)
     {
-        if (!isClosed && !isDebounce) // Nur ausführen, wenn Debounce inaktiv
+        if (!isOpend && !isDebounce) // Nur ausf?hren, wenn Debounce inaktiv
         {
             isDebounce = true; // Aktiviert Debouncing
             StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
@@ -65,13 +64,13 @@ public class PauseMenu : MonoBehaviour
             Time.timeScale = 0;
             openPauseMenu.performed -= OnPauseMenuPerformed;
             closePauseMenu.performed += OnPauseMenuClosePerformed;
-            isClosed = true;
+            isOpend = true;
         }
     }
 
     private void OnPauseMenuClosePerformed(InputAction.CallbackContext context)
     {
-        if (isClosed && !isDebounce) // Nur ausführen, wenn Debounce inaktiv
+        if (isOpend && !isDebounce) // Nur ausf?hren, wenn Debounce inaktiv
         {
             isDebounce = true; // Aktiviert Debouncing
             StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
@@ -81,7 +80,7 @@ public class PauseMenu : MonoBehaviour
             playerInput.SwitchCurrentActionMap("characterController");
             closePauseMenu.performed -= OnPauseMenuClosePerformed;
             openPauseMenu.performed += OnPauseMenuPerformed;
-            isClosed = false;
+            isOpend = false;
         }
     }
     public void Resume()
@@ -89,6 +88,7 @@ public class PauseMenu : MonoBehaviour
         SwitchToIngame();
         Time.timeScale = 1;
         pauseMenuCanvas.SetActive(false);
+        
     }
     public void Restart()
     {
@@ -98,6 +98,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void Options()
     {
+        isOpend = false; 
         optionsCanvas.SetActive(true);
     }
     public void MainMenu()
