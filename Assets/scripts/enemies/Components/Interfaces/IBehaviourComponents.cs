@@ -1,6 +1,6 @@
 
 using UnityEngine;
-
+using System.Collections.Generic; 
 public interface IComponent
 {
     public void Init(SimpleAI entity); 
@@ -29,6 +29,8 @@ public interface IPatrolComponent : IComponent
     public void Movement(Vector2 target);
 
     public bool ReachedDestination();
+
+    public void SetWayPoints(List<Transform> wps); 
  
 }
 

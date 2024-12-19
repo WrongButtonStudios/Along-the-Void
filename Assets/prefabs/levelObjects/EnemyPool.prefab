@@ -47,6 +47,6 @@ MonoBehaviour:
   _groundCloseCombatEnemyCount: 5
   _groundFarCombatEnemyCount: 5
   _FlyingEnemyCount: 5
-  _groundCCEnemyPref: {fileID: 4089601838756030552, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
-  _groundFCEnemyPref: {fileID: 787545043193850315, guid: ef16d2a71b2614138bf90a3e73de584a, type: 3}
-  _flyingEnemyPref: {fileID: 3321275590547091638, guid: 911a851106f524a0189e214b7499f388, type: 3}
+  _groundCCEnemyPref: {fileID: 2829351479227315926, guid: 29670198ba83647d286aa0f6195d5e72, type: 3}
+  _groundFCEnemyPref: {fileID: 8976610143897324252, guid: ef16d2a71b2614138bf90a3e73de584a, type: 3}
+  _flyingEnemyPref: {fileID: 5720590047967088283, guid: 911a851106f524a0189e214b7499f388, type: 3}

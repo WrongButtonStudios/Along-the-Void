@@ -8,7 +8,7 @@ using UnityEngine;
 public class EnemyPool : MonoBehaviour
 {
     [Tooltip("Singleton reference of the Enemy pool")]
-    public static EnemyPool PooledEnemys;
+    public static EnemyPool Instance;
 
     [SerializeField, Tooltip("Amount of Ground Closecombat Enemys to Pool")]
     private int _groundCloseCombatEnemyCount = 5;
@@ -29,12 +29,12 @@ public class EnemyPool : MonoBehaviour
     // Start is called before the first frame update
     void Awake()
     {
-        if (EnemyPool.PooledEnemys == null)
+        if (EnemyPool.Instance == null)
         {
-            EnemyPool.PooledEnemys = this;
+            EnemyPool.Instance = this;
             DontDestroyOnLoad(this.gameObject);
         }
-        else if (EnemyPool.PooledEnemys.gameObject != this.gameObject)
+        else if (EnemyPool.Instance.gameObject != this.gameObject)
         {
             Destroy(this.gameObject);
             return; 

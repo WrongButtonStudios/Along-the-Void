@@ -15,7 +15,7 @@ EditorBuildSettings:
     path: Assets/scenes/characterControllerPlayground.unity
     guid: 9351b7ef5a4c16a48ac5005df0e5f1bc
   - enabled: 1
-    path: Assets/scenes/EnemytestWithPlayer.unity
+    path: Assets/scenes/LevelEnemytestWithPlayer.unity
     guid: 70eb9cdd00ed84d9694f396dd8fa7d78
   - enabled: 1
     path: Assets/scenes/LosingScreen.unity

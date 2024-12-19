@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8328257233940495132}
   - component: {fileID: 6465969067354687706}
+  - component: {fileID: 7040878782746232422}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -44,7 +45,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9da7a2adddd9e4180a6bb33e657e7dae, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _playerPref: {fileID: 3247461398459608850, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+  _playerPref: {fileID: 4841980003676055296, guid: d3fb0311086c64e948b8d879ca3a08c3, type: 3}
   _enemyPoolPref: {fileID: 5991724963887276992, guid: 6a7698d06a61e4db1a1a736754b3565b, type: 3}
   _iceBulletPoolPref: {fileID: 1119015007122572128, guid: 1fde7c49289714f6ca5e3b331857ca2e, type: 3}
   _slimeBallPoolPref: {fileID: 3919741454989564190, guid: cd57e547a0e8f428ba26ac8f33105620, type: 3}
+--- !u!114 &7040878782746232422
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2686096849307719200}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bcf97b3f10528435696b7980e1d8bca3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

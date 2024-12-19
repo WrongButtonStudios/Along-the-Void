@@ -35,7 +35,8 @@ public class IceBulletPool : MonoBehaviour
         {
             var bullet = Instantiate(_iceBulletPref, transform.position, Quaternion.identity);
             bullet.SetActive(false); 
-            _iceBullets.Add(bullet); 
+            _iceBullets.Add(bullet);
+            Debug.Log("Instanzierte Ice bullet Nummero: " + i); 
         }
     }
 
@@ -43,7 +44,7 @@ public class IceBulletPool : MonoBehaviour
     {
         foreach (GameObject g in _iceBullets)
         {
-            if (g.activeInHierarchy)
+            if (g.activeInHierarchy == false)
                 return g; 
         }
 
