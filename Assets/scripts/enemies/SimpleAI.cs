@@ -83,15 +83,21 @@ public class SimpleAI : MonoBehaviour
 
     public float JumpForce { get { return _jumpForce; } }
 
-    void Awake()
+    private bool _isInitialized = false; 
+
+    private void OnEnable()
     {
-        _rb = this.GetComponent<Rigidbody2D>();
-        _playerPos = GameObject.FindObjectOfType<characterController>().transform;
-        Initialize();
+        if(_rb==null)
+            _rb = this.GetComponent<Rigidbody2D>();
+        if(_playerPos == null)
+            _playerPos = GameObject.FindObjectOfType<characterController>().transform;
+        if(_isInitialized == false)
+            Initialize();
     }
 
     private void Initialize()
     {
+        _isInitialized = true; 
         AddPatrolAndHauntComponent();
         AddAttackComponent(); 
     }
@@ -149,6 +155,8 @@ public class SimpleAI : MonoBehaviour
 
     private void ExecuteState()
     {
+        if (this.isActiveAndEnabled == false)
+            return; 
         SelectNewWeapon();
         SelectMovementComponent();
         ChangedState();
