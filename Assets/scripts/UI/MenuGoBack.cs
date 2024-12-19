@@ -1,3 +1,4 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,9 +13,16 @@ public class MenuGoBack : MonoBehaviour //Zieht sich Action maps, aktiviert den 
         playerInput = FindObjectOfType<PlayerInput>();
         playerInput.SwitchCurrentActionMap("PauseMenu");
         goBack = playerInput.actions["BackButton"];
+    }
+    private void Start()
+    {
+        StartCoroutine(DelayHinzufuegen());
+    }
+    private IEnumerator DelayHinzufuegen()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
         goBack.performed += OnGoBackPerformed;
     }
-
     void OnGoBackPerformed(InputAction.CallbackContext context)
     {
         goBack.performed -= OnGoBackPerformed;
