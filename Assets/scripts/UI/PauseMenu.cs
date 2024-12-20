@@ -16,8 +16,10 @@ public class PauseMenu : MonoBehaviour
     private InputAction closePauseMenu;
     private bool isOpend = false;
     private bool isDebounce = false; // F?gt ein neues Flag f?r Debouncing hinzu.
+    private bool pauseMenuWasActive = false;
     private void Start()
     {
+
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
@@ -51,6 +53,22 @@ public class PauseMenu : MonoBehaviour
         yield return new WaitForSecondsRealtime(0.1f); // Wartet 0.1 Sekunden (reale Zeit, unabh?ngig von TimeScale)
         isDebounce = false;
     }
+    void Update()
+    {
+
+        if (pauseMenuCanvas.activeSelf && !pauseMenuWasActive)
+        {
+            pauseMenuCanvasActivated(); // Funktion auslösen
+        }
+
+
+        pauseMenuWasActive = pauseMenuCanvas.activeSelf;
+
+    }
+    private void pauseMenuCanvasActivated()
+    {
+        closePauseMenu.performed += OnPauseMenuPerformed;
+    }
 
     private void OnPauseMenuPerformed(InputAction.CallbackContext context)
     {
@@ -78,8 +96,8 @@ public class PauseMenu : MonoBehaviour
             pauseMenuCanvas.SetActive(false);
             Time.timeScale = 1;
             playerInput.SwitchCurrentActionMap("characterController");
-            closePauseMenu.performed -= OnPauseMenuClosePerformed;
             openPauseMenu.performed += OnPauseMenuPerformed;
+            closePauseMenu.performed -= OnPauseMenuClosePerformed;
             isOpend = false;
         }
     }
@@ -88,7 +106,7 @@ public class PauseMenu : MonoBehaviour
         SwitchToIngame();
         Time.timeScale = 1;
         pauseMenuCanvas.SetActive(false);
-        
+
     }
     public void Restart()
     {
@@ -98,7 +116,7 @@ public class PauseMenu : MonoBehaviour
     }
     public void Options()
     {
-        isOpend = false; 
+        isOpend = false;
         optionsCanvas.SetActive(true);
     }
     public void MainMenu()
