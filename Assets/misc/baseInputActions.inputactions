@@ -283,6 +283,17 @@
                 },
                 {
                     "name": "",
+                    "id": "58a26bef-ae4e-43e9-9d97-249dc9c008b3",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "Pausemenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
                     "id": "ea9700f8-4c9e-4229-a3a4-7637ebef1920",
                     "path": "<Keyboard>/e",
                     "interactions": "",
