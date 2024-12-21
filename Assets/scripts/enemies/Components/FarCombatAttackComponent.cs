@@ -76,8 +76,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
             {
                 _isAttacking = true;
                 _isCoolingDown = true;
-                _attackEffect = Instantiate(_entity.AttackVFX, _entity.transform.position, Quaternion.identity);
-                _attackEffect.GetComponent<EnemyCollisionHandler>().Init(_entity.StatusEffect, _entity); 
+                _attackEffect = SlimeBallPool.Instance.GetPooledSlimeBall();  
                 _rb = _attackEffect.GetComponent<Rigidbody2D>();
                 if (_rb == null)
                 {
@@ -125,7 +124,8 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     private IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(1.5f);
-        _isCoolingDown = false; 
+        _attackEffect.gameObject.SetActive(false); 
+        _isCoolingDown = false;
     }
 
     public bool FinnishedAttack()

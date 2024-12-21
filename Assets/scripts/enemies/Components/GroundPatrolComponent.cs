@@ -97,14 +97,19 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     public void Init(SimpleAI entity)
     {
         _entity = entity;
-        foreach (Transform wp in _entity.WayPoints.transform)
-        {
-            _wayPoints.Add(wp.position);
-        }
     }
 
     public bool ReachedDestination()
     {
         return _isOnPoint; 
+    }
+
+    public void SetWayPoints(List<Transform> wps)
+    {
+        _wayPoints.Clear();
+        foreach (Transform wp in wps)
+        {
+            _wayPoints.Add(wp.position);
+        }
     }
 }
