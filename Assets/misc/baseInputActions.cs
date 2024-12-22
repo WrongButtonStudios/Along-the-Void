@@ -359,6 +359,24 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""Submit"",
+                    ""type"": ""Button"",
+                    ""id"": ""e09a2e8b-e88e-4fec-b5dc-8885b79c24b5"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""Cancel"",
+                    ""type"": ""Button"",
+                    ""id"": ""1951ecb0-a25b-4360-a048-657d0799a146"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -381,6 +399,17 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": "";gamepad;keyboard"",
                     ""action"": ""BackButton"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""f791b740-1036-4571-8c59-7f3ed50239ef"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -438,6 +467,61 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Move"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3824fd54-d39e-46b2-bd3c-77d21add3eeb"",
+                    ""path"": """",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Move"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c389e750-7fc6-4f3c-9128-3e52f7b562b5"",
+                    ""path"": ""<XInputController>/buttonSouth"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""22a90ad6-b206-4fa8-817c-58ef2150c960"",
+                    ""path"": ""<Keyboard>/enter"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Submit"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""c3efa4b1-4bf7-4590-8d44-08954c33cb79"",
+                    ""path"": ""<XInputController>/buttonEast"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eff2321e-97a7-40ff-88d9-a00d8407700b"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""Cancel"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -541,62 +625,6 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                     ""isPartOfComposite"": false
                 }
             ]
-        },
-        {
-            ""name"": ""Controller"",
-            ""id"": ""6a917184-8dee-4ffe-83b6-a93d7d1472a2"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""6c7783c2-505e-4811-b32b-8c575f886406"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""a2cb8047-c94b-4a5d-af23-2be5d0169c84"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
-        },
-        {
-            ""name"": ""Keyboard"",
-            ""id"": ""2cf3a9bb-aa84-44c9-99f5-bacc7390c3d1"",
-            ""actions"": [
-                {
-                    ""name"": ""New action"",
-                    ""type"": ""Button"",
-                    ""id"": ""9a145223-1744-461e-a5ca-845303bcc751"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                }
-            ],
-            ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""c06db979-670f-4c0c-b7e9-215aca78d2f5"",
-                    ""path"": """",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""New action"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                }
-            ]
         }
     ],
     ""controlSchemes"": [
@@ -641,17 +669,13 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
         m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
         m_MainMenu_BackButton = m_MainMenu.FindAction("BackButton", throwIfNotFound: true);
         m_MainMenu_Move = m_MainMenu.FindAction("Move", throwIfNotFound: true);
+        m_MainMenu_Submit = m_MainMenu.FindAction("Submit", throwIfNotFound: true);
+        m_MainMenu_Cancel = m_MainMenu.FindAction("Cancel", throwIfNotFound: true);
         // PauseMenu
         m_PauseMenu = asset.FindActionMap("PauseMenu", throwIfNotFound: true);
         m_PauseMenu_OpenPauseMenu = m_PauseMenu.FindAction("OpenPauseMenu", throwIfNotFound: true);
         m_PauseMenu_ClosePauseMenu = m_PauseMenu.FindAction("ClosePauseMenu", throwIfNotFound: true);
         m_PauseMenu_BackButton = m_PauseMenu.FindAction("BackButton", throwIfNotFound: true);
-        // Controller
-        m_Controller = asset.FindActionMap("Controller", throwIfNotFound: true);
-        m_Controller_Newaction = m_Controller.FindAction("New action", throwIfNotFound: true);
-        // Keyboard
-        m_Keyboard = asset.FindActionMap("Keyboard", throwIfNotFound: true);
-        m_Keyboard_Newaction = m_Keyboard.FindAction("New action", throwIfNotFound: true);
     }
 
     ~@BaseInputActions()
@@ -659,8 +683,6 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
         UnityEngine.Debug.Assert(!m_characterController.enabled, "This will cause a leak and performance issues, BaseInputActions.characterController.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_MainMenu.enabled, "This will cause a leak and performance issues, BaseInputActions.MainMenu.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_PauseMenu.enabled, "This will cause a leak and performance issues, BaseInputActions.PauseMenu.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Controller.enabled, "This will cause a leak and performance issues, BaseInputActions.Controller.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_Keyboard.enabled, "This will cause a leak and performance issues, BaseInputActions.Keyboard.Disable() has not been called.");
     }
 
     public void Dispose()
@@ -810,12 +832,16 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
     private List<IMainMenuActions> m_MainMenuActionsCallbackInterfaces = new List<IMainMenuActions>();
     private readonly InputAction m_MainMenu_BackButton;
     private readonly InputAction m_MainMenu_Move;
+    private readonly InputAction m_MainMenu_Submit;
+    private readonly InputAction m_MainMenu_Cancel;
     public struct MainMenuActions
     {
         private @BaseInputActions m_Wrapper;
         public MainMenuActions(@BaseInputActions wrapper) { m_Wrapper = wrapper; }
         public InputAction @BackButton => m_Wrapper.m_MainMenu_BackButton;
         public InputAction @Move => m_Wrapper.m_MainMenu_Move;
+        public InputAction @Submit => m_Wrapper.m_MainMenu_Submit;
+        public InputAction @Cancel => m_Wrapper.m_MainMenu_Cancel;
         public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -831,6 +857,12 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
             @Move.started += instance.OnMove;
             @Move.performed += instance.OnMove;
             @Move.canceled += instance.OnMove;
+            @Submit.started += instance.OnSubmit;
+            @Submit.performed += instance.OnSubmit;
+            @Submit.canceled += instance.OnSubmit;
+            @Cancel.started += instance.OnCancel;
+            @Cancel.performed += instance.OnCancel;
+            @Cancel.canceled += instance.OnCancel;
         }
 
         private void UnregisterCallbacks(IMainMenuActions instance)
@@ -841,6 +873,12 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
             @Move.started -= instance.OnMove;
             @Move.performed -= instance.OnMove;
             @Move.canceled -= instance.OnMove;
+            @Submit.started -= instance.OnSubmit;
+            @Submit.performed -= instance.OnSubmit;
+            @Submit.canceled -= instance.OnSubmit;
+            @Cancel.started -= instance.OnCancel;
+            @Cancel.performed -= instance.OnCancel;
+            @Cancel.canceled -= instance.OnCancel;
         }
 
         public void RemoveCallbacks(IMainMenuActions instance)
@@ -920,98 +958,6 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
         }
     }
     public PauseMenuActions @PauseMenu => new PauseMenuActions(this);
-
-    // Controller
-    private readonly InputActionMap m_Controller;
-    private List<IControllerActions> m_ControllerActionsCallbackInterfaces = new List<IControllerActions>();
-    private readonly InputAction m_Controller_Newaction;
-    public struct ControllerActions
-    {
-        private @BaseInputActions m_Wrapper;
-        public ControllerActions(@BaseInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Controller_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Controller; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(ControllerActions set) { return set.Get(); }
-        public void AddCallbacks(IControllerActions instance)
-        {
-            if (instance == null || m_Wrapper.m_ControllerActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_ControllerActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        private void UnregisterCallbacks(IControllerActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        public void RemoveCallbacks(IControllerActions instance)
-        {
-            if (m_Wrapper.m_ControllerActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IControllerActions instance)
-        {
-            foreach (var item in m_Wrapper.m_ControllerActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_ControllerActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public ControllerActions @Controller => new ControllerActions(this);
-
-    // Keyboard
-    private readonly InputActionMap m_Keyboard;
-    private List<IKeyboardActions> m_KeyboardActionsCallbackInterfaces = new List<IKeyboardActions>();
-    private readonly InputAction m_Keyboard_Newaction;
-    public struct KeyboardActions
-    {
-        private @BaseInputActions m_Wrapper;
-        public KeyboardActions(@BaseInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @Newaction => m_Wrapper.m_Keyboard_Newaction;
-        public InputActionMap Get() { return m_Wrapper.m_Keyboard; }
-        public void Enable() { Get().Enable(); }
-        public void Disable() { Get().Disable(); }
-        public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(KeyboardActions set) { return set.Get(); }
-        public void AddCallbacks(IKeyboardActions instance)
-        {
-            if (instance == null || m_Wrapper.m_KeyboardActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_KeyboardActionsCallbackInterfaces.Add(instance);
-            @Newaction.started += instance.OnNewaction;
-            @Newaction.performed += instance.OnNewaction;
-            @Newaction.canceled += instance.OnNewaction;
-        }
-
-        private void UnregisterCallbacks(IKeyboardActions instance)
-        {
-            @Newaction.started -= instance.OnNewaction;
-            @Newaction.performed -= instance.OnNewaction;
-            @Newaction.canceled -= instance.OnNewaction;
-        }
-
-        public void RemoveCallbacks(IKeyboardActions instance)
-        {
-            if (m_Wrapper.m_KeyboardActionsCallbackInterfaces.Remove(instance))
-                UnregisterCallbacks(instance);
-        }
-
-        public void SetCallbacks(IKeyboardActions instance)
-        {
-            foreach (var item in m_Wrapper.m_KeyboardActionsCallbackInterfaces)
-                UnregisterCallbacks(item);
-            m_Wrapper.m_KeyboardActionsCallbackInterfaces.Clear();
-            AddCallbacks(instance);
-        }
-    }
-    public KeyboardActions @Keyboard => new KeyboardActions(this);
     private int m_keyboardSchemeIndex = -1;
     public InputControlScheme keyboardScheme
     {
@@ -1043,19 +989,13 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
     {
         void OnBackButton(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
+        void OnSubmit(InputAction.CallbackContext context);
+        void OnCancel(InputAction.CallbackContext context);
     }
     public interface IPauseMenuActions
     {
         void OnOpenPauseMenu(InputAction.CallbackContext context);
         void OnClosePauseMenu(InputAction.CallbackContext context);
         void OnBackButton(InputAction.CallbackContext context);
-    }
-    public interface IControllerActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
-    }
-    public interface IKeyboardActions
-    {
-        void OnNewaction(InputAction.CallbackContext context);
     }
 }
