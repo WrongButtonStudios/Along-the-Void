@@ -44,12 +44,12 @@ public class GameManager : MonoBehaviour
     {
         _activeScene = scene;
         Debug.Log(_activeScene.name); 
-        if (!_initizedGame && SceneManagementUttillitys.SceneNameContaints(scene, "Level"))
+        if (!_initizedGame && SceneManagementUttillitys.SceneNameContains(scene, "Level"))
         {
             InitializeGame();
             StartCoroutine(SetUpEnemysWithDelay());
         }
-        else if (SceneManagementUttillitys.SceneNameContaints(scene, "Level"))
+        else if (SceneManagementUttillitys.SceneNameContains(scene, "Level"))
         {
             SetUpEnemys(); 
         }
