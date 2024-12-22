@@ -16,6 +16,8 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
 
     public blueSlime currentBlueSlime;
 
+    public float popOffForce = 20f;
+
     private float currentPosOnLine;
     private InputController _input;
     private CharacterMovement _movement; 
@@ -44,10 +46,32 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
         }
 
         currentPosOnLine += -_input.MoveInput.y / 100;
-        currentPosOnLine = Mathf.Clamp(currentPosOnLine, 0, 1);
 
         getPositionOnLine(currentBlueSlime.getLine(), currentPosOnLine, out Vector2 pos);
         characterController.rb.MovePosition(pos);
+ 
+        StartCoroutine(popOff());
+    }
+
+    public IEnumerator popOff()
+    {
+        if(currentPosOnLine > 1)
+        {
+            endFeauture();
+
+            yield return new WaitForFixedUpdate();
+
+            characterController.rb.AddForce(Vector2.down * popOffForce, ForceMode2D.Impulse);
+        }
+
+        if(currentPosOnLine < 0)
+        {
+            endFeauture();
+
+            yield return new WaitForFixedUpdate();
+
+            characterController.rb.AddForce(Vector2.up * popOffForce, ForceMode2D.Impulse);
+        }
     }
 
     public void initFeauture(characterController characterController)
