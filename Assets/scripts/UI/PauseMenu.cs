@@ -104,6 +104,7 @@ public class PauseMenu : MonoBehaviour
     public void Resume()
     {
         SwitchToIngame();
+        openPauseMenu.performed += OnPauseMenuPerformed;
         Time.timeScale = 1;
         pauseMenuCanvas.SetActive(false);
 
