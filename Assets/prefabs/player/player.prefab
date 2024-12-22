@@ -326,10 +326,6 @@ MonoBehaviour:
     m_ActionName: MainMenu/BackButton[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 83453d3a-c155-4f23-80d3-7046c32e6c89
-    m_ActionName: MainMenu/Interact
-  - m_PersistentCalls:
-      m_Calls: []
     m_ActionId: a7a52481-45d5-419b-bfb0-2ad930e8d0a1
     m_ActionName: PauseMenu/Open Pause Menu[/Keyboard/escape]
   - m_PersistentCalls:
@@ -346,8 +342,12 @@ MonoBehaviour:
     m_ActionName: Keyboard/New action
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 7f095e2e-bfa6-4faf-92d0-bddc7280b309
-    m_ActionName: PauseMenuBack/New action
+    m_ActionId: eafc8d5c-1ace-4cb9-9415-142873ec8b20
+    m_ActionName: MainMenu/Move[/Keyboard/upArrow,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 3d70aa9e-82e7-42a9-82c6-994f478aca38
+    m_ActionName: PauseMenu/BackButton[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -514,7 +514,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3247461398459608850}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcf97b3f10528435696b7980e1d8bca3, type: 3}
   m_Name: 

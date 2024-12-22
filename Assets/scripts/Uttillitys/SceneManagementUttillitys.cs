@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class SceneManagementUttillitys : MonoBehaviour
 {
-    public static bool SceneNameContaints(Scene scene, string name)
+    public static bool SceneNameContains(Scene scene, string name)
     {
         int chatCount = name.Length;
         string nameOfScene = string.Empty; 
