@@ -368,7 +368,7 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<Keyboard>/escape"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";keyboard"",
+                    ""groups"": "";keyboard;gamepad"",
                     ""action"": ""BackButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
@@ -379,7 +379,7 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                     ""path"": ""<XInputController>/buttonEast"",
                     ""interactions"": """",
                     ""processors"": """",
-                    ""groups"": "";gamepad"",
+                    ""groups"": "";gamepad;keyboard"",
                     ""action"": ""BackButton"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false

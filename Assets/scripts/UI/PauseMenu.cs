@@ -103,10 +103,15 @@ public class PauseMenu : MonoBehaviour
     }
     public void Resume()
     {
-        SwitchToIngame();
-        openPauseMenu.performed += OnPauseMenuPerformed;
-        Time.timeScale = 1;
+        isDebounce = true; // Aktiviert Debouncing
+        StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
+
         pauseMenuCanvas.SetActive(false);
+        Time.timeScale = 1;
+        playerInput.SwitchCurrentActionMap("characterController");
+        openPauseMenu.performed += OnPauseMenuPerformed;
+        closePauseMenu.performed -= OnPauseMenuClosePerformed;
+        isOpend = false;
 
     }
     public void Restart()
