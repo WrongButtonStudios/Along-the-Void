@@ -4,14 +4,17 @@ using UnityEngine.InputSystem;
 
 public class MainMenu : MonoBehaviour
 {
+    [SerializeField]
+    private int _sceneIndexToLoad = 1;
     private PlayerInput playerInput;
-    private void Start()
+    private void OnEnable()
     {
+        playerInput = FindObjectOfType<PlayerInput>();
         SwitchToMenu(); //Changes current Action Map to PauseMenu action map        
     }
     public void PlayGame()
     {
-        SceneManager.LoadSceneAsync(1);
+        SceneManager.LoadSceneAsync(_sceneIndexToLoad);
         playerInput = GetComponent<PlayerInput>(); //Gets Action Maps
         SwitchToIngame(); //Switches current Action Map to characterController on game start
     }
@@ -27,7 +30,7 @@ public class MainMenu : MonoBehaviour
     }
     private void SwitchToMenu()
     {
-        playerInput.SwitchCurrentActionMap("PauseMenu");
+        playerInput.SwitchCurrentActionMap("MainMenu");
     }
     private void SwitchToIngame()
     {

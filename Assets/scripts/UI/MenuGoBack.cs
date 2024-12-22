@@ -1,7 +1,8 @@
+using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
-public class MenuGoBack : MonoBehaviour //Zieht sich Action maps, aktiviert den Back-Button, deaktiviert diesen wieder wenn tieferliegende Menueebenen geschlossen werden, schlieﬂt tieferliegende Ebenen und aktiviert hoeherliegende
+public class MenuGoBack : MonoBehaviour //Zieht sich Action maps, aktiviert den Back-Button, deaktiviert diesen wieder wenn tieferliegende Menueebenen geschlossen werden, schlie?t tieferliegende Ebenen und aktiviert hoeherliegende
 {
     public GameObject higherMenu;
     private PlayerInput playerInput;
@@ -12,9 +13,22 @@ public class MenuGoBack : MonoBehaviour //Zieht sich Action maps, aktiviert den 
         playerInput = FindObjectOfType<PlayerInput>();
         playerInput.SwitchCurrentActionMap("PauseMenu");
         goBack = playerInput.actions["BackButton"];
-        goBack.performed += OnGoBackPerformed;
+    }
+    private void Start()
+    {
+        StartCoroutine(Delay());
     }
 
+    private void OnEnable()
+    {
+        StartCoroutine(Delay()); 
+
+    }
+    private IEnumerator Delay()
+    {
+        yield return new WaitForSecondsRealtime(0.1f);
+        goBack.performed += OnGoBackPerformed;
+    }
     void OnGoBackPerformed(InputAction.CallbackContext context)
     {
         goBack.performed -= OnGoBackPerformed;

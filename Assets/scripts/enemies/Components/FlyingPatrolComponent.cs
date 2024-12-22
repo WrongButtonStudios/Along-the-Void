@@ -28,13 +28,6 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     public void Init(SimpleAI entity)
     {
         _entity = entity;
-
-        foreach (Transform wp in _entity.WayPoints.transform)
-        {
-            Vector2 wieso = (Vector2)wp.position; 
-            _wayPoints.Add(wieso); 
-        }
-
     }
 
     public void LookAtTarget()
@@ -76,5 +69,14 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     {
         _curWayPoint = GetNextWayPoint();
         _isOnPoint = false;
+    }
+
+    public void SetWayPoints(List<Transform> wps)
+    {
+        _wayPoints.Clear();
+        foreach (Transform wp in wps)
+        {
+            _wayPoints.Add(wp.position);
+        }
     }
 }

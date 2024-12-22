@@ -62,8 +62,8 @@ public class BluePlatform : MonoBehaviour
         _lastPosition = rb.position; 
     }
 
-    public Vector2 GetPlattformVelocity()
+    public Vector2 GetDeltaPosition()
     {
-        return (rb.position - _lastPosition) / Time.fixedDeltaTime; 
+        return rb.position - _lastPosition; 
     }
 }
