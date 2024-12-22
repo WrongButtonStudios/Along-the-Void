@@ -48,10 +48,10 @@ public class GameManager : MonoBehaviour
         {
             InitializeGame();
             StartCoroutine(SetUpEnemysWithDelay());
-        }
-        else if (SceneManagementUttillitys.SceneNameContains(scene, "Level"))
+        } else if (SceneManagementUttillitys.SceneNameContains(scene, "Level"))
         {
-            SetUpEnemys(); 
+            Debug.Log("Set up enemys for next level...");
+            StartCoroutine(SetUpEnemysWithDelay());
         }
         Debug.Log("Scene loaded..."); 
     }
@@ -63,7 +63,8 @@ public class GameManager : MonoBehaviour
         {
             if (SceneManagementUttillitys.CompareScene(spawn.gameObject.scene, _activeScene))
             {
-                CreateAndPlaceEnemy(spawn); 
+                CreateAndPlaceEnemy(spawn);
+                Debug.Log("Placed enemy..."); 
             }
         }
     }
@@ -99,7 +100,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SetUpEnemysWithDelay()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         SetUpEnemys(); 
     }
 
