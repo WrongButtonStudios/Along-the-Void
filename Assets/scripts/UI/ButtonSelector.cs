@@ -1,42 +1,71 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class ButtonSelector : MonoBehaviour
 {
-    public GameObject currentWindow;
-    public GameObject currentWindowFirstButton;
+    public static ButtonSelector Instance { get; private set; }
+    private Mouse mouse;
+    private Vector2 lastMousePosition;
 
+    // Keep track of the active window
+    private GameObject activeWindow;
+    private GameObject activeWindowFirstButton;
 
-
-
-
-    private void Start()
+    void Awake()
     {
-        SelectButton(); //Selects the chosen first button on Menu Window start
-    }
-
-    private void Update()
-    {
-        HandleNavigation(); //Re-selects the chosen first button on Menu, when no button is selected
-    }
-
-    private void SelectButton()
-    {
-        if (currentWindow != null)
+        if (Instance == null)
         {
-            EventSystem.current.SetSelectedGameObject(null);
-            if (currentWindowFirstButton != null)
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        mouse = Mouse.current;
+        if (mouse != null)
+        {
+            lastMousePosition = mouse.position.ReadValue();
+        }
+    }
+
+    void Update()
+    {
+        if (EventSystem.current.currentSelectedGameObject == null &&
+            Input.GetAxisRaw("Vertical") != 0)
+        {
+            SelectButton();
+        }
+
+        if (mouse != null)
+        {
+            Vector2 currentMousePosition = mouse.position.ReadValue();
+            if (currentMousePosition != lastMousePosition)
             {
-                EventSystem.current.SetSelectedGameObject(currentWindowFirstButton);
+                MouseIsUsed();
+                lastMousePosition = currentMousePosition;
             }
         }
     }
 
-    private void HandleNavigation()
+    public void SetActiveWindow(GameObject window, GameObject firstButton)
     {
-        if (EventSystem.current.currentSelectedGameObject == null)
+        activeWindow = window;
+        activeWindowFirstButton = firstButton;
+    }
+
+    private void SelectButton()
+    {
+        if (activeWindow != null && activeWindow.activeInHierarchy)
         {
-            SelectButton();
+            EventSystem.current.SetSelectedGameObject(activeWindowFirstButton);
         }
     }
+
+    private void MouseIsUsed()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
+    }
+
 }
