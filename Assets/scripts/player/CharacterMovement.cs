@@ -104,25 +104,25 @@ public class CharacterMovement : MonoBehaviour
 
     public void dash()
     {
+        //when dash input is pressed
+            //set max speed to dashSpeed
+            //when wasnt dahsing 
+                //apply dash initial boost in input direction
+
+
         if (!_controller.StatusData.isAllowedToMove)
         {
             return;
         }
 
-        if (_input.DashInput && !_input.LastDashInput && !_controller.StatusData.isDash)
+        if (_input.DashInput)
         {
-            Debug.Log("Execute dash..."); 
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed);
 
-            if (_input.MoveInput.magnitude != 0)
+            if(!_controller.StatusData.wasDash)
             {
                 _controller.rb.AddForce(_input.MoveInput * dashStrenght, ForceMode2D.Impulse);
-            }
-            else
-            {
-                _controller.rb.AddForce(Vector2.up * dashStrenght, ForceMode2D.Impulse);
-                //Debug.LogError("Es gibt kein Sprung Keanu!!!!!! Das ist gegegens Game Design! Beste Grüße, dein Nils <3"); 
             }
         }
     }
