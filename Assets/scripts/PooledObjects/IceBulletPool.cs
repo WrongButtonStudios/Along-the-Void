@@ -36,7 +36,6 @@ public class IceBulletPool : MonoBehaviour
             var bullet = Instantiate(_iceBulletPref, transform.position, Quaternion.identity);
             bullet.SetActive(false); 
             _iceBullets.Add(bullet);
-            Debug.Log("Instanzierte Ice bullet Nummero: " + i); 
         }
     }
 
