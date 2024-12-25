@@ -12,8 +12,12 @@ public class ButtonSelector : MonoBehaviour
     private GameObject activeWindow;
     private GameObject activeWindowFirstButton;
 
+    // Input System Actions
+    [SerializeField] private InputAction navigateAction;
+
     void Awake()
     {
+        // Singleton Setup
         if (Instance == null)
         {
             Instance = this;
@@ -23,6 +27,7 @@ public class ButtonSelector : MonoBehaviour
             Destroy(gameObject);
         }
 
+        // Mouse Setup
         mouse = Mouse.current;
         if (mouse != null)
         {
@@ -30,14 +35,23 @@ public class ButtonSelector : MonoBehaviour
         }
     }
 
+    private void OnEnable()
+    {
+        // Enable the navigate action
+        navigateAction.Enable();
+        navigateAction.performed += OnNavigate;
+    }
+
+    private void OnDisable()
+    {
+        // Disable the navigate action
+        navigateAction.performed -= OnNavigate;
+        navigateAction.Disable();
+    }
+
     void Update()
     {
-        if (EventSystem.current.currentSelectedGameObject == null &&
-            Input.GetAxisRaw("Vertical") != 0)
-        {
-            SelectButton();
-        }
-
+        // Check for mouse movement
         if (mouse != null)
         {
             Vector2 currentMousePosition = mouse.position.ReadValue();
@@ -46,6 +60,18 @@ public class ButtonSelector : MonoBehaviour
                 MouseIsUsed();
                 lastMousePosition = currentMousePosition;
             }
+        }
+    }
+
+    private void OnNavigate(InputAction.CallbackContext context)
+    {
+        // Read navigation input
+        Vector2 navigationInput = context.ReadValue<Vector2>();
+
+        // Select the first button if no button is currently selected and there's vertical movement
+        if (EventSystem.current.currentSelectedGameObject == null && Mathf.Abs(navigationInput.y) > 0.1f)
+        {
+            SelectButton();
         }
     }
 
@@ -67,5 +93,4 @@ public class ButtonSelector : MonoBehaviour
     {
         EventSystem.current.SetSelectedGameObject(null);
     }
-
 }
