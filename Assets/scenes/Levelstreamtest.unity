@@ -1346,7 +1346,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b3a1567fc990749f8b85c4fc73376e7d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _sceneToLoad: LevelEnemytestWithPlayer
+  _targetScene: LevelEnemytestWithPlayer
   _loadScene: 0
   _levelStart: {fileID: 0}
   _levelEnd: {fileID: 0}

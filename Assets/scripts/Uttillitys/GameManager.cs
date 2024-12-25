@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded; 
     }
 
+
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -82,7 +83,7 @@ public class GameManager : MonoBehaviour
             else
                 enemyToPlace = EnemyPool.Instance.GetPooledFCGEnemy();
         }
-
+        enemyToPlace.GetComponent<SimpleAI>().SetScene(_activeScene); 
         enemyToPlace.GetComponent<SimpleAI>().InitEnemyWaypoints(spawn.WayPoints);
         enemyToPlace.transform.position = spawn.transform.position;
         enemyToPlace.SetActive(true); 
