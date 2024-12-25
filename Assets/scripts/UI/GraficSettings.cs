@@ -1,10 +1,12 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class GraficSettings : MonoBehaviour
 {
     [SerializeField] private TMP_Dropdown resolutionDropdown;
+    [SerializeField] private TMP_Dropdown screenModeDropdown;
     Resolution[] resolutions;
     private List<Resolution> filteredResolutions;
     private int currentResolutionIndex = 0;
@@ -47,6 +49,24 @@ public class GraficSettings : MonoBehaviour
         resolutionDropdown.AddOptions(options);
         resolutionDropdown.value = currentResolutionIndex;
         resolutionDropdown.RefreshShownValue();
+
+        // Populate dropdown with options if not set manually
+        if (screenModeDropdown != null)
+        {
+            screenModeDropdown.ClearOptions();
+            screenModeDropdown.AddOptions(new System.Collections.Generic.List<string>
+            {
+                "Windowed",
+                "Fullscreen",
+                "Borderless Fullscreen"
+            });
+
+            // Set current mode as the selected option
+            screenModeDropdown.value = (int)Screen.fullScreenMode;
+
+            // Add listener for changes
+            screenModeDropdown.onValueChanged.AddListener(SetScreenMode);
+        }
     }
 
     public void SetResolution(int resolutionIndex)
@@ -58,8 +78,24 @@ public class GraficSettings : MonoBehaviour
     {
         QualitySettings.SetQualityLevel(qualityIndex);
     }
-    public void SetFullscreen(bool fullscreen)
+    public void SetScreenMode(int mode)
     {
-        Screen.fullScreen = fullscreen;
+        switch (mode)
+        {
+            case 0: // Windowed
+                Screen.fullScreenMode = FullScreenMode.Windowed;
+                break;
+            case 1: // Fullscreen
+                Screen.fullScreenMode = FullScreenMode.ExclusiveFullScreen;
+                break;
+            case 2: // Borderless Fullscreen
+                Screen.fullScreenMode = FullScreenMode.FullScreenWindow;
+                break;
+            default:
+                Debug.LogWarning("Unknown screen mode selected!");
+                break;
+        }
+
+        Debug.Log($"Screen mode set to: {Screen.fullScreenMode}");
     }
 }
