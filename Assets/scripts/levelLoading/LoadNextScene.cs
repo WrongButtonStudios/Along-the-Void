@@ -6,7 +6,7 @@ using UnityEngine.SceneManagement;
 public class LoadNextScene : MonoBehaviour
 {
     [SerializeField]
-    private string _sceneToLoad = "bullshit";
+    private string _targetScene = "bullshit";
     [SerializeField]
     private bool _loadScene = true;
     [SerializeField]
@@ -30,11 +30,11 @@ public class LoadNextScene : MonoBehaviour
         if (_finnished)
             return;
         _finnished = true; 
-        Debug.Log(_sceneToLoad); 
+        Debug.Log(_targetScene); 
         Debug.Log("Guck mal ich lad ne scene");
-        SceneManager.LoadSceneAsync(_sceneToLoad, LoadSceneMode.Additive).completed += operation =>
+        SceneManager.LoadSceneAsync(_targetScene, LoadSceneMode.Additive).completed += operation =>
         {
-            Scene scene = SceneManager.GetSceneByName(_sceneToLoad);
+            Scene scene = SceneManager.GetSceneByName(_targetScene);
 
             if (scene.IsValid())
             {
@@ -42,7 +42,7 @@ public class LoadNextScene : MonoBehaviour
                 {
                     obj.transform.position += (Vector3)_offset;
                 }
-                Debug.Log($"Scene {_sceneToLoad} verschoben um {_offset}");
+                Debug.Log($"Scene {_targetScene} verschoben um {_offset}");
             }
         };
     }
@@ -50,8 +50,21 @@ public class LoadNextScene : MonoBehaviour
     private void UnloadLevel()
     {
         Debug.Log("Guck mal ich entlade ne scene, hihi ich hab entladen gesagt");
-        SceneManager.UnloadSceneAsync(_sceneToLoad);
+        DeactivateOldEnemys(); 
+        SceneManager.UnloadSceneAsync(_targetScene);
+    }
 
+    private void DeactivateOldEnemys()
+    {
+        var enemys = GameObject.FindObjectsOfType<SimpleAI>();
+        foreach (SimpleAI enemy in enemys)
+        {
+            if (enemy.Scene.name == _targetScene)
+            {
+                enemy.gameObject.SetActive(false);
+                Debug.Log("Deactivated Enemy from scene: " + enemy.Scene.name); 
+            }
+        }
     }
 
     private void OnTriggerEnter2D(Collider2D collision)
