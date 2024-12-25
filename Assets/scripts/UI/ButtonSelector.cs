@@ -63,7 +63,7 @@ public class ButtonSelector : MonoBehaviour
         }
     }
 
-    private void OnNavigate(InputAction.CallbackContext context)
+    public void OnNavigate(InputAction.CallbackContext context)
     {
         // Read navigation input
         Vector2 navigationInput = context.ReadValue<Vector2>();
