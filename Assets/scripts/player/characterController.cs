@@ -29,6 +29,7 @@ public class characterController : MonoBehaviour
         public bool isMoving;
         public bool isGrounded;
         public bool isDash;
+        public bool wasDash;
         public bool isFrozen;
         public bool isOnFire;
     }
@@ -92,6 +93,7 @@ public class characterController : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, _movement.GetMaxSpeed());
 
         _input.LastDashInput = _input.DashInput;
+        statusData.wasDash = statusData.isDash;
     }
 
     public void handleStates()
