@@ -1566,6 +1566,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4310331705156389431}
   - component: {fileID: 2268573036659943643}
+  - component: {fileID: 2780371732534689013}
   m_Layer: 5
   m_Name: Music Slider
   m_TagString: Untagged
@@ -1659,6 +1660,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &2780371732534689013
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2553320700325253292}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6c6d22b1e73f04491b0245be41022a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2571863858960175173
 GameObject:
   m_ObjectHideFlags: 0
@@ -1747,8 +1769,9 @@ GameObject:
   - component: {fileID: 3317801346422515666}
   - component: {fileID: 8237191194145728506}
   - component: {fileID: 7716040682871292538}
-  - component: {fileID: 5057573192042430720}
   - component: {fileID: 3781264103251595651}
+  - component: {fileID: 1170155716409865804}
+  - component: {fileID: 5730385051201986393}
   m_Layer: 5
   m_Name: Graphic Settings Canvas
   m_TagString: Untagged
@@ -1856,7 +1879,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionDropdown: {fileID: 5839471385112204233}
---- !u!114 &5057573192042430720
+  screenModeDropdown: {fileID: 0}
+--- !u!114 &3781264103251595651
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1865,12 +1889,24 @@ MonoBehaviour:
   m_GameObject: {fileID: 2743892194166585831}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
+  m_Script: {fileID: 11500000, guid: ac9a5399ad8647f42afbafac7bc36918, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWindow: {fileID: 2743892194166585831}
-  currentWindowFirstButton: {fileID: 5436809121599847864}
---- !u!114 &3781264103251595651
+  higherMenu: {fileID: 8201275499754194127}
+--- !u!114 &1170155716409865804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2743892194166585831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4941cc9ae9333814c80b3b8b07fc17bf, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  firstButton: {fileID: 5436809121599847864}
+--- !u!114 &5730385051201986393
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -1893,6 +1929,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4279222158104611507}
   - component: {fileID: 5109350004801413957}
+  - component: {fileID: 5065861427727447992}
   m_Layer: 5
   m_Name: Effects Slider
   m_TagString: Untagged
@@ -1986,6 +2023,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &5065861427727447992
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2756494519958084288}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6c6d22b1e73f04491b0245be41022a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &2886264797375698918
 GameObject:
   m_ObjectHideFlags: 0
@@ -2194,6 +2252,7 @@ GameObject:
   m_Component:
   - component: {fileID: 6831836302431860446}
   - component: {fileID: 6400320305841287260}
+  - component: {fileID: 8531510328805038205}
   m_Layer: 5
   m_Name: Vsync
   m_TagString: Untagged
@@ -2270,6 +2329,27 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_IsOn: 1
+--- !u!95 &8531510328805038205
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3308714636670893323}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6c6d22b1e73f04491b0245be41022a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &3345879018721226144
 GameObject:
   m_ObjectHideFlags: 0
@@ -2951,6 +3031,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8901843757269201828}
+  - component: {fileID: 832658576362700541}
   - component: {fileID: 2755803333454402039}
   m_Layer: 0
   m_Name: UI Prefab
@@ -2978,6 +3059,18 @@ Transform:
   - {fileID: 6560082784700872394}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &832658576362700541
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3859999397310275924}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &2755803333454402039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4274,6 +4367,7 @@ GameObject:
   m_Component:
   - component: {fileID: 8106737076729736863}
   - component: {fileID: 5889917092023793105}
+  - component: {fileID: 5896081212825171865}
   m_Layer: 5
   m_Name: Fullscreen
   m_TagString: Untagged
@@ -4362,6 +4456,27 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_IsOn: 1
+--- !u!95 &5896081212825171865
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5436809121599847864}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6c6d22b1e73f04491b0245be41022a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &5781198567222731111
 GameObject:
   m_ObjectHideFlags: 0
@@ -4671,6 +4786,7 @@ GameObject:
   - component: {fileID: 6404155297262158961}
   - component: {fileID: 1342087134878351376}
   - component: {fileID: 3294521147205691533}
+  - component: {fileID: 3831543459944855194}
   m_Layer: 5
   m_Name: Quality
   m_TagString: Untagged
@@ -4816,6 +4932,27 @@ MonoBehaviour:
           m_BoolArgument: 0
         m_CallState: 2
   m_AlphaFadeSpeed: 0.15
+--- !u!95 &3831543459944855194
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6275484887084008096}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6c6d22b1e73f04491b0245be41022a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &6385793270280391923
 GameObject:
   m_ObjectHideFlags: 0
@@ -7064,7 +7201,7 @@ GameObject:
   - component: {fileID: 8635639562141598698}
   - component: {fileID: 7000245212292051029}
   - component: {fileID: 5473853551918911370}
-  - component: {fileID: 4524073801801381539}
+  - component: {fileID: 2222181111647862623}
   m_Layer: 5
   m_Name: Pause Menu Canvas
   m_TagString: Untagged
@@ -7159,7 +7296,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &4524073801801381539
+--- !u!114 &2222181111647862623
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7168,11 +7305,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 8194782128819953403}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4941cc9ae9333814c80b3b8b07fc17bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWindow: {fileID: 8194782128819953403}
-  currentWindowFirstButton: {fileID: 7500784364695370881}
+  firstButton: {fileID: 7500784364695370881}
 --- !u!1 &8201275499754194127
 GameObject:
   m_ObjectHideFlags: 0
@@ -7185,8 +7321,8 @@ GameObject:
   - component: {fileID: 2559359677074998355}
   - component: {fileID: 3396049741794728032}
   - component: {fileID: 5033221440645639631}
-  - component: {fileID: 2898163623111543113}
-  - component: {fileID: 2704703789403831110}
+  - component: {fileID: 6738627908805865438}
+  - component: {fileID: 5980430506617804363}
   m_Layer: 5
   m_Name: Options Canvas
   m_TagString: Untagged
@@ -7282,7 +7418,7 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &2898163623111543113
+--- !u!114 &6738627908805865438
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7291,12 +7427,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 8201275499754194127}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
+  m_Script: {fileID: 11500000, guid: 4941cc9ae9333814c80b3b8b07fc17bf, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWindow: {fileID: 8201275499754194127}
-  currentWindowFirstButton: {fileID: 8496720266677783339}
---- !u!114 &2704703789403831110
+  firstButton: {fileID: 8496720266677783339}
+--- !u!114 &5980430506617804363
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -7592,6 +7727,7 @@ GameObject:
   - component: {fileID: 4264606505704682306}
   - component: {fileID: 522635425928669241}
   - component: {fileID: 5839471385112204233}
+  - component: {fileID: 5538943919569091174}
   m_Layer: 5
   m_Name: Resolution
   m_TagString: Untagged
@@ -7719,6 +7855,27 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_AlphaFadeSpeed: 0.15
+--- !u!95 &5538943919569091174
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8478986518444141377}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6c6d22b1e73f04491b0245be41022a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8496720266677783339
 GameObject:
   m_ObjectHideFlags: 0
@@ -7729,6 +7886,7 @@ GameObject:
   m_Component:
   - component: {fileID: 404360138661710918}
   - component: {fileID: 8961626648862339847}
+  - component: {fileID: 485645762198781092}
   m_Layer: 5
   m_Name: Master Slider
   m_TagString: Untagged
@@ -7822,6 +7980,27 @@ MonoBehaviour:
           m_StringArgument: 
           m_BoolArgument: 0
         m_CallState: 2
+--- !u!95 &485645762198781092
+Animator:
+  serializedVersion: 5
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8496720266677783339}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: bb6c6d22b1e73f04491b0245be41022a, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_StabilizeFeet: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorStateOnDisable: 0
+  m_WriteDefaultValuesOnDisable: 0
 --- !u!1 &8530946260501307570
 GameObject:
   m_ObjectHideFlags: 0

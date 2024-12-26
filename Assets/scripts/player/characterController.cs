@@ -29,6 +29,7 @@ public class characterController : MonoBehaviour
         public bool isMoving;
         public bool isGrounded;
         public bool isDash;
+        public bool wasDash;
         public bool isFrozen;
         public bool isOnFire;
     }
@@ -41,6 +42,7 @@ public class characterController : MonoBehaviour
     public playerStatusData StatusData { get { return statusData; } }
 
     private List<IplayerFeature> playerFeatures = new List<IplayerFeature>();
+    public List<IplayerFeature> GetPlayerFeatures { get { return playerFeatures; } } 
 
     //Dependencys 
     private CharacterMovement _movement;
@@ -92,6 +94,7 @@ public class characterController : MonoBehaviour
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, _movement.GetMaxSpeed());
 
         _input.LastDashInput = _input.DashInput;
+        statusData.wasDash = statusData.isDash;
     }
 
     public void handleStates()
@@ -140,6 +143,9 @@ public class characterController : MonoBehaviour
                     playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
 
                     _input.ResetTriggerPlayerFeature();
+
+                    statusData.isDash = false;
+                    statusData.wasDash = false;
                 }
 
                 _movement.dash();

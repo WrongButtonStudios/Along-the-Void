@@ -36,6 +36,7 @@ public class GameManager : MonoBehaviour
         SceneManager.sceneLoaded += OnSceneLoaded; 
     }
 
+
     private void OnDisable()
     {
         SceneManager.sceneLoaded -= OnSceneLoaded;
@@ -44,14 +45,14 @@ public class GameManager : MonoBehaviour
     {
         _activeScene = scene;
         Debug.Log(_activeScene.name); 
-        if (!_initizedGame && SceneManagementUttillitys.SceneNameContaints(scene, "Level"))
+        if (!_initizedGame && SceneManagementUttillitys.SceneNameContains(scene, "Level"))
         {
             InitializeGame();
             StartCoroutine(SetUpEnemysWithDelay());
-        }
-        else if (SceneManagementUttillitys.SceneNameContaints(scene, "Level"))
+        } else if (SceneManagementUttillitys.SceneNameContains(scene, "Level"))
         {
-            SetUpEnemys(); 
+            Debug.Log("Set up enemys for next level...");
+            StartCoroutine(SetUpEnemysWithDelay());
         }
         Debug.Log("Scene loaded..."); 
     }
@@ -63,7 +64,8 @@ public class GameManager : MonoBehaviour
         {
             if (SceneManagementUttillitys.CompareScene(spawn.gameObject.scene, _activeScene))
             {
-                CreateAndPlaceEnemy(spawn); 
+                CreateAndPlaceEnemy(spawn);
+                Debug.Log("Placed enemy..."); 
             }
         }
     }
@@ -81,7 +83,7 @@ public class GameManager : MonoBehaviour
             else
                 enemyToPlace = EnemyPool.Instance.GetPooledFCGEnemy();
         }
-
+        enemyToPlace.GetComponent<SimpleAI>().SetScene(_activeScene); 
         enemyToPlace.GetComponent<SimpleAI>().InitEnemyWaypoints(spawn.WayPoints);
         enemyToPlace.transform.position = spawn.transform.position;
         enemyToPlace.SetActive(true); 
@@ -99,7 +101,7 @@ public class GameManager : MonoBehaviour
 
     private IEnumerator SetUpEnemysWithDelay()
     {
-        yield return new WaitForSeconds(0.3f);
+        yield return new WaitForSeconds(0.5f);
         SetUpEnemys(); 
     }
 

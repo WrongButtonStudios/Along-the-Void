@@ -61,7 +61,8 @@ public class SimpleAI : MonoBehaviour
     
     private Rigidbody2D _rb;
     private int _selectedWeapon;
-    private int _selectedPatrolComponent; 
+    private int _selectedPatrolComponent;
+    private Scene _scene; 
 
     //Components 
     private List<IHauntingComponent> _hauntingComponents = new List<IHauntingComponent>();
@@ -78,6 +79,7 @@ public class SimpleAI : MonoBehaviour
     public Color EnemyColor { get { return _enemyColor;  } }
     public float MaxRange { get { return _attackRange; } }
     public EnemyStatusEffect StatusEffect { get { return _statusEffect; } }
+    public Scene Scene { get { return _scene;  } }
 
 
 
@@ -224,6 +226,11 @@ public class SimpleAI : MonoBehaviour
         {
             _selectedPatrolComponent = Random.Range(0, _patrolComponents.Count - 1);
         }
+    }
+
+    public void SetScene(Scene scene)
+    {
+        _scene = scene; 
     }
 
     public IAttackComponent GetActiveAttackComponent()

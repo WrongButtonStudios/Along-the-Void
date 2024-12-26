@@ -146,6 +146,7 @@ MonoBehaviour:
     isMoving: 0
     isGrounded: 1
     isDash: 0
+    wasDash: 0
     isFrozen: 0
     isOnFire: 0
   _input: {fileID: 0}
@@ -325,29 +326,41 @@ MonoBehaviour:
     m_ActionId: dcdeccb9-b6e9-4814-9339-2b6ec7926edb
     m_ActionName: MainMenu/BackButton[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 83453d3a-c155-4f23-80d3-7046c32e6c89
-    m_ActionName: MainMenu/Interact
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: 
+        m_MethodName: 
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: 
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eafc8d5c-1ace-4cb9-9415-142873ec8b20
+    m_ActionName: MainMenu/Move[/Keyboard/upArrow,/Keyboard/downArrow]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: a7a52481-45d5-419b-bfb0-2ad930e8d0a1
-    m_ActionName: PauseMenu/Open Pause Menu[/Keyboard/escape]
+    m_ActionId: 3d70aa9e-82e7-42a9-82c6-994f478aca38
+    m_ActionName: PauseMenu/BackButton[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6d4a5965-f844-4d94-9466-c83e0aa436c3
-    m_ActionName: PauseMenu/Close Pause Menu[/Keyboard/escape]
+    m_ActionId: e09a2e8b-e88e-4fec-b5dc-8885b79c24b5
+    m_ActionName: Menu/Submit[/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6c7783c2-505e-4811-b32b-8c575f886406
-    m_ActionName: Controller/New action
+    m_ActionId: 1951ecb0-a25b-4360-a048-657d0799a146
+    m_ActionName: Menu/Cancel[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 9a145223-1744-461e-a5ca-845303bcc751
-    m_ActionName: Keyboard/New action
+    m_ActionId: b28d8dcb-cfda-4f75-bd65-dfcd6de971c0
+    m_ActionName: Menu/OpenPauseMenu[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 7f095e2e-bfa6-4faf-92d0-bddc7280b309
-    m_ActionName: PauseMenuBack/New action
+    m_ActionId: 8efddb56-b3e5-4fcb-a31c-d1548faf08e4
+    m_ActionName: Menu/ClosePauseMenu[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -514,7 +527,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 3247461398459608850}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: bcf97b3f10528435696b7980e1d8bca3, type: 3}
   m_Name: 

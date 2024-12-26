@@ -1,42 +1,99 @@
 using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.InputSystem;
 
 public class ButtonSelector : MonoBehaviour
 {
-    public GameObject currentWindow;
-    public GameObject currentWindowFirstButton;
+    public static ButtonSelector Instance { get; private set; }
+    private Mouse mouse;
+    private Vector2 lastMousePosition;
 
+    // Keep track of the active window
+    private GameObject activeWindow;
+    private GameObject activeWindowFirstButton;
 
+    // Input System Actions
+    private BaseInputActions navigateAction;
 
-
-
-    private void Start()
+    void Awake()
     {
-        SelectButton(); //Selects the chosen first button on Menu Window start
-    }
+        navigateAction = new BaseInputActions();
 
-    private void Update()
-    {
-        HandleNavigation(); //Re-selects the chosen first button on Menu, when no button is selected
-    }
-
-    private void SelectButton()
-    {
-        if (currentWindow != null)
+        // Singleton Setup
+        if (Instance == null)
         {
-            EventSystem.current.SetSelectedGameObject(null);
-            if (currentWindowFirstButton != null)
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        // Mouse Setup
+        mouse = Mouse.current;
+        if (mouse != null)
+        {
+            lastMousePosition = mouse.position.ReadValue();
+        }
+
+    }
+
+    private void OnEnable()
+    {
+        // Enable the navigate action
+        navigateAction.Menu.Enable();
+        navigateAction.Menu.Move.performed += OnNavigate;
+    }
+
+    private void OnDisable()
+    {
+        // Disable the navigate action
+        navigateAction.Menu.Move.performed -= OnNavigate;
+        navigateAction.Disable();
+    }
+
+    void Update()
+    {
+        // Check for mouse movement
+        if (mouse != null)
+        {
+            Vector2 currentMousePosition = mouse.position.ReadValue();
+            if (currentMousePosition != lastMousePosition)
             {
-                EventSystem.current.SetSelectedGameObject(currentWindowFirstButton);
+                MouseIsUsed();
+                lastMousePosition = currentMousePosition;
             }
         }
     }
 
-    private void HandleNavigation()
+    public void OnNavigate(InputAction.CallbackContext context)
     {
-        if (EventSystem.current.currentSelectedGameObject == null)
+        // Read navigation input
+        Vector2 navigationInput = context.ReadValue<Vector2>();
+
+        // Select the first button if no button is currently selected and there's vertical movement
+        if (EventSystem.current.currentSelectedGameObject == null && Mathf.Abs(navigationInput.y) > 0.1f)
         {
             SelectButton();
         }
+    }
+
+    public void SetActiveWindow(GameObject window, GameObject firstButton)
+    {
+        activeWindow = window;
+        activeWindowFirstButton = firstButton;
+    }
+
+    private void SelectButton()
+    {
+        if (activeWindow != null && activeWindow.activeInHierarchy)
+        {
+            EventSystem.current.SetSelectedGameObject(activeWindowFirstButton);
+        }
+    }
+
+    private void MouseIsUsed()
+    {
+        EventSystem.current.SetSelectedGameObject(null);
     }
 }

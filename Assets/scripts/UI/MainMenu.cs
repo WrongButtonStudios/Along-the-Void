@@ -30,7 +30,7 @@ public class MainMenu : MonoBehaviour
     }
     private void SwitchToMenu()
     {
-        playerInput.SwitchCurrentActionMap("MainMenu");
+        playerInput.SwitchCurrentActionMap("Menu");
     }
     private void SwitchToIngame()
     {
