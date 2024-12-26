@@ -10,12 +10,12 @@ public class ClosePauseMenu : MonoBehaviour //Zieht sich Action Maps, aktiviert 
     {
         playerInput = FindObjectOfType<PlayerInput>();
         closePauseMenu = playerInput.actions["Pausemenu"];
-        playerInput.SwitchCurrentActionMap("PauseMenu");
+        playerInput.SwitchCurrentActionMap("Menu");
         closePauseMenu = playerInput.actions["ClosePauseMenu"];
     }
     private void OnEnable()
     {
-        playerInput.SwitchCurrentActionMap("PauseMenu");
+        playerInput.SwitchCurrentActionMap("Menu");
         closePauseMenu.performed += OnClosePauseMenu;
     }
     private void OnClosePauseMenu(InputAction.CallbackContext context)

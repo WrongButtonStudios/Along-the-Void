@@ -12,7 +12,7 @@ public class MainMenuGoBack : MonoBehaviour //Zieht sich Action maps, aktiviert 
     private void Awake()
     {
         playerInput = FindObjectOfType<PlayerInput>();
-        playerInput.SwitchCurrentActionMap("MainMenu");
+        playerInput.SwitchCurrentActionMap("Menu");
         goBack = playerInput.actions["BackButton"];
     }
     private void OnEnable()

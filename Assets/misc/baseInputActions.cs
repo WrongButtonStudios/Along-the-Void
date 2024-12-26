@@ -339,7 +339,7 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
             ]
         },
         {
-            ""name"": ""MainMenu"",
+            ""name"": ""Menu"",
             ""id"": ""688017c7-0623-4a34-a916-712004926880"",
             ""actions"": [
                 {
@@ -373,6 +373,24 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                     ""name"": ""Cancel"",
                     ""type"": ""Button"",
                     ""id"": ""1951ecb0-a25b-4360-a048-657d0799a146"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenPauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""b28d8dcb-cfda-4f75-bd65-dfcd6de971c0"",
+                    ""expectedControlType"": """",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ClosePauseMenu"",
+                    ""type"": ""Button"",
+                    ""id"": ""8efddb56-b3e5-4fcb-a31c-d1548faf08e4"",
                     ""expectedControlType"": """",
                     ""processors"": """",
                     ""interactions"": """",
@@ -555,6 +573,50 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                     ""action"": ""Cancel"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""eaf35b83-2ae2-4e0f-8e0e-4e25b31ff0bb"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard"",
+                    ""action"": ""OpenPauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""835ba053-54a7-4951-89ff-0897c8a1dd14"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";gamepad"",
+                    ""action"": ""OpenPauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""27164c2d-8310-4424-905a-ffad10b8759e"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": "";keyboard"",
+                    ""action"": ""ClosePauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""449777fb-3f92-4b2d-9a46-4754dd9f14c1"",
+                    ""path"": ""<XInputController>/start"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ClosePauseMenu"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
                 }
             ]
         },
@@ -562,24 +624,6 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
             ""name"": ""PauseMenu"",
             ""id"": ""45f95ccd-a2fc-4ea6-8277-10cafbb31127"",
             ""actions"": [
-                {
-                    ""name"": ""OpenPauseMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""a7a52481-45d5-419b-bfb0-2ad930e8d0a1"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
-                    ""name"": ""ClosePauseMenu"",
-                    ""type"": ""Button"",
-                    ""id"": ""6d4a5965-f844-4d94-9466-c83e0aa436c3"",
-                    ""expectedControlType"": """",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
                 {
                     ""name"": ""BackButton"",
                     ""type"": ""Button"",
@@ -591,50 +635,6 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                 }
             ],
             ""bindings"": [
-                {
-                    ""name"": """",
-                    ""id"": ""f9f43c20-198f-44cd-a48c-ec16a6875a33"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";keyboard"",
-                    ""action"": ""OpenPauseMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""a82df386-fca7-43f4-bd61-0937acd9fd4a"",
-                    ""path"": ""<XInputController>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";gamepad"",
-                    ""action"": ""OpenPauseMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""e7590f75-a47d-4c3b-b939-e27ca6e0651d"",
-                    ""path"": ""<Keyboard>/escape"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": "";keyboard"",
-                    ""action"": ""ClosePauseMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""6add8b72-b934-4eb9-b59d-bc04009e3b2a"",
-                    ""path"": ""<XInputController>/start"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""ClosePauseMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
                 {
                     ""name"": """",
                     ""id"": ""c586bdfb-552b-49d2-9bd8-573d6d3be5c2"",
@@ -698,23 +698,23 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
         m_characterController_triggertPlayerFeature = m_characterController.FindAction("triggertPlayerFeature", throwIfNotFound: true);
         m_characterController_Pausemenu = m_characterController.FindAction("Pausemenu", throwIfNotFound: true);
         m_characterController_UseWarmode = m_characterController.FindAction("UseWarmode", throwIfNotFound: true);
-        // MainMenu
-        m_MainMenu = asset.FindActionMap("MainMenu", throwIfNotFound: true);
-        m_MainMenu_BackButton = m_MainMenu.FindAction("BackButton", throwIfNotFound: true);
-        m_MainMenu_Move = m_MainMenu.FindAction("Move", throwIfNotFound: true);
-        m_MainMenu_Submit = m_MainMenu.FindAction("Submit", throwIfNotFound: true);
-        m_MainMenu_Cancel = m_MainMenu.FindAction("Cancel", throwIfNotFound: true);
+        // Menu
+        m_Menu = asset.FindActionMap("Menu", throwIfNotFound: true);
+        m_Menu_BackButton = m_Menu.FindAction("BackButton", throwIfNotFound: true);
+        m_Menu_Move = m_Menu.FindAction("Move", throwIfNotFound: true);
+        m_Menu_Submit = m_Menu.FindAction("Submit", throwIfNotFound: true);
+        m_Menu_Cancel = m_Menu.FindAction("Cancel", throwIfNotFound: true);
+        m_Menu_OpenPauseMenu = m_Menu.FindAction("OpenPauseMenu", throwIfNotFound: true);
+        m_Menu_ClosePauseMenu = m_Menu.FindAction("ClosePauseMenu", throwIfNotFound: true);
         // PauseMenu
         m_PauseMenu = asset.FindActionMap("PauseMenu", throwIfNotFound: true);
-        m_PauseMenu_OpenPauseMenu = m_PauseMenu.FindAction("OpenPauseMenu", throwIfNotFound: true);
-        m_PauseMenu_ClosePauseMenu = m_PauseMenu.FindAction("ClosePauseMenu", throwIfNotFound: true);
         m_PauseMenu_BackButton = m_PauseMenu.FindAction("BackButton", throwIfNotFound: true);
     }
 
     ~@BaseInputActions()
     {
         UnityEngine.Debug.Assert(!m_characterController.enabled, "This will cause a leak and performance issues, BaseInputActions.characterController.Disable() has not been called.");
-        UnityEngine.Debug.Assert(!m_MainMenu.enabled, "This will cause a leak and performance issues, BaseInputActions.MainMenu.Disable() has not been called.");
+        UnityEngine.Debug.Assert(!m_Menu.enabled, "This will cause a leak and performance issues, BaseInputActions.Menu.Disable() has not been called.");
         UnityEngine.Debug.Assert(!m_PauseMenu.enabled, "This will cause a leak and performance issues, BaseInputActions.PauseMenu.Disable() has not been called.");
     }
 
@@ -860,30 +860,34 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
     }
     public CharacterControllerActions @characterController => new CharacterControllerActions(this);
 
-    // MainMenu
-    private readonly InputActionMap m_MainMenu;
-    private List<IMainMenuActions> m_MainMenuActionsCallbackInterfaces = new List<IMainMenuActions>();
-    private readonly InputAction m_MainMenu_BackButton;
-    private readonly InputAction m_MainMenu_Move;
-    private readonly InputAction m_MainMenu_Submit;
-    private readonly InputAction m_MainMenu_Cancel;
-    public struct MainMenuActions
+    // Menu
+    private readonly InputActionMap m_Menu;
+    private List<IMenuActions> m_MenuActionsCallbackInterfaces = new List<IMenuActions>();
+    private readonly InputAction m_Menu_BackButton;
+    private readonly InputAction m_Menu_Move;
+    private readonly InputAction m_Menu_Submit;
+    private readonly InputAction m_Menu_Cancel;
+    private readonly InputAction m_Menu_OpenPauseMenu;
+    private readonly InputAction m_Menu_ClosePauseMenu;
+    public struct MenuActions
     {
         private @BaseInputActions m_Wrapper;
-        public MainMenuActions(@BaseInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @BackButton => m_Wrapper.m_MainMenu_BackButton;
-        public InputAction @Move => m_Wrapper.m_MainMenu_Move;
-        public InputAction @Submit => m_Wrapper.m_MainMenu_Submit;
-        public InputAction @Cancel => m_Wrapper.m_MainMenu_Cancel;
-        public InputActionMap Get() { return m_Wrapper.m_MainMenu; }
+        public MenuActions(@BaseInputActions wrapper) { m_Wrapper = wrapper; }
+        public InputAction @BackButton => m_Wrapper.m_Menu_BackButton;
+        public InputAction @Move => m_Wrapper.m_Menu_Move;
+        public InputAction @Submit => m_Wrapper.m_Menu_Submit;
+        public InputAction @Cancel => m_Wrapper.m_Menu_Cancel;
+        public InputAction @OpenPauseMenu => m_Wrapper.m_Menu_OpenPauseMenu;
+        public InputAction @ClosePauseMenu => m_Wrapper.m_Menu_ClosePauseMenu;
+        public InputActionMap Get() { return m_Wrapper.m_Menu; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
         public bool enabled => Get().enabled;
-        public static implicit operator InputActionMap(MainMenuActions set) { return set.Get(); }
-        public void AddCallbacks(IMainMenuActions instance)
+        public static implicit operator InputActionMap(MenuActions set) { return set.Get(); }
+        public void AddCallbacks(IMenuActions instance)
         {
-            if (instance == null || m_Wrapper.m_MainMenuActionsCallbackInterfaces.Contains(instance)) return;
-            m_Wrapper.m_MainMenuActionsCallbackInterfaces.Add(instance);
+            if (instance == null || m_Wrapper.m_MenuActionsCallbackInterfaces.Contains(instance)) return;
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Add(instance);
             @BackButton.started += instance.OnBackButton;
             @BackButton.performed += instance.OnBackButton;
             @BackButton.canceled += instance.OnBackButton;
@@ -896,9 +900,15 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
             @Cancel.started += instance.OnCancel;
             @Cancel.performed += instance.OnCancel;
             @Cancel.canceled += instance.OnCancel;
+            @OpenPauseMenu.started += instance.OnOpenPauseMenu;
+            @OpenPauseMenu.performed += instance.OnOpenPauseMenu;
+            @OpenPauseMenu.canceled += instance.OnOpenPauseMenu;
+            @ClosePauseMenu.started += instance.OnClosePauseMenu;
+            @ClosePauseMenu.performed += instance.OnClosePauseMenu;
+            @ClosePauseMenu.canceled += instance.OnClosePauseMenu;
         }
 
-        private void UnregisterCallbacks(IMainMenuActions instance)
+        private void UnregisterCallbacks(IMenuActions instance)
         {
             @BackButton.started -= instance.OnBackButton;
             @BackButton.performed -= instance.OnBackButton;
@@ -912,36 +922,38 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
             @Cancel.started -= instance.OnCancel;
             @Cancel.performed -= instance.OnCancel;
             @Cancel.canceled -= instance.OnCancel;
+            @OpenPauseMenu.started -= instance.OnOpenPauseMenu;
+            @OpenPauseMenu.performed -= instance.OnOpenPauseMenu;
+            @OpenPauseMenu.canceled -= instance.OnOpenPauseMenu;
+            @ClosePauseMenu.started -= instance.OnClosePauseMenu;
+            @ClosePauseMenu.performed -= instance.OnClosePauseMenu;
+            @ClosePauseMenu.canceled -= instance.OnClosePauseMenu;
         }
 
-        public void RemoveCallbacks(IMainMenuActions instance)
+        public void RemoveCallbacks(IMenuActions instance)
         {
-            if (m_Wrapper.m_MainMenuActionsCallbackInterfaces.Remove(instance))
+            if (m_Wrapper.m_MenuActionsCallbackInterfaces.Remove(instance))
                 UnregisterCallbacks(instance);
         }
 
-        public void SetCallbacks(IMainMenuActions instance)
+        public void SetCallbacks(IMenuActions instance)
         {
-            foreach (var item in m_Wrapper.m_MainMenuActionsCallbackInterfaces)
+            foreach (var item in m_Wrapper.m_MenuActionsCallbackInterfaces)
                 UnregisterCallbacks(item);
-            m_Wrapper.m_MainMenuActionsCallbackInterfaces.Clear();
+            m_Wrapper.m_MenuActionsCallbackInterfaces.Clear();
             AddCallbacks(instance);
         }
     }
-    public MainMenuActions @MainMenu => new MainMenuActions(this);
+    public MenuActions @Menu => new MenuActions(this);
 
     // PauseMenu
     private readonly InputActionMap m_PauseMenu;
     private List<IPauseMenuActions> m_PauseMenuActionsCallbackInterfaces = new List<IPauseMenuActions>();
-    private readonly InputAction m_PauseMenu_OpenPauseMenu;
-    private readonly InputAction m_PauseMenu_ClosePauseMenu;
     private readonly InputAction m_PauseMenu_BackButton;
     public struct PauseMenuActions
     {
         private @BaseInputActions m_Wrapper;
         public PauseMenuActions(@BaseInputActions wrapper) { m_Wrapper = wrapper; }
-        public InputAction @OpenPauseMenu => m_Wrapper.m_PauseMenu_OpenPauseMenu;
-        public InputAction @ClosePauseMenu => m_Wrapper.m_PauseMenu_ClosePauseMenu;
         public InputAction @BackButton => m_Wrapper.m_PauseMenu_BackButton;
         public InputActionMap Get() { return m_Wrapper.m_PauseMenu; }
         public void Enable() { Get().Enable(); }
@@ -952,12 +964,6 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
         {
             if (instance == null || m_Wrapper.m_PauseMenuActionsCallbackInterfaces.Contains(instance)) return;
             m_Wrapper.m_PauseMenuActionsCallbackInterfaces.Add(instance);
-            @OpenPauseMenu.started += instance.OnOpenPauseMenu;
-            @OpenPauseMenu.performed += instance.OnOpenPauseMenu;
-            @OpenPauseMenu.canceled += instance.OnOpenPauseMenu;
-            @ClosePauseMenu.started += instance.OnClosePauseMenu;
-            @ClosePauseMenu.performed += instance.OnClosePauseMenu;
-            @ClosePauseMenu.canceled += instance.OnClosePauseMenu;
             @BackButton.started += instance.OnBackButton;
             @BackButton.performed += instance.OnBackButton;
             @BackButton.canceled += instance.OnBackButton;
@@ -965,12 +971,6 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
 
         private void UnregisterCallbacks(IPauseMenuActions instance)
         {
-            @OpenPauseMenu.started -= instance.OnOpenPauseMenu;
-            @OpenPauseMenu.performed -= instance.OnOpenPauseMenu;
-            @OpenPauseMenu.canceled -= instance.OnOpenPauseMenu;
-            @ClosePauseMenu.started -= instance.OnClosePauseMenu;
-            @ClosePauseMenu.performed -= instance.OnClosePauseMenu;
-            @ClosePauseMenu.canceled -= instance.OnClosePauseMenu;
             @BackButton.started -= instance.OnBackButton;
             @BackButton.performed -= instance.OnBackButton;
             @BackButton.canceled -= instance.OnBackButton;
@@ -1018,17 +1018,17 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
         void OnPausemenu(InputAction.CallbackContext context);
         void OnUseWarmode(InputAction.CallbackContext context);
     }
-    public interface IMainMenuActions
+    public interface IMenuActions
     {
         void OnBackButton(InputAction.CallbackContext context);
         void OnMove(InputAction.CallbackContext context);
         void OnSubmit(InputAction.CallbackContext context);
         void OnCancel(InputAction.CallbackContext context);
+        void OnOpenPauseMenu(InputAction.CallbackContext context);
+        void OnClosePauseMenu(InputAction.CallbackContext context);
     }
     public interface IPauseMenuActions
     {
-        void OnOpenPauseMenu(InputAction.CallbackContext context);
-        void OnClosePauseMenu(InputAction.CallbackContext context);
         void OnBackButton(InputAction.CallbackContext context);
     }
 }

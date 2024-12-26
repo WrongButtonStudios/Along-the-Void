@@ -317,7 +317,7 @@
             ]
         },
         {
-            "name": "MainMenu",
+            "name": "Menu",
             "id": "688017c7-0623-4a34-a916-712004926880",
             "actions": [
                 {
@@ -351,6 +351,24 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "1951ecb0-a25b-4360-a048-657d0799a146",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "OpenPauseMenu",
+                    "type": "Button",
+                    "id": "b28d8dcb-cfda-4f75-bd65-dfcd6de971c0",
+                    "expectedControlType": "",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "ClosePauseMenu",
+                    "type": "Button",
+                    "id": "8efddb56-b3e5-4fcb-a31c-d1548faf08e4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -533,6 +551,50 @@
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "eaf35b83-2ae2-4e0f-8e0e-4e25b31ff0bb",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keyboard",
+                    "action": "OpenPauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "835ba053-54a7-4951-89ff-0897c8a1dd14",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";gamepad",
+                    "action": "OpenPauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "27164c2d-8310-4424-905a-ffad10b8759e",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": ";keyboard",
+                    "action": "ClosePauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "449777fb-3f92-4b2d-9a46-4754dd9f14c1",
+                    "path": "<XInputController>/start",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "ClosePauseMenu",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
@@ -540,24 +602,6 @@
             "name": "PauseMenu",
             "id": "45f95ccd-a2fc-4ea6-8277-10cafbb31127",
             "actions": [
-                {
-                    "name": "OpenPauseMenu",
-                    "type": "Button",
-                    "id": "a7a52481-45d5-419b-bfb0-2ad930e8d0a1",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ClosePauseMenu",
-                    "type": "Button",
-                    "id": "6d4a5965-f844-4d94-9466-c83e0aa436c3",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
                 {
                     "name": "BackButton",
                     "type": "Button",
@@ -569,50 +613,6 @@
                 }
             ],
             "bindings": [
-                {
-                    "name": "",
-                    "id": "f9f43c20-198f-44cd-a48c-ec16a6875a33",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";keyboard",
-                    "action": "OpenPauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "a82df386-fca7-43f4-bd61-0937acd9fd4a",
-                    "path": "<XInputController>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";gamepad",
-                    "action": "OpenPauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "e7590f75-a47d-4c3b-b939-e27ca6e0651d",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";keyboard",
-                    "action": "ClosePauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "6add8b72-b934-4eb9-b59d-bc04009e3b2a",
-                    "path": "<XInputController>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ClosePauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
                 {
                     "name": "",
                     "id": "c586bdfb-552b-49d2-9bd8-573d6d3be5c2",

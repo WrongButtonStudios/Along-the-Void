@@ -17,9 +17,10 @@ public class PauseMenu : MonoBehaviour
     private bool isOpend = false;
     private bool isDebounce = false; // F?gt ein neues Flag f?r Debouncing hinzu.
     private bool pauseMenuWasActive = false;
+    CanvasGroup pauseMenuCanvasGroup;
     private void Start()
     {
-
+        pauseMenuCanvasGroup = pauseMenuCanvas.GetComponent<CanvasGroup>();
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
@@ -77,8 +78,9 @@ public class PauseMenu : MonoBehaviour
             isDebounce = true; // Aktiviert Debouncing
             StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
 
-            pauseMenuCanvas.SetActive(true);
-            playerInput.SwitchCurrentActionMap("PauseMenu");
+            pauseMenuCanvasGroup.alpha = 1.0f;
+            pauseMenuCanvasGroup.interactable = true;
+            playerInput.SwitchCurrentActionMap("Menu");
             Time.timeScale = 0;
             openPauseMenu.performed -= OnPauseMenuPerformed;
             closePauseMenu.performed += OnPauseMenuClosePerformed;
@@ -93,7 +95,8 @@ public class PauseMenu : MonoBehaviour
             isDebounce = true; // Aktiviert Debouncing
             StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
 
-            pauseMenuCanvas.SetActive(false);
+            pauseMenuCanvasGroup.alpha = 0f;
+            pauseMenuCanvasGroup.interactable = false;
             Time.timeScale = 1;
             playerInput.SwitchCurrentActionMap("characterController");
             openPauseMenu.performed += OnPauseMenuPerformed;
@@ -106,7 +109,8 @@ public class PauseMenu : MonoBehaviour
         isDebounce = true; // Aktiviert Debouncing
         StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
 
-        pauseMenuCanvas.SetActive(false);
+        pauseMenuCanvasGroup.alpha = 0f;
+        pauseMenuCanvasGroup.interactable = false;
         Time.timeScale = 1;
         playerInput.SwitchCurrentActionMap("characterController");
         openPauseMenu.performed += OnPauseMenuPerformed;
@@ -143,7 +147,7 @@ public class PauseMenu : MonoBehaviour
     }
     private void SwitchToMenu()
     {
-        playerInput.SwitchCurrentActionMap("PauseMenu");
+        playerInput.SwitchCurrentActionMap("Menu");
     }
     private void SwitchToIngame()
     {

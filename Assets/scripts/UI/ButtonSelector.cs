@@ -13,10 +13,12 @@ public class ButtonSelector : MonoBehaviour
     private GameObject activeWindowFirstButton;
 
     // Input System Actions
-    [SerializeField] private InputAction navigateAction;
+    private BaseInputActions navigateAction;
 
     void Awake()
     {
+        navigateAction = new BaseInputActions();
+
         // Singleton Setup
         if (Instance == null)
         {
@@ -33,19 +35,20 @@ public class ButtonSelector : MonoBehaviour
         {
             lastMousePosition = mouse.position.ReadValue();
         }
+
     }
 
     private void OnEnable()
     {
         // Enable the navigate action
-        navigateAction.Enable();
-        navigateAction.performed += OnNavigate;
+        navigateAction.Menu.Enable();
+        navigateAction.Menu.Move.performed += OnNavigate;
     }
 
     private void OnDisable()
     {
         // Disable the navigate action
-        navigateAction.performed -= OnNavigate;
+        navigateAction.Menu.Move.performed -= OnNavigate;
         navigateAction.Disable();
     }
 

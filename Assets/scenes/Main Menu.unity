@@ -1361,15 +1361,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  navigateAction:
-    m_Name: Navigate
-    m_Type: 0
-    m_ExpectedControlType: 
-    m_Id: 72dad7fd-ba16-417a-a226-3de18d6ed8d4
-    m_Processors: 
-    m_Interactions: 
-    m_SingletonActionBindings: []
-    m_Flags: 0
 --- !u!4 &193430702
 Transform:
   m_ObjectHideFlags: 0
