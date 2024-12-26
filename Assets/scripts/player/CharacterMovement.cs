@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -121,9 +122,18 @@ public class CharacterMovement : MonoBehaviour
 
             if(!_controller.StatusData.wasDash)
             {
-                _controller.rb.AddForce(_input.MoveInput * dashStrenght, ForceMode2D.Impulse);
+                StartCoroutine(dashAddBoost());
             }
         }
+    }
+
+    public IEnumerator dashAddBoost()
+    {
+        _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0);
+
+        yield return new WaitForFixedUpdate();
+
+        _controller.rb.AddForce(_input.MoveInput * dashStrenght, ForceMode2D.Impulse);
     }
 
     public void hoverAboveGround(RaycastHit2D groundHit)
