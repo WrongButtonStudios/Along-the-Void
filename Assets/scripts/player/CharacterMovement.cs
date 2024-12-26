@@ -109,14 +109,13 @@ public class CharacterMovement : MonoBehaviour
             //when wasnt dahsing 
                 //apply dash initial boost in input direction
 
-
-        if (!_controller.StatusData.isAllowedToMove)
-        {
-            return;
-        }
-
         if (_input.DashInput)
         {
+            foreach(IplayerFeature feature in _controller.GetPlayerFeatures)
+            {
+                feature.endFeauture();
+            }
+
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed);
 
@@ -129,7 +128,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void hoverAboveGround(RaycastHit2D groundHit)
     {
-        if (_controller.StatusData.isGrounded && !_controller.StatusData.isMoving && !_controller.StatusData.isDash)
+        if (_controller.StatusData.isGrounded && !_controller.StatusData.isMoving)
         {
             if (groundHit.distance < maxRideHeight)
             {

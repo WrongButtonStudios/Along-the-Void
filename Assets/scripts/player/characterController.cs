@@ -42,6 +42,7 @@ public class characterController : MonoBehaviour
     public playerStatusData StatusData { get { return statusData; } }
 
     private List<IplayerFeature> playerFeatures = new List<IplayerFeature>();
+    public List<IplayerFeature> GetPlayerFeatures { get { return playerFeatures; } } 
 
     //Dependencys 
     private CharacterMovement _movement;
@@ -142,6 +143,9 @@ public class characterController : MonoBehaviour
                     playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
 
                     _input.ResetTriggerPlayerFeature();
+
+                    statusData.isDash = false;
+                    statusData.wasDash = false;
                 }
 
                 _movement.dash();
