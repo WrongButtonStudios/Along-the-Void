@@ -1,10 +1,12 @@
 using UnityEngine;
+using System.Collections; 
 public class Mushroom : MonoBehaviour
 {
     [ExecuteAlways]
     public float JumpForce = 25f;
     [SerializeField] private GameObject player;
     private characterController playerController;
+    private bool _waitForEndOfDelay = false; 
     private void Start()
     {
         playerController = player.GetComponent<characterController>();
@@ -34,45 +36,79 @@ public class Mushroom : MonoBehaviour
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (playerController.getPlayerStatus().currentState == characterController.playerStates.green && other.gameObject.CompareTag("Player"))
+        if (!_waitForEndOfDelay)
         {
-            other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * JumpForce, ForceMode2D.Impulse);
+            if (playerController.getPlayerStatus().currentState == characterController.playerStates.green && other.gameObject.CompareTag("Player"))
+            {
+                other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * JumpForce, ForceMode2D.Impulse);
+                StartCoroutine(Delay()); 
+            }
         }
     }
 
     public int resolution = 30;
-    public float timeStep = 0.2f;
+    public float timeStep = 0.02f; 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
-        // Get the player's Rigidbody2D to calculate trajectory correctly
-        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
+
         if (player == null)
         {
             Debug.LogWarning("Player is not assigned in TrajectoryLine script!");
             return;
         }
+
+        Rigidbody2D playerRb = player.GetComponent<Rigidbody2D>();
         if (playerRb == null)
         {
-            Debug.Log("No Rigidbody2D found on Player for trajectory calculation!");
+            Debug.LogWarning("No Rigidbody2D found on Player for trajectory calculation!");
+            return;
         }
-        // Get the starting position and velocity
+
         Vector2 startPosition = transform.position;
-        Vector2 startVelocity = transform.up * JumpForce;
-        // Simulate trajectory
-        Vector2 previousPosition = startPosition;
-        for (int i = 1; i <= resolution; i++)
+        Vector2 velocity = transform.up * JumpForce; // Initial velocity due to the impulse
+        Vector2 gravity = Physics2D.gravity; // Use 2D gravity
+        float time = 0; 
+        Vector2 currentPosition = startPosition;
+
+        for (int i = 0; i < resolution; i++)
         {
-            float time = timeStep * i;
-            Vector2 currentPosition = CalculatePositionAtTime(startPosition, startVelocity, time);
-            // Draw a line segment between the previous and current position
-            Gizmos.DrawLine(previousPosition, currentPosition);
-            previousPosition = currentPosition;
+            // Simulate frame-by-frame movement
+            time += Time.fixedDeltaTime;
+
+            // Update position using current velocity
+            Vector2 nextPosition = currentPosition + velocity;
+
+            // Update velocity due to gravity
+            velocity += gravity*time;
+
+            // Draw line
+            Gizmos.DrawLine(currentPosition, nextPosition);
+
+            // Move to the next position
+            currentPosition = nextPosition;
         }
+    }
+    private IEnumerator Delay()
+    {
+        _waitForEndOfDelay = true; 
+        yield return new WaitForSeconds(0.3f);
+        _waitForEndOfDelay = false;
     }
     private Vector2 CalculatePositionAtTime(Vector2 startPosition, Vector2 startVelocity, float time)
     {
         Vector2 gravity = Physics2D.gravity; // Use 2D gravity
-        return startPosition + (startVelocity * time) + (0.5f * gravity * time * time);
+        return startPosition + (startVelocity * time) + (0.5f * gravity * (time * time));
     }
 }
+
+
+/*
+ 
+ 
+ 
+  
+ 
+ 
+ 
+ */
