@@ -29,9 +29,7 @@ public class Mushroom : MonoBehaviour
 
         else
         {
-            {
-                GetComponent<BoxCollider2D>().enabled = false;
-            }
+            GetComponent<BoxCollider2D>().enabled = false;
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -40,6 +38,7 @@ public class Mushroom : MonoBehaviour
         {
             if (playerController.getPlayerStatus().currentState == characterController.playerStates.green && other.gameObject.CompareTag("Player"))
             {
+                var rb = other.gameObject.GetComponent<Rigidbody2D>();
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * JumpForce, ForceMode2D.Impulse);
                 StartCoroutine(Delay()); 
             }
@@ -47,7 +46,8 @@ public class Mushroom : MonoBehaviour
     }
 
     public int resolution = 30;
-    public float timeStep = 0.02f; 
+    public float timeStep = 0.2f;
+    public Vector2 playerVel; 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -65,50 +65,32 @@ public class Mushroom : MonoBehaviour
             return;
         }
 
-        Vector2 startPosition = transform.position;
-        Vector2 velocity = transform.up * JumpForce; // Initial velocity due to the impulse
+        Vector2 initVel = (Vector2)transform.up * JumpForce; // Initial velocity due to the impulse
         Vector2 gravity = Physics2D.gravity; // Use 2D gravity
-        float time = 0; 
-        Vector2 currentPosition = startPosition;
+        Vector2 currentPosition = transform.position;
 
         for (int i = 0; i < resolution; i++)
         {
-            // Simulate frame-by-frame movement
-            time += Time.fixedDeltaTime;
-
-            // Update position using current velocity
-            Vector2 nextPosition = currentPosition + velocity;
-
-            // Update velocity due to gravity
-            velocity += gravity*time;
-
-            // Draw line
-            Gizmos.DrawLine(currentPosition, nextPosition);
-
-            // Move to the next position
-            currentPosition = nextPosition;
+            float t = i * timeStep;
+            Vector2 posAtDt = CalculatePositionAtTime(initVel, t, gravity);
+            Gizmos.DrawLine(currentPosition, posAtDt);
+            currentPosition = posAtDt;
         }
     }
+
+    private Vector2 CalculatePositionAtTime(Vector2 startVelocity, float time, Vector2 gravity)
+    {
+        float x = startVelocity.x * time;
+        float y = startVelocity.y * time + 0.5f * gravity.y * Mathf.Pow(time, 2);
+
+        return (Vector2)transform.position + new Vector2(x, y);
+    }
+
+
     private IEnumerator Delay()
     {
         _waitForEndOfDelay = true; 
         yield return new WaitForSeconds(0.3f);
         _waitForEndOfDelay = false;
     }
-    private Vector2 CalculatePositionAtTime(Vector2 startPosition, Vector2 startVelocity, float time)
-    {
-        Vector2 gravity = Physics2D.gravity; // Use 2D gravity
-        return startPosition + (startVelocity * time) + (0.5f * gravity * (time * time));
-    }
 }
-
-
-/*
- 
- 
- 
-  
- 
- 
- 
- */
