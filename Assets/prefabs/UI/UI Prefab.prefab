@@ -1771,6 +1771,7 @@ GameObject:
   - component: {fileID: 7716040682871292538}
   - component: {fileID: 3781264103251595651}
   - component: {fileID: 1170155716409865804}
+  - component: {fileID: 5730385051201986393}
   m_Layer: 5
   m_Name: Graphic Settings Canvas
   m_TagString: Untagged
@@ -1904,6 +1905,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstButton: {fileID: 5436809121599847864}
+--- !u!114 &5730385051201986393
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2743892194166585831}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9a5399ad8647f42afbafac7bc36918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  higherMenu: {fileID: 8201275499754194127}
 --- !u!1 &2756494519958084288
 GameObject:
   m_ObjectHideFlags: 0
@@ -7307,6 +7321,7 @@ GameObject:
   - component: {fileID: 3396049741794728032}
   - component: {fileID: 5033221440645639631}
   - component: {fileID: 6738627908805865438}
+  - component: {fileID: 5980430506617804363}
   m_Layer: 5
   m_Name: Options Canvas
   m_TagString: Untagged
@@ -7415,6 +7430,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   firstButton: {fileID: 8496720266677783339}
+--- !u!114 &5980430506617804363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8201275499754194127}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ac9a5399ad8647f42afbafac7bc36918, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  higherMenu: {fileID: 8194782128819953403}
 --- !u!1 &8212076076976092908
 GameObject:
   m_ObjectHideFlags: 0
