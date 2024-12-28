@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
 
@@ -28,7 +29,8 @@ public class CharacterMovement : MonoBehaviour
 
     //variable block for dash and falling bs
     [SerializeField] private float deccendGravityMultiplier = 2f;
-    [SerializeField] private float dashStrenght = 50f;
+    [SerializeField] private float dashDistance = 10f;
+    [SerializeField] private float dashDuration = 0.5f;
     [SerializeField] private float dashMaxSpeed = 100f;
     
     //dependencys 
@@ -104,26 +106,32 @@ public class CharacterMovement : MonoBehaviour
 
     public void dash()
     {
-        //when dash input is pressed
-            //set max speed to dashSpeed
-            //when wasnt dahsing 
-                //apply dash initial boost in input direction
-
         if (_input.DashInput)
         {
             foreach(IplayerFeature feature in _controller.GetPlayerFeatures)
             {
                 feature.endFeauture();
             }
-
+            
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed);
-
+            
             if(!_controller.StatusData.wasDash)
             {
-                _controller.rb.AddForce(_input.MoveInput * dashStrenght, ForceMode2D.Impulse);
+                StartCoroutine(dashAddBoost());
             }
         }
+    }
+
+    public IEnumerator dashAddBoost()
+    {
+        _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0);
+        
+        Vector2 dashVelocity = (_input.MoveInput * dashDistance) / dashDuration;
+        
+        yield return new WaitForFixedUpdate();
+        
+        _controller.rb.velocity = dashVelocity;
     }
 
     public void hoverAboveGround(RaycastHit2D groundHit)
