@@ -561,7 +561,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deccendGravityMultiplier: 1.5
-  dashForce: 10
+  dashForce: 100
+  dashResetGravityScaleAfterSeconds: 0.1
+  dashGravityScale: 25
   dashMaxSpeed: 100
   _controller: {fileID: 5134150646713634762}
   _input: {fileID: 5427037132920156623}
