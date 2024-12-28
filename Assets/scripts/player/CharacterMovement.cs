@@ -29,8 +29,7 @@ public class CharacterMovement : MonoBehaviour
 
     //variable block for dash and falling bs
     [SerializeField] private float deccendGravityMultiplier = 2f;
-    [SerializeField] private float dashDistance = 10f;
-    [SerializeField] private float dashDuration = 0.5f;
+    [SerializeField] private float dashForce = 10f;
     [SerializeField] private float dashMaxSpeed = 100f;
     
     //dependencys 
@@ -108,10 +107,10 @@ public class CharacterMovement : MonoBehaviour
     {
         if (_input.DashInput)
         {
-            foreach(IplayerFeature feature in _controller.GetPlayerFeatures)
+            /*foreach(IplayerFeature feature in _controller.GetPlayerFeatures)
             {
                 feature.endFeauture();
-            }
+            }*/
             
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed);
@@ -127,7 +126,7 @@ public class CharacterMovement : MonoBehaviour
     {
         _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0);
         
-        Vector2 dashVelocity = (_input.MoveInput * dashDistance) / dashDuration;
+        Vector2 dashVelocity = _input.MoveInput * dashForce;
         
         yield return new WaitForFixedUpdate();
         
