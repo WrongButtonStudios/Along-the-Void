@@ -79,7 +79,7 @@ public class CollisionHandler : MonoBehaviour
 
     public void OnTriggerEnter2D(UnityEngine.Collider2D collision)
     {
-        Debug.Log("trigger entered");         
+        ///Debug.Log("trigger entered");         
         bool destroyObstacle = collision.gameObject.layer == 14 && _warmode.CurWarMode == characterController.playerStates.burntRed && _warmode.IsActive;
         _plattform = collision.GetComponent<BluePlatform>();
         bool stayOnPlattform = PlayerUttillitys.GetPlayerColor(_cc) == PlayerColor.blue && _plattform != null;  
