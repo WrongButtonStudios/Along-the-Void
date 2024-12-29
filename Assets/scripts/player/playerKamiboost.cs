@@ -68,9 +68,9 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
                 Debug.Log("doKamiboost = " + doKamiboost);
             }
 
-            if (characterController._input.MoveInput.magnitude > 0.1f)
+            if (characterController.Input.MoveInput.magnitude > 0.1f)
             {
-                _dir = characterController._input.MoveInput;
+                _dir = characterController.Input.MoveInput;
             }
             else
             {

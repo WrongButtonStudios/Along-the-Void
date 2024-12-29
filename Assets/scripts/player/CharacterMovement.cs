@@ -3,6 +3,10 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using UnityEngine.EventSystems;
+using System.Linq;
+using UnityEditor;
+using UnityEngine.InputSystem;
+
 
 public class CharacterMovement : MonoBehaviour
 {
@@ -29,8 +33,9 @@ public class CharacterMovement : MonoBehaviour
 
     //variable block for dash and falling bs
     [SerializeField] private float deccendGravityMultiplier = 2f;
-    [SerializeField] private float dashDistance = 10f;
-    [SerializeField] private float dashDuration = 0.5f;
+    [SerializeField] private float dashForce = 10f;
+    [SerializeField] private float dashResetGravityScaleAfterSeconds = 0.2f;
+    [SerializeField] private float dashGravityScale = 10f;
     [SerializeField] private float dashMaxSpeed = 100f;
     
     //dependencys 
@@ -108,10 +113,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (_input.DashInput)
         {
-            foreach(IplayerFeature feature in _controller.GetPlayerFeatures)
-            {
-                feature.endFeauture();
-            }
+            _controller.GetPlayerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
             
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed);
@@ -127,11 +129,18 @@ public class CharacterMovement : MonoBehaviour
     {
         _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0);
         
-        Vector2 dashVelocity = (_input.MoveInput * dashDistance) / dashDuration;
+        Vector2 dashVelocity = _input.MoveInput * dashForce;
+
+        _controller.rb.gravityScale *= dashGravityScale;
         
         yield return new WaitForFixedUpdate();
         
         _controller.rb.velocity = dashVelocity;
+
+        yield return new WaitForSeconds(dashResetGravityScaleAfterSeconds);
+
+        _controller.rb.gravityScale /= dashGravityScale;
+
     }
 
     public void hoverAboveGround(RaycastHit2D groundHit)
