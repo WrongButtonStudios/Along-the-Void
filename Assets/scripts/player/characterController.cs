@@ -48,7 +48,7 @@ public class characterController : MonoBehaviour
     private CharacterMovement _movement;
     public CollisionHandler Collision { get; private set;  }
     private CharacterDebuffs _buffs;
-    public InputController _input; 
+    public InputController Input { get; private set; } 
 
     private void Awake()
     {
@@ -80,12 +80,12 @@ public class characterController : MonoBehaviour
         _movement = this.GetComponent<CharacterMovement>();
         Collision = this.GetComponent<CollisionHandler>();
         _buffs = this.GetComponent<CharacterDebuffs>();
-        _input = this.GetComponent<InputController>(); 
+        Input = this.GetComponent<InputController>(); 
     }
 
     private void FixedUpdate()
     {
-        statusData.isMoving = _input.MoveInput.x != 0;
+        statusData.isMoving = Input.MoveInput.x != 0;
 
 
         _movement.lerpCurrentMaxSpeedToMaxSpeed();
@@ -93,7 +93,7 @@ public class characterController : MonoBehaviour
 
         rb.velocity = Vector2.ClampMagnitude(rb.velocity, _movement.GetMaxSpeed());
 
-        _input.LastDashInput = _input.DashInput;
+        Input.LastDashInput = Input.DashInput;
         statusData.wasDash = statusData.isDash;
     }
 
@@ -113,7 +113,7 @@ public class characterController : MonoBehaviour
             case playerStates.green:
                 RaycastHit2D groundHit = Collision.doGroundedCheck();
         
-                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, _input.TriggerPlayerFeatureInput);
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
         
                 _movement.dash();
                 _movement.baseMovement();
@@ -123,11 +123,11 @@ public class characterController : MonoBehaviour
             case playerStates.red:
                 groundHit = Collision.doGroundedCheck();
 
-                if (_input.TriggerPlayerFeatureInput)
+                if (Input.TriggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().triggerFeauture();
 
-                    _input.ResetTriggerPlayerFeature();
+                    Input.ResetTriggerPlayerFeature();
                 }
 
                 _movement.dash();
@@ -138,11 +138,11 @@ public class characterController : MonoBehaviour
             case playerStates.blue:
                 groundHit = Collision.doGroundedCheck();
 
-                if (_input.TriggerPlayerFeatureInput)
+                if (Input.TriggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
 
-                    _input.ResetTriggerPlayerFeature();
+                    Input.ResetTriggerPlayerFeature();
 
                     statusData.isDash = false;
                     statusData.wasDash = false;
@@ -156,8 +156,8 @@ public class characterController : MonoBehaviour
             case playerStates.yellow:
                 groundHit = Collision.doGroundedCheck();
 
-                
-                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, _input.TriggerPlayerFeatureInput);
+                    if(Input.TriggerPlayerFeatureInput)
+                        playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
                    // _input.ResetTriggerPlayerFeature();
                 
 
