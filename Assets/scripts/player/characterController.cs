@@ -45,9 +45,9 @@ public class characterController : MonoBehaviour
     public List<IplayerFeature> GetPlayerFeatures { get { return playerFeatures; } } 
 
     //Dependencys 
-    private CharacterMovement _movement;
-    public CollisionHandler Collision { get; private set;  }
-    private CharacterDebuffs _buffs;
+    public CharacterMovement Movement { get; private set; }
+    public CollisionHandler Collision { get; private set; }
+    public CharacterDebuffs Buffs { get; private set; }
     public InputController Input { get; private set; } 
 
     private void Awake()
@@ -77,9 +77,9 @@ public class characterController : MonoBehaviour
         }
 
         //load in Dependencys
-        _movement = this.GetComponent<CharacterMovement>();
+        Movement = this.GetComponent<CharacterMovement>();
         Collision = this.GetComponent<CollisionHandler>();
-        _buffs = this.GetComponent<CharacterDebuffs>();
+        Buffs = this.GetComponent<CharacterDebuffs>();
         Input = this.GetComponent<InputController>(); 
     }
 
@@ -88,10 +88,10 @@ public class characterController : MonoBehaviour
         statusData.isMoving = Input.MoveInput.x != 0;
 
 
-        _movement.lerpCurrentMaxSpeedToMaxSpeed();
+        Movement.lerpCurrentMaxSpeedToMaxSpeed();
         handleStates();
 
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, _movement.GetMaxSpeed());
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, Movement.GetMaxSpeed());
 
         Input.LastDashInput = Input.DashInput;
         statusData.wasDash = statusData.isDash;
@@ -115,9 +115,9 @@ public class characterController : MonoBehaviour
         
                 playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
         
-                _movement.dash();
-                _movement.baseMovement();
-                _movement.hoverAboveGround(groundHit);
+                Movement.dash();
+                Movement.baseMovement();
+                Movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.red:
@@ -130,9 +130,9 @@ public class characterController : MonoBehaviour
                     Input.ResetTriggerPlayerFeature();
                 }
 
-                _movement.dash();
-                _movement.baseMovement();
-                _movement.hoverAboveGround(groundHit);
+                Movement.dash();
+                Movement.baseMovement();
+                Movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.blue:
@@ -148,9 +148,9 @@ public class characterController : MonoBehaviour
                     statusData.wasDash = false;
                 }
 
-                _movement.dash();
-                _movement.baseMovement();
-                _movement.hoverAboveGround(groundHit);
+                Movement.dash();
+                Movement.baseMovement();
+                Movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.yellow:
@@ -161,9 +161,9 @@ public class characterController : MonoBehaviour
                    // _input.ResetTriggerPlayerFeature();
                 
 
-                _movement.dash();
-                _movement.baseMovement();
-                _movement.hoverAboveGround(groundHit);
+                Movement.dash();
+                Movement.baseMovement();
+                Movement.hoverAboveGround(groundHit);
                 break;
 
             default:

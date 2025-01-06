@@ -61,7 +61,7 @@ public class EnemyCollisionHandler : MonoBehaviour
     private IEnumerator DamageCooldown(float time)
     {
         _dealDamage = false;
-        yield return new WaitForSeconds(time);
+        yield return new WaitForSeconds(time * (1 / _enemy.TimeScale));
         _dealDamage = true; 
     }
 }

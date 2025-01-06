@@ -248,7 +248,6 @@ GameObject:
   - component: {fileID: 5427037132920156623}
   - component: {fileID: 6291066242271056879}
   - component: {fileID: 27437897402313827}
-  - component: {fileID: 251141995727124362}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -294,7 +293,6 @@ MonoBehaviour:
     wasDash: 0
     isFrozen: 0
     isOnFire: 0
-  _input: {fileID: 0}
 --- !u!50 &6023778915909287075
 Rigidbody2D:
   serializedVersion: 4
@@ -480,20 +478,20 @@ MonoBehaviour:
     m_ActionName: PauseMenu/Close Pause Menu[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 6c7783c2-505e-4811-b32b-8c575f886406
-    m_ActionName: Controller/New action
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 9a145223-1744-461e-a5ca-845303bcc751
-    m_ActionName: Keyboard/New action
+    m_ActionId: 3d70aa9e-82e7-42a9-82c6-994f478aca38
+    m_ActionName: PauseMenu/BackButton[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: eafc8d5c-1ace-4cb9-9415-142873ec8b20
     m_ActionName: MainMenu/Move[/Keyboard/upArrow,/Keyboard/downArrow]
   - m_PersistentCalls:
       m_Calls: []
-    m_ActionId: 3d70aa9e-82e7-42a9-82c6-994f478aca38
-    m_ActionName: PauseMenu/BackButton[/Keyboard/escape]
+    m_ActionId: e09a2e8b-e88e-4fec-b5dc-8885b79c24b5
+    m_ActionName: MainMenu/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1951ecb0-a25b-4360-a048-657d0799a146
+    m_ActionName: MainMenu/Cancel[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -608,6 +606,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fairyController: {fileID: 0}
+  _bulletTimeScale: 0.5
+  _normalTimeScale: 1
   _colorLossAmount: 0.05
   _turretPref: {fileID: 7369785609382215585, guid: d40ecc27f0f2d472abc0e5b111426990, type: 3}
 --- !u!61 &27437897402313827
@@ -655,18 +655,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.140007, y: 2.170517}
   m_EdgeRadius: 0
---- !u!114 &251141995727124362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3247461398459608850}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcf97b3f10528435696b7980e1d8bca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3881638506002448785
 GameObject:
   m_ObjectHideFlags: 0
