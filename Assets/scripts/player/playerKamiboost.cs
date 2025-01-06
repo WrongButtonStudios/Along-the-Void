@@ -39,7 +39,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             //Ich muss einfach an die Velocity Diggaaaaaa!!!
             characterMovement.setMaxSpeed(kamiBoostSpeed);
             //Muss ?berarbeitet werden!
-            characterController.rb.AddForce(_dir * kamiBoostSpeed);
+            characterController.rb.AddForce(_dir.normalized * kamiBoostSpeed);
             //Muss ?berarbeitet werden!
         }
     }
@@ -74,8 +74,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             }
             else
             {
-                input = false;
-                Debug.Log("No direction input recieved. Stoped using Kami Boost"); 
+                _dir = Vector2.right; 
             }
 
             if (input == false)
