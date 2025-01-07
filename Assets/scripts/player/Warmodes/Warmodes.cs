@@ -59,6 +59,7 @@ public class Warmodes : MonoBehaviour
                 RedWarMode(); 
                 break;
             case characterController.playerStates.yellow:
+                Debug.Log("yellow war mode");
                 YellowWarMode();
                 break; 
             default:
@@ -88,14 +89,21 @@ public class Warmodes : MonoBehaviour
 
     private void YellowWarMode()
     {
-        Debug.Log("yellow war mode"); 
-        _cc.StatusData.currentState = characterController.playerStates.burntYellow;
-        var enemys = FindObjectsOfType<SimpleAI>(); 
-        foreach (SimpleAI ai in enemys)
+        if (_isActive == false)
         {
-            ai.SetTimeScale(_bulletTimeScale); 
+            _isActive = true; 
+            _cc.StatusData.currentState = characterController.playerStates.burntYellow;
+            _curWarMode = _cc.StatusData.currentState;
+            Time.timeScale = 0.5f;
+            _cc.Movement.SetTimeScaleFacotor(2);
+            _cc.rb.gravityScale = 2; 
+         //var enemys = FindObjectsOfType<SimpleAI>();
+         //foreach (SimpleAI ai in enemys)
+         //{
+         //    ai.SetTimeScale(_bulletTimeScale);
+         //    Debug.Log(ai.TimeScale); 
+         //}
         }
-   
     }
 
     private void GreenWarMode()
@@ -114,12 +122,15 @@ public class Warmodes : MonoBehaviour
                 _activeTurret = null;
                 break;
             case characterController.playerStates.burntYellow:
-                var enemys = FindObjectsOfType<SimpleAI>();
-                foreach (SimpleAI ai in enemys)
-                {
-                    ai.SetTimeScale(_normalTimeScale);
-                }
-
+                //var enemys = FindObjectsOfType<SimpleAI>();
+                Time.timeScale = 1;
+                _cc.Movement.SetTimeScaleFacotor(1);
+                _cc.rb.gravityScale = 1;
+                // foreach (SimpleAI ai in enemys)
+                // {
+                //     ai.SetTimeScale(_normalTimeScale);
+                // }
+                //
                 break;
             default:
                 Debug.LogWarning("Other stuff is not implemented, does not need specific stuff to be done to deactivate");

@@ -42,7 +42,8 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField]
     private characterController _controller;
     [SerializeField]
-    private InputController _input; 
+    private InputController _input;
+    private float _timeScale = 1f; 
  
 
     //public Getter
@@ -61,7 +62,7 @@ public class CharacterMovement : MonoBehaviour
     {
         if (maxSpeed > maxMovementSpeed)
         {
-            maxSpeed = Mathf.Lerp(maxSpeed, maxMovementSpeed, maxSpeedChangeSpeed * Time.deltaTime);
+            maxSpeed = Mathf.Lerp(maxSpeed, maxMovementSpeed, maxSpeedChangeSpeed * Time.deltaTime * _timeScale);
         }
     }
 
@@ -101,7 +102,7 @@ public class CharacterMovement : MonoBehaviour
 
         forceToAdd = forceToAdd * accelerationFactorFromDot.Evaluate(Vector2.Dot(forceToAdd.normalized, _controller.rb.velocity.normalized));
 
-        _controller.rb.AddForce(forceToAdd, ForceMode2D.Force);
+        _controller.rb.AddForce(forceToAdd * _timeScale, ForceMode2D.Force);
     }
     
     public void setMaxSpeed(float maxSpeedToSet)
@@ -116,7 +117,7 @@ public class CharacterMovement : MonoBehaviour
             _controller.GetPlayerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
             
             _controller.StatusData.isDash = true;
-            setMaxSpeed(dashMaxSpeed);
+            setMaxSpeed(dashMaxSpeed * _timeScale);
             
             if(!_controller.StatusData.wasDash)
             {
@@ -129,7 +130,7 @@ public class CharacterMovement : MonoBehaviour
     {
         _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0);
         
-        Vector2 dashVelocity = _input.MoveInput * dashForce;
+        Vector2 dashVelocity = _input.MoveInput * dashForce * _timeScale;
 
         _controller.rb.gravityScale *= dashGravityScale;
         
@@ -156,7 +157,7 @@ public class CharacterMovement : MonoBehaviour
                 Vector2 upForce = (Vector2.up * _controller.rb.gravityScale) * (rideHeight - distanceToGround) * rideSpringStrenght;
                 Vector2 dampingForce = -yVelocity * rideSpringDamper;
 
-                _controller.rb.AddForce(upForce + dampingForce, ForceMode2D.Force);
+                _controller.rb.AddForce(upForce + dampingForce * _timeScale, ForceMode2D.Force);
             }
         }
     }
@@ -171,12 +172,17 @@ public class CharacterMovement : MonoBehaviour
 
             counterForce = Vector2.ClampMagnitude(counterForce, counterMoveForce);
 
-            _controller.rb.AddForce(counterForce, ForceMode2D.Force);
+            _controller.rb.AddForce(counterForce * _timeScale, ForceMode2D.Force);
         }
     }
 
     public AnimationCurve returnAccelerationCurve()
     {
         return accelerationFactorFromDot;
+    }
+
+    public void SetTimeScaleFacotor(float val)
+    {
+        _timeScale = val; 
     }
 }
