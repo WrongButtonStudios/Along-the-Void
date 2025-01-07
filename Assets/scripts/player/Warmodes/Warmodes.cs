@@ -95,8 +95,8 @@ public class Warmodes : MonoBehaviour
             _cc.StatusData.currentState = characterController.playerStates.burntYellow;
             _curWarMode = _cc.StatusData.currentState;
             Time.timeScale = 0.5f;
+            Physics2D.gravity *= 2;
             _cc.Movement.SetTimeScaleFacotor(2);
-            _cc.rb.gravityScale = 2; 
          //var enemys = FindObjectsOfType<SimpleAI>();
          //foreach (SimpleAI ai in enemys)
          //{
@@ -125,7 +125,7 @@ public class Warmodes : MonoBehaviour
                 //var enemys = FindObjectsOfType<SimpleAI>();
                 Time.timeScale = 1;
                 _cc.Movement.SetTimeScaleFacotor(1);
-                _cc.rb.gravityScale = 1;
+                Physics2D.gravity /= 2; 
                 // foreach (SimpleAI ai in enemys)
                 // {
                 //     ai.SetTimeScale(_normalTimeScale);
