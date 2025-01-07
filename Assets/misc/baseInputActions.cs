@@ -152,7 +152,7 @@ public partial class @BaseInputActions: IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""feeb3705-68a1-4046-98d9-43f9c50c84dd"",
-                    ""path"": ""<Gamepad>/dpad"",
+                    ""path"": """",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
