@@ -11,7 +11,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     private string defaultLayerName = "yellowDustArea";
     public int kamiBoostSpeed = 200;
     private bool doKamiboost = false;
-
+    private Vector2 _dir; 
     public LayerMask layerMask;
 
 
@@ -38,9 +38,9 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             characterController.rb.velocity = new Vector2(characterController.rb.velocity.x, 0);
             //Ich muss einfach an die Velocity Diggaaaaaa!!!
             characterMovement.setMaxSpeed(kamiBoostSpeed);
-            //Muss überarbeitet werden!
-            characterController.rb.AddForce(characterController._input.MoveInput * kamiBoostSpeed);
-            //Muss überarbeitet werden!
+            //Muss ?berarbeitet werden!
+            characterController.rb.AddForce(_dir * kamiBoostSpeed);
+            //Muss ?berarbeitet werden!
         }
     }
 
@@ -55,7 +55,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
     public void triggerFeauture(bool useInput = false, bool input = false)
     {
-        if (!characterController.getPlayerStatus().isGrounded)
+        if (!characterController.getPlayerStatus().isGrounded && !doKamiboost)
         {
             List<Collider2D> colliders = new List<Collider2D>();
 
@@ -63,7 +63,19 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
             if (colliders.Count > 0)
             {
+                Debug.Log("Activated Kami boost..."); 
                 doKamiboost = input;
+                Debug.Log("doKamiboost = " + doKamiboost);
+            }
+
+            if (characterController.Input.MoveInput.magnitude > 0.1f)
+            {
+                _dir = characterController.Input.MoveInput;
+            }
+            else
+            {
+                input = false;
+                Debug.Log("No direction input recieved. Stoped using Kami Boost"); 
             }
 
             if (input == false)
