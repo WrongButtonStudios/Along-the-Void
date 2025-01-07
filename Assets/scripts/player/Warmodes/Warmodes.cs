@@ -7,6 +7,10 @@ public class Warmodes : MonoBehaviour
 
     [SerializeField]
     private fairyController _fairyController;
+    [SerializeField, Range(0, 1)]
+    private float _bulletTimeScale;
+    [SerializeField, Range(0, 1)]
+    private float _normalTimeScale;
     private bool _isActive = false;
     private CharacterDebuffs _characterDebuffs;
     private CollisionHandler _collisionHandler;
@@ -54,6 +58,10 @@ public class Warmodes : MonoBehaviour
             case characterController.playerStates.red:
                 RedWarMode(); 
                 break;
+            case characterController.playerStates.yellow:
+                Debug.Log("yellow war mode");
+                YellowWarMode();
+                break; 
             default:
                 Debug.LogWarning("Other stuff needs to be implemented/Or allready in warmode");
                 break; 
@@ -79,6 +87,30 @@ public class Warmodes : MonoBehaviour
         }
     }
 
+    private void YellowWarMode()
+    {
+        if (_isActive == false)
+        {
+            _isActive = true; 
+            _cc.StatusData.currentState = characterController.playerStates.burntYellow;
+            _curWarMode = _cc.StatusData.currentState;
+            Time.timeScale = 0.5f;
+            Physics2D.gravity *= 2;
+            _cc.Movement.SetTimeScaleFacotor(2);
+         //var enemys = FindObjectsOfType<SimpleAI>();
+         //foreach (SimpleAI ai in enemys)
+         //{
+         //    ai.SetTimeScale(_bulletTimeScale);
+         //    Debug.Log(ai.TimeScale); 
+         //}
+        }
+    }
+
+    private void GreenWarMode()
+    {
+        throw new System.NotImplementedException(); 
+    }
+
     private void DeactivateWarmode()
     {
         _isActive = false; 
@@ -88,6 +120,17 @@ public class Warmodes : MonoBehaviour
             case characterController.playerStates.burntBlue:
                 Destroy(_activeTurret);
                 _activeTurret = null;
+                break;
+            case characterController.playerStates.burntYellow:
+                //var enemys = FindObjectsOfType<SimpleAI>();
+                Time.timeScale = 1;
+                _cc.Movement.SetTimeScaleFacotor(1);
+                Physics2D.gravity /= 2; 
+                // foreach (SimpleAI ai in enemys)
+                // {
+                //     ai.SetTimeScale(_normalTimeScale);
+                // }
+                //
                 break;
             default:
                 Debug.LogWarning("Other stuff is not implemented, does not need specific stuff to be done to deactivate");

@@ -56,7 +56,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         Vector2 direction = _entity.PlayerPos - (Vector2)transform.position;
         if (direction.sqrMagnitude > _fireRangeSQR)
         {
-            _entity.RB.AddForce(direction.normalized * _entity.Speed * Time.fixedDeltaTime, ForceMode2D.Impulse);
+            _entity.RB.AddForce(direction.normalized * _entity.Speed * Time.fixedDeltaTime * _entity.TimeScale, ForceMode2D.Impulse);
         }
         else if (direction.sqrMagnitude <= _fireRangeSQR)
         {
@@ -97,7 +97,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         Vector2 targetPos = _entity.PlayerPos;
         Vector2 force = (targetPos - (Vector2)_entity.transform.position + CalculateAimOffset(targetPos - (Vector2)_entity.transform.position)).normalized * _speed;
         Debug.Log(force); 
-        _rb.AddForce(force, ForceMode2D.Impulse); 
+        _rb.AddForce(force * _entity.TimeScale, ForceMode2D.Impulse); 
 
     }
 
