@@ -57,7 +57,9 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private GameObject _attackEffect;
     [SerializeField]
-    private EnemyStatusEffect _statusEffect; 
+    private EnemyStatusEffect _statusEffect;
+    [SerializeField]
+    private List<Transform> _wayPoints = new(); 
     
     private Rigidbody2D _rb;
     private int _selectedWeapon;
@@ -81,6 +83,7 @@ public class SimpleAI : MonoBehaviour
     public EnemyStatusEffect StatusEffect { get { return _statusEffect; } }
     public Scene Scene { get { return _scene;  } }
     public float TimeScale { get; private set; }
+    public Vector2 GravityInfluence { get; private set; }
 
 
 
@@ -93,9 +96,19 @@ public class SimpleAI : MonoBehaviour
         if(_rb==null)
             _rb = this.GetComponent<Rigidbody2D>();
         if(_playerPos == null)
-            _playerPos = GameObject.FindObjectOfType<characterController>().transform;
+            //_playerPos = GameObject.FindObjectOfType<characterController>().transform;
         if(_isInitialized == false)
             Initialize();
+    }
+
+    private void Start()
+    {
+        if (_rb == null)
+            _rb = this.GetComponent<Rigidbody2D>();
+        //if (_playerPos == null)
+            //_playerPos = GameObject.FindObjectOfType<characterController>().transform;
+            if (_isInitialized == false)
+                Initialize();
     }
 
     private void Initialize()
@@ -119,6 +132,7 @@ public class SimpleAI : MonoBehaviour
                     var FlyingPatrol = this.gameObject.AddComponent<FlyingPatrolComponent>();
                     FlyingPatrol.Init(this);
                     _patrolComponents.Add(FlyingPatrol);
+                    FlyingPatrol.SetWayPoints(_wayPoints); 
                     break;
                 case EnemyType.GroundEnemy:
                     var groundHaunting = this.gameObject.AddComponent<GroundHauntingComponent>();
@@ -127,8 +141,10 @@ public class SimpleAI : MonoBehaviour
                     var groundPatrol = this.gameObject.AddComponent<GroundPatrolComponent>();
                     groundPatrol.Init(this);
                     _patrolComponents.Add(groundPatrol);
+                    groundPatrol.SetWayPoints(_wayPoints); 
                     break;
             }
+
         }
     }
 
@@ -160,7 +176,8 @@ public class SimpleAI : MonoBehaviour
     private void ExecuteState()
     {
         if (this.isActiveAndEnabled == false)
-            return; 
+            return;
+        GravityInfluence = Physics2D.gravity * RB.mass * (Time.fixedDeltaTime * TimeScale); 
         SelectNewWeapon();
         SelectMovementComponent();
         ChangedState();
@@ -228,7 +245,7 @@ public class SimpleAI : MonoBehaviour
         if (_attackComponents[_selectedWeapon].FinnishedAttack())
         {
             int oldWeapon = _selectedWeapon; 
-            _selectedWeapon = Random.Range(0, _attackComponents.Count - 1);
+            _selectedWeapon = Random.Range(0, _attackComponents.Count-1);
             _attackComponents[oldWeapon].ResetAttackStatus(); 
         }
     }
