@@ -49,7 +49,9 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         if (_isOnPoint)
             SetUpNewWayPoint();
 
-        float distToWayPoint = (_wayPoints[_curWayPoint] - (Vector2)_entity.transform.position).sqrMagnitude;
+        Vector2 temp = _wayPoints[_curWayPoint];
+        temp.y = transform.position.y; 
+        float distToWayPoint = (temp - (Vector2)_entity.transform.position).sqrMagnitude;
 
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
         {
@@ -90,10 +92,11 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     {
         LookAtTarget();
         Vector2 moveDir = (target - (Vector2)_entity.transform.position).normalized;
-        Vector2 moveForce = moveDir.normalized * _entity.Speed;
+        moveDir.y = 0f; 
+        Vector2 moveForce = moveDir.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        //((Vector2 newDir = (Vector2)transform.position + (moveForce * (Time.fixedDeltaTime * _entity.TimeScale)); 
         //To-DO change Addforce to MovePosition 
-        _entity.RB.MovePosition((Vector2)transform.position + (moveForce * (Time.fixedDeltaTime * _entity.TimeScale)));
-        Debug.Log(moveForce * (Time.fixedDeltaTime * _entity.TimeScale)); 
+        _entity.RB.velocity += moveDir;
     }
 
     private void Jump()

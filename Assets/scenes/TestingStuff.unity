@@ -570,13 +570,13 @@ MonoBehaviour:
   _weapons: 00000000
   _curState: 2
   _playerPos: {fileID: 380519479}
-  _speed: 10
-  _attackRange: 8
+  _speed: 3
+  _attackRange: 0
   _ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
   _jumpForce: 7
-  _reconizedPlayerRange: 15
+  _reconizedPlayerRange: 0
   _attackEffect: {fileID: 3521297393984580208, guid: d083a79c39bc94f23bd2410af0ea2e48, type: 3}
   _statusEffect: {fileID: 207607327741195629}
   _wayPoints:
@@ -618,7 +618,7 @@ Transform:
   m_GameObject: {fileID: 6529015347780313360}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 16.199997, y: -0.6299896, z: 0}
+  m_LocalPosition: {x: 51.71, y: -0.6299896, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -674,7 +674,7 @@ Rigidbody2D:
   m_Mass: 1
   m_LinearDrag: 0
   m_AngularDrag: 0.05
-  m_GravityScale: 1
+  m_GravityScale: 0.5
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -695,7 +695,7 @@ Transform:
   m_GameObject: {fileID: 1672939350321912841}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 13.166618, y: -0.6299896, z: 0}
+  m_LocalPosition: {x: 13.166618, y: 4.9, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []

@@ -195,12 +195,23 @@ public class SimpleAI : MonoBehaviour
                     _attackComponents[_selectedWeapon].Attack();
                     break;
             }
+
+            RB.velocity = ClampVelocity(); 
         }
         else
         {
             _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
 
+    }
+
+    private Vector2 ClampVelocity()
+    {
+        if(RB.velocity.magnitude > Speed)
+        {
+            return RB.velocity.normalized * Speed; 
+        }
+        return RB.velocity; 
     }
 
     public void SetTimeScale(float val)
