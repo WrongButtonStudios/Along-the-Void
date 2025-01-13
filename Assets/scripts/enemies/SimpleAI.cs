@@ -80,6 +80,7 @@ public class SimpleAI : MonoBehaviour
     public float MaxRange { get { return _attackRange; } }
     public EnemyStatusEffect StatusEffect { get { return _statusEffect; } }
     public Scene Scene { get { return _scene;  } }
+    public float TimeScale { get; private set; }
 
 
 
@@ -99,6 +100,7 @@ public class SimpleAI : MonoBehaviour
 
     private void Initialize()
     {
+        TimeScale = 1; 
         _isInitialized = true; 
         AddPatrolAndHauntComponent();
         AddAttackComponent(); 
@@ -181,8 +183,19 @@ public class SimpleAI : MonoBehaviour
         {
             _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
+
     }
 
+    public void SetTimeScale(float val)
+    {
+        if (val > 1)
+        {
+            Debug.LogWarning("Time scale is not allowed to be bigger than 1! It is automaticly set to 1.");
+            TimeScale = 1;
+            return;
+        }
+        TimeScale = val;
+    }
     private bool ChangedState()
     {
         float distanceSqr = _hauntingComponents[0].GetDistanceToTargetSqr(_playerPos.position, transform.position);
