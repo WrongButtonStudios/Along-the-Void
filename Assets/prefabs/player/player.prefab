@@ -110,7 +110,7 @@ Transform:
   m_GameObject: {fileID: 3056443935388517097}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 1}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -158,7 +158,7 @@ TrailRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Time: 5
+  m_Time: 0.5
   m_PreviewTimeScale: 1
   m_Parameters:
     serializedVersion: 3
@@ -170,17 +170,17 @@ TrailRenderer:
         time: 0
         value: 1
         inSlope: 0
-        outSlope: 0
-        tangentMode: 0
+        outSlope: -1
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0.33333334
         outWeight: 0.33333334
       - serializedVersion: 3
         time: 1
         value: 0
-        inSlope: 0
+        inSlope: -1
         outSlope: 0
-        tangentMode: 0
+        tangentMode: 69
         weightedMode: 0
         inWeight: 0
         outWeight: 0
@@ -189,7 +189,7 @@ TrailRenderer:
       m_RotationOrder: 4
     colorGradient:
       serializedVersion: 2
-      key0: {r: 1, g: 1, b: 1, a: 1}
+      key0: {r: 0.2924528, g: 0.2924528, b: 0.2924528, a: 1}
       key1: {r: 1, g: 1, b: 1, a: 1}
       key2: {r: 0, g: 0, b: 0, a: 0}
       key3: {r: 0, g: 0, b: 0, a: 0}
@@ -214,7 +214,7 @@ TrailRenderer:
       atime6: 0
       atime7: 0
       m_Mode: 0
-      m_ColorSpace: -1
+      m_ColorSpace: 0
       m_NumColorKeys: 2
       m_NumAlphaKeys: 2
     numCornerVertices: 0
@@ -248,7 +248,6 @@ GameObject:
   - component: {fileID: 5427037132920156623}
   - component: {fileID: 6291066242271056879}
   - component: {fileID: 27437897402313827}
-  - component: {fileID: 251141995727124362}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -294,7 +293,6 @@ MonoBehaviour:
     wasDash: 0
     isFrozen: 0
     isOnFire: 0
-  _input: {fileID: 0}
 --- !u!50 &6023778915909287075
 Rigidbody2D:
   serializedVersion: 4
@@ -471,41 +469,29 @@ MonoBehaviour:
     m_ActionId: dcdeccb9-b6e9-4814-9339-2b6ec7926edb
     m_ActionName: MainMenu/BackButton[/Keyboard/escape]
   - m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: 
-        m_MethodName: 
-        m_Mode: 1
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: 
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 0
-        m_CallState: 2
-    m_ActionId: eafc8d5c-1ace-4cb9-9415-142873ec8b20
-    m_ActionName: MainMenu/Move[/Keyboard/upArrow,/Keyboard/downArrow]
+      m_Calls: []
+    m_ActionId: a7a52481-45d5-419b-bfb0-2ad930e8d0a1
+    m_ActionName: PauseMenu/Open Pause Menu[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 6d4a5965-f844-4d94-9466-c83e0aa436c3
+    m_ActionName: PauseMenu/Close Pause Menu[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 3d70aa9e-82e7-42a9-82c6-994f478aca38
     m_ActionName: PauseMenu/BackButton[/Keyboard/escape]
   - m_PersistentCalls:
       m_Calls: []
+    m_ActionId: eafc8d5c-1ace-4cb9-9415-142873ec8b20
+    m_ActionName: MainMenu/Move[/Keyboard/upArrow,/Keyboard/downArrow]
+  - m_PersistentCalls:
+      m_Calls: []
     m_ActionId: e09a2e8b-e88e-4fec-b5dc-8885b79c24b5
-    m_ActionName: Menu/Submit[/Keyboard/enter]
+    m_ActionName: MainMenu/Submit[/Keyboard/enter]
   - m_PersistentCalls:
       m_Calls: []
     m_ActionId: 1951ecb0-a25b-4360-a048-657d0799a146
-    m_ActionName: Menu/Cancel[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: b28d8dcb-cfda-4f75-bd65-dfcd6de971c0
-    m_ActionName: Menu/OpenPauseMenu[/Keyboard/escape]
-  - m_PersistentCalls:
-      m_Calls: []
-    m_ActionId: 8efddb56-b3e5-4fcb-a31c-d1548faf08e4
-    m_ActionName: Menu/ClosePauseMenu[/Keyboard/escape]
+    m_ActionName: MainMenu/Cancel[/Keyboard/escape]
   m_NeverAutoSwitchControlSchemes: 0
   m_DefaultControlScheme: keyboard
   m_DefaultActionMap: characterController
@@ -573,8 +559,9 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 64
   deccendGravityMultiplier: 1.5
-  dashDistance: 5
-  dashDuration: 0.2
+  dashForce: 100
+  dashResetGravityScaleAfterSeconds: 0.1
+  dashGravityScale: 25
   dashMaxSpeed: 100
   _controller: {fileID: 5134150646713634762}
   _input: {fileID: 5427037132920156623}
@@ -619,6 +606,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _fairyController: {fileID: 0}
+  _bulletTimeScale: 0.5
+  _normalTimeScale: 1
   _colorLossAmount: 0.05
   _turretPref: {fileID: 7369785609382215585, guid: d40ecc27f0f2d472abc0e5b111426990, type: 3}
 --- !u!61 &27437897402313827
@@ -666,18 +655,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.140007, y: 2.170517}
   m_EdgeRadius: 0
---- !u!114 &251141995727124362
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3247461398459608850}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bcf97b3f10528435696b7980e1d8bca3, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &3881638506002448785
 GameObject:
   m_ObjectHideFlags: 0
