@@ -71,8 +71,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         {
             _doJump = false;
             _entity.RB.velocity = Vector2.zero;
-            _entity.RB.gravityScale = 1;
-            _bodyCheck = true;
+            _curPhase = AttackPhases.Attack;
         }
     }
 
@@ -86,30 +85,30 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         _chargeDir = (_entity.PlayerPos - pos).normalized;
 
         _entity.RB.velocity += _chargeDir * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
-
-        if ((_entity.PlayerPos - pos).sqrMagnitude < (4 * 4) && IsGrounded() && !_doJump)
+        bool isGrounded = IsGrounded(1.5f); 
+        if ((_entity.PlayerPos - pos).sqrMagnitude <= (4 * 4) && isGrounded && !_doJump)
         {
             _doJump = true;
-            _maxJumpHight = _entity.transform.position.y + _entity.JumpHight; 
+            _maxJumpHight = _entity.transform.position.y + _entity.JumpHight;
             _isCoolingDown = false;
-            Debug.Log("Springe"); 
-        } 
-        if(!IsGrounded(2))
-            _curPhase = AttackPhases.Attack;
+            Debug.Log("Springe");
+        }
+        else
+        {
+            Debug.Log("Didnt jump! Distance^2: " + (_entity.PlayerPos - pos).sqrMagnitude  + "max Distance^2: " +  (4*4) + " is grounded: " + isGrounded + "is jumping: " + _doJump); 
+        }
     } 
 
     private void BodyCheck()
     {
-        if (!IsGrounded() && !_isCoolingDown && _bodyCheck)
+        if (!IsGrounded() && !_isCoolingDown)
         {
-            _bodyCheck = false;
-            _isCoolingDown = true;
-            //To-DO change Addforce to MovePosition 
             _entity.RB.velocity += _chargeDir * _bodyCheckSpeed * (Time.fixedDeltaTime * _entity.TimeScale);
         }
         else
         {
             ClearForce();
+            _entity.RB.gravityScale = 1; 
             _curPhase = AttackPhases.BackUp;
         }
     }
@@ -129,7 +128,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         //To-DO change Addforce to MovePosition 
         _entity.RB.velocity += backUpDirection.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
         float distanceSqr = backUpDirection.sqrMagnitude;
-        if (distanceSqr >= (5 * 5))
+        if (distanceSqr > (4 * 4))
         {
             _curPhase = AttackPhases.Charge;
             _isCoolingDown = false;
