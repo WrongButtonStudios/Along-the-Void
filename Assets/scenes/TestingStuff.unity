@@ -370,9 +370,9 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
---- !u!4 &380519479 stripped
+--- !u!4 &498370436 stripped
 Transform:
-  m_CorrespondingSourceObject: {fileID: 4306450956206579115, guid: d3fb0311086c64e948b8d879ca3a08c3, type: 3}
+  m_CorrespondingSourceObject: {fileID: 3151588428170034980, guid: d3fb0311086c64e948b8d879ca3a08c3, type: 3}
   m_PrefabInstance: {fileID: 644506075}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &644506075
@@ -703,7 +703,7 @@ MonoBehaviour:
   _enemyColor: 0
   _weapons: 00000000
   _curState: 2
-  _playerPos: {fileID: 380519479}
+  _playerPos: {fileID: 498370436}
   _speed: 15
   _attackRange: 5
   _ignoreLayer:
