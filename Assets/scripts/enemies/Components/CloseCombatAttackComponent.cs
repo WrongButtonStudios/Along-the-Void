@@ -11,7 +11,6 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private Vector2 _chargeDir;
     private bool _clearedForce = false; 
     private AttackPhases _curPhase = AttackPhases.Charge;
-    private float _jumpHight = 2;
     private float _maxJumpHight; 
 
     private bool _doJump; 
@@ -64,12 +63,17 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
         if (_entity.transform.position.y < _maxJumpHight)
         {
-            _entity.RB.MovePosition((Vector2)transform.position + (Vector2.up * _entity.JumpForce * (Time.fixedDeltaTime * _entity.TimeScale)) );
-            Debug.Log(Vector2.up * _entity.JumpForce * (Time.fixedDeltaTime * _entity.TimeScale));
+            Debug.Log("jumping...");
+            Vector2 jumpVel = Vector2.up * _entity.JumpForce - Physics2D.gravity * (Time.fixedDeltaTime * _entity.TimeScale);
+            _entity.RB.velocity += jumpVel;
         }
         else
+        {
             _doJump = false;
-        
+            _entity.RB.velocity = Vector2.zero;
+            _entity.RB.gravityScale = 1;
+            _bodyCheck = true;
+        }
     }
 
     private void Charge()
@@ -81,15 +85,13 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         Vector2 pos = _entity.transform.position;
         _chargeDir = (_entity.PlayerPos - pos).normalized;
 
-        _entity.RB.MovePosition((Vector2)transform.position + (_chargeDir * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale)));
-        Debug.Log(_chargeDir * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale)); 
+        _entity.RB.velocity += _chargeDir * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
 
         if ((_entity.PlayerPos - pos).sqrMagnitude < (4 * 4) && IsGrounded() && !_doJump)
         {
             _doJump = true;
-            _maxJumpHight = _entity.transform.position.y + _jumpHight; 
+            _maxJumpHight = _entity.transform.position.y + _entity.JumpHight; 
             _isCoolingDown = false;
-            _bodyCheck = true;
             Debug.Log("Springe"); 
         } 
         if(!IsGrounded(2))
@@ -103,7 +105,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             _bodyCheck = false;
             _isCoolingDown = true;
             //To-DO change Addforce to MovePosition 
-            _entity.RB.MovePosition((Vector2) transform.position + (_chargeDir * _bodyCheckSpeed * (Time.fixedDeltaTime * _entity.TimeScale)));
+            _entity.RB.velocity += _chargeDir * _bodyCheckSpeed * (Time.fixedDeltaTime * _entity.TimeScale);
         }
         else
         {
@@ -123,11 +125,11 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void BackUp()
     {
-        Vector2 distance = ((Vector2)_entity.transform.position - _entity.PlayerPos); //variable has bad naming but i dont know a better one
+        Vector2 backUpDirection = ((Vector2)_entity.transform.position - _entity.PlayerPos);
         //To-DO change Addforce to MovePosition 
-        _entity.RB.MovePosition((Vector2)transform.position + (distance.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale)));
-        float distanceSqr = distance.sqrMagnitude;
-        if (distanceSqr < (5 * 5) == false)
+        _entity.RB.velocity += backUpDirection.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        float distanceSqr = backUpDirection.sqrMagnitude;
+        if (distanceSqr >= (5 * 5))
         {
             _curPhase = AttackPhases.Charge;
             _isCoolingDown = false;
@@ -135,7 +137,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             ClearForce();
         }
     }
-    private bool IsGrounded(float groundDist = 1.45f)
+    private bool IsGrounded(float groundDist = 1.25f)
     {
         if (Physics2D.Raycast(_entity.transform.position, -Vector2.up, groundDist, ~_entity.IgnoreLayer))
         {

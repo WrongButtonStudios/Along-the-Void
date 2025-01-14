@@ -98,7 +98,6 @@ public class Warmodes : MonoBehaviour
             foreach (SimpleAI ai in enemys)
             {
                 ai.SetTimeScale(_bulletTimeScale);
-                ai.RB.gravityScale /= _normalTimeScale / _bulletTimeScale;
                 Debug.Log(ai.TimeScale); 
             }
         }
@@ -123,8 +122,7 @@ public class Warmodes : MonoBehaviour
                 var enemys = FindObjectsOfType<SimpleAI>();
                 foreach (SimpleAI ai in enemys)
                 {
-                    ai.SetTimeScale(_normalTimeScale);
-                    ai.RB.gravityScale /= _normalTimeScale / _bulletTimeScale;   
+                    ai.SetTimeScale(_normalTimeScale);  
                 }
                 
                 break;

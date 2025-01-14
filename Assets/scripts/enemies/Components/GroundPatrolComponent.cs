@@ -8,8 +8,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     private int _curWayPoint;
     private bool _isOnPoint;
     private List<Vector2> _wayPoints = new List<Vector2>();
-    private float _maxJumpHight;
-    private float _jumpHight = 2; 
+    private float _maxJumpHight; 
     private bool _doJump = false;
 
     public int GetNextWayPoint()
@@ -55,9 +54,11 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
         {
-            if (CheckForObstacle() && IsGrounded())
+            if (CheckForObstacle() && IsGrounded() && !_doJump)
             {
-                _maxJumpHight = transform.position.y + _jumpHight; 
+                Debug.Log("I should be jumping..."); 
+                _maxJumpHight = transform.position.y + _entity.JumpHight;
+                _entity.RB.gravityScale = 0;
                 _doJump = true; 
             }
                 
@@ -74,9 +75,9 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         float direction = GetXDirection();
         float rayDistance = 1f;
 
-        RaycastHit2D hitLow = Physics2D.Raycast(rayOrigin, Vector2.right * direction, rayDistance, ~_entity.IgnoreLayer);
-        RaycastHit2D hitMid = Physics2D.Raycast(_entity.transform.position, Vector2.right * direction, rayDistance, ~_entity.IgnoreLayer);
-
+        RaycastHit2D hitLow = Physics2D.Raycast(rayOrigin, transform.right * direction, rayDistance, ~_entity.IgnoreLayer);
+        RaycastHit2D hitMid = Physics2D.Raycast(_entity.transform.position, transform.right * direction, rayDistance, ~_entity.IgnoreLayer);
+        Debug.DrawLine(_entity.transform.position, _entity.transform.position + (transform.right * direction), Color.black, Time.fixedDeltaTime); 
         if (hitLow || hitMid)
             return true;
 
@@ -96,7 +97,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         Vector2 moveForce = moveDir.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
         //((Vector2 newDir = (Vector2)transform.position + (moveForce * (Time.fixedDeltaTime * _entity.TimeScale)); 
         //To-DO change Addforce to MovePosition 
-        _entity.RB.velocity += moveDir;
+        _entity.RB.velocity += moveForce;
     }
 
     private void Jump()
@@ -106,20 +107,26 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
         if (_entity.transform.position.y < _maxJumpHight)
         {
-            _entity.RB.MovePosition( (Vector2)transform.position + (Vector2.up * _entity.JumpForce * (Time.fixedDeltaTime * _entity.TimeScale)));
-            Debug.Log(Vector2.up * _entity.JumpForce * (Time.fixedDeltaTime * _entity.TimeScale));
+            Debug.Log("jumping...");
+            Vector2 jumpVel = Vector2.up * _entity.JumpForce - Physics2D.gravity * (Time.fixedDeltaTime * _entity.TimeScale);
+            _entity.RB.velocity += jumpVel;
         }
         else
+        {
             _doJump = false;
-
+            _entity.RB.velocity = Vector2.zero; 
+            _entity.RB.gravityScale = 1; 
+        }
     }
 
     private bool IsGrounded()
     {
-        if (Physics2D.Raycast(_entity.transform.position, -Vector2.up, 0.75f, ~_entity.IgnoreLayer))
+        Debug.DrawLine(_entity.transform.position, (Vector2)_entity.transform.position + (-Vector2.up * 1.25f) , Color.gray, Time.fixedDeltaTime); 
+        if (Physics2D.Raycast(_entity.transform.position, -Vector2.up, 1.25f, ~_entity.IgnoreLayer))
         {
             return true;
         }
+        Debug.Log("not grounded..."); 
         return false;
     }
 

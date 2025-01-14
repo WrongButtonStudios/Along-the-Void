@@ -59,7 +59,9 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private EnemyStatusEffect _statusEffect;
     [SerializeField]
-    private List<Transform> _wayPoints = new(); 
+    private List<Transform> _wayPoints = new();
+    [SerializeField]
+    private float _jumpHight = 1.5f; 
     
     private Rigidbody2D _rb;
     private int _selectedWeapon;
@@ -74,21 +76,21 @@ public class SimpleAI : MonoBehaviour
     //Getter
     public Rigidbody2D RB { get { return _rb; } }
     public float Speed { get { return _speed; } }
+    public float JumpHight { get { return _jumpHight; } }
     public float StoppingDistance { get { return _stoppingDistance; } }
     public LayerMask IgnoreLayer { get { return _ignoreLayer; } }
     public GameObject AttackVFX { get { return _attackEffect;  } }
-    public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
+    public Vector2 PlayerPos { get; private set; }
     public Color EnemyColor { get { return _enemyColor;  } }
     public float MaxRange { get { return _attackRange; } }
     public EnemyStatusEffect StatusEffect { get { return _statusEffect; } }
     public Scene Scene { get { return _scene;  } }
     public float TimeScale { get; private set; }
-    public Vector2 GravityInfluence { get; private set; }
 
 
 
     public float JumpForce { get { return _jumpForce; } }
-
+     
     private bool _isInitialized = false; 
 
     private void OnEnable()
@@ -113,7 +115,8 @@ public class SimpleAI : MonoBehaviour
 
     private void Initialize()
     {
-        TimeScale = 1; 
+        TimeScale = 1f;
+        RB.gravityScale = TimeScale; 
         _isInitialized = true; 
         AddPatrolAndHauntComponent();
         AddAttackComponent(); 
@@ -170,6 +173,7 @@ public class SimpleAI : MonoBehaviour
 
     void FixedUpdate()
     {
+        PlayerPos = _playerPos.transform.position; 
         ExecuteState();
     }
 
@@ -177,7 +181,6 @@ public class SimpleAI : MonoBehaviour
     {
         if (this.isActiveAndEnabled == false)
             return;
-        GravityInfluence = Physics2D.gravity * RB.mass * (Time.fixedDeltaTime * TimeScale); 
         SelectNewWeapon();
         SelectMovementComponent();
         ChangedState();
@@ -195,7 +198,7 @@ public class SimpleAI : MonoBehaviour
                     _attackComponents[_selectedWeapon].Attack();
                     break;
             }
-
+            RB.gravityScale = TimeScale; 
             RB.velocity = ClampVelocity(); 
         }
         else
@@ -207,9 +210,9 @@ public class SimpleAI : MonoBehaviour
 
     private Vector2 ClampVelocity()
     {
-        if(RB.velocity.magnitude > Speed)
+        if(RB.velocity.magnitude >= Speed)
         {
-            return RB.velocity.normalized * Speed; 
+            return RB.velocity.normalized * Speed * TimeScale; 
         }
         return RB.velocity; 
     }
