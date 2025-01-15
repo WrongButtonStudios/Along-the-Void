@@ -42,12 +42,13 @@ public class characterController : MonoBehaviour
     public playerStatusData StatusData { get { return statusData; } }
 
     private List<IplayerFeature> playerFeatures = new List<IplayerFeature>();
+    public List<IplayerFeature> GetPlayerFeatures { get { return playerFeatures; } } 
 
     //Dependencys 
-    private CharacterMovement _movement;
-    public CollisionHandler Collision { get; private set;  }
-    private CharacterDebuffs _buffs;
-    public InputController _input; 
+    public CharacterMovement Movement { get; private set; }
+    public CollisionHandler Collision { get; private set; }
+    public CharacterDebuffs Buffs { get; private set; }
+    public InputController Input { get; private set; } 
 
     private void Awake()
     {
@@ -76,23 +77,23 @@ public class characterController : MonoBehaviour
         }
 
         //load in Dependencys
-        _movement = this.GetComponent<CharacterMovement>();
+        Movement = this.GetComponent<CharacterMovement>();
         Collision = this.GetComponent<CollisionHandler>();
-        _buffs = this.GetComponent<CharacterDebuffs>();
-        _input = this.GetComponent<InputController>(); 
+        Buffs = this.GetComponent<CharacterDebuffs>();
+        Input = this.GetComponent<InputController>(); 
     }
 
     private void FixedUpdate()
     {
-        statusData.isMoving = _input.MoveInput.x != 0;
+        statusData.isMoving = Input.MoveInput.x != 0;
 
 
-        _movement.lerpCurrentMaxSpeedToMaxSpeed();
+        Movement.lerpCurrentMaxSpeedToMaxSpeed();
         handleStates();
 
-        rb.velocity = Vector2.ClampMagnitude(rb.velocity, _movement.GetMaxSpeed());
+        rb.velocity = Vector2.ClampMagnitude(rb.velocity, Movement.GetMaxSpeed());
 
-        _input.LastDashInput = _input.DashInput;
+        Input.LastDashInput = Input.DashInput;
         statusData.wasDash = statusData.isDash;
     }
 
@@ -112,54 +113,57 @@ public class characterController : MonoBehaviour
             case playerStates.green:
                 RaycastHit2D groundHit = Collision.doGroundedCheck();
         
-                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, _input.TriggerPlayerFeatureInput);
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
         
-                _movement.dash();
-                _movement.baseMovement();
-                _movement.hoverAboveGround(groundHit);
+                Movement.dash();
+                Movement.baseMovement();
+                Movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.red:
                 groundHit = Collision.doGroundedCheck();
 
-                if (_input.TriggerPlayerFeatureInput)
+                if (Input.TriggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().triggerFeauture();
 
-                    _input.ResetTriggerPlayerFeature();
+                    Input.ResetTriggerPlayerFeature();
                 }
 
-                _movement.dash();
-                _movement.baseMovement();
-                _movement.hoverAboveGround(groundHit);
+                Movement.dash();
+                Movement.baseMovement();
+                Movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.blue:
                 groundHit = Collision.doGroundedCheck();
 
-                if (_input.TriggerPlayerFeatureInput)
+                if (Input.TriggerPlayerFeatureInput)
                 {
                     playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
 
-                    _input.ResetTriggerPlayerFeature();
+                    Input.ResetTriggerPlayerFeature();
+
+                    statusData.isDash = false;
+                    statusData.wasDash = false;
                 }
 
-                _movement.dash();
-                _movement.baseMovement();
-                _movement.hoverAboveGround(groundHit);
+                Movement.dash();
+                Movement.baseMovement();
+                Movement.hoverAboveGround(groundHit);
                 break;
 
             case playerStates.yellow:
                 groundHit = Collision.doGroundedCheck();
 
-                
-                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, _input.TriggerPlayerFeatureInput);
+                    if(Input.TriggerPlayerFeatureInput)
+                        playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
                    // _input.ResetTriggerPlayerFeature();
                 
 
-                _movement.dash();
-                _movement.baseMovement();
-                _movement.hoverAboveGround(groundHit);
+                Movement.dash();
+                Movement.baseMovement();
+                Movement.hoverAboveGround(groundHit);
                 break;
 
             default:

@@ -66,6 +66,6 @@ public class InputController : MonoBehaviour
         if (_warmode.IsActive == false)
             _warmode.UseWarmode(_cc.StatusData.currentState);
         else
-            Debug.Log("All ready using warmode..."); 
+            Debug.Log("All ready using warmode...");  
     }
 }

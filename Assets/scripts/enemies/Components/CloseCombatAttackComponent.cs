@@ -61,7 +61,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
         if ((_entity.PlayerPos - pos).sqrMagnitude < (4 * 4) && IsGrounded())
         {
-            _entity.RB.AddForce(Vector2.up * _entity.JumpForce, ForceMode2D.Impulse);
+            _entity.RB.AddForce(Vector2.up * _entity.JumpForce * _entity.TimeScale, ForceMode2D.Impulse);
             _isCoolingDown = false;
             _bodyCheck = true;
             Debug.Log("Springe"); 
@@ -76,7 +76,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         {
             _bodyCheck = false;
             _isCoolingDown = true;
-            _entity.RB.AddForce(_chargeDir * _bodyCheckSpeed, ForceMode2D.Impulse);
+            _entity.RB.AddForce(_chargeDir * _bodyCheckSpeed * _entity.TimeScale, ForceMode2D.Impulse);
         }
         else
         {
@@ -97,7 +97,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private void BackUp()
     {
         Vector2 distance = ((Vector2)_entity.transform.position - _entity.PlayerPos); //variable has bad naming but i dont know a better one
-        _entity.RB.AddForce(distance.normalized * _entity.Speed);
+        _entity.RB.AddForce(distance.normalized * _entity.Speed * _entity.TimeScale);
         float distanceSqr = distance.sqrMagnitude;
         if (distanceSqr < (5 * 5) == false)
         {
