@@ -63,8 +63,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
         if (_entity.transform.position.y < _maxJumpHight)
         {
-            Debug.Log("jumping...");
-            Vector2 jumpVel = Vector2.up * _entity.JumpForce - Physics2D.gravity * (Time.fixedDeltaTime * _entity.TimeScale);
+            Vector2 jumpVel = Vector2.up * _entity.JumpForce * (Time.fixedDeltaTime * _entity.TimeScale);
             _entity.RB.velocity += jumpVel;
         }
         else
@@ -90,12 +89,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         {
             _doJump = true;
             _maxJumpHight = _entity.transform.position.y + _entity.JumpHight;
-            _isCoolingDown = false;
-            Debug.Log("Springe");
-        }
-        else
-        {
-            Debug.Log("Didnt jump! Distance^2: " + (_entity.PlayerPos - pos).sqrMagnitude  + "max Distance^2: " +  (4*4) + " is grounded: " + isGrounded + "is jumping: " + _doJump); 
+            _isCoolingDown = false; 
         }
     } 
 

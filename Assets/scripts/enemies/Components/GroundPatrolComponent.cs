@@ -55,8 +55,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
         {
             if (CheckForObstacle() && IsGrounded() && !_doJump)
-            {
-                Debug.Log("I should be jumping..."); 
+            { 
                 _maxJumpHight = transform.position.y + _entity.JumpHight;
                 _entity.RB.gravityScale = 0;
                 _doJump = true; 
@@ -94,9 +93,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         LookAtTarget();
         Vector2 moveDir = (target - (Vector2)_entity.transform.position).normalized;
         moveDir.y = 0f; 
-        Vector2 moveForce = moveDir.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
-        //((Vector2 newDir = (Vector2)transform.position + (moveForce * (Time.fixedDeltaTime * _entity.TimeScale)); 
-        //To-DO change Addforce to MovePosition 
+        Vector2 moveForce = moveDir.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale); 
         _entity.RB.velocity += moveForce;
     }
 
@@ -107,7 +104,6 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
         if (_entity.transform.position.y < _maxJumpHight)
         {
-            Debug.Log("jumping...");
             Vector2 jumpVel = Vector2.up * _entity.JumpForce - Physics2D.gravity * (Time.fixedDeltaTime * _entity.TimeScale);
             _entity.RB.velocity += jumpVel;
         }
@@ -126,7 +122,6 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         {
             return true;
         }
-        Debug.Log("not grounded..."); 
         return false;
     }
 

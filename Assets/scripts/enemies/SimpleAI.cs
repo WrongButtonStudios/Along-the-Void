@@ -116,7 +116,10 @@ public class SimpleAI : MonoBehaviour
     private void Initialize()
     {
         TimeScale = 1f;
-        RB.gravityScale = TimeScale; 
+
+        if(_types[0] == EnemyType.GroundEnemy)
+            RB.gravityScale = TimeScale;
+
         _isInitialized = true; 
         AddPatrolAndHauntComponent();
         AddAttackComponent(); 
@@ -198,7 +201,8 @@ public class SimpleAI : MonoBehaviour
                     _attackComponents[_selectedWeapon].Attack();
                     break;
             }
-            RB.gravityScale = TimeScale; 
+            if (_types[0] == EnemyType.GroundEnemy)
+                RB.gravityScale = TimeScale; 
             RB.velocity = ClampVelocity(); 
         }
         else
