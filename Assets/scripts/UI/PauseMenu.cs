@@ -2,41 +2,42 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement;
 using System.Collections;
+using System.Collections.Generic;
+using System.Linq;
+using Unity.VisualScripting;
 
 public class PauseMenu : MonoBehaviour
 {
 
     [SerializeField] GameObject pauseMenuCanvas;
     [SerializeField] GameObject optionsCanvas;
+    [SerializeField] GameObject graphicsCanvas;
     private static PauseMenu instance;
     private Vector2 respawnPos = new Vector2(0, 0);
     private GameObject player;
     private PlayerInput playerInput;
     private InputAction openPauseMenu;
     private InputAction closePauseMenu;
-    private bool isOpend = false;
-    private bool isDebounce = false; // F?gt ein neues Flag f?r Debouncing hinzu.
-    private bool pauseMenuWasActive = false;
-    CanvasGroup pauseMenuCanvasGroup;
+    private List<GameObject> menuWindows = new();
+
     private void Start()
     {
-        pauseMenuCanvasGroup = pauseMenuCanvas.GetComponent<CanvasGroup>();
+        StartCoroutine(CleanupInput());
         player = GameObject.FindGameObjectWithTag("Player");
         if (player == null)
         {
             Debug.LogError("Player object not found! Ensure it is tagged as 'Player'.");
             return;
         }
-        playerInput = FindObjectOfType<PlayerInput>();
 
+        playerInput = FindObjectOfType<PlayerInput>();
         closePauseMenu = playerInput.actions["ClosePauseMenu"];
         openPauseMenu = playerInput.actions["Pausemenu"];
         openPauseMenu.performed += OnPauseMenuPerformed;
 
-
         if (GetComponent<characterController>() != null)
         {
-            DontDestroyOnLoad(gameObject); // Verhindert, dass dieses Objekt zerst?rt wird
+            DontDestroyOnLoad(gameObject);
             if (instance == null)
             {
                 instance = this;
@@ -44,28 +45,48 @@ public class PauseMenu : MonoBehaviour
             }
             else
             {
-                Destroy(gameObject); // Zerst?re zus?tzliche Instanzen
+                Destroy(gameObject);
             }
             respawnPos = new Vector2(player.transform.position.x, player.transform.position.y);
         }
     }
-    private IEnumerator ResetDebounce()
+
+    //private void OnDestroy()
+    //{
+    //    StartCoroutine(CleanupInput());
+    //}
+    private IEnumerator CleanupInput()
     {
-        yield return new WaitForSecondsRealtime(0.1f); // Wartet 0.1 Sekunden (reale Zeit, unabh?ngig von TimeScale)
-        isDebounce = false;
+        yield return new WaitForEndOfFrame();
+        if (openPauseMenu != null)
+            openPauseMenu.performed -= OnPauseMenuPerformed;
+
+        if (closePauseMenu != null)
+            closePauseMenu.performed -= OnPauseMenuPerformed;
+
+        if (playerInput != null)
+        {
+            var menuActionMap = playerInput.actions.FindActionMap("Menu", true);
+            if (menuActionMap != null)
+            {
+                if (menuActionMap.enabled)
+                {
+                    Debug.Log("Disabling Menu action map to prevent leaks.");
+                    menuActionMap.Disable();
+                }
+            }
+        }
     }
+
     void Update()
     {
 
-        if (pauseMenuCanvas.activeSelf && !pauseMenuWasActive)
+        if (pauseMenuCanvas.activeSelf)
         {
-            pauseMenuCanvasActivated(); // Funktion auslösen
+            pauseMenuCanvasActivated();
         }
-
-
-        pauseMenuWasActive = pauseMenuCanvas.activeSelf;
-
     }
+
     private void pauseMenuCanvasActivated()
     {
         closePauseMenu.performed += OnPauseMenuPerformed;
@@ -73,71 +94,75 @@ public class PauseMenu : MonoBehaviour
 
     private void OnPauseMenuPerformed(InputAction.CallbackContext context)
     {
-        if (!isOpend && !isDebounce) // Nur ausf?hren, wenn Debounce inaktiv
+        if (menuWindows.Count > 1) // >1 means 2 or more are open so full program - Close current, remove current from list, reload list, open new current window.
         {
-            isDebounce = true; // Aktiviert Debouncing
-            StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
+            GameObject currentMenu = menuWindows[menuWindows.Count - 1];
+            currentMenu.SetActive(false);
+            menuWindows.Remove(currentMenu);
 
-            pauseMenuCanvasGroup.alpha = 1.0f;
-            pauseMenuCanvasGroup.interactable = true;
-            playerInput.SwitchCurrentActionMap("Menu");
-            Time.timeScale = 0;
-            openPauseMenu.performed -= OnPauseMenuPerformed;
-            closePauseMenu.performed += OnPauseMenuClosePerformed;
-            isOpend = true;
+            menuWindows[menuWindows.Count - 1].SetActive(true);
         }
-    }
 
-    private void OnPauseMenuClosePerformed(InputAction.CallbackContext context)
-    {
-        if (isOpend && !isDebounce) // Nur ausf?hren, wenn Debounce inaktiv
+        else if (menuWindows.Count == 1) // ==1 means just menu window itself is open, so close is and remove is from list.
         {
-            isDebounce = true; // Aktiviert Debouncing
-            StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
-
-            pauseMenuCanvasGroup.alpha = 0f;
-            pauseMenuCanvasGroup.interactable = false;
-            Time.timeScale = 1;
+            GameObject currentMenu = menuWindows[menuWindows.Count - 1];
+            if (currentMenu != null)
+            {
+                currentMenu.SetActive(false);
+            }
+            menuWindows.Remove(currentMenu);
             playerInput.SwitchCurrentActionMap("characterController");
-            openPauseMenu.performed += OnPauseMenuPerformed;
-            closePauseMenu.performed -= OnPauseMenuClosePerformed;
-            isOpend = false;
+        }
+
+        else if (menuWindows.Count < 1) // <1 means no menu window open, so open and add to list.
+        {
+            if (pauseMenuCanvas != null)
+            {
+                pauseMenuCanvas.SetActive(true);
+            }
+            menuWindows.Add(pauseMenuCanvas);
+            playerInput.SwitchCurrentActionMap("Menu");
         }
     }
+
     public void Resume()
     {
-        isDebounce = true; // Aktiviert Debouncing
-        StartCoroutine(ResetDebounce()); // Debouncing-Timer starten
-
-        pauseMenuCanvasGroup.alpha = 0f;
-        pauseMenuCanvasGroup.interactable = false;
+        GameObject currentMenu = menuWindows[menuWindows.Count - 1];
+        currentMenu.SetActive(false);
+        menuWindows.Remove(currentMenu);
+        pauseMenuCanvas.SetActive(false);
         Time.timeScale = 1;
         playerInput.SwitchCurrentActionMap("characterController");
         openPauseMenu.performed += OnPauseMenuPerformed;
-        closePauseMenu.performed -= OnPauseMenuClosePerformed;
-        isOpend = false;
-
     }
+
     public void Restart()
     {
-        SwitchToIngame();
+        menuWindows.Clear();
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
     public void Options()
     {
-        isOpend = false;
+        menuWindows.Add(optionsCanvas);
         optionsCanvas.SetActive(true);
     }
+
     public void MainMenu()
     {
-        SwitchToMenu();
+        playerInput.SwitchCurrentActionMap("MainMenu");
+        openPauseMenu.performed -= OnPauseMenuPerformed;
         Time.timeScale = 1;
         SceneManager.LoadScene("Main Menu");
+        Destroy(this);
     }
+
     public void RespawnButton()
     {
-        SwitchToIngame();
+        playerInput.SwitchCurrentActionMap("characterController");
+        openPauseMenu.performed += OnPauseMenuPerformed;
+
         if (GetComponent<characterController>() != null)
         {
             characterController cc = gameObject.GetComponent<characterController>();
@@ -145,13 +170,10 @@ public class PauseMenu : MonoBehaviour
             cc.rb.position = respawnPos;
         }
     }
-    private void SwitchToMenu()
+
+    public void GraphicSettings()
     {
-        playerInput.SwitchCurrentActionMap("Menu");
-    }
-    private void SwitchToIngame()
-    {
-        playerInput.SwitchCurrentActionMap("characterController");
-        openPauseMenu.performed += OnPauseMenuPerformed;
+        menuWindows.Add(graphicsCanvas);
+        graphicsCanvas.SetActive(true);
     }
 }
