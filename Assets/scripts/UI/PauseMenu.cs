@@ -33,12 +33,19 @@ public class PauseMenu : MonoBehaviour
         _escape.started -= OnPauseMenuPerformed;
     }
 
+    private void Start() {
+        _playerInput.actions.FindActionMap("characterController").Enable();
+        _playerInput.actions.FindActionMap("Menu").Disable();
+        _playerInput.actions.FindActionMap("Menukey").Enable();
+    }
+
     private void OnPauseMenuPerformed(InputAction.CallbackContext context) {
         if(_windows.Count == 0) {
             _pauseMenuCanvas.SetActive(true);
             _windows.Add(_pauseMenuCanvas);
             Time.timeScale = 0;
-            _playerInput.SwitchCurrentActionMap("Menu");
+            _playerInput.actions.FindActionMap("characterController").Disable();
+            _playerInput.actions.FindActionMap("Menu").Enable();
             return;
         }
         GameObject windowToClose = _windows[_windows.Count - 1];
@@ -46,7 +53,8 @@ public class PauseMenu : MonoBehaviour
         _windows.Remove(windowToClose);
         if(_windows.Count == 0) {
             Time.timeScale = 1;
-            _playerInput.SwitchCurrentActionMap("characterController");
+            _playerInput.actions.FindActionMap("characterController").Enable();
+            _playerInput.actions.FindActionMap("Menu").Disable();
             return;
         }
         GameObject windowToOpen = _windows[_windows.Count - 1];
