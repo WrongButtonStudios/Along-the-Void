@@ -2,24 +2,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using FMODUnity;
 using FMOD.Studio;
-using UnityEngine.SceneManagement;
 using System;
 
 public class SoundManager : MonoBehaviour
 {
-    [SerializeField] private EventReference _jump;
-
-    private List<EventInstance> _events;
-
-    private struct EventEmitterObject
+    private struct SoundEmittingComponent
     {
-        public GameObject GameObject;
-        public Transform Transform;
-        //public Rigidbody Rigidbody; // every 3D sound will "need" this, but it can be set later manually
-        public Dictionary<string,EventInstance> EventInstances; // there can be several dictionaries which manage different things
+        public GameObject gameObject;
+        public Dictionary<string,EventInstance> registeredSounds;
     }
 
-    private Dictionary<GameObject,EventEmitterObject> eventEmitter = new(); // for organizing 3D Sounds
+    private Dictionary<GameObject,SoundEmittingComponent> _registeredSoundEmitters = new();
 
     public static SoundManager instance {
         get; private set;
@@ -32,32 +25,32 @@ public class SoundManager : MonoBehaviour
         else {
             Destroy(this);
         }
-        _events = new List<EventInstance>();
     }
 
-    public void RegisterEventEmitter(GameObject krachmacher,string path) {
-        if(!eventEmitter.ContainsKey(krachmacher)) {
-            EventEmitterObject emitter = new() {
-                GameObject = krachmacher,
-                Transform = krachmacher.transform,
-                //Rigidbody = GameObject.Rigidbody,
-                EventInstances = new Dictionary<string,EventInstance>(),
+    public void RegisterNewSound(GameObject emittingObject,Rigidbody rigidbody,string soundEventName) {
+        if(!_registeredSoundEmitters.ContainsKey(emittingObject)) {
+            SoundEmittingComponent newComponent = new() {
+                gameObject = emittingObject,
+                registeredSounds = new Dictionary<string,EventInstance>(),
             };
-            eventEmitter.Add(krachmacher,emitter);
+            _registeredSoundEmitters.Add(emittingObject,newComponent);
         }
-        if(!eventEmitter[krachmacher].EventInstances.ContainsKey(path)) {
-            EventInstance eventEmitterInstance = FMODUnity.RuntimeManager.CreateInstance(path);
-            FMODUnity.RuntimeManager.AttachInstanceToGameObject(eventEmitterInstance,eventEmitter[krachmacher].Transform,eventEmitter[krachmacher].GameObject.GetComponent<Rigidbody>());
-            eventEmitterInstance.start();
-            eventEmitter[krachmacher].EventInstances.Add(path,eventEmitterInstance);
+        if(!_registeredSoundEmitters[emittingObject].registeredSounds.ContainsKey(soundEventName)) {
+            EventInstance emitter = RuntimeManager.CreateInstance(soundEventName);
+            RuntimeManager.AttachInstanceToGameObject(
+                emitter,
+                emittingObject.transform,
+                rigidbody);
+            emitter.start();
+            _registeredSoundEmitters[emittingObject].registeredSounds.Add(soundEventName,emitter);
         }
     }
 
-    public void UnregisterEventEmitter(GameObject emitter,string path) {
-        var eventInstance = eventEmitter[emitter].EventInstances[path];
-        eventInstance.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
-        eventInstance.setCallback(EventCallback,FMOD.Studio.EVENT_CALLBACK_TYPE.STOPPED);
-        eventEmitter[emitter].EventInstances.Remove(path);
+    public void UnregisterSound(GameObject emittingObject,string path) {
+        EventInstance emitter = _registeredSoundEmitters[emittingObject].registeredSounds[path];
+        emitter.stop(FMOD.Studio.STOP_MODE.ALLOWFADEOUT);
+        emitter.setCallback(EventCallback,FMOD.Studio.EVENT_CALLBACK_TYPE.STOPPED);
+        _registeredSoundEmitters[emittingObject].registeredSounds.Remove(path);
     }
 
     private FMOD.RESULT EventCallback(FMOD.Studio.EVENT_CALLBACK_TYPE type,IntPtr instancePtr,IntPtr parameters) {
@@ -69,7 +62,7 @@ public class SoundManager : MonoBehaviour
     }
 
     public void SetParameterToEventEmitter(GameObject emitter,string path,string parameterName,float parameterValue) {
-        eventEmitter[emitter].EventInstances[path].setParameterByName(parameterName,parameterValue);
+        _registeredSoundEmitters[emitter].registeredSounds[path].setParameterByName(parameterName,parameterValue);
     }
 
     public void PlayOneShot2D(string path) {
@@ -80,7 +73,7 @@ public class SoundManager : MonoBehaviour
         RuntimeManager.PlayOneShot(path,position);
     }
 
-    // will need needed later
+    // will be needed later
     // GetComponent -> needs another architecture
     public void PlaySound3DwithParameter(string path,GameObject gameObject,string parameterName,float parameterValue) {
         EventInstance eventInstance = RuntimeManager.CreateInstance(path);
