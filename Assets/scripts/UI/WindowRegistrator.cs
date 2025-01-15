@@ -12,7 +12,7 @@ public class WindowRegistrator : MonoBehaviour
         }
         else
         {
-            Debug.LogWarning($"ButtonSelector instance not found when registering {gameObject.name}!");
+            Debug.LogWarning($"ButtonSelector _instance not found when registering {gameObject.name}!");
         }
     }
 }
