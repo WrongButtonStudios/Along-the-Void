@@ -27,9 +27,17 @@ public class Menu : MonoBehaviour
     }
 
     private void Start() {
-        _playerInput.actions.FindActionMap("characterController").Enable();
-        _playerInput.actions.FindActionMap("Menu").Disable();
+        if(SceneManager.GetActiveScene().buildIndex == 0) {
+            HandleEscapeKey();
+            _playerInput.actions.FindActionMap("characterController").Enable();
+            _playerInput.actions.FindActionMap("Menu").Disable();
+        }
+        else {
+            _playerInput.actions.FindActionMap("characterController").Disable();
+            _playerInput.actions.FindActionMap("Menu").Enable();
+        }
         _playerInput.actions.FindActionMap("Menukey").Enable();
+        Time.timeScale = 1;
     }
 
     private void OnPauseMenuPerformed(InputAction.CallbackContext context) {
@@ -49,10 +57,12 @@ public class Menu : MonoBehaviour
         windowToClose.SetActive(false);
         _windows.Remove(windowToClose);
         if(_windows.Count == 0) {
-            Time.timeScale = 1;
-            _playerInput.actions.FindActionMap("characterController").Enable();
-            _playerInput.actions.FindActionMap("Menu").Disable();
-            return;
+            if(SceneManager.GetActiveScene().buildIndex != 0) {
+                Time.timeScale = 1;
+                _playerInput.actions.FindActionMap("characterController").Enable();
+                _playerInput.actions.FindActionMap("Menu").Disable();
+                return;
+            }
         }
         GameObject windowToOpen = _windows[_windows.Count - 1];
         windowToOpen.SetActive(true);
@@ -69,9 +79,10 @@ public class Menu : MonoBehaviour
     }
 
     public void OpenMainMenu() {
-        _playerInput.SwitchCurrentActionMap("OpenMainMenu");
+        _playerInput.actions.FindActionMap("characterController").Disable();
+        _playerInput.actions.FindActionMap("Menu").Enable();
         Time.timeScale = 1;
-        SceneManager.LoadScene("Main Menu");
+        SceneManager.LoadScene(0);
     }
 
     public void OpenSettings() {
