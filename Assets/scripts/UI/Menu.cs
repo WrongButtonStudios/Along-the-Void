@@ -4,10 +4,11 @@ using UnityEngine.SceneManagement;
 using System.Collections.Generic;
 using Unity.VisualScripting;
 
-public class PauseMenu : MonoBehaviour
+public class Menu : MonoBehaviour
 {
-    [SerializeField] private GameObject _pauseMenuCanvas;
+    [SerializeField] private GameObject _menuCanvas;
     [SerializeField] private GameObject _settingsCanvas;
+    [SerializeField] private GameObject _creditsCanvas;
     [SerializeField] private PlayerInput _playerInput;
 
     private InputAction _escape;
@@ -37,8 +38,8 @@ public class PauseMenu : MonoBehaviour
 
     public void HandleEscapeKey() {
         if(_windows.Count == 0) {
-            _pauseMenuCanvas.SetActive(true);
-            _windows.Add(_pauseMenuCanvas);
+            _menuCanvas.SetActive(true);
+            _windows.Add(_menuCanvas);
             Time.timeScale = 0;
             _playerInput.actions.FindActionMap("characterController").Disable();
             _playerInput.actions.FindActionMap("Menu").Enable();
@@ -57,6 +58,10 @@ public class PauseMenu : MonoBehaviour
         windowToOpen.SetActive(true);
     }
 
+    public void PlayGame() {
+        SceneManager.LoadScene(1);
+    }
+
     public void RestartScene() {
         _windows.Clear();
         Time.timeScale = 1;
@@ -70,9 +75,18 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void OpenSettings() {
-        Debug.Log("test");
         _windows[_windows.Count - 1].SetActive(false);
         _windows.Add(_settingsCanvas);
         _settingsCanvas.SetActive(true);
+    }
+
+    public void OpenCredits() {
+        _windows[_windows.Count - 1].SetActive(false);
+        _windows.Add(_creditsCanvas);
+        _creditsCanvas.SetActive(true);
+    }
+
+    public void QuitGame() {
+        Application.Quit();
     }
 }

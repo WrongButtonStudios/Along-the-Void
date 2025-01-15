@@ -71,19 +71,9 @@ public class MainMenu : MonoBehaviour
         // warum geht main menu nicht zu?
     }
 
-    public void Credits() // keine sinnvolle benennenung
-    {
-        menuWindows.Add(creditsCanvas);
-        creditsCanvas.SetActive(true);
-        // warum geht main menu nicht zu?
-    }
 
-    public void PlayGame() {
-        SceneManager.LoadSceneAsync(_sceneIndexToLoad); // warum asynch
-        Destroy(this); // warum
-    }
 
-    public void QuitGame() {
-        Application.Quit();
-    }
+
+
+
 }
