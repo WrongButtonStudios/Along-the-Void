@@ -10,18 +10,10 @@ public class PauseMenu : MonoBehaviour
     [SerializeField] private GameObject _settingsCanvas;
     [SerializeField] private PlayerInput _playerInput;
 
-    private static PauseMenu _instance;
     private InputAction _escape;
     private List<GameObject> _windows = new();
 
     private void Awake() {
-        if(_instance == null) {
-            _instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
-        else {
-            Destroy(gameObject);
-        }
         _escape = _playerInput.actions["Menukey"];
     }
 
@@ -40,6 +32,10 @@ public class PauseMenu : MonoBehaviour
     }
 
     private void OnPauseMenuPerformed(InputAction.CallbackContext context) {
+        HandleEscapeKey();
+    }
+
+    public void HandleEscapeKey() {
         if(_windows.Count == 0) {
             _pauseMenuCanvas.SetActive(true);
             _windows.Add(_pauseMenuCanvas);
@@ -61,7 +57,7 @@ public class PauseMenu : MonoBehaviour
         windowToOpen.SetActive(true);
     }
 
-    public void RelaodScene() {
+    public void RestartScene() {
         _windows.Clear();
         Time.timeScale = 1;
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
@@ -74,6 +70,7 @@ public class PauseMenu : MonoBehaviour
     }
 
     public void OpenSettings() {
+        Debug.Log("test");
         _windows[_windows.Count - 1].SetActive(false);
         _windows.Add(_settingsCanvas);
         _settingsCanvas.SetActive(true);
