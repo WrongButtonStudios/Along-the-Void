@@ -48,11 +48,11 @@ public class GameManager : MonoBehaviour
         if (!_initizedGame && SceneManagementUttillitys.SceneNameContains(scene, "Level"))
         {
             InitializeGame();
-            StartCoroutine(SetUpEnemysWithDelay());
+            //SetUpEnemys(); 
         } else if (SceneManagementUttillitys.SceneNameContains(scene, "Level"))
         {
             Debug.Log("Set up enemys for next level...");
-            StartCoroutine(SetUpEnemysWithDelay());
+            //SetUpEnemys();
         }
         Debug.Log("Scene loaded..."); 
     }
@@ -86,6 +86,7 @@ public class GameManager : MonoBehaviour
         enemyToPlace.GetComponent<SimpleAI>().SetScene(_activeScene); 
         enemyToPlace.GetComponent<SimpleAI>().InitEnemyWaypoints(spawn.WayPoints);
         enemyToPlace.transform.position = spawn.transform.position;
+        Debug.Log(enemyToPlace.transform.position); 
         enemyToPlace.SetActive(true); 
     }
 
