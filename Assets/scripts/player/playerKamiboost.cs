@@ -38,6 +38,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             if (_collisionHandler.InYellowFog == false)
             {
                float yellowColorAmount =  PlayerDamageHandler.GetDamage(damagePerSecond * Time.fixedDeltaTime, PlayerUttillitys.GetPlayerColor(characterController), _fairyController);
+                Debug.Log("deale damage..."); 
                 if (yellowColorAmount <= 0f)
                 {
                     endFeauture();
