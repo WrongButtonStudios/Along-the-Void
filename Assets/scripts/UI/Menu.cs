@@ -9,6 +9,13 @@ public class Menu : MonoBehaviour
     [SerializeField] private GameObject _menuCanvas;
     [SerializeField] private GameObject _settingsCanvas;
     [SerializeField] private GameObject _creditsCanvas;
+    [SerializeField] private GameObject _play;
+    [SerializeField] private GameObject _resume;
+    [SerializeField] private GameObject _restart;
+    [SerializeField] private GameObject _settings;
+    [SerializeField] private GameObject _mainmenu;
+    [SerializeField] private GameObject _credits;
+    [SerializeField] private GameObject _quit;
     [SerializeField] private PlayerInput _playerInput;
 
     private InputAction _escape;
@@ -31,10 +38,24 @@ public class Menu : MonoBehaviour
             HandleEscapeKey();
             _playerInput.actions.FindActionMap("characterController").Enable();
             _playerInput.actions.FindActionMap("Menu").Disable();
+            _play.SetActive(true);
+            _resume.SetActive(false);
+            _restart.SetActive(false);
+            _settings.SetActive(true);
+            _mainmenu.SetActive(false);
+            _credits.SetActive(true);
+            _quit.SetActive(true);
         }
         else {
             _playerInput.actions.FindActionMap("characterController").Disable();
             _playerInput.actions.FindActionMap("Menu").Enable();
+            _play.SetActive(false);
+            _resume.SetActive(true);
+            _restart.SetActive(true);
+            _settings.SetActive(true);
+            _mainmenu.SetActive(true);
+            _credits.SetActive(true);
+            _quit.SetActive(true);
         }
         _playerInput.actions.FindActionMap("Menukey").Enable();
         Time.timeScale = 1;

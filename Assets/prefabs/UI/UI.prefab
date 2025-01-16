@@ -1895,7 +1895,6 @@ GameObject:
   - component: {fileID: 3317801346422515666}
   - component: {fileID: 8237191194145728506}
   - component: {fileID: 7716040682871292538}
-  - component: {fileID: 1170155716409865804}
   m_Layer: 5
   m_Name: Graphic Settings Canvas
   m_TagString: Untagged
@@ -2004,19 +2003,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   resolutionDropdown: {fileID: 5839471385112204233}
   screenModeDropdown: {fileID: 3294521147205691533}
---- !u!114 &1170155716409865804
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2743892194166585831}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4941cc9ae9333814c80b3b8b07fc17bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstButton: {fileID: 5436809121599847864}
 --- !u!1 &2756494519958084288
 GameObject:
   m_ObjectHideFlags: 0
@@ -2892,7 +2878,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 8901843757269201828}
-  - component: {fileID: 832658576362700541}
   - component: {fileID: 2755803333454402039}
   - component: {fileID: 7873259388232934400}
   - component: {fileID: 978225084487492215}
@@ -2927,18 +2912,6 @@ RectTransform:
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0, y: 0}
---- !u!114 &832658576362700541
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3859999397310275924}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &2755803333454402039
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2954,6 +2927,13 @@ MonoBehaviour:
   _menuCanvas: {fileID: 8194782128819953403}
   _settingsCanvas: {fileID: 8201275499754194127}
   _creditsCanvas: {fileID: 501927057835705368}
+  _play: {fileID: 5179871625067009875}
+  _resume: {fileID: 4670260172785601736}
+  _restart: {fileID: 8343489995869745744}
+  _settings: {fileID: 1609296804172746735}
+  _mainmenu: {fileID: 1819270149238250152}
+  _credits: {fileID: 7945334885064351693}
+  _quit: {fileID: 7559782081245961370}
   _playerInput: {fileID: 0}
 --- !u!223 &7873259388232934400
 Canvas:
@@ -6798,7 +6778,6 @@ GameObject:
   - component: {fileID: 2559359677074998355}
   - component: {fileID: 3396049741794728032}
   - component: {fileID: 5033221440645639631}
-  - component: {fileID: 6738627908805865438}
   m_Layer: 5
   m_Name: Settings
   m_TagString: Untagged
@@ -6893,19 +6872,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &6738627908805865438
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8201275499754194127}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4941cc9ae9333814c80b3b8b07fc17bf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  firstButton: {fileID: 8496720266677783339}
 --- !u!1 &8212076076976092908
 GameObject:
   m_ObjectHideFlags: 0
