@@ -26,6 +26,7 @@ public class Warmodes : MonoBehaviour
     private characterController.playerStates _curWarMode;
 
     public bool IsActive { get { return _isActive; } }
+    public fairyController FairyController { get { return _fairyController; } }
     public characterController.playerStates CurWarMode { get { return _curWarMode;  } }
 
     private void Start()

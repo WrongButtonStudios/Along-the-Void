@@ -14,7 +14,12 @@ public class CollisionHandler : MonoBehaviour
     private bool _isOnPlattform = false; 
     [SerializeField]
     private LayerMask _groundLayer;
-    private BluePlatform _plattform; 
+    [SerializeField]
+    private LayerMask _yellowFogLayer; 
+    private BluePlatform _plattform;
+    private bool _inYellowFog;
+
+    public bool InYellowFog { get { return _inYellowFog; } }
 
     private void Start()
     {
@@ -101,6 +106,9 @@ public class CollisionHandler : MonoBehaviour
             _cc.rb.velocity = new Vector2(0, 0);
         }
 
+        if (collision.gameObject.layer == _yellowFogLayer)
+            _inYellowFog = true; 
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -110,5 +118,8 @@ public class CollisionHandler : MonoBehaviour
             _isOnPlattform = false; 
             _plattform = null; 
         }
+
+        if (collision.gameObject.layer == _yellowFogLayer)
+            _inYellowFog = false; 
     }
 }

@@ -8,6 +8,9 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     private characterController characterController;
     private CharacterMovement characterMovement;
     private ContactFilter2D contactFilter = new ContactFilter2D();
+    private CollisionHandler _collisionHandler;
+    private float damagePerSecond = 0.1f;
+    private fairyController _fairyController;  
     private string defaultLayerName = "yellowDustArea";
     public int kamiBoostSpeed = 200;
     private bool doKamiboost = false;
@@ -19,7 +22,8 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     public void Awake()
     {
         layerMask = LayerMask.GetMask(defaultLayerName);
-
+        _collisionHandler = this.GetComponent<CollisionHandler>();
+        _fairyController = this.GetComponent<Warmodes>().FairyController; 
         contactFilter.useTriggers = true;
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = layerMask;
@@ -31,6 +35,20 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
         if (doKamiboost)
         {
+            if (_collisionHandler.InYellowFog == false)
+            {
+               float yellowColorAmount =  PlayerDamageHandler.GetDamage(damagePerSecond * Time.fixedDeltaTime, PlayerUttillitys.GetPlayerColor(characterController), _fairyController);
+                if (yellowColorAmount <= 0f)
+                {
+                    endFeauture();
+                    return; 
+                }
+            }
+            if (!characterController.Input.TriggerPlayerFeatureInput)
+            {
+                endFeauture();
+                return; 
+            }
             characterMovement.disableMovement();
             characterController.rb.gravityScale = 0;
 
@@ -55,18 +73,20 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
     public void triggerFeauture(bool useInput = false, bool input = false)
     {
-        if (!characterController.getPlayerStatus().isGrounded && !doKamiboost)
+        float yellowColorAmount = PlayerDamageHandler.GetDamage(damagePerSecond * Time.fixedDeltaTime, PlayerUttillitys.GetPlayerColor(characterController), _fairyController); 
+        if (!characterController.getPlayerStatus().isGrounded && !doKamiboost && yellowColorAmount > 0)
         {
             List<Collider2D> colliders = new List<Collider2D>();
 
             characterController.rb.OverlapCollider(contactFilter, colliders);
 
-            if (colliders.Count > 0)
-            {
+            //if (colliders.Count > 0)
+            //{
+            //Game Design Änderung laut Robin: Kamiboost soll ausserhalb des Gelben nebels Damage dealen, aber aktiviebar sein
                 Debug.Log("Activated Kami boost..."); 
                 doKamiboost = input;
                 Debug.Log("doKamiboost = " + doKamiboost);
-            }
+            //}
 
             if (characterController.Input.MoveInput.magnitude > 0.1f)
             {
