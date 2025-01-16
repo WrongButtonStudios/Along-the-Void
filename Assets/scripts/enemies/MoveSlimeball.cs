@@ -40,6 +40,7 @@ public class MoveSlimeball : MonoBehaviour
         }
         return _rb.velocity; 
     }
+
     public void Instantiate(Vector2 startVel, float startDistance, SimpleAI entity, Rigidbody2D rb)
     {
         _startVel = startVel;
