@@ -57,7 +57,11 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private GameObject _attackEffect;
     [SerializeField]
-    private EnemyStatusEffect _statusEffect; 
+    private EnemyStatusEffect _statusEffect;
+    [SerializeField]
+    private List<Transform> _wayPoints = new();
+    [SerializeField]
+    private float _jumpHight = 1.5f; 
     
     private Rigidbody2D _rb;
     private int _selectedWeapon;
@@ -72,10 +76,11 @@ public class SimpleAI : MonoBehaviour
     //Getter
     public Rigidbody2D RB { get { return _rb; } }
     public float Speed { get { return _speed; } }
+    public float JumpHight { get { return _jumpHight; } }
     public float StoppingDistance { get { return _stoppingDistance; } }
     public LayerMask IgnoreLayer { get { return _ignoreLayer; } }
     public GameObject AttackVFX { get { return _attackEffect;  } }
-    public Vector2 PlayerPos { get { return (Vector2)_playerPos.position; } }
+    public Vector2 PlayerPos { get; private set; }
     public Color EnemyColor { get { return _enemyColor;  } }
     public float MaxRange { get { return _attackRange; } }
     public EnemyStatusEffect StatusEffect { get { return _statusEffect; } }
@@ -85,7 +90,7 @@ public class SimpleAI : MonoBehaviour
 
 
     public float JumpForce { get { return _jumpForce; } }
-
+     
     private bool _isInitialized = false; 
 
     private void OnEnable()
@@ -93,14 +98,28 @@ public class SimpleAI : MonoBehaviour
         if(_rb==null)
             _rb = this.GetComponent<Rigidbody2D>();
         if(_playerPos == null)
-            _playerPos = GameObject.FindObjectOfType<characterController>().transform;
+            //_playerPos = GameObject.FindObjectOfType<characterController>().transform;
         if(_isInitialized == false)
             Initialize();
     }
 
+    private void Start()
+    {
+        if (_rb == null)
+            _rb = this.GetComponent<Rigidbody2D>();
+        //if (_playerPos == null)
+            //_playerPos = GameObject.FindObjectOfType<characterController>().transform;
+            if (_isInitialized == false)
+                Initialize();
+    }
+
     private void Initialize()
     {
-        TimeScale = 1; 
+        TimeScale = 1f;
+
+        if(_types[0] == EnemyType.GroundEnemy)
+            RB.gravityScale = TimeScale;
+
         _isInitialized = true; 
         AddPatrolAndHauntComponent();
         AddAttackComponent(); 
@@ -119,6 +138,7 @@ public class SimpleAI : MonoBehaviour
                     var FlyingPatrol = this.gameObject.AddComponent<FlyingPatrolComponent>();
                     FlyingPatrol.Init(this);
                     _patrolComponents.Add(FlyingPatrol);
+                    FlyingPatrol.SetWayPoints(_wayPoints); 
                     break;
                 case EnemyType.GroundEnemy:
                     var groundHaunting = this.gameObject.AddComponent<GroundHauntingComponent>();
@@ -127,8 +147,10 @@ public class SimpleAI : MonoBehaviour
                     var groundPatrol = this.gameObject.AddComponent<GroundPatrolComponent>();
                     groundPatrol.Init(this);
                     _patrolComponents.Add(groundPatrol);
+                    groundPatrol.SetWayPoints(_wayPoints); 
                     break;
             }
+
         }
     }
 
@@ -154,13 +176,14 @@ public class SimpleAI : MonoBehaviour
 
     void FixedUpdate()
     {
+        PlayerPos = _playerPos.transform.position; 
         ExecuteState();
     }
 
     private void ExecuteState()
     {
         if (this.isActiveAndEnabled == false)
-            return; 
+            return;
         SelectNewWeapon();
         SelectMovementComponent();
         ChangedState();
@@ -178,12 +201,24 @@ public class SimpleAI : MonoBehaviour
                     _attackComponents[_selectedWeapon].Attack();
                     break;
             }
+            if (_types[0] == EnemyType.GroundEnemy)
+                RB.gravityScale = TimeScale; 
+            RB.velocity = ClampVelocity(); 
         }
         else
         {
             _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
 
+    }
+
+    private Vector2 ClampVelocity()
+    {
+        if(RB.velocity.magnitude >= Speed)
+        {
+            return RB.velocity.normalized * Speed * TimeScale; 
+        }
+        return RB.velocity; 
     }
 
     public void SetTimeScale(float val)
@@ -228,7 +263,7 @@ public class SimpleAI : MonoBehaviour
         if (_attackComponents[_selectedWeapon].FinnishedAttack())
         {
             int oldWeapon = _selectedWeapon; 
-            _selectedWeapon = Random.Range(0, _attackComponents.Count - 1);
+            _selectedWeapon = Random.Range(0, _attackComponents.Count-1);
             _attackComponents[oldWeapon].ResetAttackStatus(); 
         }
     }

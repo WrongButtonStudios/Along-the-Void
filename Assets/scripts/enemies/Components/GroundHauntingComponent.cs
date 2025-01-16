@@ -11,8 +11,8 @@ public class GroundHauntingComponent : MonoBehaviour, IHauntingComponent
     public void Haunt(Vector3 target)
     {
         Vector2 dir = (target - transform.position).normalized;
-        Vector2 movementForce = dir * _entity.Speed;
-        _entity.RB.AddForce(movementForce * Time.fixedDeltaTime, ForceMode2D.Impulse); 
+        Vector2 movementVel = dir.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        _entity.RB.velocity += movementVel; 
     }
 
     public void Init(SimpleAI entity)

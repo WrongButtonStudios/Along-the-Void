@@ -40,9 +40,9 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     public void Movement(Vector2 target)
     {
         LookAtTarget();
-        Vector2 moveDir = (target - (Vector2)_entity.transform.position).normalized;
-        Vector2 moveForce = moveDir * _entity.Speed;
-        _entity.RB.AddForce(moveForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        Vector2 moveDirection = (target - (Vector2)_entity.transform.position).normalized;
+        Vector2 movementVelocity = moveDirection * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        _entity.RB.velocity += movementVelocity; 
     }
 
     public void Patrol()
