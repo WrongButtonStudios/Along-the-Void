@@ -97,7 +97,7 @@ public class SimpleAI : MonoBehaviour
     {
         if(_rb==null)
             _rb = this.GetComponent<Rigidbody2D>();
-        if(_playerPos == null)
+        //if(_playerPos == null)
             //_playerPos = GameObject.FindObjectOfType<characterController>().transform;
         if(_isInitialized == false)
             Initialize();
@@ -174,6 +174,26 @@ public class SimpleAI : MonoBehaviour
         }
     }
 
+    private Vector2 ClampVelocity()
+    {
+        if(RB.velocity.magnitude >= Speed)
+        {
+            return RB.velocity.normalized * Speed * TimeScale; 
+        }
+        return RB.velocity; 
+    }
+
+    public void SetTimeScale(float val)
+    {
+        if (val > 1)
+        {
+            Debug.LogWarning("Time scale is not allowed to be bigger than 1! It is automaticly set to 1.");
+            TimeScale = 1;
+            return;
+        }
+        TimeScale = val;
+    }
+
     void FixedUpdate()
     {
         PlayerPos = _playerPos.transform.position; 
@@ -202,35 +222,15 @@ public class SimpleAI : MonoBehaviour
                     break;
             }
             if (_types[0] == EnemyType.GroundEnemy)
-                RB.gravityScale = TimeScale; 
-            RB.velocity = ClampVelocity(); 
+                RB.gravityScale = TimeScale;
+            RB.velocity = ClampVelocity();
         }
         else
         {
             _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
-
     }
 
-    private Vector2 ClampVelocity()
-    {
-        if(RB.velocity.magnitude >= Speed)
-        {
-            return RB.velocity.normalized * Speed * TimeScale; 
-        }
-        return RB.velocity; 
-    }
-
-    public void SetTimeScale(float val)
-    {
-        if (val > 1)
-        {
-            Debug.LogWarning("Time scale is not allowed to be bigger than 1! It is automaticly set to 1.");
-            TimeScale = 1;
-            return;
-        }
-        TimeScale = val;
-    }
     private bool ChangedState()
     {
         float distanceSqr = _hauntingComponents[0].GetDistanceToTargetSqr(_playerPos.position, transform.position);
