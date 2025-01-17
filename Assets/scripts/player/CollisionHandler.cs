@@ -18,6 +18,7 @@ public class CollisionHandler : MonoBehaviour
     private LayerMask _yellowFogLayer; 
     private BluePlatform _plattform;
     private bool _inYellowFog;
+    private byte _yellowFoglayerAsByte; 
 
     public bool InYellowFog { get { return _inYellowFog; } }
 
@@ -26,7 +27,10 @@ public class CollisionHandler : MonoBehaviour
         _fairyController = GameObject.FindObjectOfType<fairyController>();
         _cc = this.gameObject.GetComponent<characterController>();
         _movement = this.GetComponent<CharacterMovement>();
-        _warmode = this.GetComponent<Warmodes>(); 
+        _warmode = this.GetComponent<Warmodes>();
+        _yellowFogLayer = LayerMask.NameToLayer("yellowDustArea");
+        _yellowFoglayerAsByte = (byte)_yellowFogLayer;
+        Debug.Log(_yellowFoglayerAsByte); 
     }
 
     private void FixedUpdate()
@@ -106,8 +110,15 @@ public class CollisionHandler : MonoBehaviour
             _cc.rb.velocity = new Vector2(0, 0);
         }
 
-        if (collision.gameObject.layer == _yellowFogLayer)
-            _inYellowFog = true; 
+        if ((byte)collision.gameObject.layer == _yellowFoglayerAsByte)
+        {
+            _inYellowFog = true;
+            Debug.Log("bin im gelben nebel! Wert von _inYellowFog = " + _inYellowFog);
+        }
+        else
+        {
+            Debug.Log((byte)collision.gameObject.layer + " " + (byte)_yellowFogLayer); 
+        }
 
     }
 
@@ -120,6 +131,9 @@ public class CollisionHandler : MonoBehaviour
         }
 
         if (collision.gameObject.layer == _yellowFogLayer)
-            _inYellowFog = false; 
+        {
+            _inYellowFog = false;
+            Debug.Log("bin nicht mehr im gelben nebel! Wert von _inyellowFog = " + _inYellowFog);
+        }
     }
 }

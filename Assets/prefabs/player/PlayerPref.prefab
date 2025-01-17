@@ -308,16 +308,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   fairyPrefab: {fileID: 4245004039323178140, guid: 8945f71306ad72446829f5f3c0dc6289, type: 3}
   fairys:
-  - color: 0
+  - color: 1
     colorAmount: 1
     fairyObject: {fileID: 0}
-  - color: 1
+  - color: 3
     colorAmount: 1
     fairyObject: {fileID: 0}
   - color: 2
     colorAmount: 1
     fairyObject: {fileID: 0}
-  - color: 3
+  - color: 0
     colorAmount: 1
     fairyObject: {fileID: 0}
   selectedFairy: 0
@@ -598,6 +598,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4101192342703305825, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: _yellowFogLayer.m_Bits
+      value: 262144
+      objectReference: {fileID: 0}
     - target: {fileID: 6291066242271056879, guid: 688c8c139e34db96d829deaa698192af, type: 3}
       propertyPath: _fairyController
       value: 
@@ -606,6 +610,10 @@ PrefabInstance:
       propertyPath: m_ActionEvents.Array.data[2].m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
       objectReference: {fileID: 368895905889514158}
+    - target: {fileID: 9120632806601602097, guid: 688c8c139e34db96d829deaa698192af, type: 3}
+      propertyPath: m_IncludeLayers.m_Bits
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
