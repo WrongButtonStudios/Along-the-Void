@@ -27,7 +27,6 @@ public class Menu : MonoBehaviour
     [SerializeField] private GameObject _graphicSettingsFirstButton;
     private GameObject _currentFirstButton;
 
-    private InputAction _move;
     private InputAction _escape;
     private List<GameObject> _windows = new();
 
@@ -39,7 +38,6 @@ public class Menu : MonoBehaviour
     private void OnEnable()
     {
         _escape.started += OnPauseMenuPerformed;
-        _move.started += OnNavigatePerformed;
     }
 
     private void OnDisable()
@@ -52,6 +50,7 @@ public class Menu : MonoBehaviour
 
         if (SceneManager.GetActiveScene().buildIndex == 0)
         {
+            _currentFirstButton = _mainMenuFirstButton;
             HandleEscapeKey();
             _playerInput.actions.FindActionMap("characterController").Enable();
             _playerInput.actions.FindActionMap("Menu").Disable();
@@ -62,11 +61,11 @@ public class Menu : MonoBehaviour
             _mainmenu.SetActive(false);
             _credits.SetActive(true);
             _quit.SetActive(true);
-            EventSystem.current.SetSelectedGameObject(_mainMenuFirstButton);
 
         }
         else
         {
+            _currentFirstButton = _menuFirstButton;
             _playerInput.actions.FindActionMap("characterController").Disable();
             _playerInput.actions.FindActionMap("Menu").Enable();
             _play.SetActive(false);
@@ -92,19 +91,18 @@ public class Menu : MonoBehaviour
         if (_windows.Count == 0)
         {
             _menuCanvas.SetActive(true);
+            EventSystem.current.SetSelectedGameObject(_currentFirstButton);
             _windows.Add(_menuCanvas);
             Time.timeScale = 0;
             _playerInput.actions.FindActionMap("characterController").Disable();
             _playerInput.actions.FindActionMap("Menu").Enable();
             if (SceneManager.GetActiveScene().buildIndex == 0)
             {
-                _currentFirstButton = _menuFirstButton;
                 return;
             }
-            else
-                _currentFirstButton = _mainMenuFirstButton;
             return;
         }
+
         GameObject windowToClose = _windows[_windows.Count - 1];
         windowToClose.SetActive(false);
         _windows.Remove(windowToClose);
@@ -120,19 +118,14 @@ public class Menu : MonoBehaviour
         }
         GameObject windowToOpen = _windows[_windows.Count - 1];
         windowToOpen.SetActive(true);
-
         _settingsCanvas.SetActive(false);
-
+        EventSystem.current.SetSelectedGameObject(_currentFirstButton);
 
         _graphicSettingsCanvas.SetActive(false);
         _soundSettingsCanvas.SetActive(false);
 
     }
 
-    public void OnNavigatePerformed(InputAction.CallbackContext context)
-    {
-
-    }
 
     public void PlayGame()
     {
@@ -171,7 +164,7 @@ public class Menu : MonoBehaviour
     {
         if (!_soundSettingsCanvas.activeSelf)
             _soundSettingsCanvas.SetActive(true);
-        _currentFirstButton = _soundSettingsFirstButton;
+        EventSystem.current.SetSelectedGameObject(_soundSettingsFirstButton);
         {
             if (_graphicSettingsCanvas.activeSelf)
                 _graphicSettingsCanvas.SetActive(false);
@@ -184,11 +177,12 @@ public class Menu : MonoBehaviour
         if (!_graphicSettingsCanvas.activeSelf)
         {
             _graphicSettingsCanvas.SetActive(true);
-            _currentFirstButton = _graphicSettingsFirstButton;
+            EventSystem.current.SetSelectedGameObject(_graphicSettingsFirstButton);
             if (_soundSettingsCanvas.activeSelf)
                 _soundSettingsCanvas.SetActive(false);
         }
     }
+
 
     public void OpenCredits()
     {
