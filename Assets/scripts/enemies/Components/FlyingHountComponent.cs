@@ -8,10 +8,10 @@ public class FlyingHauntComponent : MonoBehaviour, IHauntingComponent
 
     public void Haunt(Vector3 target)
     {
-        Vector2 targetPosWithOffset = (Vector2)target + Vector2.up * 5;
+        Vector2 targetPosWithOffset = (Vector2)target + (Vector2.up * 5);
         Vector2 dir = (targetPosWithOffset - (Vector2)transform.position).normalized;
-        Vector2 movementForce = dir * _entity.Speed;
-        _entity.RB.AddForce(movementForce * Time.fixedDeltaTime * _entity.TimeScale, ForceMode2D.Impulse); 
+        Vector2 movementVelocity = dir * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        _entity.RB.velocity += movementVelocity; 
     }
 
     public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start) 

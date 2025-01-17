@@ -156,9 +156,12 @@ public class characterController : MonoBehaviour
             case playerStates.yellow:
                 groundHit = Collision.doGroundedCheck();
 
-                    if(Input.TriggerPlayerFeatureInput)
-                        playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
-                   // _input.ResetTriggerPlayerFeature();
+                if (Input.TriggerPlayerFeatureInput)
+                {
+                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
+                    //Input.ResetTriggerPlayerFeature();
+                }
+
                 
 
                 Movement.dash();
