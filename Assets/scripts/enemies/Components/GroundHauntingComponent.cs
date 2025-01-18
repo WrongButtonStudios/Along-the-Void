@@ -11,7 +11,7 @@ public class GroundHauntingComponent : MonoBehaviour, IHauntingComponent
     public void Haunt(Vector3 target)
     {
         Vector2 dir = (target - transform.position).normalized;
-        Vector2 movementVel = dir.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        Vector2 movementVel = dir.normalized * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
         _entity.RB.velocity += movementVel; 
     }
 

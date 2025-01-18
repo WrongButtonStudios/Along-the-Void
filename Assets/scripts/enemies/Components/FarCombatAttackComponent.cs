@@ -59,7 +59,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
         if (direction.sqrMagnitude >= _fireRangeSQR)
         {
-            Vector2 movementVelocity = direction.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+            Vector2 movementVelocity = direction.normalized * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
             _entity.RB.velocity += movementVelocity; 
         }
         else if (direction.sqrMagnitude <= _fireRangeSQR)
@@ -90,7 +90,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
                     _rb = _attackEffect.AddComponent<Rigidbody2D>();
                 }
                 _startDistanceTargetBullet = (_rb.position - _entity.PlayerPos).magnitude;
-                _rb.gravityScale = _entity.TimeScale; 
+                _rb.gravityScale = PhysicUttillitys.TimeScale; 
                 FireSlimeBall();
                 _isAttacking = false;
                 StartCoroutine(CoolDown());
@@ -112,8 +112,8 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     private Vector2 CalculateAimOffset(Vector2 linearDir)
     {
         Vector2 gravity = Physics2D.gravity * _rb.gravityScale;
-        float estimateFlyDuration = (linearDir.magnitude / _speed) / _entity.TimeScale; 
-        return gravity*-1 * estimateFlyDuration * (Time.fixedDeltaTime*_entity.TimeScale); 
+        float estimateFlyDuration = (linearDir.magnitude / _speed) / PhysicUttillitys.TimeScale; 
+        return gravity*-1 * estimateFlyDuration * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale); 
     }
 
     private void ClearForce()

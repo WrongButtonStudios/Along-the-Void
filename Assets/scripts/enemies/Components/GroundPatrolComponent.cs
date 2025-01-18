@@ -93,7 +93,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         LookAtTarget();
         Vector2 moveDir = (target - (Vector2)_entity.transform.position).normalized;
         moveDir.y = 0f; 
-        Vector2 moveForce = moveDir.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale); 
+        Vector2 moveForce = moveDir.normalized * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale); 
         _entity.RB.velocity += moveForce;
     }
 
@@ -104,7 +104,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
         if (_entity.transform.position.y < _maxJumpHight)
         {
-            Vector2 jumpVel = Vector2.up * _entity.JumpForce - Physics2D.gravity * (Time.fixedDeltaTime * _entity.TimeScale);
+            Vector2 jumpVel = Vector2.up * _entity.JumpForce - Physics2D.gravity * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
             _entity.RB.velocity += jumpVel;
         }
         else

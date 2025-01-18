@@ -5,7 +5,6 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private SimpleAI _entity;
     private bool _isCoolingDown = false;
     private float _bodyCheckSpeed;
-    private bool _bodyCheck = false;
     private bool _finnishedAttacking;
     private bool _isAttacking;
     private Vector2 _chargeDir;
@@ -63,7 +62,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
         if (_entity.transform.position.y < _maxJumpHight)
         {
-            Vector2 jumpVel = Vector2.up * _entity.JumpForce * (Time.fixedDeltaTime * _entity.TimeScale);
+            Vector2 jumpVel = Vector2.up * _entity.JumpForce * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
             _entity.RB.velocity += jumpVel;
         }
         else
@@ -83,7 +82,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         Vector2 pos = _entity.transform.position;
         _chargeDir = (_entity.PlayerPos - pos).normalized;
 
-        _entity.RB.velocity += _chargeDir * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        _entity.RB.velocity += _chargeDir * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
         bool isGrounded = IsGrounded(1.5f); 
         if ((_entity.PlayerPos - pos).sqrMagnitude <= (4 * 4) && isGrounded && !_doJump)
         {
@@ -97,7 +96,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     {
         if (!IsGrounded() && !_isCoolingDown)
         {
-            _entity.RB.velocity += _chargeDir * _bodyCheckSpeed * (Time.fixedDeltaTime * _entity.TimeScale);
+            _entity.RB.velocity += _chargeDir * _bodyCheckSpeed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
         }
         else
         {
@@ -120,7 +119,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     {
         Vector2 backUpDirection = ((Vector2)_entity.transform.position - _entity.PlayerPos);
         //To-DO change Addforce to MovePosition 
-        _entity.RB.velocity += backUpDirection.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        _entity.RB.velocity += backUpDirection.normalized * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
         float distanceSqr = backUpDirection.sqrMagnitude;
         if (distanceSqr > (4 * 4))
         {

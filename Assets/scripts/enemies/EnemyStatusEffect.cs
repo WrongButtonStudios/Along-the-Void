@@ -25,7 +25,7 @@ public class EnemyStatusEffect : MonoBehaviour
     private void FixedUpdate()
     {
         if (_status == EnemyStatus.Burning)
-            _health.GetDamage((3.33f*Time.fixedDeltaTime) * _entity.TimeScale); 
+            _health.GetDamage((3.33f*Time.fixedDeltaTime) * PhysicUttillitys.TimeScale); 
 
     }
 

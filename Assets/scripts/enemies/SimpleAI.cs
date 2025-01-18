@@ -13,25 +13,6 @@ public class SimpleAI : MonoBehaviour
         Yellow
     }
 
-    private enum State
-    {
-        Patrol,
-        Hount,
-        Attack
-    }
-
-    private enum EnemyType
-    {
-        GroundEnemy,
-        FlyingEnemy
-    }
-
-    private enum WeaponsAttached
-    {
-        CloseCombat,
-        FarCombat
-    }
-
     [SerializeField]
     private List<EnemyType> _types;
     [SerializeField]
@@ -39,7 +20,7 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private List<WeaponsAttached> _weapons;
     [SerializeField]
-    private State _curState = State.Patrol;
+    private EnemyStateHandler.State _curState = EnemyStateHandler.State.Patrol;
     [SerializeField]
     private Transform _playerPos;
     [SerializeField]
@@ -64,8 +45,9 @@ public class SimpleAI : MonoBehaviour
     private float _jumpHight = 1.5f; 
     
     private Rigidbody2D _rb;
-    private int _selectedWeapon;
-    private int _selectedPatrolComponent;
+    private sbyte _selectedWeapon;
+    private sbyte _selectedPatrolComponent;
+    private bool _isInitialized = false;
     private Scene _scene; 
 
     //Components 
@@ -85,113 +67,29 @@ public class SimpleAI : MonoBehaviour
     public float MaxRange { get { return _attackRange; } }
     public EnemyStatusEffect StatusEffect { get { return _statusEffect; } }
     public Scene Scene { get { return _scene;  } }
-    public float TimeScale { get; private set; }
-
-
-
+    public List<IHauntingComponent> HauntingComponents { get { return _hauntingComponents;  }  }
+    public List<IPatrolComponent> PatrolComponents { get { return _patrolComponents; } }
+    public List<IAttackComponent> AttackComponents { get { return _attackComponents; } }
+    public float ReconizedPlayerRange { get { return _reconizedPlayerRange; } }
+    public float AttackRange { get { return _attackRange; } }
     public float JumpForce { get { return _jumpForce; } }
      
-    private bool _isInitialized = false; 
-
-    private void OnEnable()
-    {
-        if(_rb==null)
-            _rb = this.GetComponent<Rigidbody2D>();
-        //if(_playerPos == null)
-            //_playerPos = GameObject.FindObjectOfType<characterController>().transform;
-        if(_isInitialized == false)
-            Initialize();
-    }
-
     private void Start()
     {
         if (_rb == null)
             _rb = this.GetComponent<Rigidbody2D>();
-        //if (_playerPos == null)
-            //_playerPos = GameObject.FindObjectOfType<characterController>().transform;
-            if (_isInitialized == false)
-                Initialize();
+        if (_isInitialized == false)
+            Initialize();
     }
 
     private void Initialize()
     {
-        TimeScale = 1f;
-
         if(_types[0] == EnemyType.GroundEnemy)
-            RB.gravityScale = TimeScale;
+            RB.gravityScale = PhysicUttillitys.TimeScale;
 
         _isInitialized = true; 
-        AddPatrolAndHauntComponent();
-        AddAttackComponent(); 
-    }
-     
-    private void AddPatrolAndHauntComponent()
-    {
-        foreach (EnemyType type in _types)
-        {
-            switch (type)
-            {
-                case EnemyType.FlyingEnemy:
-                    var FlyingHaunting = this.gameObject.AddComponent<FlyingHauntComponent>();
-                    FlyingHaunting.Init(this);
-                    _hauntingComponents.Add(FlyingHaunting);
-                    var FlyingPatrol = this.gameObject.AddComponent<FlyingPatrolComponent>();
-                    FlyingPatrol.Init(this);
-                    _patrolComponents.Add(FlyingPatrol);
-                    FlyingPatrol.SetWayPoints(_wayPoints); 
-                    break;
-                case EnemyType.GroundEnemy:
-                    var groundHaunting = this.gameObject.AddComponent<GroundHauntingComponent>();
-                    groundHaunting.Init(this);
-                    _hauntingComponents.Add(groundHaunting);
-                    var groundPatrol = this.gameObject.AddComponent<GroundPatrolComponent>();
-                    groundPatrol.Init(this);
-                    _patrolComponents.Add(groundPatrol);
-                    groundPatrol.SetWayPoints(_wayPoints); 
-                    break;
-            }
-
-        }
-    }
-
-    void AddAttackComponent()
-    {
-        foreach(WeaponsAttached weapon in _weapons) 
-        {
-            switch(weapon)
-            {
-                case WeaponsAttached.CloseCombat:
-                    var closeCombat = this.gameObject.AddComponent<CloseCombatAttackComponent>();
-                    closeCombat.Init(this);
-                    _attackComponents.Add(closeCombat);
-                    break;
-                case WeaponsAttached.FarCombat:
-                    var farCombat = this.gameObject.AddComponent<FarCombatAttackComponent>();
-                    farCombat.Init(this); 
-                    _attackComponents.Add(farCombat);
-                    break; 
-            }
-        }
-    }
-
-    private Vector2 ClampVelocity()
-    {
-        if(RB.velocity.magnitude >= Speed)
-        {
-            return RB.velocity.normalized * Speed * TimeScale; 
-        }
-        return RB.velocity; 
-    }
-
-    public void SetTimeScale(float val)
-    {
-        if (val > 1)
-        {
-            Debug.LogWarning("Time scale is not allowed to be bigger than 1! It is automaticly set to 1.");
-            TimeScale = 1;
-            return;
-        }
-        TimeScale = val;
+        EnemyInitializer.AddPatrolAndHauntComponent(this, _wayPoints, _types);
+        EnemyInitializer.AddAttackComponent(this, _weapons); 
     }
 
     void FixedUpdate()
@@ -204,75 +102,30 @@ public class SimpleAI : MonoBehaviour
     {
         if (this.isActiveAndEnabled == false)
             return;
-        SelectNewWeapon();
-        SelectMovementComponent();
-        ChangedState();
+        _selectedWeapon = EnemyComponentSelecter.SelectNewWeapon(this, _selectedWeapon);
+        _selectedPatrolComponent = EnemyComponentSelecter.SelectMovementComponent(this, _selectedPatrolComponent);
+        _curState = EnemyStateHandler.ChangedState(this, _curState);
         if (_statusEffect.Status != EnemyStatusEffect.EnemyStatus.Frozen)
         {
             switch (_curState)
             {
-                case State.Patrol:
+                case EnemyStateHandler.State.Patrol:
                     _patrolComponents[_selectedPatrolComponent].Patrol();
                     break;
-                case State.Hount:
+                case EnemyStateHandler.State.Hount:
                     _hauntingComponents[_selectedPatrolComponent].Haunt(_playerPos.position);
                     break;
-                case State.Attack:
+                case EnemyStateHandler.State.Attack:
                     _attackComponents[_selectedWeapon].Attack();
                     break;
             }
             if (_types[0] == EnemyType.GroundEnemy)
-                RB.gravityScale = TimeScale;
-            RB.velocity = ClampVelocity();
+                RB.gravityScale = PhysicUttillitys.TimeScale;
+            RB.velocity = PhysicUttillitys.ClampVelocityEnemy(this);
         }
         else
         {
             _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
-        }
-    }
-
-    private bool ChangedState()
-    {
-        float distanceSqr = _hauntingComponents[0].GetDistanceToTargetSqr(_playerPos.position, transform.position);
-        if (distanceSqr < (_reconizedPlayerRange*_reconizedPlayerRange) && distanceSqr > (_attackRange*_attackRange) && _curState != State.Hount)
-        {
-            if(_curState == State.Attack)
-                _attackComponents[_selectedWeapon].Exit();
-            _curState = State.Hount;
-            return true;
-        }
-
-        if (_hauntingComponents[0].GetDistanceToTargetSqr(_playerPos.position, transform.position) < (_attackRange * _attackRange) && _curState != State.Attack)
-        {
-            _curState = State.Attack;
-            return true;
-        }
-
-        if (_hauntingComponents[0].GetDistanceToTargetSqr(_playerPos.position, transform.position) > (_reconizedPlayerRange*_reconizedPlayerRange) && _curState != State.Patrol)
-        {
-            if (_curState == State.Attack)
-                _attackComponents[_selectedWeapon].Exit();
-            _curState = State.Patrol;
-            return true;
-        }
-        return false;
-    }
-
-    private void SelectNewWeapon()
-    {
-        if (_attackComponents[_selectedWeapon].FinnishedAttack())
-        {
-            int oldWeapon = _selectedWeapon; 
-            _selectedWeapon = Random.Range(0, _attackComponents.Count-1);
-            _attackComponents[oldWeapon].ResetAttackStatus(); 
-        }
-    }
-
-    private void SelectMovementComponent()
-    {
-        if (_patrolComponents[_selectedPatrolComponent].ReachedDestination())
-        {
-            _selectedPatrolComponent = Random.Range(0, _patrolComponents.Count - 1);
         }
     }
 

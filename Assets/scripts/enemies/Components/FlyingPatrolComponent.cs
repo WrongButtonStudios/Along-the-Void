@@ -41,7 +41,7 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     {
         LookAtTarget();
         Vector2 moveDirection = (target - (Vector2)_entity.transform.position).normalized;
-        Vector2 movementVelocity = moveDirection * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        Vector2 movementVelocity = moveDirection * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
         _entity.RB.velocity += movementVelocity; 
     }
 

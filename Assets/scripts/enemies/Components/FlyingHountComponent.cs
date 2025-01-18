@@ -10,7 +10,7 @@ public class FlyingHauntComponent : MonoBehaviour, IHauntingComponent
     {
         Vector2 targetPosWithOffset = (Vector2)target + (Vector2.up * 5);
         Vector2 dir = (targetPosWithOffset - (Vector2)transform.position).normalized;
-        Vector2 movementVelocity = dir * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
+        Vector2 movementVelocity = dir * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
         _entity.RB.velocity += movementVelocity; 
     }
 
