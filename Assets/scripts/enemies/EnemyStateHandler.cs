@@ -11,7 +11,7 @@ public class EnemyStateHandler : MonoBehaviour
         Attack
     }
 
-    public static State ChangedState(SimpleAI entity, State curState)
+    public static State GetState(SimpleAI entity, State curState)
     {
         float distanceSqr = entity.HauntingComponents[0].GetDistanceToTargetSqr(entity.PlayerPos, entity.transform.position);
         if (distanceSqr < (entity.ReconizedPlayerRange * entity.ReconizedPlayerRange) && distanceSqr > (entity.AttackRange * entity.AttackRange) && curState != State.Hount)

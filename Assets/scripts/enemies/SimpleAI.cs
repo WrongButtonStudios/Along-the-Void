@@ -104,7 +104,7 @@ public class SimpleAI : MonoBehaviour
             return;
         _selectedWeapon = EnemyComponentSelecter.SelectNewWeapon(this, _selectedWeapon);
         _selectedPatrolComponent = EnemyComponentSelecter.SelectMovementComponent(this, _selectedPatrolComponent);
-        _curState = EnemyStateHandler.ChangedState(this, _curState);
+        _curState = EnemyStateHandler.GetState(this, _curState);
         if (_statusEffect.Status != EnemyStatusEffect.EnemyStatus.Frozen)
         {
             switch (_curState)
