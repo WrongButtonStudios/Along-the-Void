@@ -10,8 +10,7 @@ public class EnemyBehaviourComponentSelecter : MonoBehaviour
             return curIndex;
 
         entity.AttackComponents[curIndex].ResetAttackStatus();
-        sbyte newWeaponIndex = (sbyte)Random.Range(0, entity.AttackComponents.Count - 1);
-        return newWeaponIndex; 
+        return (sbyte)Random.Range(0, entity.AttackComponents.Count - 1);
     }
 
     public static sbyte SelectMovementComponent(SimpleAI entity, sbyte curIndex)
