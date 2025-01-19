@@ -4,20 +4,36 @@ using UnityEngine;
 
 public class EnemyMovement : MonoBehaviour
 {
-    private SimpleAI _entity;
-
     [SerializeField]
-    private float _maxJumpHight = 2.5f; 
+    private float _jumpForce;
+    [SerializeField]
+    private float _speed;
+    [SerializeField]
+    private float _maxJumpHight = 2.5f;
+    private Rigidbody2D _rb;
+
+    public Rigidbody2D RB { get { return _rb; } }
+    public float Speed { get { return _speed;  } }
+
+    public void ZeroVelocity()
+    {
+        _rb.velocity = Vector2.zero;
+    }
     private void Awake()
     {
-        _entity = this.GetComponent<SimpleAI>(); 
+        _rb = this.GetComponent<Rigidbody2D>(); 
+    }
+
+    private void FixedUpdate()
+    {
+        _rb.velocity = PhysicUttillitys.ClampVelocity(_rb.velocity, _speed);
     }
 
     public bool Jump()
     {
-        if (_entity.transform.position.y < _maxJumpHight)
+        if (transform.position.y < _maxJumpHight)
         {
-            Move(Vector2.up, _entity.JumpForce); 
+            Move(Vector2.up, _jumpForce); 
             return true; 
         }
         return false; 
@@ -25,12 +41,12 @@ public class EnemyMovement : MonoBehaviour
 
     public void Move(Vector2 dir)
     {
-        _entity.RB.velocity += dir.normalized * (_entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale)); 
+        _rb.velocity += dir.normalized * (_speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale)); 
     }
 
 
     public void Move(Vector2 dir, float speed)
     {
-        _entity.RB.velocity += dir.normalized * (speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale));
+        _rb.velocity += dir.normalized * (speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale));
     }
 }

@@ -8,11 +8,9 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private bool _finnishedAttacking;
     private bool _isAttacking;
     private Vector2 _chargeDir;
-    private bool _clearedForce = false; 
     private AttackPhases _curPhase = AttackPhases.Charge;
     private EnemyMovement _movement;
     private EnemyCollisionHandler _collisionHandler; 
-    private float _maxJumpHight; 
 
     private bool _doJump; 
 
@@ -40,7 +38,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
                 BodyCheck();
                 break;
             case AttackPhases.BackUp:
-                FinnishState();
+                BackUp(); 
                 break;
             default:
                 Debug.LogError("This isnt a defined Phase...");
@@ -55,9 +53,9 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             isJumping = _movement.Jump();
         if (isJumping == false && _doJump)
         {
-            _doJump = false; 
-            _entity.RB.gravityScale = 1;
-            ClearForce(); 
+            _doJump = false;
+            _movement.RB.gravityScale = 1;
+            _entity.Movement.ZeroVelocity();
         }
     }
 
@@ -69,13 +67,11 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     public void Init(SimpleAI entity)
     {
         _entity = entity;
-        _bodyCheckSpeed = _entity.Speed * 13f; 
+        _bodyCheckSpeed = _movement.Speed * 13f; 
     }
 
     private void Charge()
     {
-        if (_clearedForce)
-            Unfreeze();
         _isAttacking = true;
         _finnishedAttacking = false; 
         Vector2 pos = _entity.transform.position;
@@ -97,18 +93,10 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         }
         else
         {
-            ClearForce();
-            _entity.RB.gravityScale = 1; 
+            _entity.Movement.ZeroVelocity();
+            _movement.RB.gravityScale = 1; 
             _curPhase = AttackPhases.BackUp;
         }
-    }
-
-    void FinnishState()//name is wip lol
-    {
-        if (_clearedForce)
-            Unfreeze();
-        else
-            BackUp();
     }
 
     private void BackUp()
@@ -121,23 +109,10 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             _curPhase = AttackPhases.Charge;
             _isCoolingDown = false;
             _finnishedAttacking = true;
-            ClearForce();
+            _entity.Movement.ZeroVelocity();
         }
     }
 
-    private void ClearForce()
-    {
-        _clearedForce = true;
-        _doJump = false; 
-        _entity.RB.constraints = RigidbodyConstraints2D.FreezePosition;
-        _entity.RB.velocity = Vector2.zero;
-    }
-
-    private void Unfreeze()
-    {
-        _clearedForce = false; 
-        _entity.RB.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation; 
-    }
     public void ResetAttackStatus()
     {
         _finnishedAttacking = false; 
@@ -151,6 +126,5 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     public void Exit()
     {
         _doJump = false; 
-        Unfreeze(); 
     }
 }

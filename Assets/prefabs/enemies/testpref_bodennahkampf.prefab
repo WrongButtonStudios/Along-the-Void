@@ -174,9 +174,7 @@ MonoBehaviour:
   _weapons: 00000000
   _curState: 2
   _playerPos: {fileID: 0}
-  _speed: 15
   _attackRange: 5
-  _jumpForce: 7
   _reconizedPlayerRange: 15
   _statusEffect: {fileID: 171346108040121847}
   _wayPoints:
@@ -344,6 +342,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c37729c32d74376aeb9653ddbcc4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpForce: 20
+  _speed: 25
   _maxJumpHight: 1.5
 --- !u!1 &9138353154541795358
 GameObject:

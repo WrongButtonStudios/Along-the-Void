@@ -30,6 +30,7 @@ public class EnemyCollisionHandler : MonoBehaviour
         _statusEffects = status;
         _enemy = aI; 
     }
+
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -63,7 +64,7 @@ public class EnemyCollisionHandler : MonoBehaviour
     private IEnumerator DamageCooldown(float time)
     {
         _dealDamage = false;
-        yield return new WaitForSeconds(time * (1));
+        yield return new WaitForSeconds(time / PhysicUttillitys.TimeScale);
         _dealDamage = true; 
     }
 

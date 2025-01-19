@@ -211,6 +211,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 44c37729c32d74376aeb9653ddbcc4d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _jumpForce: 0
+  _speed: 25
   _maxJumpHight: 1.5
 --- !u!4 &8182050703717275381 stripped
 Transform:

@@ -4,7 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class SimpleAI : MonoBehaviour
 {
-
+    //I HATE THIS AMOUNT OF VARIABLES, FEELS LIKE MY FIRST CODE I EVER WROTE IN MY ENTIRE LIFE TF 
     public enum Color
     {
         Red,
@@ -18,17 +18,13 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private Color _enemyColor = Color.Red;
     [SerializeField]
-    private List<WeaponsAttached> _weapons = new(); 
+    private List<WeaponsAttached> _weapons = new();
     [SerializeField]
     private EnemyStateHandler.State _curState = EnemyStateHandler.State.Patrol;
     [SerializeField]
     private Transform _playerPos;
     [SerializeField]
-    private float _speed;
-    [SerializeField]
     private float _attackRange;
-    [SerializeField]
-    private float _jumpForce;
     [SerializeField]
     private float _reconizedPlayerRange = 7.5f;
     private float _stoppingDistance = 1;
@@ -37,23 +33,20 @@ public class SimpleAI : MonoBehaviour
     private EnemyStatusEffect _statusEffect;
     [SerializeField]
     private List<Transform> _wayPoints = new();
-    
+
     private Rigidbody2D _rb;
     private sbyte _selectedWeapon;
     private sbyte _selectedPatrolComponent;
-    private bool _isInitialized = false;
-    private Scene _scene; 
+    private Scene _scene;
 
     //Components 
     private List<IHauntingComponent> _hauntingComponents = new List<IHauntingComponent>();
-    private List<IPatrolComponent> _patrolComponents= new List<IPatrolComponent>();
+    private List<IPatrolComponent> _patrolComponents = new List<IPatrolComponent>();
     private List<IAttackComponent> _attackComponents = new List<IAttackComponent>();
 
-    //Getter
-    public Rigidbody2D RB { get { return _rb; } }
-    public float Speed { get { return _speed; } }
     public float StoppingDistance { get { return _stoppingDistance; } }
 
+    public EnemyMovement Movement { get; private set; }
     public Vector2 PlayerPos { get; private set; }
     public Color EnemyColor { get { return _enemyColor;  } }
     public float MaxRange { get { return _attackRange; } }
@@ -64,60 +57,54 @@ public class SimpleAI : MonoBehaviour
     public List<IAttackComponent> AttackComponents { get { return _attackComponents; } }
     public float ReconizedPlayerRange { get { return _reconizedPlayerRange; } }
     public float AttackRange { get { return _attackRange; } }
-    public float JumpForce { get { return _jumpForce; } }
      
     private void Start()
     {
-        if (_rb == null)
-            _rb = this.GetComponent<Rigidbody2D>();
-        if (_isInitialized == false)
-            Initialize();
+        Initialize();
     }
 
+    //I'm not sure if this belongs here. 
     private void Initialize()
     {
+        if (_rb == null)
+            _rb = this.GetComponent<Rigidbody2D>();
+        Movement = this.GetComponent<EnemyMovement>(); 
         if(_types[0] == EnemyType.GroundEnemy)
-            RB.gravityScale = PhysicUttillitys.TimeScale;
-
-        _isInitialized = true; 
+            _rb.gravityScale = PhysicUttillitys.TimeScale;
         EnemyInitializer.AddPatrolAndHauntComponent(this, _wayPoints, _types);
         EnemyInitializer.AddAttackComponent(this, _weapons); 
     }
 
+    //I'm not happy with this. 
     void FixedUpdate()
     {
-        PlayerPos = _playerPos.transform.position; 
+        if (this.isActiveAndEnabled == false)
+            return;
+        PlayerPos = _playerPos.transform.position;
+
+        if (_types[0] == EnemyType.GroundEnemy)
+            _rb.gravityScale = PhysicUttillitys.TimeScale;
+
+        _curState = EnemyStateHandler.GetState(this, _curState);
         ExecuteState();
     }
 
     private void ExecuteState()
     {
-        if (this.isActiveAndEnabled == false)
-            return;
-        _selectedWeapon = EnemyBehaviourComponentSelecter.SelectAttackComponent(this, _selectedWeapon);
-        _selectedPatrolComponent = EnemyBehaviourComponentSelecter.SelectMovementComponent(this, _selectedPatrolComponent);
-        _curState = EnemyStateHandler.GetState(this, _curState);
         if (_statusEffect.Status != EnemyStatusEffect.EnemyStatus.Frozen)
         {
             switch (_curState)
             {
                 case EnemyStateHandler.State.Patrol:
-                    _patrolComponents[_selectedPatrolComponent].Patrol();
-                    break;
+                     _patrolComponents[_selectedPatrolComponent].Patrol();
+                     break;
                 case EnemyStateHandler.State.Hount:
-                    _hauntingComponents[_selectedPatrolComponent].Haunt(_playerPos.position);
-                    break;
+                     _hauntingComponents[_selectedPatrolComponent].Haunt(_playerPos.position);
+                     break;
                 case EnemyStateHandler.State.Attack:
-                    _attackComponents[_selectedWeapon].Attack();
-                    break;
+                     _attackComponents[_selectedWeapon].Attack();
+                     break;
             }
-            if (_types[0] == EnemyType.GroundEnemy)
-                RB.gravityScale = PhysicUttillitys.TimeScale;
-            RB.velocity = PhysicUttillitys.ClampVelocityEnemy(this);
-        }
-        else
-        {
-            _rb.constraints = RigidbodyConstraints2D.FreezePositionX | RigidbodyConstraints2D.FreezeRotation;
         }
     }
 

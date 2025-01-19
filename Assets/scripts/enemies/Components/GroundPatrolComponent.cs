@@ -16,8 +16,8 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     private void Start()
     {
         _collsionHandler = this.GetComponent<EnemyCollisionHandler>();
-        _movement = this.GetComponent<EnemyMovement>(); 
     }
+
     public int GetNextWayPoint()
     {
         if (_curWayPoint < _wayPoints.Count - 1)
@@ -42,8 +42,8 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         if (!isJumping && _doJump)
         {
             _doJump = false;
-            _entity.RB.velocity = Vector2.zero;
-            _entity.RB.gravityScale = 1;
+            _entity.Movement.RB.velocity = Vector2.zero;
+            _entity.Movement.RB.gravityScale = 1;
         }
     }
 
@@ -57,9 +57,9 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     //To-Do kann wahrscheinlich vereinfacht werden
     public void Patrol()
     {
-        if (_entity.RB.simulated == false)
+        if (_entity.Movement.RB.simulated == false)
         {
-            _entity.RB.simulated = true;
+            _entity.Movement.RB.simulated = true;
         }
         if (_isOnPoint)
             SetUpNewWayPoint();
@@ -72,7 +72,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         {
             if (_collsionHandler.CheckForObstacle(GetXDirection()) && _collsionHandler.IsGrounded() && !_doJump)
             {
-                _entity.RB.gravityScale = 0;
+                _entity.Movement.RB.gravityScale = 0;
                 _doJump = true; 
             }
             Movement(_wayPoints[_curWayPoint]);
@@ -92,7 +92,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     {
         LookAtTarget();
         Vector2 moveDir = (target - (Vector2)_entity.transform.position).normalized;
-        _movement.Move(moveDir); 
+        _entity.Movement.Move(moveDir); 
     }
 
     public void Init(SimpleAI entity)

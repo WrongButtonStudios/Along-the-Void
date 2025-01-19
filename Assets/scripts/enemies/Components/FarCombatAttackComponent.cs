@@ -16,8 +16,6 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     private bool _isAttacking = false;
 
     private AttackPhases _curPhase = AttackPhases.Charge;
-    private bool _clearedForce;
-    private bool _switchedFromeOtherState = true;
     private MoveSlimeball _slimeball;
     private EnemyMovement _movement; 
     private enum AttackPhases
@@ -50,13 +48,6 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void Charge()
     {
-        if (_switchedFromeOtherState)
-        {
-            _switchedFromeOtherState = false; 
-            ClearForce();
-        }
-        if (_clearedForce)
-            Unfreeze(); 
         Vector2 direction = new Vector2(_entity.PlayerPos.x, 0) - new Vector2(transform.position.x, 0); //y = 0 so that the opponent does not land on the ground
 
         if (direction.sqrMagnitude >= _fireRangeSQR)
@@ -66,7 +57,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         else
         {
             _curPhase = AttackPhases.Attack;
-            ClearForce();
+            _entity.Movement.ZeroVelocity(); 
             return;
         }
     }
@@ -118,19 +109,6 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         return gravity*-1 * estimateFlyDuration * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale); 
     }
 
-    private void ClearForce()
-    {
-        _clearedForce = true;
-        _entity.RB.constraints = RigidbodyConstraints2D.FreezePosition;
-        _entity.RB.velocity = Vector2.zero;
-    }
-
-    private void Unfreeze()
-    {
-        _clearedForce = false;
-        _entity.RB.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
-    }
-
     private IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(1.5f);
@@ -159,9 +137,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     public void Exit()
     {
-        Unfreeze(); 
         _isCoolingDown = false;
         _isAttacking = false;
-        _switchedFromeOtherState = true;
     }
 }

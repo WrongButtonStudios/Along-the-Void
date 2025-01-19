@@ -6,12 +6,12 @@ public class PhysicUttillitys : MonoBehaviour
 {
     public static float TimeScale = 1f; 
 
-    public static Vector2 ClampVelocityEnemy(SimpleAI entity)
+    public static Vector2 ClampVelocity(Vector2 curVel, float maxVel)
     {
-        if (entity.RB.velocity.magnitude >= entity.Speed)
+        if (curVel.magnitude >= maxVel)
         {
-            return entity.RB.velocity.normalized * entity.Speed * TimeScale;
+            return curVel.normalized * (maxVel * TimeScale);
         }
-        return entity.RB.velocity;
+        return curVel;
     }
 }

@@ -47,7 +47,7 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     {
         LookAtTarget();
         Vector2 moveDirection = (target - (Vector2)_entity.transform.position).normalized;
-        _movement.Move(moveDirection);
+        _entity.Movement.Move(moveDirection);
     }
 
     public void Patrol()
