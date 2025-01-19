@@ -10,7 +10,14 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     private List<Vector2> _wayPoints = new List<Vector2>();
     private float _maxJumpHight; 
     private bool _doJump = false;
+    private EnemyCollisionHandler _collsionHandler;
+    private EnemyMovement _movement; 
 
+    private void Start()
+    {
+        _collsionHandler = this.GetComponent<EnemyCollisionHandler>();
+        _movement = this.GetComponent<EnemyMovement>(); 
+    }
     public int GetNextWayPoint()
     {
         if (_curWayPoint < _wayPoints.Count - 1)
@@ -29,7 +36,15 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
     private void FixedUpdate()
     {
-        Jump(); 
+        bool isJumping = false;
+        if (_doJump)
+           isJumping = _movement.Jump();
+        if (!isJumping && _doJump)
+        {
+            _doJump = false;
+            _entity.RB.velocity = Vector2.zero;
+            _entity.RB.gravityScale = 1;
+        }
     }
 
     public void LookAtTarget()
@@ -39,6 +54,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         _entity.transform.localScale = newScale;
     }
 
+    //To-Do kann wahrscheinlich vereinfacht werden
     public void Patrol()
     {
         if (_entity.RB.simulated == false)
@@ -54,34 +70,18 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
         {
-            if (CheckForObstacle() && IsGrounded() && !_doJump)
-            { 
-                _maxJumpHight = transform.position.y + _entity.JumpHight;
+            if (_collsionHandler.CheckForObstacle(GetXDirection()) && _collsionHandler.IsGrounded() && !_doJump)
+            {
                 _entity.RB.gravityScale = 0;
                 _doJump = true; 
             }
-                
-            Movement(_wayPoints[_curWayPoint]); 
-
+            Movement(_wayPoints[_curWayPoint]);
         }
         else
             _isOnPoint = true;
     }
 
-    private bool CheckForObstacle()
-    {
-        Vector3 rayOrigin = _entity.transform.position - new Vector3(0, 0.5f, 0);
-        float direction = GetXDirection();
-        float rayDistance = 1f;
 
-        RaycastHit2D hitLow = Physics2D.Raycast(rayOrigin, transform.right * direction, rayDistance, ~_entity.IgnoreLayer);
-        RaycastHit2D hitMid = Physics2D.Raycast(_entity.transform.position, transform.right * direction, rayDistance, ~_entity.IgnoreLayer);
-        Debug.DrawLine(_entity.transform.position, _entity.transform.position + (transform.right * direction), Color.black, Time.fixedDeltaTime); 
-        if (hitLow || hitMid)
-            return true;
-
-        return false;
-    }
     public void SetUpNewWayPoint()
     {
         _curWayPoint = GetNextWayPoint();
@@ -92,37 +92,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     {
         LookAtTarget();
         Vector2 moveDir = (target - (Vector2)_entity.transform.position).normalized;
-        moveDir.y = 0f; 
-        Vector2 moveForce = moveDir.normalized * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale); 
-        _entity.RB.velocity += moveForce;
-    }
-
-    private void Jump()
-    {
-        if (!_doJump) //early out if not jumping 
-            return;
-
-        if (_entity.transform.position.y < _maxJumpHight)
-        {
-            Vector2 jumpVel = Vector2.up * _entity.JumpForce - Physics2D.gravity * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
-            _entity.RB.velocity += jumpVel;
-        }
-        else
-        {
-            _doJump = false;
-            _entity.RB.velocity = Vector2.zero; 
-            _entity.RB.gravityScale = 1; 
-        }
-    }
-
-    private bool IsGrounded()
-    {
-        Debug.DrawLine(_entity.transform.position, (Vector2)_entity.transform.position + (-Vector2.up * 1.25f) , Color.gray, Time.fixedDeltaTime); 
-        if (Physics2D.Raycast(_entity.transform.position, -Vector2.up, 1.25f, ~_entity.IgnoreLayer))
-        {
-            return true;
-        }
-        return false;
+        _movement.Move(moveDir); 
     }
 
     public void Init(SimpleAI entity)

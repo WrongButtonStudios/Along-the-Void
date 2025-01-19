@@ -18,7 +18,8 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     private AttackPhases _curPhase = AttackPhases.Charge;
     private bool _clearedForce;
     private bool _switchedFromeOtherState = true;
-    private MoveSlimeball _slimeball; 
+    private MoveSlimeball _slimeball;
+    private EnemyMovement _movement; 
     private enum AttackPhases
     {
         Charge,
@@ -27,6 +28,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     public void Init(SimpleAI entity)
     {
+        _movement = this.GetComponent<EnemyMovement>(); 
         _entity = entity;
         _fireRangeSQR = (_entity.MaxRange / 2) * (_entity.MaxRange / 2);
     }
@@ -55,22 +57,21 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         }
         if (_clearedForce)
             Unfreeze(); 
-        Vector2 direction = new Vector2(_entity.PlayerPos.x, 0) - new Vector2(transform.position.x, 0);
+        Vector2 direction = new Vector2(_entity.PlayerPos.x, 0) - new Vector2(transform.position.x, 0); //y = 0 so that the opponent does not land on the ground
 
         if (direction.sqrMagnitude >= _fireRangeSQR)
         {
-            Vector2 movementVelocity = direction.normalized * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
-            _entity.RB.velocity += movementVelocity; 
+            _movement.Move(direction); 
         }
-        else if (direction.sqrMagnitude <= _fireRangeSQR)
+        else
         {
             _curPhase = AttackPhases.Attack;
             ClearForce();
             return;
-
         }
     }
 
+    //To-Do: Hier drin passiert eindeutig zu viel stuff
     private void Shoot()
     {
         Vector2 direction = new Vector2(_entity.PlayerPos.x, 0) - new Vector2(transform.position.x, 0);
@@ -101,6 +102,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
             _curPhase = AttackPhases.Charge; 
         }
     }
+
     private void FireSlimeBall()
     {
         Vector2 targetPos = _entity.PlayerPos;
@@ -161,7 +163,5 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         _isCoolingDown = false;
         _isAttacking = false;
         _switchedFromeOtherState = true;
-
     }
 }
-

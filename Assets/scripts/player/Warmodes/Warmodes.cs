@@ -93,7 +93,8 @@ public class Warmodes : MonoBehaviour
             _isActive = true; 
             _cc.StatusData.currentState = characterController.playerStates.burntYellow;
             _curWarMode = _cc.StatusData.currentState;
-            PhysicUttillitys.TimeScale = _bulletTimeScale; 
+            PhysicUttillitys.TimeScale = _bulletTimeScale;
+            Debug.Log(PhysicUttillitys.TimeScale); 
         }
     }
 

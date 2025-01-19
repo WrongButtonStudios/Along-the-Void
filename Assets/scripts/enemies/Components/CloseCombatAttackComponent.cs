@@ -10,6 +10,8 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private Vector2 _chargeDir;
     private bool _clearedForce = false; 
     private AttackPhases _curPhase = AttackPhases.Charge;
+    private EnemyMovement _movement;
+    private EnemyCollisionHandler _collisionHandler; 
     private float _maxJumpHight; 
 
     private bool _doJump; 
@@ -20,6 +22,13 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         Attack,
         BackUp
     }
+
+    private void Start()
+    {
+        _movement = this.GetComponent<EnemyMovement>();
+        _collisionHandler = GetComponent<EnemyCollisionHandler>();
+    }
+
     public void Attack()
     {
         switch (_curPhase)
@@ -41,7 +50,15 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void FixedUpdate()
     {
-        Jump();
+        bool isJumping = false;
+        if (_doJump)
+            isJumping = _movement.Jump();
+        if (isJumping == false && _doJump)
+        {
+            _doJump = false; 
+            _entity.RB.gravityScale = 1;
+            ClearForce(); 
+        }
     }
 
     public bool FinnishedAttack()
@@ -55,24 +72,6 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         _bodyCheckSpeed = _entity.Speed * 13f; 
     }
 
-    private void Jump()
-    {
-        if (!_doJump) //early out if not jumping 
-            return;
-
-        if (_entity.transform.position.y < _maxJumpHight)
-        {
-            Vector2 jumpVel = Vector2.up * _entity.JumpForce * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
-            _entity.RB.velocity += jumpVel;
-        }
-        else
-        {
-            _doJump = false;
-            _entity.RB.velocity = Vector2.zero;
-            _curPhase = AttackPhases.Attack;
-        }
-    }
-
     private void Charge()
     {
         if (_clearedForce)
@@ -81,22 +80,20 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         _finnishedAttacking = false; 
         Vector2 pos = _entity.transform.position;
         _chargeDir = (_entity.PlayerPos - pos).normalized;
-
-        _entity.RB.velocity += _chargeDir * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
-        bool isGrounded = IsGrounded(1.5f); 
+        _movement.Move(_chargeDir); 
+        bool isGrounded = _collisionHandler.IsGrounded(); 
         if ((_entity.PlayerPos - pos).sqrMagnitude <= (4 * 4) && isGrounded && !_doJump)
         {
             _doJump = true;
-            _maxJumpHight = _entity.transform.position.y + _entity.JumpHight;
             _isCoolingDown = false; 
         }
     } 
 
     private void BodyCheck()
     {
-        if (!IsGrounded() && !_isCoolingDown)
+        if (!_collisionHandler.IsGrounded() && !_isCoolingDown)
         {
-            _entity.RB.velocity += _chargeDir * _bodyCheckSpeed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
+            _movement.Move(_chargeDir, _bodyCheckSpeed); 
         }
         else
         {
@@ -111,15 +108,13 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         if (_clearedForce)
             Unfreeze();
         else
-            BackUp(); 
-
+            BackUp();
     }
 
     private void BackUp()
     {
         Vector2 backUpDirection = ((Vector2)_entity.transform.position - _entity.PlayerPos);
-        //To-DO change Addforce to MovePosition 
-        _entity.RB.velocity += backUpDirection.normalized * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
+        _movement.Move(backUpDirection); 
         float distanceSqr = backUpDirection.sqrMagnitude;
         if (distanceSqr > (4 * 4))
         {
@@ -128,14 +123,6 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             _finnishedAttacking = true;
             ClearForce();
         }
-    }
-    private bool IsGrounded(float groundDist = 1.25f)
-    {
-        if (Physics2D.Raycast(_entity.transform.position, -Vector2.up, groundDist, ~_entity.IgnoreLayer))
-        {
-            return true;
-        }
-        return false;
     }
 
     private void ClearForce()

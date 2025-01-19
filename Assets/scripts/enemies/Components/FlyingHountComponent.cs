@@ -4,14 +4,18 @@ using UnityEngine;
 
 public class FlyingHauntComponent : MonoBehaviour, IHauntingComponent
 {
-    private SimpleAI _entity; 
+    private SimpleAI _entity;
+    private EnemyMovement _movement; 
+    private void Start()
+    {
+        _movement = this.GetComponent<EnemyMovement>();    
+    }
 
     public void Haunt(Vector3 target)
     {
         Vector2 targetPosWithOffset = (Vector2)target + (Vector2.up * 5);
         Vector2 dir = (targetPosWithOffset - (Vector2)transform.position).normalized;
-        Vector2 movementVelocity = dir * _entity.Speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
-        _entity.RB.velocity += movementVelocity; 
+        _movement.Move(dir); 
     }
 
     public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start) 

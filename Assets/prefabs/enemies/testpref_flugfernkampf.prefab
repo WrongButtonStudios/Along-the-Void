@@ -157,6 +157,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5234013823702529200, guid: 911a851106f524a0189e214b7499f388, type: 3}
+      propertyPath: _ignoreLayer.m_Bits
+      value: 8
+      objectReference: {fileID: 0}
     - target: {fileID: 5720590047967088283, guid: 911a851106f524a0189e214b7499f388, type: 3}
       propertyPath: m_Name
       value: FlugFernkampfGegner
@@ -185,8 +189,29 @@ PrefabInstance:
     - {fileID: 8181196298338883599, guid: 911a851106f524a0189e214b7499f388, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 5720590047967088283, guid: 911a851106f524a0189e214b7499f388, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 8982482232961143548}
   m_SourcePrefab: {fileID: 100100000, guid: 911a851106f524a0189e214b7499f388, type: 3}
+--- !u!1 &2785174446620861312 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5720590047967088283, guid: 911a851106f524a0189e214b7499f388, type: 3}
+  m_PrefabInstance: {fileID: 7621624602625731867}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &8982482232961143548
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2785174446620861312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c37729c32d74376aeb9653ddbcc4d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _maxJumpHight: 1.5
 --- !u!4 &8182050703717275381 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1749939766418209774, guid: 911a851106f524a0189e214b7499f388, type: 3}

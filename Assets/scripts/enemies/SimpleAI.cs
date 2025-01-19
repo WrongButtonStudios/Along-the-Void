@@ -18,7 +18,7 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private Color _enemyColor = Color.Red;
     [SerializeField]
-    private List<WeaponsAttached> _weapons;
+    private List<WeaponsAttached> _weapons = new(); 
     [SerializeField]
     private EnemyStateHandler.State _curState = EnemyStateHandler.State.Patrol;
     [SerializeField]
@@ -28,21 +28,15 @@ public class SimpleAI : MonoBehaviour
     [SerializeField]
     private float _attackRange;
     [SerializeField]
-    private LayerMask _ignoreLayer;
-    [SerializeField]
     private float _jumpForce;
     [SerializeField]
     private float _reconizedPlayerRange = 7.5f;
-    float _stoppingDistance = 1;
-    //Placeholder VFX stuff
-    [SerializeField]
-    private GameObject _attackEffect;
+    private float _stoppingDistance = 1;
+
     [SerializeField]
     private EnemyStatusEffect _statusEffect;
     [SerializeField]
     private List<Transform> _wayPoints = new();
-    [SerializeField]
-    private float _jumpHight = 1.5f; 
     
     private Rigidbody2D _rb;
     private sbyte _selectedWeapon;
@@ -58,10 +52,8 @@ public class SimpleAI : MonoBehaviour
     //Getter
     public Rigidbody2D RB { get { return _rb; } }
     public float Speed { get { return _speed; } }
-    public float JumpHight { get { return _jumpHight; } }
     public float StoppingDistance { get { return _stoppingDistance; } }
-    public LayerMask IgnoreLayer { get { return _ignoreLayer; } }
-    public GameObject AttackVFX { get { return _attackEffect;  } }
+
     public Vector2 PlayerPos { get; private set; }
     public Color EnemyColor { get { return _enemyColor;  } }
     public float MaxRange { get { return _attackRange; } }
