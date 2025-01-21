@@ -247,6 +247,7 @@ GameObject:
   - component: {fileID: 5427037132920156623}
   - component: {fileID: 6291066242271056879}
   - component: {fileID: 27437897402313827}
+  - component: {fileID: 7097189444026641300}
   m_Layer: 0
   m_Name: player
   m_TagString: Player
@@ -515,6 +516,136 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 2.140007, y: 2.170517}
   m_EdgeRadius: 0
+--- !u!114 &7097189444026641300
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3247461398459608850}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 62899f850307741f2a39c98a8b639597, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_Actions: {fileID: -944628639613478452, guid: eb2909755d28aa54da4635f816b42fbe, type: 3}
+  m_NotificationBehavior: 2
+  m_UIInputModule: {fileID: 0}
+  m_DeviceLostEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_DeviceRegainedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ControlsChangedEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  m_ActionEvents:
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5427037132920156623}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: getMoveInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 55490937-8d14-4540-a1b3-bfd0de5e4222
+    m_ActionName: characterController/move[/Keyboard/w,/Keyboard/s,/Keyboard/a,/Keyboard/d]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5427037132920156623}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: getDashInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 03a6d116-f619-4f79-9db8-83aeead689ad
+    m_ActionName: characterController/dash[/Keyboard/space]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 0}
+        m_TargetAssemblyTypeName: fairyController, Assembly-CSharp
+        m_MethodName: getSelectInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: 2038674b-aad1-4c96-a0b0-acc334e945cf
+    m_ActionName: characterController/fairySelect[/Keyboard/upArrow,/Keyboard/downArrow,/Keyboard/leftArrow,/Keyboard/rightArrow]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5427037132920156623}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: getTriggerPlayerFeatureInput
+        m_Mode: 0
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: d3e9e9f6-a1ec-4a87-8586-d35b7832d607
+    m_ActionName: characterController/triggertPlayerFeature[/Keyboard/q]
+  - m_PersistentCalls:
+      m_Calls:
+      - m_Target: {fileID: 5427037132920156623}
+        m_TargetAssemblyTypeName: InputController, Assembly-CSharp
+        m_MethodName: ActivateWarmode
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+    m_ActionId: eaf89aa8-277c-42a3-acec-0165043bedf6
+    m_ActionName: characterController/UseWarmode[/Keyboard/e]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: dcdeccb9-b6e9-4814-9339-2b6ec7926edb
+    m_ActionName: Menu/BackButton[/Keyboard/escape]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: eafc8d5c-1ace-4cb9-9415-142873ec8b20
+    m_ActionName: Menu/Move[/Keyboard/upArrow,/Keyboard/w,/Keyboard/downArrow,/Keyboard/s]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: e09a2e8b-e88e-4fec-b5dc-8885b79c24b5
+    m_ActionName: Menu/Submit[/Keyboard/enter]
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: 1951ecb0-a25b-4360-a048-657d0799a146
+    m_ActionName: Menu/Cancel
+  - m_PersistentCalls:
+      m_Calls: []
+    m_ActionId: a928d00a-82bc-4804-9a5c-bc5f887e36e6
+    m_ActionName: Menukey/Menukey[/Keyboard/escape]
+  m_NeverAutoSwitchControlSchemes: 0
+  m_DefaultControlScheme: keyboard
+  m_DefaultActionMap: characterController
+  m_SplitScreenIndex: -1
+  m_Camera: {fileID: 0}
 --- !u!1 &3881638506002448785
 GameObject:
   m_ObjectHideFlags: 0
