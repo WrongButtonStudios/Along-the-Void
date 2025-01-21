@@ -17,9 +17,9 @@ public class BehaviourStateHandler : MonoBehaviour
     [SerializeField] private Enemy _entity;
     [SerializeField] private List<Transform> _wayPoints = new();
     [SerializeField] private float _stoppingDistance = 1.0f;
-    [SerializeField] private List<IHuntingComponent> _huntPatterns = new();
-    [SerializeField] private List<IPatrolComponent> _patrolPatterns = new();
-    [SerializeField] private List<IAttackComponent> _attackPatterns = new();
+    [SerializeReference] private List<IHuntingComponent> _huntPatterns = new();
+    [SerializeReference] private List<IPatrolComponent> _patrolPatterns = new();
+    [SerializeReference] private List<IAttackComponent> _attackPatterns = new();
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _playerTransform;
 

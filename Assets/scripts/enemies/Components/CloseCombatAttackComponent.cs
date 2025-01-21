@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 {
     private BehaviourStateHandler _entity;

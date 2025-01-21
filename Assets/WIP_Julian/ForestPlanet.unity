@@ -134,6 +134,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: testpref_bodennahkampf
       objectReference: {fileID: 0}
+    - target: {fileID: 2061537413484720487, guid: ed5d2c9c29fa54852866c19b761a8fa0, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 4272470783516311521, guid: ed5d2c9c29fa54852866c19b761a8fa0, type: 3}
       propertyPath: _playerPos
       value: 
@@ -198,7 +202,9 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 4.9
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 4272470783516311521, guid: ed5d2c9c29fa54852866c19b761a8fa0, type: 3}
+    - {fileID: 4915336981995736042, guid: ed5d2c9c29fa54852866c19b761a8fa0, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents: []
@@ -814,6 +820,50 @@ PrefabInstance:
     - target: {fileID: 6612882228093318432, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _playerTransform
+      value: 
+      objectReference: {fileID: 1939671706}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: managedReferences[-2]
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _huntPatterns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _attackPatterns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _patrolPatterns.Array.size
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _huntPatterns.Array.data[0]
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _attackPatterns.Array.data[0]
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _patrolPatterns.Array.data[0]
+      value: -2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182050703717275381, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -185.33762
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182050703717275381, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -23.430347
+      objectReference: {fileID: 0}
+    - target: {fileID: 8182050703717275381, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

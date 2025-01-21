@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[System.Serializable]
 public class GroundHuntingComponent : MonoBehaviour, IHuntingComponent
 {
     private BehaviourStateHandler _entity;

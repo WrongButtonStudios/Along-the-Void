@@ -30,7 +30,6 @@ public class CollisionHandler : MonoBehaviour
         _warmode = this.GetComponent<Warmodes>();
         _yellowFogLayer = LayerMask.NameToLayer("yellowDustArea");
         _yellowFoglayerAsByte = (byte)_yellowFogLayer;
-        Debug.Log(_yellowFoglayerAsByte); 
     }
 
     private void FixedUpdate()
@@ -117,7 +116,6 @@ public class CollisionHandler : MonoBehaviour
         }
         else
         {
-            Debug.Log((byte)collision.gameObject.layer + " " + (byte)_yellowFogLayer); 
         }
 
     }
