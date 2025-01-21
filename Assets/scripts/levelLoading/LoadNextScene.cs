@@ -56,8 +56,8 @@ public class LoadNextScene : MonoBehaviour
 
     private void DeactivateOldEnemys()
     {
-        var enemys = GameObject.FindObjectsOfType<SimpleAI>();
-        foreach (SimpleAI enemy in enemys)
+        var enemys = GameObject.FindObjectsOfType<BehaviourStateHandler>();
+        foreach (BehaviourStateHandler enemy in enemys)
         {
             if (enemy.Scene.name == _targetScene)
             {

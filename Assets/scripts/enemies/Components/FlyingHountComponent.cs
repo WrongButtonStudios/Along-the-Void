@@ -2,16 +2,16 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingHauntComponent : MonoBehaviour, IHauntingComponent
+[System.Serializable]
+public class FlyingHuntComponent : MonoBehaviour, IHuntingComponent
 {
-    private SimpleAI _entity; 
+    private BehaviourStateHandler _entity;
 
-    public void Haunt(Vector3 target)
+    public void Hunt(Vector3 target)
     {
         Vector2 targetPosWithOffset = (Vector2)target + (Vector2.up * 5);
         Vector2 dir = (targetPosWithOffset - (Vector2)transform.position).normalized;
-        Vector2 movementVelocity = dir * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
-        _entity.RB.velocity += movementVelocity; 
+        _entity.Movement.Move(dir); 
     }
 
     public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start) 
@@ -20,10 +20,8 @@ public class FlyingHauntComponent : MonoBehaviour, IHauntingComponent
         return dist * dist; 
     }
 
-    public void Init(SimpleAI entity)
+    public void Init(BehaviourStateHandler entity)
     {
         _entity = entity; 
     }
 }
-
-
