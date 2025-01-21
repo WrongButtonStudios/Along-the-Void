@@ -6,6 +6,13 @@ public class WindowRegistrator : MonoBehaviour
 
     void OnEnable()
     {
-        ButtonSelector.Instance.SetActiveWindow(gameObject, firstButton);
+        if (ButtonSelector.Instance != null)
+        {
+            ButtonSelector.Instance.SetActiveWindow(gameObject, firstButton);
+        }
+        else
+        {
+            Debug.LogWarning($"ButtonSelector _instance not found when registering {gameObject.name}!");
+        }
     }
 }

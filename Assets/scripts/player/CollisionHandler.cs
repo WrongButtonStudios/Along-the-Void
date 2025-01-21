@@ -14,14 +14,23 @@ public class CollisionHandler : MonoBehaviour
     private bool _isOnPlattform = false; 
     [SerializeField]
     private LayerMask _groundLayer;
-    private BluePlatform _plattform; 
+    [SerializeField]
+    private LayerMask _yellowFogLayer; 
+    private BluePlatform _plattform;
+    private bool _inYellowFog;
+    private byte _yellowFoglayerAsByte; 
+
+    public bool InYellowFog { get { return _inYellowFog; } }
 
     private void Start()
     {
         _fairyController = GameObject.FindObjectOfType<fairyController>();
         _cc = this.gameObject.GetComponent<characterController>();
         _movement = this.GetComponent<CharacterMovement>();
-        _warmode = this.GetComponent<Warmodes>(); 
+        _warmode = this.GetComponent<Warmodes>();
+        _yellowFogLayer = LayerMask.NameToLayer("yellowDustArea");
+        _yellowFoglayerAsByte = (byte)_yellowFogLayer;
+        Debug.Log(_yellowFoglayerAsByte); 
     }
 
     private void FixedUpdate()
@@ -101,6 +110,16 @@ public class CollisionHandler : MonoBehaviour
             _cc.rb.velocity = new Vector2(0, 0);
         }
 
+        if ((byte)collision.gameObject.layer == _yellowFoglayerAsByte)
+        {
+            _inYellowFog = true;
+            Debug.Log("bin im gelben nebel! Wert von _inYellowFog = " + _inYellowFog);
+        }
+        else
+        {
+            Debug.Log((byte)collision.gameObject.layer + " " + (byte)_yellowFogLayer); 
+        }
+
     }
 
     private void OnTriggerExit2D(Collider2D collision)
@@ -109,6 +128,12 @@ public class CollisionHandler : MonoBehaviour
         {
             _isOnPlattform = false; 
             _plattform = null; 
+        }
+
+        if (collision.gameObject.layer == _yellowFogLayer)
+        {
+            _inYellowFog = false;
+            Debug.Log("bin nicht mehr im gelben nebel! Wert von _inyellowFog = " + _inYellowFog);
         }
     }
 }

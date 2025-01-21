@@ -7,7 +7,13 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     private SimpleAI _entity;
     private int _curWayPoint;
     private bool _isOnPoint;
-    private List<Vector2> _wayPoints = new List<Vector2>(); 
+    private List<Vector2> _wayPoints = new List<Vector2>();
+    private EnemyMovement _movement;
+
+    private void Start()
+    {
+        _movement = this.GetComponent<EnemyMovement>(); 
+    }
 
     public int GetNextWayPoint()
     {
@@ -40,9 +46,8 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
     public void Movement(Vector2 target)
     {
         LookAtTarget();
-        Vector2 moveDir = (target - (Vector2)_entity.transform.position).normalized;
-        Vector2 moveForce = moveDir * _entity.Speed;
-        _entity.RB.AddForce(moveForce * Time.fixedDeltaTime, ForceMode2D.Impulse);
+        Vector2 moveDirection = (target - (Vector2)_entity.transform.position).normalized;
+        _entity.Movement.Move(moveDirection);
     }
 
     public void Patrol()
@@ -53,9 +58,7 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
         float distToWayPoint = (_wayPoints[_curWayPoint] - (Vector2)_entity.transform.position).sqrMagnitude;
 
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
-        {
             Movement(_wayPoints[_curWayPoint]);
-        }
         else
             _isOnPoint = true;
     }

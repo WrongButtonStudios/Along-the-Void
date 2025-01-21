@@ -232,6 +232,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   resolutionDropdown: {fileID: 173332188}
+  screenModeDropdown: {fileID: 0}
 --- !u!114 &62928956
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -331,8 +332,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWindow: {fileID: 62928954}
-  currentWindowFirstButton: {fileID: 1357462448}
+  navigateAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 898c0bc9-310e-40cb-a30b-060fd757f2bc
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &62928961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6770,8 +6778,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWindow: {fileID: 1216065566}
-  currentWindowFirstButton: {fileID: 1819652449}
+  navigateAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: b5c0f295-c309-49b3-9a35-9b8087babd17
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!1 &1248252326
 GameObject:
   m_ObjectHideFlags: 0
@@ -7010,7 +7025,6 @@ GameObject:
   - component: {fileID: 1274028095}
   - component: {fileID: 1274028094}
   - component: {fileID: 1274028093}
-  - component: {fileID: 1274028092}
   - component: {fileID: 1274028097}
   m_Layer: 5
   m_Name: Credits Canvas
@@ -7019,18 +7033,6 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 0
---- !u!114 &1274028092
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1274028091}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 87f9a83a06057634894be019f5054bc7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1274028093
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8824,9 +8826,6 @@ GameObject:
   - component: {fileID: 1684136168}
   - component: {fileID: 1684136170}
   - component: {fileID: 1684136169}
-  - component: {fileID: 1684136173}
-  - component: {fileID: 1684136172}
-  - component: {fileID: 1684136171}
   m_Layer: 5
   m_Name: Backround
   m_TagString: Untagged
@@ -8891,42 +8890,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1684136167}
   m_CullTransparentMesh: 1
---- !u!114 &1684136171
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684136167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c5a9bcc1b229a44cba35fd817113fbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1684136172
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684136167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c5a9bcc1b229a44cba35fd817113fbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &1684136173
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1684136167}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3c5a9bcc1b229a44cba35fd817113fbf, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &1685245691
 GameObject:
   m_ObjectHideFlags: 0
@@ -10695,8 +10658,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5eb5aab45db71cf45ad88ae1e02996e5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  currentWindow: {fileID: 2097883382}
-  currentWindowFirstButton: {fileID: 0}
+  navigateAction:
+    m_Name: 
+    m_Type: 0
+    m_ExpectedControlType: 
+    m_Id: 2cd36fa8-e6d5-48cd-8bd5-7427312a2080
+    m_Processors: 
+    m_Interactions: 
+    m_SingletonActionBindings: []
+    m_Flags: 0
 --- !u!114 &2097883390
 MonoBehaviour:
   m_ObjectHideFlags: 0

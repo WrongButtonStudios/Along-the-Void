@@ -13,7 +13,6 @@ public class Warmodes : MonoBehaviour
     private float _normalTimeScale;
     private bool _isActive = false;
     private CharacterDebuffs _characterDebuffs;
-    private CollisionHandler _collisionHandler;
     private characterController _cc;
     private float _curHP;
     private GameObject _activeTurret;
@@ -26,12 +25,12 @@ public class Warmodes : MonoBehaviour
     private characterController.playerStates _curWarMode;
 
     public bool IsActive { get { return _isActive; } }
+    public fairyController FairyController { get { return _fairyController; } }
     public characterController.playerStates CurWarMode { get { return _curWarMode;  } }
 
     private void Start()
     {
         _characterDebuffs = this.GetComponent<CharacterDebuffs>();
-        _collisionHandler = this.GetComponent<CollisionHandler>();
         _cc = this.GetComponent<characterController>();
     }
 
@@ -41,7 +40,7 @@ public class Warmodes : MonoBehaviour
         if (!_isActive)
             return;
 
-        _curHP =  PlayerDamageHandler.GetDamage(_colorLossAmount*Time.deltaTime, PlayerUttillitys.GetPlayerColor(_curWarMode), _fairyController);
+        _curHP = PlayerDamageHandler.GetDamage(_colorLossAmount*Time.deltaTime, PlayerUttillitys.GetPlayerColor(_curWarMode), _fairyController);
         if (_curHP <= 0)
         {
             DeactivateWarmode(); 
@@ -94,15 +93,8 @@ public class Warmodes : MonoBehaviour
             _isActive = true; 
             _cc.StatusData.currentState = characterController.playerStates.burntYellow;
             _curWarMode = _cc.StatusData.currentState;
-            Time.timeScale = 0.5f;
-            Physics2D.gravity *= 2;
-            _cc.Movement.SetTimeScaleFacotor(2);
-         //var enemys = FindObjectsOfType<SimpleAI>();
-         //foreach (SimpleAI ai in enemys)
-         //{
-         //    ai.SetTimeScale(_bulletTimeScale);
-         //    Debug.Log(ai.TimeScale); 
-         //}
+            PhysicUttillitys.TimeScale = _bulletTimeScale;
+            Debug.Log(PhysicUttillitys.TimeScale); 
         }
     }
 
@@ -122,15 +114,8 @@ public class Warmodes : MonoBehaviour
                 _activeTurret = null;
                 break;
             case characterController.playerStates.burntYellow:
-                //var enemys = FindObjectsOfType<SimpleAI>();
-                Time.timeScale = 1;
-                _cc.Movement.SetTimeScaleFacotor(1);
-                Physics2D.gravity /= 2; 
-                // foreach (SimpleAI ai in enemys)
-                // {
-                //     ai.SetTimeScale(_normalTimeScale);
-                // }
-                //
+                var enemys = FindObjectsOfType<SimpleAI>();
+                PhysicUttillitys.TimeScale = _normalTimeScale;
                 break;
             default:
                 Debug.LogWarning("Other stuff is not implemented, does not need specific stuff to be done to deactivate");

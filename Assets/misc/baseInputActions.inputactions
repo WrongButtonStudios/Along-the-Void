@@ -42,15 +42,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "Pausemenu",
-                    "type": "Button",
-                    "id": "8c18c11b-2c9f-4ab3-b6ac-a4d7dacee3ff",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "UseWarmode",
                     "type": "Button",
                     "id": "eaf89aa8-277c-42a3-acec-0165043bedf6",
@@ -283,28 +274,6 @@
                 },
                 {
                     "name": "",
-                    "id": "db9fb01c-3973-4051-84d4-c9cb75154fc5",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";keyboard",
-                    "action": "Pausemenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "58a26bef-ae4e-43e9-9d97-249dc9c008b3",
-                    "path": "<XInputController>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Pausemenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "ea9700f8-4c9e-4229-a3a4-7637ebef1920",
                     "path": "<Keyboard>/e",
                     "interactions": "",
@@ -362,24 +331,6 @@
                     "name": "Cancel",
                     "type": "Button",
                     "id": "1951ecb0-a25b-4360-a048-657d0799a146",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "OpenPauseMenu",
-                    "type": "Button",
-                    "id": "b28d8dcb-cfda-4f75-bd65-dfcd6de971c0",
-                    "expectedControlType": "",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
-                    "name": "ClosePauseMenu",
-                    "type": "Button",
-                    "id": "8efddb56-b3e5-4fcb-a31c-d1548faf08e4",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -551,72 +502,17 @@
                     "action": "Cancel",
                     "isComposite": false,
                     "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "eff2321e-97a7-40ff-88d9-a00d8407700b",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "Cancel",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "eaf35b83-2ae2-4e0f-8e0e-4e25b31ff0bb",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";keyboard",
-                    "action": "OpenPauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "835ba053-54a7-4951-89ff-0897c8a1dd14",
-                    "path": "<XInputController>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";gamepad",
-                    "action": "OpenPauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "27164c2d-8310-4424-905a-ffad10b8759e",
-                    "path": "<Keyboard>/escape",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": ";keyboard",
-                    "action": "ClosePauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "449777fb-3f92-4b2d-9a46-4754dd9f14c1",
-                    "path": "<XInputController>/start",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "ClosePauseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
                 }
             ]
         },
         {
-            "name": "PauseMenu",
-            "id": "45f95ccd-a2fc-4ea6-8277-10cafbb31127",
+            "name": "Menukey",
+            "id": "17a327cb-40fc-4f24-b455-5959ad2625ba",
             "actions": [
                 {
-                    "name": "BackButton",
+                    "name": "Menukey",
                     "type": "Button",
-                    "id": "3d70aa9e-82e7-42a9-82c6-994f478aca38",
+                    "id": "a928d00a-82bc-4804-9a5c-bc5f887e36e6",
                     "expectedControlType": "",
                     "processors": "",
                     "interactions": "",
@@ -626,23 +522,23 @@
             "bindings": [
                 {
                     "name": "",
-                    "id": "c586bdfb-552b-49d2-9bd8-573d6d3be5c2",
+                    "id": "1f67ae4b-f862-47e0-823b-db17cdc70736",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
                     "groups": ";keyboard",
-                    "action": "BackButton",
+                    "action": "Menukey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
                 {
                     "name": "",
-                    "id": "17a20c5e-e5c0-40ef-af81-4f6cb584d884",
-                    "path": "<XInputController>/buttonEast",
+                    "id": "43c75885-5d8d-406e-93b3-5c83571f216f",
+                    "path": "<XInputController>/start",
                     "interactions": "",
                     "processors": "",
                     "groups": ";gamepad",
-                    "action": "BackButton",
+                    "action": "Menukey",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

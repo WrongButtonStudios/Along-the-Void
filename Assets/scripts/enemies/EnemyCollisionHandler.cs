@@ -11,6 +11,8 @@ public class EnemyCollisionHandler : MonoBehaviour
     private bool _dealDamage = true;
     [SerializeField]
     private bool _isSlimeBall = false;
+    [SerializeField]
+    private LayerMask _ignoreLayer; 
 
 
     private void Start()
@@ -28,6 +30,7 @@ public class EnemyCollisionHandler : MonoBehaviour
         _statusEffects = status;
         _enemy = aI; 
     }
+
     // Start is called before the first frame update
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -61,7 +64,29 @@ public class EnemyCollisionHandler : MonoBehaviour
     private IEnumerator DamageCooldown(float time)
     {
         _dealDamage = false;
-        yield return new WaitForSeconds(time * (1 / _enemy.TimeScale));
+        yield return new WaitForSeconds(time / PhysicUttillitys.TimeScale);
         _dealDamage = true; 
+    }
+
+    public bool IsGrounded(float groundDist = 1.25f)
+    {
+        if (Physics2D.Raycast(transform.position, -Vector2.up, groundDist, ~_ignoreLayer))
+        {
+            return true;
+        }
+        return false;
+    }
+
+    public bool CheckForObstacle(float xDirection)
+    {
+        Vector3 rayOrigin = transform.position - new Vector3(0, 0.5f, 0);
+        float rayDistance = 1f;
+
+        RaycastHit2D hitLow = Physics2D.Raycast(rayOrigin, transform.right * xDirection, rayDistance, ~_ignoreLayer);
+        RaycastHit2D hitMid = Physics2D.Raycast(transform.position, transform.right * xDirection, rayDistance, ~_ignoreLayer);
+        if (hitLow || hitMid)
+            return true;
+
+        return false;
     }
 }

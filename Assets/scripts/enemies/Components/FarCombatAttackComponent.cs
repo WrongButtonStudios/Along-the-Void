@@ -10,13 +10,14 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     private GameObject _attackEffect;
     private float _speed = 100f;
     private Rigidbody2D _rb;
+    private float _startDistanceTargetBullet; 
     private bool _isCoolingDown = false;
     private bool _finnishedAttacking;
-    public bool _isAttacking = false;
+    private bool _isAttacking = false;
 
     private AttackPhases _curPhase = AttackPhases.Charge;
-    private bool _clearedForce;
-    private bool _switchedFromeOtherState = true; 
+    private MoveSlimeball _slimeball;
+    private EnemyMovement _movement; 
     private enum AttackPhases
     {
         Charge,
@@ -25,8 +26,9 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     public void Init(SimpleAI entity)
     {
+        _movement = this.GetComponent<EnemyMovement>(); 
         _entity = entity;
-        _fireRangeSQR = _entity.MaxRange / 2 * (_entity.MaxRange / 2);
+        _fireRangeSQR = (_entity.MaxRange / 2) * (_entity.MaxRange / 2);
     }
     public void Attack()
     {
@@ -38,50 +40,43 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
             case AttackPhases.Attack:
                 Shoot();
                 break;
-            default:
-                Debug.LogError("This isnt a defined Phase...");
-                break;
         }
     }
 
     private void Charge()
     {
-        if (_switchedFromeOtherState)
-        {
-            _switchedFromeOtherState = false; 
-            ClearForce();
-        }
-        if (_clearedForce)
-            Unfreeze(); 
-        Vector2 direction = _entity.PlayerPos - (Vector2)transform.position;
-        if (direction.sqrMagnitude > _fireRangeSQR)
-        {
-            _entity.RB.AddForce(direction.normalized * _entity.Speed * Time.fixedDeltaTime * _entity.TimeScale, ForceMode2D.Impulse);
-        }
-        else if (direction.sqrMagnitude <= _fireRangeSQR)
-        {
-            _curPhase = AttackPhases.Attack;
-            ClearForce();
-            return;
+        Vector2 direction = new Vector2(_entity.PlayerPos.x, 0) - new Vector2(transform.position.x, 0); //y = 0 so that the opponent does not land on the ground
 
+        if (direction.sqrMagnitude >= _fireRangeSQR)
+        {
+            _movement.Move(direction);
+            return;
         }
+        _curPhase = AttackPhases.Attack;
+        _entity.Movement.ZeroVelocity(); 
     }
 
+    //To-Do: Hier drin passiert eindeutig zu viel stuff
     private void Shoot()
     {
-        Vector2 direction = _entity.PlayerPos - (Vector2)transform.position;
+        Vector2 direction = _movement.CalculateDirectionX(transform.position, _entity.PlayerPos); 
         if (direction.sqrMagnitude <= _fireRangeSQR)
         {
             if (!_isCoolingDown)
             {
                 _isAttacking = true;
                 _isCoolingDown = true;
-                _attackEffect = SlimeBallPool.Instance.GetPooledSlimeBall();  
+                _attackEffect = SlimeBallPool.Instance.GetPooledSlimeBall();
+                _attackEffect.SetActive(true);
+                _attackEffect.transform.position = this.transform.position; 
+                Debug.Log("Activated Slimeball: " + _attackEffect.activeInHierarchy);
                 _rb = _attackEffect.GetComponent<Rigidbody2D>();
                 if (_rb == null)
                 {
                     _rb = _attackEffect.AddComponent<Rigidbody2D>();
                 }
+                _startDistanceTargetBullet = (_rb.position - _entity.PlayerPos).magnitude;
+                _rb.gravityScale = PhysicUttillitys.TimeScale; 
                 FireSlimeBall();
                 _isAttacking = false;
                 StartCoroutine(CoolDown());
@@ -92,40 +87,31 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
             _curPhase = AttackPhases.Charge; 
         }
     }
+
     private void FireSlimeBall()
     {
         Vector2 targetPos = _entity.PlayerPos;
-        Vector2 force = (targetPos - (Vector2)_entity.transform.position + CalculateAimOffset(targetPos - (Vector2)_entity.transform.position)).normalized * _speed;
-        Debug.Log(force); 
-        _rb.AddForce(force * _entity.TimeScale, ForceMode2D.Impulse); 
-
+        Vector2 startVelocity = (targetPos - (Vector2)_entity.transform.position + CalculateAimOffset(targetPos - (Vector2)_entity.transform.position)).normalized * _speed ;
+        _slimeball = _rb.GetComponent<MoveSlimeball>(); //Slimeball pool will get Adjusted, so that the Class is return insteat of an GameObject. This is just to test, if its work like it is intendet after the rework.
+        _slimeball.Instantiate(startVelocity, _startDistanceTargetBullet, _entity, _rb); 
     }
 
     private Vector2 CalculateAimOffset(Vector2 linearDir)
     {
         Vector2 gravity = Physics2D.gravity * _rb.gravityScale;
-        float estimateFlyDuration = linearDir.magnitude / _speed; 
-        return ((gravity*-1) * estimateFlyDuration) * Time.fixedDeltaTime; 
-    }
-
-    private void ClearForce()
-    {
-        _clearedForce = true;
-        _entity.RB.constraints = RigidbodyConstraints2D.FreezePosition;
-        _entity.RB.velocity = Vector2.zero;
-    }
-
-    private void Unfreeze()
-    {
-        _clearedForce = false;
-        _entity.RB.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation;
+        float estimateFlyDuration = (linearDir.magnitude / _speed) / PhysicUttillitys.TimeScale; 
+        return gravity*-1 * estimateFlyDuration * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale); 
     }
 
     private IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(1.5f);
-        _attackEffect.gameObject.SetActive(false); 
+        _slimeball.Deactivate();
+        _attackEffect.gameObject.SetActive(false);
+        _attackEffect = null;
+        _rb = null; 
         _isCoolingDown = false;
+        Debug.Log("Finnished Cooldown " + !_isCoolingDown); 
     }
 
     public bool FinnishedAttack()
@@ -145,11 +131,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     public void Exit()
     {
-        Unfreeze(); 
         _isCoolingDown = false;
         _isAttacking = false;
-        _switchedFromeOtherState = true;
-
     }
 }
-

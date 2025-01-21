@@ -44,7 +44,7 @@ public class SlimeBallPool : MonoBehaviour
     {
         foreach (GameObject g in _slimeBalls)
         {
-            if (g.activeInHierarchy)
+            if (g.activeInHierarchy == false)
             {
                 return g; 
             }

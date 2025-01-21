@@ -5,12 +5,14 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private SimpleAI _entity;
     private bool _isCoolingDown = false;
     private float _bodyCheckSpeed;
-    private bool _bodyCheck = false;
     private bool _finnishedAttacking;
     private bool _isAttacking;
     private Vector2 _chargeDir;
-    private bool _clearedForce = false; 
-    private AttackPhases _curPhase = AttackPhases.Charge; 
+    private AttackPhases _curPhase = AttackPhases.Charge;
+    private EnemyMovement _movement;
+    private EnemyCollisionHandler _collisionHandler; 
+
+    private bool _doJump; 
 
     private enum AttackPhases
     {
@@ -18,6 +20,13 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         Attack,
         BackUp
     }
+
+    private void Start()
+    {
+        _movement = this.GetComponent<EnemyMovement>();
+        _collisionHandler = GetComponent<EnemyCollisionHandler>();
+    }
+
     public void Attack()
     {
         switch (_curPhase)
@@ -29,11 +38,20 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
                 BodyCheck();
                 break;
             case AttackPhases.BackUp:
-                FinnishState();
+                BackUp(); 
                 break;
-            default:
-                Debug.LogError("This isnt a defined Phase...");
-                break; 
+        }
+    }
+
+    private void FixedUpdate()
+    {
+        bool isJumping = false;
+        if (_doJump)
+            isJumping = _movement.Jump();
+        if (isJumping == false && _doJump)
+        {
+            _doJump = false;
+            _movement.SetGravitiyScale(1);
         }
     }
 
@@ -45,89 +63,49 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     public void Init(SimpleAI entity)
     {
         _entity = entity;
-        _bodyCheckSpeed = _entity.Speed * 13f; 
+        _bodyCheckSpeed = _movement.Speed * 13f; 
     }
 
     private void Charge()
     {
-        if (_clearedForce)
-            Unfreeze();
         _isAttacking = true;
-        _finnishedAttacking = false; 
-        Vector2 pos = _entity.transform.position;
-        _chargeDir = (_entity.PlayerPos - pos).normalized;
+        _finnishedAttacking = false;
 
-        _entity.RB.AddForce(_chargeDir * _entity.Speed);
-
-        if ((_entity.PlayerPos - pos).sqrMagnitude < (4 * 4) && IsGrounded())
+        _chargeDir = _movement.CalculateDirection(transform.position, _entity.PlayerPos); 
+        _movement.Move(_chargeDir); 
+        bool isGrounded = _collisionHandler.IsGrounded(); 
+        if (_chargeDir.sqrMagnitude <= (4 * 4) && isGrounded && !_doJump)
         {
-            _entity.RB.AddForce(Vector2.up * _entity.JumpForce * _entity.TimeScale, ForceMode2D.Impulse);
-            _isCoolingDown = false;
-            _bodyCheck = true;
-            Debug.Log("Springe"); 
-        } 
-        if(!IsGrounded(2))
-            _curPhase = AttackPhases.Attack;
+            _doJump = true;
+            _isCoolingDown = false; 
+        }
     } 
 
     private void BodyCheck()
     {
-        if (!IsGrounded() && !_isCoolingDown && _bodyCheck)
+        if (!_collisionHandler.IsGrounded() && !_isCoolingDown)
         {
-            _bodyCheck = false;
-            _isCoolingDown = true;
-            _entity.RB.AddForce(_chargeDir * _bodyCheckSpeed * _entity.TimeScale, ForceMode2D.Impulse);
+            _movement.Move(_chargeDir, _bodyCheckSpeed);
+            return; 
         }
-        else
-        {
-            ClearForce();
-            _curPhase = AttackPhases.BackUp;
-        }
-    }
-
-    void FinnishState()//name is wip lol
-    {
-        if (_clearedForce)
-            Unfreeze();
-        else
-            BackUp(); 
-
+        _movement.SetGravitiyScale(1);
+        _curPhase = AttackPhases.BackUp;
     }
 
     private void BackUp()
     {
-        Vector2 distance = ((Vector2)_entity.transform.position - _entity.PlayerPos); //variable has bad naming but i dont know a better one
-        _entity.RB.AddForce(distance.normalized * _entity.Speed * _entity.TimeScale);
-        float distanceSqr = distance.sqrMagnitude;
-        if (distanceSqr < (5 * 5) == false)
+        Vector2 backUpDirection = _movement.CalculateDirection(_entity.PlayerPos, transform.position); 
+        _movement.Move(backUpDirection); 
+        float distanceSqr = backUpDirection.sqrMagnitude;
+        if (distanceSqr > (4 * 4))
         {
             _curPhase = AttackPhases.Charge;
             _isCoolingDown = false;
             _finnishedAttacking = true;
-            ClearForce(); 
+            _entity.Movement.ZeroVelocity();
         }
     }
-    private bool IsGrounded(float groundDist = 1.45f)
-    {
-        if (Physics2D.Raycast(_entity.transform.position, -Vector2.up, groundDist, ~_entity.IgnoreLayer))
-        {
-            return true;
-        }
-        return false;
-    }
 
-    private void ClearForce()
-    {
-        _clearedForce = true;
-        _entity.RB.constraints = RigidbodyConstraints2D.FreezePosition;
-        _entity.RB.velocity = Vector2.zero;
-    }
-
-    private void Unfreeze()
-    {
-        _clearedForce = false; 
-        _entity.RB.constraints = RigidbodyConstraints2D.None | RigidbodyConstraints2D.FreezeRotation; 
-    }
     public void ResetAttackStatus()
     {
         _finnishedAttacking = false; 
@@ -140,6 +118,6 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     public void Exit()
     {
-        Unfreeze(); 
+        _doJump = false; 
     }
 }
