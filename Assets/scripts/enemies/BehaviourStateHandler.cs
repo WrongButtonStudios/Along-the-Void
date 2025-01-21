@@ -17,12 +17,12 @@ public class BehaviourStateHandler : MonoBehaviour
     [SerializeField] private Enemy _entity;
     [SerializeField] private List<Transform> _wayPoints = new();
     [SerializeField] private float _stoppingDistance = 1.0f;
-    [SerializeReference] private List<IHuntingComponent> _huntPatterns = new();
-    [SerializeReference] private List<IPatrolComponent> _patrolPatterns = new();
-    [SerializeReference] private List<IAttackComponent> _attackPatterns = new();
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _playerTransform;
 
+    private List<IHuntingComponent> _huntPatterns = new();
+    private List<IPatrolComponent> _patrolPatterns = new();
+    private List<IAttackComponent> _attackPatterns = new();
     private sbyte _currentAttackPattern = 0;
     private sbyte _currentHuntPattern = 0;
     private sbyte _currentPatrolPattern = 0;
@@ -43,6 +43,23 @@ public class BehaviourStateHandler : MonoBehaviour
     public Enemy Enemy { get { return _entity; } }
     public Scene Scene { get { return _scene;  } }
     public float ReconizedPlayerRange { get { return _aggroRange; } }
+
+
+    private void Awake() {
+        var FlyingHunting = gameObject.AddComponent<FlyingHuntComponent>();
+        FlyingHunting.Init(this);
+        _huntPatterns.Add(FlyingHunting);
+
+        var FlyingPatrol = gameObject.AddComponent<FlyingPatrolComponent>();
+        FlyingPatrol.Init(this);
+        FlyingPatrol.SetWayPoints(_wayPoints);
+        _patrolPatterns.Add(FlyingPatrol);
+
+        var FarCombat = gameObject.AddComponent<FarCombatAttackComponent>();
+        FarCombat.Init(this);
+        _attackPatterns.Add(FarCombat);
+    }
+
 
     //this gets removed later
     private void Start()
