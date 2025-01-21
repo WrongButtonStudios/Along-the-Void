@@ -4612,10 +4612,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: UI Prefab
       objectReference: {fileID: 0}
-    - target: {fileID: 4799537282678695773, guid: 2b05bb3b5b3ccd84ea87b781e5135bd1, type: 3}
-      propertyPath: m_Navigation.m_Mode
-      value: 3
-      objectReference: {fileID: 0}
     - target: {fileID: 8901843757269201828, guid: 2b05bb3b5b3ccd84ea87b781e5135bd1, type: 3}
       propertyPath: m_Pivot.x
       value: 0
