@@ -40,9 +40,6 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
             case AttackPhases.Attack:
                 Shoot();
                 break;
-            default:
-                Debug.LogError("This isnt a defined Phase..." + _curPhase);
-                break;
         }
     }
 
@@ -52,20 +49,17 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
         if (direction.sqrMagnitude >= _fireRangeSQR)
         {
-            _movement.Move(direction); 
-        }
-        else
-        {
-            _curPhase = AttackPhases.Attack;
-            _entity.Movement.ZeroVelocity(); 
+            _movement.Move(direction);
             return;
         }
+        _curPhase = AttackPhases.Attack;
+        _entity.Movement.ZeroVelocity(); 
     }
 
     //To-Do: Hier drin passiert eindeutig zu viel stuff
     private void Shoot()
     {
-        Vector2 direction = new Vector2(_entity.PlayerPos.x, 0) - new Vector2(transform.position.x, 0);
+        Vector2 direction = _movement.CalculateDirectionX(transform.position, _entity.PlayerPos); 
         if (direction.sqrMagnitude <= _fireRangeSQR)
         {
             if (!_isCoolingDown)

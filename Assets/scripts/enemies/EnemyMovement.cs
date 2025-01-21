@@ -49,4 +49,27 @@ public class EnemyMovement : MonoBehaviour
     {
         _rb.velocity += dir.normalized * (speed * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale));
     }
+
+    public void SetGravitiyScale(float gravityScale)
+    {
+        ZeroVelocity();
+        RB.gravityScale = gravityScale;
+    }
+
+    public Vector2 CalculateDirection(Vector2 a, Vector2 b)
+    {
+        return b - a; 
+    }
+    /// <summary>
+    /// This functions only calculates the direction on the X Axis. Y will be set to 0. 
+    /// </summary>
+    /// <param name="a"></param>
+    /// <param name="b"></param>
+    /// <returns></returns>
+    public Vector2 CalculateDirectionX(Vector2 a, Vector2 b)
+    {
+        a.y = 0;
+        b.y = 0; 
+        return b - a;
+    }
 }

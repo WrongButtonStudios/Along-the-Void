@@ -40,9 +40,6 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             case AttackPhases.BackUp:
                 BackUp(); 
                 break;
-            default:
-                Debug.LogError("This isnt a defined Phase...");
-                break; 
         }
     }
 
@@ -54,8 +51,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         if (isJumping == false && _doJump)
         {
             _doJump = false;
-            _movement.RB.gravityScale = 1;
-            _entity.Movement.ZeroVelocity();
+            _movement.SetGravitiyScale(1);
         }
     }
 
@@ -73,12 +69,12 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     private void Charge()
     {
         _isAttacking = true;
-        _finnishedAttacking = false; 
-        Vector2 pos = _entity.transform.position;
-        _chargeDir = (_entity.PlayerPos - pos).normalized;
+        _finnishedAttacking = false;
+
+        _chargeDir = _movement.CalculateDirection(transform.position, _entity.PlayerPos); 
         _movement.Move(_chargeDir); 
         bool isGrounded = _collisionHandler.IsGrounded(); 
-        if ((_entity.PlayerPos - pos).sqrMagnitude <= (4 * 4) && isGrounded && !_doJump)
+        if (_chargeDir.sqrMagnitude <= (4 * 4) && isGrounded && !_doJump)
         {
             _doJump = true;
             _isCoolingDown = false; 
@@ -89,19 +85,16 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
     {
         if (!_collisionHandler.IsGrounded() && !_isCoolingDown)
         {
-            _movement.Move(_chargeDir, _bodyCheckSpeed); 
+            _movement.Move(_chargeDir, _bodyCheckSpeed);
+            return; 
         }
-        else
-        {
-            _entity.Movement.ZeroVelocity();
-            _movement.RB.gravityScale = 1; 
-            _curPhase = AttackPhases.BackUp;
-        }
+        _movement.SetGravitiyScale(1);
+        _curPhase = AttackPhases.BackUp;
     }
 
     private void BackUp()
     {
-        Vector2 backUpDirection = ((Vector2)_entity.transform.position - _entity.PlayerPos);
+        Vector2 backUpDirection = _movement.CalculateDirection(_entity.PlayerPos, transform.position); 
         _movement.Move(backUpDirection); 
         float distanceSqr = backUpDirection.sqrMagnitude;
         if (distanceSqr > (4 * 4))
