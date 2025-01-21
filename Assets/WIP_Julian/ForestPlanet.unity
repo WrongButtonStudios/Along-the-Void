@@ -266,6 +266,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1fde7c49289714f6ca5e3b331857ca2e, type: 3}
+--- !u!4 &591307710 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5018841031971074314, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+  m_PrefabInstance: {fileID: 1137354536}
+  m_PrefabAsset: {fileID: 0}
 --- !u!114 &726447688 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 462708827472336079, guid: 7afbaa06dfec6fb4c9d827e0a140a165, type: 3}
@@ -472,6 +477,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c35dbef6b833e4649bcd0d594aaa15f6, type: 3}
+--- !u!4 &1025601375 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 2764737525817882049, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+  m_PrefabInstance: {fileID: 1137354536}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1130897187
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -826,20 +836,32 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1939671706}
     - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _wayPoints.Array.size
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
       propertyPath: managedReferences[-2]
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
       propertyPath: _huntPatterns.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _wayPoints.Array.data[0]
+      value: 
+      objectReference: {fileID: 591307710}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
+      propertyPath: _wayPoints.Array.data[1]
+      value: 
+      objectReference: {fileID: 1025601375}
+    - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
       propertyPath: _attackPatterns.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
       propertyPath: _patrolPatterns.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 8009040606527744940, guid: 42ddc7ac0323f4a9e9faef26d6a7bb33, type: 3}
       propertyPath: _huntPatterns.Array.data[0]
