@@ -2,9 +2,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
 {
-    private SimpleAI _entity;
+    private BehaviourStateHandler _entity;
     private int _curWayPoint;
     private bool _isOnPoint;
     private List<Vector2> _wayPoints = new List<Vector2>();
@@ -95,7 +96,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         _entity.Movement.Move(moveDir); 
     }
 
-    public void Init(SimpleAI entity)
+    public void Init(BehaviourStateHandler entity)
     {
         _entity = entity;
     }

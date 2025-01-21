@@ -3,9 +3,10 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
 public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 {
-    private SimpleAI _entity;
+    private BehaviourStateHandler _entity;
     private float _fireRangeSQR;
     private GameObject _attackEffect;
     private float _speed = 100f;
@@ -24,11 +25,11 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         Attack
     }
 
-    public void Init(SimpleAI entity)
+    public void Init(BehaviourStateHandler entity)
     {
         _movement = this.GetComponent<EnemyMovement>(); 
         _entity = entity;
-        _fireRangeSQR = (_entity.MaxRange / 2) * (_entity.MaxRange / 2);
+        _fireRangeSQR = (_entity.AttackRange / 2) * (_entity.AttackRange / 2);
     }
     public void Attack()
     {
@@ -45,7 +46,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void Charge()
     {
-        Vector2 direction = new Vector2(_entity.PlayerPos.x, 0) - new Vector2(transform.position.x, 0); //y = 0 so that the opponent does not land on the ground
+        Vector2 direction = new Vector2(_entity.Player.position.x, 0) - new Vector2(transform.position.x, 0); //y = 0 so that the opponent does not land on the ground
 
         if (direction.sqrMagnitude >= _fireRangeSQR)
         {
@@ -59,7 +60,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     //To-Do: Hier drin passiert eindeutig zu viel stuff
     private void Shoot()
     {
-        Vector2 direction = _movement.CalculateDirectionX(transform.position, _entity.PlayerPos); 
+        Vector2 direction = _movement.CalculateDirectionX(transform.position, _entity.Player.position); 
         if (direction.sqrMagnitude <= _fireRangeSQR)
         {
             if (!_isCoolingDown)
@@ -75,7 +76,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
                 {
                     _rb = _attackEffect.AddComponent<Rigidbody2D>();
                 }
-                _startDistanceTargetBullet = (_rb.position - _entity.PlayerPos).magnitude;
+                _startDistanceTargetBullet = (_rb.position - (Vector2)_entity.Player.position).magnitude;
                 _rb.gravityScale = PhysicUttillitys.TimeScale; 
                 FireSlimeBall();
                 _isAttacking = false;
@@ -90,7 +91,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void FireSlimeBall()
     {
-        Vector2 targetPos = _entity.PlayerPos;
+        Vector2 targetPos = _entity.Player.position;
         Vector2 startVelocity = (targetPos - (Vector2)_entity.transform.position + CalculateAimOffset(targetPos - (Vector2)_entity.transform.position)).normalized * _speed ;
         _slimeball = _rb.GetComponent<MoveSlimeball>(); //Slimeball pool will get Adjusted, so that the Class is return insteat of an GameObject. This is just to test, if its work like it is intendet after the rework.
         _slimeball.Instantiate(startVelocity, _startDistanceTargetBullet, _entity, _rb); 

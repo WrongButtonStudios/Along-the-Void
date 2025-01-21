@@ -114,7 +114,7 @@ public class Warmodes : MonoBehaviour
                 _activeTurret = null;
                 break;
             case characterController.playerStates.burntYellow:
-                var enemys = FindObjectsOfType<SimpleAI>();
+                var enemys = FindObjectsOfType<BehaviourStateHandler>();
                 PhysicUttillitys.TimeScale = _normalTimeScale;
                 break;
             default:

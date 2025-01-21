@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyCollisionHandler : MonoBehaviour
 {
 
-    private EnemyStatusEffect _statusEffects;
-    private SimpleAI _enemy;
-    private EnemyHealth _health;
+    private Enemy _entity;
+    private BehaviourStateHandler _enemy;
+    private Health _health;
     private bool _dealDamage = true;
     [SerializeField]
     private bool _isSlimeBall = false;
@@ -19,15 +19,15 @@ public class EnemyCollisionHandler : MonoBehaviour
     {
         if (!_isSlimeBall)
         {
-            _statusEffects = this.GetComponent<EnemyStatusEffect>();
-            _enemy = this.GetComponent<SimpleAI>();
-            _health = this.GetComponent<EnemyHealth>(); 
+            _entity = this.GetComponent<Enemy>();
+            _enemy = this.GetComponent<BehaviourStateHandler>();
+            _health = this.GetComponent<Health>(); 
         }
     }
 
-    public void Init(EnemyStatusEffect status, SimpleAI aI )
+    public void Init(Enemy status, BehaviourStateHandler aI )
     {
-        _statusEffects = status;
+        _entity = status;
         _enemy = aI; 
     }
 
@@ -50,13 +50,13 @@ public class EnemyCollisionHandler : MonoBehaviour
             bool playerusesRedWarmode = warmode.CurWarMode == characterController.playerStates.burntRed && warmode.IsActive; 
             if (playerusesRedWarmode)
             {
-                _statusEffects.BurnEnemy(); 
+                _entity.Debuffs.AddDebuff(Debuffs.Burning, 3.0f); 
             }
         }
 
         if (collision.gameObject.GetComponent<IceBullet>())
         {
-            _statusEffects.FreezeEnemy();
+            _entity.Debuffs.AddDebuff(Debuffs.Frozen, 3.0f);
             _health.GetDamage(0.1f); 
         }
     }
