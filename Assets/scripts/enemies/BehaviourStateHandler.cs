@@ -4,13 +4,7 @@ using UnityEngine.SceneManagement;
 
 public class BehaviourStateHandler : MonoBehaviour
 {
-    public enum Color
-    {
-        Red,
-        Blue,
-        Green,
-        Yellow
-    }
+
 
     [SerializeField] private EnemyStateHandler.State _curState = EnemyStateHandler.State.Patrol;
     [SerializeField] private float _attackRange;
@@ -67,7 +61,7 @@ public class BehaviourStateHandler : MonoBehaviour
         if (this.isActiveAndEnabled == false || _statusEffect.Status == Enemy.Status.Frozen)
             return;
 
-        _curState = EnemyStateHandler.GetState(this, _curState); // 
+        _curState = BehaviourStateMachine.UpdateState(this, _curState); // 
         ExecuteState(); // ist doch nicht physic, warum im fixed update
     }
 
