@@ -6,7 +6,7 @@ public class BehaviourStateMachine : MonoBehaviour
 {
     public static BehaviourState UpdateState(BehaviourStateHandler entity, BehaviourState curState)
     {
-        float distanceSqr = entity.HuntPatterns[0].GetDistanceToTargetSqr(entity.PlayerPos, entity.transform.position);
+        float distanceSqr = entity.HuntPatterns[0].GetDistanceToTargetSqr(entity.Player.position, entity.transform.position);
 
         if(distanceSqr <= (entity.AttackRange * entity.AttackRange)) {
             return BehaviourState.Attack;

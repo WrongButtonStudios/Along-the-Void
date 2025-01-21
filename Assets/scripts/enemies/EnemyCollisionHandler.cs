@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyCollisionHandler : MonoBehaviour
 {
 
-    private Enemy _statusEffects;
+    private Enemy _entity;
     private BehaviourStateHandler _enemy;
     private Health _health;
     private bool _dealDamage = true;
@@ -19,7 +19,7 @@ public class EnemyCollisionHandler : MonoBehaviour
     {
         if (!_isSlimeBall)
         {
-            _statusEffects = this.GetComponent<Enemy>();
+            _entity = this.GetComponent<Enemy>();
             _enemy = this.GetComponent<BehaviourStateHandler>();
             _health = this.GetComponent<Health>(); 
         }
@@ -27,7 +27,7 @@ public class EnemyCollisionHandler : MonoBehaviour
 
     public void Init(Enemy status, BehaviourStateHandler aI )
     {
-        _statusEffects = status;
+        _entity = status;
         _enemy = aI; 
     }
 
@@ -50,13 +50,13 @@ public class EnemyCollisionHandler : MonoBehaviour
             bool playerusesRedWarmode = warmode.CurWarMode == characterController.playerStates.burntRed && warmode.IsActive; 
             if (playerusesRedWarmode)
             {
-                _statusEffects.BurnEnemy(); 
+                _entity.Debuffs.AddDebuff(Debuffs.Burning, 3.0f); 
             }
         }
 
         if (collision.gameObject.GetComponent<IceBullet>())
         {
-            _statusEffects.FreezeEnemy();
+            _entity.Debuffs.AddDebuff(Debuffs.Frozen, 3.0f);
             _health.GetDamage(0.1f); 
         }
     }

@@ -4,9 +4,9 @@ using UnityEngine;
 
 public class DebuffStateHandler : MonoBehaviour
 {
-    void HandleDebuffs(Health health, Debuffs debuffs)
+    public void HandleDebuffs(Health health, Debuffs debuffs)
     {
-        if(debuffs & Debuffs.Burning == Debuffs.Burning)
+        if((debuffs & Debuffs.Burning) == Debuffs.Burning)
         {
             health.GetDamage((3.33f * Time.deltaTime) * PhysicUttillitys.TimeScale);
         }

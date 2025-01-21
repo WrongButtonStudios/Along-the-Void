@@ -11,11 +11,11 @@ public class Enemy : MonoBehaviour
     [SerializeField] private DebuffStateMachine _debuffStateMachine;
 
     public Health Health {get => _health;private set => _health = value;}
-    public DebuffStateHandler Debuffs {get => _debuffStateMachine; private set => _debuffStateMachine = value;}
-    public BehaviorStateMachine Behaviour {get => _behaviour; private set => _behaviour = value;}
+    public DebuffStateMachine Debuffs {get => _debuffStateMachine; private set => _debuffStateMachine = value;}
+    public BehaviourStateMachine Behaviour {get => _behaviourStateMachine; private set => _behaviourStateMachine = value;}
     private void Update()
     {
-        _debuffStateHandler.HandleDebuffs(_health, _debuff);
-        _behaviorStateHandler.HandleState();
+        Debuffs debuffs = _debuffStateMachine.Debuffs;
+        _debuffStateHandler.HandleDebuffs(_health,debuffs);
     }
 }

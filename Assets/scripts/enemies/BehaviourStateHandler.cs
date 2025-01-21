@@ -4,7 +4,14 @@ using UnityEngine.SceneManagement;
 
 public class BehaviourStateHandler : MonoBehaviour
 {
+    enum EnemyType
+    {
+        GroundEnemy,
+        FlyingEnemy
+    }
+
     [SerializeField] private BehaviourState _curState = BehaviourState.Patrol;
+    [SerializeField] private List<EnemyType> _types;
     [SerializeField] private float _attackRange = 2.0f;
     [SerializeField] private float _aggroRange = 7.5f;
     [SerializeField] private Enemy _entity;
@@ -14,8 +21,10 @@ public class BehaviourStateHandler : MonoBehaviour
     [SerializeField] private List<IPatrolComponent> _patrolPatterns = new();
     [SerializeField] private List<IAttackComponent> _attackPatterns = new();
     [SerializeField] private Rigidbody2D _rb;
+    [SerializeField] private Transform _playerTransform;
 
     private sbyte _currentAttackPattern = 0;
+    private sbyte _currentHuntPattern = 0;
     private sbyte _currentPatrolPattern = 0;
     private Scene _scene;
 
@@ -23,6 +32,11 @@ public class BehaviourStateHandler : MonoBehaviour
     public List<IPatrolComponent> PatrolPatterns { get => _patrolPatterns;}
     public List<IAttackComponent> AttackPatterns { get => _attackPatterns;}
 
+    public Transform Player{
+        get {
+            return _playerTransform;
+        }
+    }
     public float StoppingDistance { get { return _stoppingDistance; } }
     public EnemyMovement Movement { get; private set; }
     public float AttackRange { get { return _attackRange; } }
@@ -47,7 +61,7 @@ public class BehaviourStateHandler : MonoBehaviour
 
     void FixedUpdate()
     {
-        if(_entity.Status == Enemy.Status.Frozen) {
+        if(_entity.Debuffs.Debuffs == Debuffs.Frozen) {
             return;
         }
         _curState = BehaviourStateMachine.UpdateState(this, _curState);
@@ -59,13 +73,13 @@ public class BehaviourStateHandler : MonoBehaviour
         switch (_curState)
         {
             case BehaviourState.Patrol:
-                 PatrolPatterns[_selectedPatrolComponent].Patrol();
+                 PatrolPatterns[_currentPatrolPattern].Patrol();
                  break;
             case BehaviourState.Hunt:
-                 HuntPatterns[_selectedPatrolComponent].Hunt();
+                 HuntPatterns[_currentHuntPattern].Hunt(Player.position);
                  break;
             case BehaviourState.Attack:
-                 AttackPatterns[_selectedWeapon].Attack();
+                 AttackPatterns[_currentAttackPattern].Attack();
                  break;
         }
     }

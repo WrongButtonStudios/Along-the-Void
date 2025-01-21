@@ -71,7 +71,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         _isAttacking = true;
         _finnishedAttacking = false;
 
-        _chargeDir = _movement.CalculateDirection(transform.position, _entity.PlayerPos); 
+        _chargeDir = _movement.CalculateDirection(transform.position, _entity.Player.position); 
         _movement.Move(_chargeDir); 
         bool isGrounded = _collisionHandler.IsGrounded(); 
         if (_chargeDir.sqrMagnitude <= (4 * 4) && isGrounded && !_doJump)
@@ -94,7 +94,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void BackUp()
     {
-        Vector2 backUpDirection = _movement.CalculateDirection(_entity.PlayerPos, transform.position); 
+        Vector2 backUpDirection = _movement.CalculateDirection(_entity.Player.position, transform.position); 
         _movement.Move(backUpDirection); 
         float distanceSqr = backUpDirection.sqrMagnitude;
         if (distanceSqr > (4 * 4))

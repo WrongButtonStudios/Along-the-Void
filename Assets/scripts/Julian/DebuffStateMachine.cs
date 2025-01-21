@@ -4,19 +4,15 @@ using UnityEngine;
 
 public class DebuffStateMachine : MonoBehaviour
 {
-    [Flags]
-    public enum Debuffs
-    {
-        None = 0,
-        Frozen = 1 << 0,
-        Burning = 1 << 1,
-        Poisoned = 1 << 2
-    }
     private Debuffs _debuffs = Debuffs.None;
     private Coroutine _burning;
-    private Coroutine _freezing;
-    [SerializeField] private float _burnDuration = 3.0f;
-    [SerializeField] private float _freezeDuration = 3.0f;
+    private Coroutine _frozen;
+    //[SerializeField] private float _burnDuration = 3.0f;
+    //[SerializeField] private float _freezeDuration = 3.0f;
+
+    public Debuffs Debuffs {
+        get => _debuffs;
+    }
 
     private IEnumerator Debuff(Debuffs debuff,float duration) {
         yield return new WaitForSeconds(duration);
@@ -26,7 +22,7 @@ public class DebuffStateMachine : MonoBehaviour
                 _burning = null;
                 break;
             case Debuffs.Frozen:
-                _frozen == null;
+                _frozen = null;
                 break;
             default:
                 break;

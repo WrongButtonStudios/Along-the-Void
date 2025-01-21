@@ -25,7 +25,7 @@ public class MoveSlimeball : MonoBehaviour
     private void Fly()
     {
         _rb.gravityScale = PhysicUttillitys.TimeScale; 
-        float currentDistance = (_entity.PlayerPos - _rb.position).magnitude;
+        float currentDistance = ((Vector2)_entity.Player.position - _rb.position).magnitude;
 
         Vector2 velocity = (_startVel * (currentDistance / _startDistance)) * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
         _rb.velocity += velocity; 
