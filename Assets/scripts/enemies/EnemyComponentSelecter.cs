@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyBehaviourComponentSelecter : MonoBehaviour
 {
-    public static sbyte SelectAttackComponent(SimpleAI entity, sbyte curIndex)
+    public static sbyte SelectAttackComponent(BehaviourStateHandler entity, sbyte curIndex)
     {
         if (entity.AttackComponents[curIndex].FinnishedAttack() == false)
             return curIndex;
@@ -13,7 +13,7 @@ public class EnemyBehaviourComponentSelecter : MonoBehaviour
         return (sbyte)Random.Range(0, entity.AttackComponents.Count - 1);
     }
 
-    public static sbyte SelectMovementComponent(SimpleAI entity, sbyte curIndex)
+    public static sbyte SelectMovementComponent(BehaviourStateHandler entity, sbyte curIndex)
     {
         if (entity.PatrolComponents[curIndex].ReachedDestination() == false)
             return curIndex; 

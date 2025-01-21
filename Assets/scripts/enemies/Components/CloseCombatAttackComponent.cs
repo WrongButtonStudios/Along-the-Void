@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 {
-    private SimpleAI _entity;
+    private BehaviourStateHandler _entity;
     private bool _isCoolingDown = false;
     private float _bodyCheckSpeed;
     private bool _finnishedAttacking;
@@ -60,7 +60,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         return _finnishedAttacking; 
     }
 
-    public void Init(SimpleAI entity)
+    public void Init(BehaviourStateHandler entity)
     {
         _entity = entity;
         _bodyCheckSpeed = _movement.Speed * 13f; 

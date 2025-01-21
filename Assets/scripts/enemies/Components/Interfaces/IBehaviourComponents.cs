@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic; 
 public interface IComponent
 {
-    public void Init(SimpleAI entity); 
+    public void Init(BehaviourStateHandler entity); 
 } 
 public interface IAttackComponent : IComponent 
 {

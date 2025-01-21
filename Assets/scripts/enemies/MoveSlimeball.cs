@@ -8,7 +8,7 @@ public class MoveSlimeball : MonoBehaviour
     private float _maxSpeed = 25f; 
     private Vector2 _startVel;
     private float _startDistance;
-    private SimpleAI _entity;
+    private BehaviourStateHandler _entity;
     private Rigidbody2D _rb;
     private bool _isFired = false;
     
@@ -41,7 +41,7 @@ public class MoveSlimeball : MonoBehaviour
         return _rb.velocity; 
     }
 
-    public void Instantiate(Vector2 startVel, float startDistance, SimpleAI entity, Rigidbody2D rb)
+    public void Instantiate(Vector2 startVel, float startDistance, BehaviourStateHandler entity, Rigidbody2D rb)
     {
         _startVel = startVel;
         _startDistance = startDistance;

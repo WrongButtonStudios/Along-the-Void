@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class FlyingHauntComponent : MonoBehaviour, IHauntingComponent
 {
-    private SimpleAI _entity;
+    private BehaviourStateHandler _entity;
 
     public void Haunt(Vector3 target)
     {
@@ -19,7 +19,7 @@ public class FlyingHauntComponent : MonoBehaviour, IHauntingComponent
         return dist * dist; 
     }
 
-    public void Init(SimpleAI entity)
+    public void Init(BehaviourStateHandler entity)
     {
         _entity = entity; 
     }

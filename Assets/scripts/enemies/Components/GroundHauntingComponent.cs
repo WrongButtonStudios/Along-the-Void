@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class GroundHauntingComponent : MonoBehaviour, IHauntingComponent
 {
-    private SimpleAI _entity;
+    private BehaviourStateHandler _entity;
     
     public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start)
     {
@@ -15,7 +15,7 @@ public class GroundHauntingComponent : MonoBehaviour, IHauntingComponent
         _entity.Movement.Move(dir); 
     }
 
-    public void Init(SimpleAI entity)
+    public void Init(BehaviourStateHandler entity)
     {
         _entity = entity; 
     }

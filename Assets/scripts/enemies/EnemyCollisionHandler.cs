@@ -5,9 +5,9 @@ using UnityEngine;
 public class EnemyCollisionHandler : MonoBehaviour
 {
 
-    private EnemyStatusEffect _statusEffects;
-    private SimpleAI _enemy;
-    private EnemyHealth _health;
+    private Enemy _statusEffects;
+    private BehaviourStateHandler _enemy;
+    private Health _health;
     private bool _dealDamage = true;
     [SerializeField]
     private bool _isSlimeBall = false;
@@ -19,13 +19,13 @@ public class EnemyCollisionHandler : MonoBehaviour
     {
         if (!_isSlimeBall)
         {
-            _statusEffects = this.GetComponent<EnemyStatusEffect>();
-            _enemy = this.GetComponent<SimpleAI>();
-            _health = this.GetComponent<EnemyHealth>(); 
+            _statusEffects = this.GetComponent<Enemy>();
+            _enemy = this.GetComponent<BehaviourStateHandler>();
+            _health = this.GetComponent<Health>(); 
         }
     }
 
-    public void Init(EnemyStatusEffect status, SimpleAI aI )
+    public void Init(Enemy status, BehaviourStateHandler aI )
     {
         _statusEffects = status;
         _enemy = aI; 

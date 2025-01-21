@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
 {
-    private SimpleAI _entity;
+    private BehaviourStateHandler _entity;
     private float _fireRangeSQR;
     private GameObject _attackEffect;
     private float _speed = 100f;
@@ -24,7 +24,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         Attack
     }
 
-    public void Init(SimpleAI entity)
+    public void Init(BehaviourStateHandler entity)
     {
         _movement = this.GetComponent<EnemyMovement>(); 
         _entity = entity;
