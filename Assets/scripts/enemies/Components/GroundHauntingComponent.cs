@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class GroundHauntingComponent : MonoBehaviour, IHauntingComponent
+public class GroundHuntingComponent : MonoBehaviour, IHuntingComponent
 {
     private BehaviourStateHandler _entity;
     
@@ -9,7 +9,7 @@ public class GroundHauntingComponent : MonoBehaviour, IHauntingComponent
         return (dest - start).sqrMagnitude; 
     }
 
-    public void Haunt(Vector3 target)
+    public void Hunt(Vector3 target)
     {
         Vector2 dir = (target - transform.position).normalized;
         _entity.Movement.Move(dir); 

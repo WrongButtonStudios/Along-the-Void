@@ -4,23 +4,23 @@ using UnityEngine;
 
 public class BehaviourStateMachine : MonoBehaviour
 {
-    public static State UpdateState(BehaviourStateHandler entity, State curState)
+    public static BehaviourState UpdateState(BehaviourStateHandler entity, BehaviourState curState)
     {
-        float distanceSqr = entity.HauntingComponents[0].GetDistanceToTargetSqr(entity.PlayerPos, entity.transform.position);
+        float distanceSqr = entity.HuntPatterns[0].GetDistanceToTargetSqr(entity.PlayerPos, entity.transform.position);
 
         if(distanceSqr <= (entity.AttackRange * entity.AttackRange)) {
-            return State.Attack;
+            return BehaviourState.Attack;
         }
 
-        if(curState == State.Attack) {
-            entity.AttackComponents[0].Exit();
+        if(curState == BehaviourState.Attack) {
+            entity.AttackPatterns[0].Exit();
         }
 
         if (distanceSqr <= (entity.ReconizedPlayerRange * entity.ReconizedPlayerRange))
         {
-            return State.Hunt;
+            return BehaviourState.Hunt;
         }
 
-        return State.Patrol;
+        return BehaviourState.Patrol;
     }
 }

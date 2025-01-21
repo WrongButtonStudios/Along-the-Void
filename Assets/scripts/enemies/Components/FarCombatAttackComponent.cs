@@ -28,7 +28,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
     {
         _movement = this.GetComponent<EnemyMovement>(); 
         _entity = entity;
-        _fireRangeSQR = (_entity.MaxRange / 2) * (_entity.MaxRange / 2);
+        _fireRangeSQR = (_entity.AttackRange / 2) * (_entity.AttackRange / 2);
     }
     public void Attack()
     {

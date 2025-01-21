@@ -2,11 +2,11 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class FlyingHauntComponent : MonoBehaviour, IHauntingComponent
+public class FlyingHuntComponent : MonoBehaviour, IHuntingComponent
 {
     private BehaviourStateHandler _entity;
 
-    public void Haunt(Vector3 target)
+    public void Hunt(Vector3 target)
     {
         Vector2 targetPosWithOffset = (Vector2)target + (Vector2.up * 5);
         Vector2 dir = (targetPosWithOffset - (Vector2)transform.position).normalized;

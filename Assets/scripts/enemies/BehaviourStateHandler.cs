@@ -4,34 +4,31 @@ using UnityEngine.SceneManagement;
 
 public class BehaviourStateHandler : MonoBehaviour
 {
-
-
-    [SerializeField] private EnemyStateHandler.State _curState = EnemyStateHandler.State.Patrol;
-    [SerializeField] private float _attackRange;
+    [SerializeField] private BehaviourState _curState = BehaviourState.Patrol;
+    [SerializeField] private float _attackRange = 2.0f;
     [SerializeField] private float _aggroRange = 7.5f;
-    [SerializeField] private Enemy _statusEffect;
+    [SerializeField] private Enemy _entity;
     [SerializeField] private List<Transform> _wayPoints = new();
+    [SerializeField] private float _stoppingDistance = 1.0f;
+    [SerializeField] private List<IHuntingComponent> _huntPatterns = new();
+    [SerializeField] private List<IPatrolComponent> _patrolPatterns = new();
+    [SerializeField] private List<IAttackComponent> _attackPatterns = new();
+    [SerializeField] private Rigidbody2D _rb;
 
-    private float _stoppingDistance = 1; // warum hardgecoded? hängt vom gegner ab
-    private Rigidbody2D _rb; // ja
-    private sbyte _selectedWeapon; //nein. falscher datentyp?
-    private sbyte _selectedPatrolComponent;
-    private Scene _scene; // nicht SOLID, aber ist bekannt (single responsibility)
+    private sbyte _currentAttackPattern = 0;
+    private sbyte _currentPatrolPattern = 0;
+    private Scene _scene;
 
-    //Components kommen als seralized field rein
-    public List<IHauntingComponent> HauntingComponents { get; private set; } = new(); // was genau macht das? name? 
-    public List<IPatrolComponent> PatrolComponents { get; private set; } = new(); // was genau macht das? name? 
-    public List<IAttackComponent> AttackComponents { get; private set; } = new(); // was genau macht das? name? 
+    public List<IHuntingComponent> HuntPatterns { get => _huntPatterns; }
+    public List<IPatrolComponent> PatrolPatterns { get => _patrolPatterns;}
+    public List<IAttackComponent> AttackPatterns { get => _attackPatterns;}
 
     public float StoppingDistance { get { return _stoppingDistance; } }
     public EnemyMovement Movement { get; private set; }
-    public Vector2 PlayerPos { get; private set; } //obsolete => new direction calc. function cast v3 to v2
-    public Color EnemyColor { get { return _enemyColor;  } }
-    public float MaxRange { get { return _attackRange; } }
-    public Enemy StatusEffect { get { return _statusEffect; } }
+    public float AttackRange { get { return _attackRange; } }
+    public Enemy Enemy { get { return _entity; } }
     public Scene Scene { get { return _scene;  } }
     public float ReconizedPlayerRange { get { return _aggroRange; } }
-    public float AttackRange { get { return _attackRange; } }
 
     //this gets removed later
     private void Start()
@@ -42,42 +39,33 @@ public class BehaviourStateHandler : MonoBehaviour
     //I'm not sure if this belongs here. 
     private void Initialize()
     {
-        if (_rb == null) // keine einzeilen anweisungen
-            _rb = this.GetComponent<Rigidbody2D>();
-        Movement = this.GetComponent<EnemyMovement>(); // ne, weil prefab
-        if(_types[0] == EnemyType.GroundEnemy) // keine einzeilen anweisungen
-            _rb.gravityScale = PhysicUttillitys.TimeScale; // mutmaßlich nicht solid. extra component
-        EnemyInitializer.AddPatrolAndHauntComponent(this, _wayPoints, _types); // ne, weil prefab
-        EnemyInitializer.AddAttackComponent(this, _weapons); // ne, weil prefab
+        Movement = this.GetComponent<EnemyMovement>();
+        if(_types[0] == EnemyType.GroundEnemy) {
+            _rb.gravityScale = PhysicUttillitys.TimeScale;
+        }
     }
 
-    //I'm not happy with this. 
     void FixedUpdate()
     {
-        // wird doch gar nicht gecalled dann? (erste fall)
-        // einzeilenanweisung
-        // warum ist frozen kein state?
-        // manche sachen/states könnten im frozen zustand stattfinden
-        if (this.isActiveAndEnabled == false || _statusEffect.Status == Enemy.Status.Frozen)
+        if(_entity.Status == Enemy.Status.Frozen) {
             return;
-
-        _curState = BehaviourStateMachine.UpdateState(this, _curState); // 
-        ExecuteState(); // ist doch nicht physic, warum im fixed update
+        }
+        _curState = BehaviourStateMachine.UpdateState(this, _curState);
+        ExecuteState();
     }
 
-    //klassen trennen
     private void ExecuteState()
     {
         switch (_curState)
         {
-            case EnemyStateHandler.State.Patrol:
-                 PatrolComponents[_selectedPatrolComponent].Patrol();
+            case BehaviourState.Patrol:
+                 PatrolPatterns[_selectedPatrolComponent].Patrol();
                  break;
-            case EnemyStateHandler.State.Hount: // spelling
-                 HauntingComponents[_selectedPatrolComponent].Haunt();
+            case BehaviourState.Hunt:
+                 HuntPatterns[_selectedPatrolComponent].Hunt();
                  break;
-            case EnemyStateHandler.State.Attack:
-                 AttackComponents[_selectedWeapon].Attack();
+            case BehaviourState.Attack:
+                 AttackPatterns[_selectedWeapon].Attack();
                  break;
         }
     }
@@ -87,16 +75,9 @@ public class BehaviourStateHandler : MonoBehaviour
         _scene = scene; 
     }
 
-    //To-Do: Function is obsolete, remove this
-    // ja denke auch
-    public IAttackComponent GetActiveAttackComponent()
-    {
-        return AttackComponents[_selectedWeapon]; 
-    }
-
     public void InitEnemyWaypoints(List<Transform> wps)
     {
-        foreach (IPatrolComponent p in PatrolComponents)
+        foreach (IPatrolComponent p in PatrolPatterns)
         {
             p.SetWayPoints(wps); 
         }

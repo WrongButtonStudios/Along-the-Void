@@ -6,7 +6,7 @@ public class Enemy : MonoBehaviour
 {
     [SerializeField] private Health _health;
     [SerializeField] private BehaviourStateHandler _behaviorStateHandler;
-    [SerializeField] private BehaviorStateMachine _behaviourStateMachine;
+    [SerializeField] private BehaviourStateMachine _behaviourStateMachine;
     [SerializeField] private DebuffStateHandler _debuffStateHandler;
     [SerializeField] private DebuffStateMachine _debuffStateMachine;
 

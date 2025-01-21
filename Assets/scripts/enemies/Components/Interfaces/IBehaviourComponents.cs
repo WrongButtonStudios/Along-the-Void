@@ -34,9 +34,9 @@ public interface IPatrolComponent : IComponent
  
 }
 
-public interface IHauntingComponent : IComponent
+public interface IHuntingComponent : IComponent
 {
-    public void Haunt(Vector3 target);
+    public void Hunt(Vector3 target);
 
     public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start); 
 }
