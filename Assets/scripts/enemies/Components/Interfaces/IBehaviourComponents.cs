@@ -3,7 +3,7 @@ using UnityEngine;
 using System.Collections.Generic; 
 public interface IComponent
 {
-    public void Init(SimpleAI entity); 
+    public void Init(BehaviourStateHandler entity); 
 } 
 public interface IAttackComponent : IComponent 
 {
@@ -34,9 +34,9 @@ public interface IPatrolComponent : IComponent
  
 }
 
-public interface IHauntingComponent : IComponent
+public interface IHuntingComponent : IComponent
 {
-    public void Haunt(Vector3 target);
+    public void Hunt(Vector3 target);
 
     public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start); 
 }

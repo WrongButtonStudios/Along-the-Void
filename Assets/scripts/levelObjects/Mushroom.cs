@@ -1,15 +1,14 @@
 using UnityEngine;
-using System.Collections; 
+using System.Collections;
 public class Mushroom : MonoBehaviour
 {
     [ExecuteAlways]
-    public float JumpForce = 25f;
     [SerializeField] private GameObject player;
+    public float JumpForce = 25f;
     private characterController playerController;
-    private bool _waitForEndOfDelay = false; 
+    private bool _waitForEndOfDelay = false;
     private void Start()
     {
-        playerController = player.GetComponent<characterController>();
         if (player == null)
         {
             player = GameObject.FindGameObjectWithTag("Player");
@@ -19,6 +18,7 @@ public class Mushroom : MonoBehaviour
         {
             Debug.LogError("Player not found! Make sure there is a GameObject tagged as 'Player'.");
         }
+        playerController = player.GetComponent<characterController>();
     }
     private void Update()
     {
@@ -40,14 +40,14 @@ public class Mushroom : MonoBehaviour
             {
                 var rb = other.gameObject.GetComponent<Rigidbody2D>();
                 other.gameObject.GetComponent<Rigidbody2D>().AddForce(transform.up * JumpForce, ForceMode2D.Impulse);
-                StartCoroutine(Delay()); 
+                StartCoroutine(Delay());
             }
         }
     }
 
     public int resolution = 30;
     public float timeStep = 0.2f;
-    public Vector2 playerVel; 
+    public Vector2 playerVel;
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.green;
@@ -89,7 +89,7 @@ public class Mushroom : MonoBehaviour
 
     private IEnumerator Delay()
     {
-        _waitForEndOfDelay = true; 
+        _waitForEndOfDelay = true;
         yield return new WaitForSeconds(0.3f);
         _waitForEndOfDelay = false;
     }

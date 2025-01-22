@@ -306,7 +306,7 @@ public class characterController : MonoBehaviour
         }
     }
 
-    //call this to check player status data outside of this script
+    //call this to check player _status data outside of this script
     public playerStatusData getPlayerStatus()
     {
         return statusData;

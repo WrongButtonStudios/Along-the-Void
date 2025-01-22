@@ -1,21 +1,22 @@
 using UnityEngine;
 
-public class GroundHauntingComponent : MonoBehaviour, IHauntingComponent
+[System.Serializable]
+public class GroundHuntingComponent : MonoBehaviour, IHuntingComponent
 {
-    private SimpleAI _entity;
+    private BehaviourStateHandler _entity;
+    
     public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start)
     {
         return (dest - start).sqrMagnitude; 
     }
 
-    public void Haunt(Vector3 target)
+    public void Hunt(Vector3 target)
     {
         Vector2 dir = (target - transform.position).normalized;
-        Vector2 movementVel = dir.normalized * _entity.Speed * (Time.fixedDeltaTime * _entity.TimeScale);
-        _entity.RB.velocity += movementVel; 
+        _entity.Movement.Move(dir); 
     }
 
-    public void Init(SimpleAI entity)
+    public void Init(BehaviourStateHandler entity)
     {
         _entity = entity; 
     }

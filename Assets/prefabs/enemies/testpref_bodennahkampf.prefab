@@ -75,13 +75,12 @@ GameObject:
   m_Component:
   - component: {fileID: 3569942886240199035}
   - component: {fileID: 2035918803158131146}
-  - component: {fileID: 4272470783516311521}
   - component: {fileID: 1199793457498517285}
   - component: {fileID: 1964232319905261597}
   - component: {fileID: 8099512322385123045}
-  - component: {fileID: 4915336981995736042}
   - component: {fileID: 171346108040121847}
   - component: {fileID: 7918365717552420071}
+  - component: {fileID: 1824478505125234855}
   m_Layer: 3
   m_Name: BodenNahkampfGegner
   m_TagString: Untagged
@@ -156,36 +155,6 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &4272470783516311521
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519794998396204211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 86dd44ee85f1c7241a44c323c3b2aa88, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _types: 00000000
-  _enemyColor: 0
-  _weapons: 00000000
-  _curState: 2
-  _playerPos: {fileID: 0}
-  _speed: 15
-  _attackRange: 5
-  _ignoreLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  _jumpForce: 7
-  _reconizedPlayerRange: 15
-  _attackEffect: {fileID: 3521297393984580208, guid: d083a79c39bc94f23bd2410af0ea2e48, type: 3}
-  _statusEffect: {fileID: 171346108040121847}
-  _wayPoints:
-  - {fileID: 6357296340355227738}
-  - {fileID: 9051867250475147223}
-  _jumpHight: 2.5
 --- !u!50 &1199793457498517285
 Rigidbody2D:
   serializedVersion: 4
@@ -293,20 +262,6 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 2}
   m_EdgeRadius: 0
---- !u!114 &4915336981995736042
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5519794998396204211}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f4988a6217e3c4bd9982b2034a0c8bc6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _health: 10
-  _colorItem: {fileID: 5153027381051683973, guid: d8557764941084010bc525a4bf96f32f, type: 3}
 --- !u!114 &171346108040121847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -319,7 +274,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1149e31d4b254cebb4b39567917f851, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _entity: {fileID: 4272470783516311521}
+  _health: {fileID: 0}
+  _behaviorStateHandler: {fileID: 0}
+  _behaviourStateMachine: {fileID: 0}
+  _debuffStateHandler: {fileID: 0}
+  _debuffStateMachine: {fileID: 0}
 --- !u!114 &7918365717552420071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,6 +292,24 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _isSlimeBall: 0
+  _ignoreLayer:
+    serializedVersion: 2
+    m_Bits: 8
+--- !u!114 &1824478505125234855
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519794998396204211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 44c37729c32d74376aeb9653ddbcc4d5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _jumpForce: 20
+  _speed: 25
+  _maxJumpHight: 1.5
 --- !u!1 &9138353154541795358
 GameObject:
   m_ObjectHideFlags: 0
