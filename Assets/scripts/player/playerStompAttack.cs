@@ -9,7 +9,9 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
 
     [SerializeField] private float downForce = 300f;
     [SerializeField] private float maxSpeed = 150f;
-    [SerializeField] private CharacterMovement _movement; 
+    [SerializeField] private CharacterMovement _movement;
+
+    public bool UseStompAttack { get; private set; }
 
     private bool doStompAttack = false;
 
@@ -28,6 +30,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
         if(doStompAttack)
         {
             _movement.setMaxSpeed(maxSpeed);
+            UseStompAttack = true; 
             characterController.rb.AddForce(Vector2.down * downForce, ForceMode2D.Force);
         }
     }
@@ -50,7 +53,28 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
             doStompAttack = input;
         }
     }
-
+    public void DealDamage()
+    {
+        if (UseStompAttack==false)
+        {
+            return;
+        }
+        Debug.Log("Will damage austeilen"); 
+        UseStompAttack = false;
+        List<Collider2D> colliders = new();
+        ContactFilter2D filter = new();
+        filter.NoFilter();
+        Physics2D.OverlapCircle(transform.position, 2.5f, filter, colliders);
+        foreach (Collider2D col in colliders)
+        {
+            var enemy = col.gameObject.GetComponent<Health>();
+            if (enemy == null)
+            {
+                continue;
+            }
+            enemy.GetDamage(10f);
+        }
+    }
     public void endFeauture()
     {
         doStompAttack = false;

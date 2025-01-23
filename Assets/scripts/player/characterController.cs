@@ -42,7 +42,9 @@ public class characterController : MonoBehaviour
     public playerStatusData StatusData { get { return statusData; } }
 
     private List<IplayerFeature> playerFeatures = new List<IplayerFeature>();
-    public List<IplayerFeature> GetPlayerFeatures { get { return playerFeatures; } } 
+    public List<IplayerFeature> GetPlayerFeatures { get { return playerFeatures; } }
+    private playerStompAttack _stompAttack; 
+    public playerStompAttack Stomp { get { return _stompAttack;  } }
 
     //Dependencys 
     public CharacterMovement Movement { get; private set; }
@@ -58,8 +60,8 @@ public class characterController : MonoBehaviour
     private void Start()
     {
         statusData.isAllowedToMove = true;
-
-        IplayerFeature playerStompAttack = this.AddComponent<playerStompAttack>();
+        _stompAttack = this.AddComponent<playerStompAttack>();
+        IplayerFeature playerStompAttack = _stompAttack; 
         playerFeatures.Add(playerStompAttack);
 
         IplayerFeature playerFlipGravity = this.AddComponent<playerFlipGravity>();

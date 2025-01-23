@@ -72,6 +72,7 @@ public class CollisionHandler : MonoBehaviour
             }
             else
             {
+                _cc.Stomp.DealDamage(); 
                 return hit.distance <= _movement.GroundDistance;
             }
         }
