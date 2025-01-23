@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class MoveSlimeball : MonoBehaviour
 {
-    [SerializeField]
-    private float _maxSpeed = 25f; 
+    [SerializeField] private float _maxSpeed = 70f; 
+    
     private Vector2 _startVel;
     private float _startDistance;
     private BehaviourStateHandler _entity;
@@ -24,11 +24,7 @@ public class MoveSlimeball : MonoBehaviour
 
     private void Fly()
     {
-        _rb.gravityScale = PhysicUttillitys.TimeScale; 
-        float currentDistance = ((Vector2)_entity.Player.position - _rb.position).magnitude;
-
-        Vector2 velocity = (_startVel * (currentDistance / _startDistance)) * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale);
-        _rb.velocity += velocity; 
+        _rb.velocity += _startVel; 
     }
 
 

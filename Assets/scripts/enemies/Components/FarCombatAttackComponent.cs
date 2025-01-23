@@ -9,8 +9,8 @@ public class FarCombatAttackComponent : AttackComponent
     [SerializeField] private BehaviourStateHandler _entity;
     [SerializeField] private EnemyMovement _movement;
     [SerializeField] private Transform _player; 
+    [SerializeField] private float _fireRangeSQR;
 
-    private float _fireRangeSQR;
     private GameObject _attackEffect;
     private float _speed = 100f;
     private float _startDistanceTargetBullet; 
@@ -27,6 +27,11 @@ public class FarCombatAttackComponent : AttackComponent
         Attack
     }
 
+    private void Start()
+    {
+        float attackRangeHalf = _entity.AttackRange / 2;
+        _fireRangeSQR = attackRangeHalf * attackRangeHalf; 
+    }
     public override void Attack()
     {
         switch (_curPhase)
@@ -42,7 +47,7 @@ public class FarCombatAttackComponent : AttackComponent
 
     private void Charge()
     {
-        Vector2 direction = new Vector2(_entity.Player.position.x, 0) - new Vector2(transform.position.x, 0); //y = 0 so that the opponent does not land on the ground
+        Vector2 direction = new Vector2(_player.position.x, 0) - new Vector2(transform.position.x, 0); //y = 0 so that the opponent does not land on the ground
 
         if (direction.sqrMagnitude >= _fireRangeSQR)
         {
@@ -83,8 +88,7 @@ public class FarCombatAttackComponent : AttackComponent
 
     private void FireSlimeBall(Rigidbody2D rb)
     {
-        Vector2 targetPos = _entity.Player.position;
-        Vector2 startVelocity = (targetPos - (Vector2)_entity.transform.position + CalculateAimOffset(targetPos - (Vector2)_entity.transform.position, rb)).normalized * _speed ;
+        Vector2 startVelocity = (_player.position - transform.position).normalized * _speed ;
         _slimeball = rb.GetComponent<MoveSlimeball>(); //Slimeball pool will get Adjusted, so that the Class is return insteat of an GameObject. This is just to test, if its work like it is intendet after the rework.
         _slimeball.Instantiate(startVelocity, _startDistanceTargetBullet, _entity, rb); 
     }

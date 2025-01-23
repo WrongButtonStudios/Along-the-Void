@@ -38,8 +38,7 @@ public class FlyingPatrolComponent : PatrolComponent
     public override void Movement(Vector2 target)
     {
         LookAtTarget();
-        Vector2 moveDirection = (target - (Vector2)_entity.transform.position).normalized;
-        _entity.Movement.Move(moveDirection);
+        _entity.Movement.Move(_movement.CalculateDirectionX((Vector2)_entity.transform.position, target));
     }
 
     public override void Patrol()
