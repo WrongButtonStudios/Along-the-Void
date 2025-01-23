@@ -25,4 +25,17 @@ public class PlayerDamageHandler : MonoBehaviour
         Debug.LogError("fairy for this color does not exist");
         return -1;
     }
+
+    public static float GetHealth(PlayerColor colorRequiered, fairyController fairyController)
+    {
+        for (int i = 0; i < fairyController.fairys.Capacity; ++i)
+        {
+            if ((int)fairyController.fairys[i].color == (int)colorRequiered)
+            {
+                return fairyController.fairys[i].colorAmount;
+            }
+        }
+        Debug.LogError("fairy for this color does not exist");
+        return -1;
+    }
 }
