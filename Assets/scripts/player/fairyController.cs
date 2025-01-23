@@ -19,7 +19,7 @@ public class fairyController : MonoBehaviour
     private Vector3 selectPos;
     private float lastSelectMagnitude;
     private int lastSelectedFairy;
-
+    private bool _input = false; 
     private Vector2 selectInput;
 
     private LineRenderer lineRenderer;
@@ -36,7 +36,9 @@ public class fairyController : MonoBehaviour
 
         selectFairy();
 
-        if(selectedFairy != lastSelectedFairy) {
+        if(_input)
+        {
+            _input = false; 
             debugSetPlayerState();
         }
 
@@ -97,6 +99,7 @@ public class fairyController : MonoBehaviour
             }
 
             if(closestFairyIndex != -1) {
+                _input = true;
                 selectedFairy = closestFairyIndex;
             }
         }
