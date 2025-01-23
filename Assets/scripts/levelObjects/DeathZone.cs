@@ -36,6 +36,7 @@ public class DeathZone : MonoBehaviour
         characterController cc = player.GetComponent<characterController>();
         cc.rb.velocity = Vector2.zero;
         cc.rb.position = respawnPos;
+        fairyController.Instance.spawnFairys();
         BluePlatform.Instance.ResetPosition();
     }
 }
