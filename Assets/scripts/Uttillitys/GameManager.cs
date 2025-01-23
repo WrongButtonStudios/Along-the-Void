@@ -84,7 +84,6 @@ public class GameManager : MonoBehaviour
                 enemyToPlace = EnemyPool.Instance.GetPooledFCGEnemy();
         }
         enemyToPlace.GetComponent<BehaviourStateHandler>().SetScene(_activeScene); 
-        enemyToPlace.GetComponent<BehaviourStateHandler>().InitEnemyWaypoints(spawn.WayPoints);
         enemyToPlace.transform.position = spawn.transform.position;
         Debug.Log(enemyToPlace.transform.position); 
         enemyToPlace.SetActive(true); 

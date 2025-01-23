@@ -4,34 +4,30 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
+public class FarCombatAttackComponent : AttackComponent
 {
-    private BehaviourStateHandler _entity;
+    [SerializeField] private BehaviourStateHandler _entity;
+    [SerializeField] private EnemyMovement _movement;
+    [SerializeField] private Transform _player; 
+
     private float _fireRangeSQR;
     private GameObject _attackEffect;
     private float _speed = 100f;
-    private Rigidbody2D _rb;
     private float _startDistanceTargetBullet; 
     private bool _isCoolingDown = false;
     private bool _finnishedAttacking;
     private bool _isAttacking = false;
+    private MoveSlimeball _slimeball;
 
     private AttackPhases _curPhase = AttackPhases.Charge;
-    private MoveSlimeball _slimeball;
-    private EnemyMovement _movement; 
+
     private enum AttackPhases
     {
         Charge,
         Attack
     }
 
-    public void Init(BehaviourStateHandler entity)
-    {
-        _movement = this.GetComponent<EnemyMovement>(); 
-        _entity = entity;
-        _fireRangeSQR = (_entity.AttackRange / 2) * (_entity.AttackRange / 2);
-    }
-    public void Attack()
+    public override void Attack()
     {
         switch (_curPhase)
         {
@@ -54,7 +50,7 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
             return;
         }
         _curPhase = AttackPhases.Attack;
-        _entity.Movement.ZeroVelocity(); 
+        _movement.ZeroVelocity(); 
     }
 
     //To-Do: Hier drin passiert eindeutig zu viel stuff
@@ -71,14 +67,10 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
                 _attackEffect.SetActive(true);
                 _attackEffect.transform.position = this.transform.position; 
                 Debug.Log("Activated Slimeball: " + _attackEffect.activeInHierarchy);
-                _rb = _attackEffect.GetComponent<Rigidbody2D>();
-                if (_rb == null)
-                {
-                    _rb = _attackEffect.AddComponent<Rigidbody2D>();
-                }
-                _startDistanceTargetBullet = (_rb.position - (Vector2)_entity.Player.position).magnitude;
-                _rb.gravityScale = PhysicUttillitys.TimeScale; 
-                FireSlimeBall();
+                Rigidbody2D rb = _attackEffect.GetComponent<Rigidbody2D>();
+                _startDistanceTargetBullet = (rb.position - (Vector2)_entity.Player.position).magnitude;
+                rb.gravityScale = PhysicUttillitys.TimeScale; 
+                FireSlimeBall(rb);
                 _isAttacking = false;
                 StartCoroutine(CoolDown());
             }
@@ -89,17 +81,17 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         }
     }
 
-    private void FireSlimeBall()
+    private void FireSlimeBall(Rigidbody2D rb)
     {
         Vector2 targetPos = _entity.Player.position;
-        Vector2 startVelocity = (targetPos - (Vector2)_entity.transform.position + CalculateAimOffset(targetPos - (Vector2)_entity.transform.position)).normalized * _speed ;
-        _slimeball = _rb.GetComponent<MoveSlimeball>(); //Slimeball pool will get Adjusted, so that the Class is return insteat of an GameObject. This is just to test, if its work like it is intendet after the rework.
-        _slimeball.Instantiate(startVelocity, _startDistanceTargetBullet, _entity, _rb); 
+        Vector2 startVelocity = (targetPos - (Vector2)_entity.transform.position + CalculateAimOffset(targetPos - (Vector2)_entity.transform.position, rb)).normalized * _speed ;
+        _slimeball = rb.GetComponent<MoveSlimeball>(); //Slimeball pool will get Adjusted, so that the Class is return insteat of an GameObject. This is just to test, if its work like it is intendet after the rework.
+        _slimeball.Instantiate(startVelocity, _startDistanceTargetBullet, _entity, rb); 
     }
 
-    private Vector2 CalculateAimOffset(Vector2 linearDir)
+    private Vector2 CalculateAimOffset(Vector2 linearDir, Rigidbody2D rb)
     {
-        Vector2 gravity = Physics2D.gravity * _rb.gravityScale;
+        Vector2 gravity = Physics2D.gravity * rb.gravityScale;
         float estimateFlyDuration = (linearDir.magnitude / _speed) / PhysicUttillitys.TimeScale; 
         return gravity*-1 * estimateFlyDuration * (Time.fixedDeltaTime * PhysicUttillitys.TimeScale); 
     }
@@ -109,28 +101,27 @@ public class FarCombatAttackComponent : MonoBehaviour, IAttackComponent
         yield return new WaitForSeconds(1.5f);
         _slimeball.Deactivate();
         _attackEffect.gameObject.SetActive(false);
-        _attackEffect = null;
-        _rb = null; 
+        _attackEffect = null; 
         _isCoolingDown = false;
         Debug.Log("Finnished Cooldown " + !_isCoolingDown); 
     }
 
-    public bool FinnishedAttack()
+    public override bool FinnishedAttack()
     {
         return _finnishedAttacking; 
     }
 
-    public void ResetAttackStatus()
+    public override void ResetAttackStatus()
     {
         _finnishedAttacking = false; 
     }
 
-    public bool IsAttacking()
+    public override bool IsAttacking()
     {
         return _isAttacking; 
     }
 
-    public void Exit()
+    public override void Exit()
     {
         _isCoolingDown = false;
         _isAttacking = false;

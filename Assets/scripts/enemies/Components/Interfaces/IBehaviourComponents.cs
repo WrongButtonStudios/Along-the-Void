@@ -1,42 +1,28 @@
 
 using UnityEngine;
-using System.Collections.Generic; 
-public interface IComponent
+
+public abstract class AttackComponent : MonoBehaviour
 {
-    public void Init(BehaviourStateHandler entity); 
-} 
-public interface IAttackComponent : IComponent 
-{
-    public void Attack();
-    public bool FinnishedAttack();
-    public bool IsAttacking(); 
-    public void ResetAttackStatus();
-    public void Exit(); 
+    public abstract void Attack();
+    public abstract bool FinnishedAttack();
+    public abstract bool IsAttacking(); 
+    public abstract void ResetAttackStatus();
+    public abstract void Exit(); 
 }
 
-public interface IPatrolComponent : IComponent
+public abstract class PatrolComponent : MonoBehaviour
 {
-    public void Patrol();
-
-    public void SetUpNewWayPoint();
-
-    public float GetXDirection();
-
-    public void LookAtTarget();
-
-    public int GetNextWayPoint();
-
-    public void Movement(Vector2 target);
-
-    public bool ReachedDestination();
-
-    public void SetWayPoints(List<Transform> wps); 
- 
+    public abstract void Patrol();
+    public abstract void SetUpNewWayPoint();
+    public abstract float GetXDirection();
+    public abstract void LookAtTarget();
+    public abstract int GetNextWayPoint();
+    public abstract void Movement(Vector2 target);
+    public abstract bool ReachedDestination(); 
 }
 
-public interface IHuntingComponent : IComponent
+public abstract class HuntingComponent : MonoBehaviour
 {
-    public void Hunt(Vector3 target);
-
-    public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start); 
+    public abstract void Hunt();
+    public abstract float GetDistanceToTargetSqr(Vector2 dest, Vector2 start); 
 }

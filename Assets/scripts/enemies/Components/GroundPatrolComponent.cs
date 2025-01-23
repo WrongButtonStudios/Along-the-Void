@@ -3,23 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
+public class GroundPatrolComponent : PatrolComponent
 {
-    private BehaviourStateHandler _entity;
+    [SerializeField] private BehaviourStateHandler _entity;
+    [SerializeField] private EnemyCollisionHandler _collsionHandler;
+    [SerializeField] private EnemyMovement _movement;
+    [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
+
     private int _curWayPoint;
     private bool _isOnPoint;
-    private List<Vector2> _wayPoints = new List<Vector2>();
-    private float _maxJumpHight; 
     private bool _doJump = false;
-    private EnemyCollisionHandler _collsionHandler;
-    private EnemyMovement _movement; 
 
-    private void Start()
-    {
-        _collsionHandler = this.GetComponent<EnemyCollisionHandler>();
-    }
-
-    public int GetNextWayPoint()
+    public override int GetNextWayPoint()
     {
         if (_curWayPoint < _wayPoints.Count - 1)
             _curWayPoint++;
@@ -29,9 +24,9 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         return _curWayPoint; 
     }
 
-    public float GetXDirection()
+    public override float GetXDirection()
     {
-        Vector2 dir = _wayPoints[_curWayPoint] - (Vector2)_entity.transform.position;
+        Vector2 dir = _wayPoints[_curWayPoint].position - transform.position;
         return Mathf.Sign(dir.x);
     }
 
@@ -48,7 +43,7 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
         }
     }
 
-    public void LookAtTarget()
+    public override void LookAtTarget()
     {
         Vector3 newScale = transform.localScale;
         newScale.x = -1 * GetXDirection();
@@ -56,62 +51,46 @@ public class GroundPatrolComponent : MonoBehaviour, IPatrolComponent
     }
 
     //To-Do kann wahrscheinlich vereinfacht werden
-    public void Patrol()
+    public override void Patrol()
     {
-        if (_entity.Movement.RB.simulated == false)
-        {
-            _entity.Movement.RB.simulated = true;
-        }
         if (_isOnPoint)
-            SetUpNewWayPoint();
-
-        Vector2 temp = _wayPoints[_curWayPoint];
+        {
+            SetUpNewWayPoint(); 
+        }
+        Vector2 temp = _wayPoints[_curWayPoint].position;
         temp.y = transform.position.y; 
         float distToWayPoint = (temp - (Vector2)_entity.transform.position).sqrMagnitude;
 
+        if (_collsionHandler.CheckForObstacle(GetXDirection()) && _collsionHandler.IsGrounded() && !_doJump)
+        {
+            _entity.Movement.RB.gravityScale = 0;
+            _doJump = true;
+        }
+
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
         {
-            if (_collsionHandler.CheckForObstacle(GetXDirection()) && _collsionHandler.IsGrounded() && !_doJump)
-            {
-                _entity.Movement.RB.gravityScale = 0;
-                _doJump = true; 
-            }
-            Movement(_wayPoints[_curWayPoint]);
+            Movement(_wayPoints[_curWayPoint].position);
         }
         else
-            _isOnPoint = true;
+        {
+            _isOnPoint = true; 
+        }
     }
 
-
-    public void SetUpNewWayPoint()
+    public override void SetUpNewWayPoint()
     {
         _curWayPoint = GetNextWayPoint();
         _isOnPoint = false;
     }
 
-    public void Movement(Vector2 target) 
+    public override void Movement(Vector2 target) 
     {
         LookAtTarget();
-        Vector2 moveDir = (target - (Vector2)_entity.transform.position).normalized;
-        _entity.Movement.Move(moveDir); 
+        _movement.Move(target - (Vector2)_entity.transform.position);
     }
 
-    public void Init(BehaviourStateHandler entity)
-    {
-        _entity = entity;
-    }
-
-    public bool ReachedDestination()
+    public override bool ReachedDestination()
     {
         return _isOnPoint; 
-    }
-
-    public void SetWayPoints(List<Transform> wps)
-    {
-        _wayPoints.Clear();
-        foreach (Transform wp in wps)
-        {
-            _wayPoints.Add(wp.position);
-        }
     }
 }

@@ -3,25 +3,19 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class FlyingHuntComponent : MonoBehaviour, IHuntingComponent
+public class FlyingHuntComponent : HuntingComponent
 {
-    private BehaviourStateHandler _entity;
+    [SerializeField] private EnemyMovement _movement; 
+    [SerializeField] private Transform _player;
 
-    public void Hunt(Vector3 target)
+    public override void Hunt()
     {
-        Vector2 targetPosWithOffset = (Vector2)target + (Vector2.up * 5);
-        Vector2 dir = (targetPosWithOffset - (Vector2)transform.position).normalized;
-        _entity.Movement.Move(dir); 
+        _movement.Move(_movement.CalculateDirectionX(transform.position, _player.position)); //ignore y so that the Enemy doesnt fly onto the ground
     }
 
-    public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start) 
+    public override float GetDistanceToTargetSqr(Vector2 dest, Vector2 start) 
     {
         float dist = dest.x - start.x;
         return dist * dist; 
-    }
-
-    public void Init(BehaviourStateHandler entity)
-    {
-        _entity = entity; 
     }
 }
