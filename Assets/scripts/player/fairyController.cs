@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using static characterController;
 using static fairy;
 
 public class fairyController : MonoBehaviour
@@ -19,8 +20,10 @@ public class fairyController : MonoBehaviour
     private Vector3 selectPos;
     private float lastSelectMagnitude;
     private int lastSelectedFairy;
-    private bool _input = false; 
+    private bool _input = false;
     private Vector2 selectInput;
+
+    public int emptycolors = 0;
 
     private LineRenderer lineRenderer;
 
@@ -36,9 +39,8 @@ public class fairyController : MonoBehaviour
 
         selectFairy();
 
-        if(_input)
-        {
-            _input = false; 
+        if(_input) {
+            _input = false;
             debugSetPlayerState();
         }
 
@@ -46,6 +48,40 @@ public class fairyController : MonoBehaviour
         lastSelectMagnitude = selectInput.magnitude;
         lastFairyCount = fairys.Count;
         copyOfFairyRadius = fairyRadius;
+
+        //if(fairys[selectedFairy].colorAmount <= 0.0f) {
+        //}
+
+    }
+
+    public void SwitchColorBecauseOfEmptyColorThatsWhy() {
+        characterController player = FindObjectOfType<characterController>();
+        switch(player.StatusData.currentState) {
+            case characterController.playerStates.red:
+                player.transitionToState(characterController.playerStates.yellow);
+                break;
+            case characterController.playerStates.burntRed:
+                player.transitionToState(characterController.playerStates.yellow);
+                break;
+            case characterController.playerStates.yellow:
+                player.transitionToState(characterController.playerStates.blue);
+                break;
+            case characterController.playerStates.burntYellow:
+                player.transitionToState(characterController.playerStates.blue);
+                break;
+            case characterController.playerStates.blue:
+                player.transitionToState(characterController.playerStates.green);
+                break;
+            case characterController.playerStates.burntBlue:
+                player.transitionToState(characterController.playerStates.green);
+                break;
+            case characterController.playerStates.green:
+                player.transitionToState(characterController.playerStates.red);
+                break;
+            case characterController.playerStates.burntGreen:
+                player.transitionToState(characterController.playerStates.red);
+                break;
+        }
     }
 
     //for debugging and testing. this isnt how its supposed to be done

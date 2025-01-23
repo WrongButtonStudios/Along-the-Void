@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class fairy : MonoBehaviour
@@ -16,13 +17,17 @@ public class fairy : MonoBehaviour
     public class fairyData
     {
         public fairyColor color;
-        [Range(0, 1)]public float colorAmount;
+        [Range(0,1)] public float colorAmount;
         public GameObject fairyObject;
     }
+
+    private static int amountOfEmptyColors = 0;
 
     public GameObject shape;
     public SpriteRenderer spriteRenderer;
     public SpriteMask spriteMask;
+
+    public bool empty = false;
 
     private fairyController fairyController;
     private float colorAmount;
@@ -34,28 +39,30 @@ public class fairy : MonoBehaviour
     [SerializeField] private Color blueColor;
     [SerializeField] private Color yellowColor;
 
-    private void Start()
-    {
+    private void Start() {
         fairyController = GetComponentInParent<fairyController>();
     }
 
-    private void Update()
-    {
-        if (fairyDataIndex != -1)
-        {
-            if (fairyController.fairys[fairyDataIndex].colorAmount != colorAmount)
-            {
+    private void Update() {
+        if(fairyDataIndex != -1) {
+            if(fairyController.fairys[fairyDataIndex].colorAmount != colorAmount) {
                 colorAmount = fairyController.fairys[fairyDataIndex].colorAmount;
 
                 Vector3 newMaskPosition = spriteMask.transform.localPosition;
-                newMaskPosition.y = Mathf.Lerp(-spriteMask.transform.localScale.x, 0f, colorAmount);
+                newMaskPosition.y = Mathf.Lerp(-spriteMask.transform.localScale.x,0f,colorAmount);
                 spriteMask.transform.localPosition = newMaskPosition;
             }
         }
+        if(colorAmount <= 0.0f && !empty) {
+            fairyController.SwitchColorBecauseOfEmptyColorThatsWhy();
+            if(++amountOfEmptyColors == 4) {
+                DeathZone.Instance.Die();
+            }
+            empty = true;
+        }
     }
 
-    public void setIndex(int index)
-    {
+    public void setIndex(int index) {
         fairyDataIndex = index;
 
         spriteRenderer.sortingLayerName = "fairyMask" + index;
@@ -63,10 +70,8 @@ public class fairy : MonoBehaviour
         spriteMask.backSortingLayerID = SortingLayer.NameToID("fairyMask" + (index - 1));
     }
 
-    public void setColor(fairyColor colorToSet)
-    {
-        switch (colorToSet)
-        {
+    public void setColor(fairyColor colorToSet) {
+        switch(colorToSet) {
             case fairyColor.green:
                 spriteRenderer.color = greenColor;
                 break;
