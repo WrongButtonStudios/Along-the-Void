@@ -38,6 +38,7 @@ public class CharacterMovement : MonoBehaviour
     private characterController _controller;
     [SerializeField]
     private InputController _input;
+    [SerializeField] private CollisionHandler _collision; 
     private float _timeScale = 1f; 
  
 
@@ -50,7 +51,8 @@ public class CharacterMovement : MonoBehaviour
 
     private void Start()
     {
-        maxSpeed = maxMovementSpeed; 
+        maxSpeed = maxMovementSpeed;
+        _collision = this.GetComponent<CollisionHandler>(); 
     }
 
     public void lerpCurrentMaxSpeedToMaxSpeed()
@@ -137,7 +139,7 @@ public class CharacterMovement : MonoBehaviour
 
     public void hoverAboveGround(RaycastHit2D groundHit)
     {
-        if (_controller.StatusData.isGrounded && !_controller.StatusData.isMoving)
+        if (_controller.StatusData.isGrounded && !_controller.StatusData.isMoving && !_collision.OnBluePlattform)
         {
             if (groundHit.distance < maxRideHeight)
             {

@@ -40,7 +40,8 @@ public class BluePlatform : MonoBehaviour
         if(playerController.getPlayerStatus().currentState == characterController.playerStates.blue || playerController.getPlayerStatus().currentState == characterController.playerStates.burntBlue) {
             myCollider.enabled = true;
             Vector2 newPosition = Vector2.MoveTowards(rb.position,waypoints[currentWaypoint],speed * Time.fixedDeltaTime);
-            rb.MovePosition(newPosition);
+            //rb.MovePosition(newPosition);
+            transform.position = (Vector3)newPosition;  
         }
         else {
             myCollider.enabled = false;
