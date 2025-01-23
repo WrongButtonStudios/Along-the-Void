@@ -231,7 +231,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _health: 1
-  _colorItem: {fileID: 0}
+  _colorItem: {fileID: 5153027381051683973, guid: d8557764941084010bc525a4bf96f32f, type: 3}
 --- !u!114 &4951498434556279788
 MonoBehaviour:
   m_ObjectHideFlags: 0
