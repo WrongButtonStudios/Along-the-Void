@@ -9,7 +9,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1346200129493564567}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Waypoint3
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -40,7 +40,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 881073437333671074}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Waypoint1
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -71,7 +71,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7055046214314943716}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: Waypoint2
   m_TagString: Untagged
   m_Icon: {fileID: 6519382022992737161, guid: 0000000000000000d000000000000000, type: 0}
@@ -106,7 +106,7 @@ GameObject:
   - component: {fileID: 308097508587183274}
   - component: {fileID: 6980828547917931172}
   - component: {fileID: 4383111594140519225}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: BluePlatform
   m_TagString: Blue
   m_Icon: {fileID: 0}
