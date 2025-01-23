@@ -74,7 +74,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
     public void triggerFeauture(bool useInput = false, bool input = false)
     {
-        float yellowColorAmount = PlayerDamageHandler.GetDamage(damagePerSecond * Time.fixedDeltaTime, PlayerUttillitys.GetPlayerColor(characterController), _fairyController); 
+        float yellowColorAmount = PlayerDamageHandler.GetDamage(0, PlayerUttillitys.GetPlayerColor(characterController), _fairyController); 
         if (!characterController.getPlayerStatus().isGrounded && !doKamiboost && yellowColorAmount > 0)
         {
             List<Collider2D> colliders = new List<Collider2D>();
