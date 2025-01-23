@@ -57,7 +57,7 @@ public class CollisionHandler : MonoBehaviour
 
     public bool checkGrounded(out RaycastHit2D hit)
     {
-        hit = Physics2D.Raycast(transform.position, -transform.up * 1, Mathf.Infinity, _groundLayer);
+        hit = Physics2D.Raycast(transform.position, -transform.up * _cc.rb.gravityScale, Mathf.Infinity, _groundLayer);
 
         if (hit.collider != null)
         {

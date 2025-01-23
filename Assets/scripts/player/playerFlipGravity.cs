@@ -55,6 +55,7 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
 
         if (colliders.Count > 0)
         {
+            Debug.Log("we are here");
             if (isActive)
             {
                 endFeauture();
