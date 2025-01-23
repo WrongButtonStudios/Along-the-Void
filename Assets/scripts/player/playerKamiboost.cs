@@ -35,6 +35,9 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
         if (doKamiboost)
         {
+
+            characterController.StatusData.isDash = true;
+            characterController.StatusData.isAllowedToMove = false;
             if (_collisionHandler.InYellowFog == false)
             {
                float yellowColorAmount =  PlayerDamageHandler.GetDamage(damagePerSecond * Time.fixedDeltaTime, PlayerUttillitys.GetPlayerColor(characterController), _fairyController);
@@ -119,4 +122,10 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             endFeauture();
         }
     }
+
+    public bool getKamiboostStatus()
+    {
+        return doKamiboost;
+    }
+
 }
