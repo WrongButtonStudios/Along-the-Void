@@ -8,6 +8,7 @@ public class CharacterMovement : MonoBehaviour
 {
 
     private float maxSpeed;
+    private bool isLookingRight = true;
 
     //variable block used for movement
     [SerializeField] private float maxMovementSpeed = 60f;
@@ -32,27 +33,27 @@ public class CharacterMovement : MonoBehaviour
     [SerializeField] private float dashDistance = 10f;
     [SerializeField] private float dashDuration = 0.5f;
     [SerializeField] private float dashMaxSpeed = 100f;
-    
+
     //dependencys 
     [SerializeField]
     private characterController _controller;
     [SerializeField]
     private InputController _input;
-    [SerializeField] private CollisionHandler _collision; 
-    private float _timeScale = 1f; 
- 
+    [SerializeField] private CollisionHandler _collision;
+    private float _timeScale = 1f;
+
 
     //public Getter
     public float MaxRideHight { get { return maxRideHeight; } }
-    public float RideHight { get { return rideHeight;  } }
+    public float RideHight { get { return rideHeight; } }
     public float GroundDistance { get { return groundedDistance; } }
     public float InAirTurnSpeed { get { return inAirTurnSpeed; } }
-    public float DeccendGravityMultiplier { get { return deccendGravityMultiplier;} }
+    public float DeccendGravityMultiplier { get { return deccendGravityMultiplier; } }
 
     private void Start()
     {
         maxSpeed = maxMovementSpeed;
-        _collision = this.GetComponent<CollisionHandler>(); 
+        _collision = this.GetComponent<CollisionHandler>();
     }
 
     public void lerpCurrentMaxSpeedToMaxSpeed()
@@ -63,9 +64,9 @@ public class CharacterMovement : MonoBehaviour
         }
     }
 
-    public float GetMaxSpeed() 
+    public float GetMaxSpeed()
     {
-        return maxSpeed; 
+        return maxSpeed;
     }
 
     public void disableMovement()
@@ -100,8 +101,14 @@ public class CharacterMovement : MonoBehaviour
         forceToAdd = forceToAdd * accelerationFactorFromDot.Evaluate(Vector2.Dot(forceToAdd.normalized, _controller.rb.velocity.normalized));
 
         _controller.rb.AddForce(forceToAdd * _timeScale, ForceMode2D.Force);
+
+        // Flip Sprite basierend auf der Richtung
+        if (_input.MoveInput.x != 0)
+        {
+            FlipSprite(_input.MoveInput.x);
+        }
     }
-    
+
     public void setMaxSpeed(float maxSpeedToSet)
     {
         maxSpeed = maxSpeedToSet;
@@ -111,15 +118,15 @@ public class CharacterMovement : MonoBehaviour
     {
         if (_input.DashInput)
         {
-            foreach(IplayerFeature feature in _controller.GetPlayerFeatures)
+            foreach (IplayerFeature feature in _controller.GetPlayerFeatures)
             {
                 feature.endFeauture();
             }
-            
+
             _controller.StatusData.isDash = true;
             setMaxSpeed(dashMaxSpeed * _timeScale);
-            
-            if(!_controller.StatusData.wasDash)
+
+            if (!_controller.StatusData.wasDash)
             {
                 StartCoroutine(dashAddBoost());
             }
@@ -129,11 +136,11 @@ public class CharacterMovement : MonoBehaviour
     public IEnumerator dashAddBoost()
     {
         _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0);
-        
+
         Vector2 dashVelocity = (_input.MoveInput * dashDistance) / dashDuration;
-        
+
         yield return new WaitForFixedUpdate();
-        
+
         _controller.rb.velocity = dashVelocity;
     }
 
@@ -176,6 +183,19 @@ public class CharacterMovement : MonoBehaviour
 
     public void SetTimeScaleFacotor(float val)
     {
-        _timeScale = val; 
+        _timeScale = val;
+    }
+
+    private void FlipSprite(float direction)
+    {
+        Vector3 scale = transform.localScale;
+        scale.x = direction > 0 ? Mathf.Abs(scale.x) : -Mathf.Abs(scale.x);
+        transform.localScale = scale;
+        isLookingRight = direction > 0;
+    }
+
+    public bool GetCharacterLookingDirection()
+    {
+        return isLookingRight;
     }
 }
