@@ -15,22 +15,22 @@ public class BehaviourStateHandler : MonoBehaviour
     [SerializeField] private float _attackRange = 2.0f;
     [SerializeField] private float _aggroRange = 7.5f;
     [SerializeField] private Enemy _entity;
-    [SerializeField] private List<Transform> _wayPoints = new();
     [SerializeField] private float _stoppingDistance = 1.0f;
     [SerializeField] private Rigidbody2D _rb;
     [SerializeField] private Transform _playerTransform;
+    [SerializeField] private List<HuntingComponent> _huntPatterns = new();
+    [SerializeField] private List<PatrolComponent> _patrolPatterns = new();
+    [SerializeField] private List<AttackComponent> _attackPatterns = new();
+    [SerializeField] private EnemyMovement _movement;
 
-    private List<IHuntingComponent> _huntPatterns = new();
-    private List<IPatrolComponent> _patrolPatterns = new();
-    private List<IAttackComponent> _attackPatterns = new();
     private sbyte _currentAttackPattern = 0;
     private sbyte _currentHuntPattern = 0;
     private sbyte _currentPatrolPattern = 0;
     private Scene _scene;
 
-    public List<IHuntingComponent> HuntPatterns { get => _huntPatterns; }
-    public List<IPatrolComponent> PatrolPatterns { get => _patrolPatterns;}
-    public List<IAttackComponent> AttackPatterns { get => _attackPatterns;}
+    public List<HuntingComponent> HuntPatterns { get => _huntPatterns; }
+    public List<PatrolComponent> PatrolPatterns { get => _patrolPatterns;}
+    public List<AttackComponent> AttackPatterns { get => _attackPatterns;}
 
     public Transform Player{
         get {
@@ -38,47 +38,25 @@ public class BehaviourStateHandler : MonoBehaviour
         }
     }
     public float StoppingDistance { get { return _stoppingDistance; } }
-    public EnemyMovement Movement { get; private set; }
+    public EnemyMovement Movement { get { return _movement;  } }
     public float AttackRange { get { return _attackRange; } }
     public Enemy Enemy { get { return _entity; } }
     public Scene Scene { get { return _scene;  } }
     public float ReconizedPlayerRange { get { return _aggroRange; } }
 
-
-    private void Awake() {
-        var FlyingHunting = gameObject.AddComponent<FlyingHuntComponent>();
-        FlyingHunting.Init(this);
-        _huntPatterns.Add(FlyingHunting);
-
-        var FlyingPatrol = gameObject.AddComponent<FlyingPatrolComponent>();
-        FlyingPatrol.Init(this);
-        FlyingPatrol.SetWayPoints(_wayPoints);
-        _patrolPatterns.Add(FlyingPatrol);
-
-        var FarCombat = gameObject.AddComponent<FarCombatAttackComponent>();
-        FarCombat.Init(this);
-        _attackPatterns.Add(FarCombat);
-    }
-
-
     //this gets removed later
     private void Start()
     {
-        Initialize();
-    }
-
-    //I'm not sure if this belongs here. 
-    private void Initialize()
-    {
-        Movement = this.GetComponent<EnemyMovement>();
-        if(_types[0] == EnemyType.GroundEnemy) {
+        if (_types[0] == EnemyType.GroundEnemy)
+        {
             _rb.gravityScale = PhysicUttillitys.TimeScale;
         }
     }
 
     void FixedUpdate()
     {
-        if(_entity.Debuffs.Debuffs == Debuffs.Frozen) {
+        if(_entity.Debuffs.Debuffs == Debuffs.Frozen)
+        {
             return;
         }
         _curState = BehaviourStateMachine.UpdateState(this, _curState);
@@ -93,7 +71,7 @@ public class BehaviourStateHandler : MonoBehaviour
                  PatrolPatterns[_currentPatrolPattern].Patrol();
                  break;
             case BehaviourState.Hunt:
-                 HuntPatterns[_currentHuntPattern].Hunt(Player.position);
+                 HuntPatterns[_currentHuntPattern].Hunt();
                  break;
             case BehaviourState.Attack:
                  AttackPatterns[_currentAttackPattern].Attack();
@@ -104,13 +82,5 @@ public class BehaviourStateHandler : MonoBehaviour
     public void SetScene(Scene scene)
     {
         _scene = scene; 
-    }
-
-    public void InitEnemyWaypoints(List<Transform> wps)
-    {
-        foreach (IPatrolComponent p in PatrolPatterns)
-        {
-            p.SetWayPoints(wps); 
-        }
     }
 }

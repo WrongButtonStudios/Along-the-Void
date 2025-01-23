@@ -1,17 +1,18 @@
 using UnityEngine;
 
 [System.Serializable]
-public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
+public class CloseCombatAttackComponent : AttackComponent
 {
-    private BehaviourStateHandler _entity;
+    [SerializeField] private BehaviourStateHandler _entity;
+    [SerializeField] private EnemyMovement _movement;
+    [SerializeField] private EnemyCollisionHandler _collisionHandler;
+
     private bool _isCoolingDown = false;
     private float _bodyCheckSpeed;
     private bool _finnishedAttacking;
     private bool _isAttacking;
     private Vector2 _chargeDir;
     private AttackPhases _curPhase = AttackPhases.Charge;
-    private EnemyMovement _movement;
-    private EnemyCollisionHandler _collisionHandler; 
 
     private bool _doJump; 
 
@@ -22,13 +23,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         BackUp
     }
 
-    private void Start()
-    {
-        _movement = this.GetComponent<EnemyMovement>();
-        _collisionHandler = GetComponent<EnemyCollisionHandler>();
-    }
-
-    public void Attack()
+    public override void Attack()
     {
         switch (_curPhase)
         {
@@ -56,15 +51,9 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         }
     }
 
-    public bool FinnishedAttack()
+    public override bool FinnishedAttack()
     {
         return _finnishedAttacking; 
-    }
-
-    public void Init(BehaviourStateHandler entity)
-    {
-        _entity = entity;
-        _bodyCheckSpeed = _movement.Speed * 13f; 
     }
 
     private void Charge()
@@ -107,17 +96,17 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         }
     }
 
-    public void ResetAttackStatus()
+    public override void ResetAttackStatus()
     {
         _finnishedAttacking = false; 
     }
 
-    public bool IsAttacking()
+    public override bool IsAttacking()
     {
         return _isAttacking; 
     }
 
-    public void Exit()
+    public override void Exit()
     {
         _doJump = false; 
     }
