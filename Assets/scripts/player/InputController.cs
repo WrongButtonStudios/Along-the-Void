@@ -11,7 +11,7 @@ public class InputController : MonoBehaviour
     private bool lastDashInput;
     private bool triggerPlayerFeatureInput;
     private characterController _cc;
-    private playerKamiboost _kBR;
+    public playerKamiboost _kBR;
     private Warmodes _warmode; 
     
     //public gettter 
@@ -24,7 +24,7 @@ public class InputController : MonoBehaviour
     {
         _cc = this.GetComponent<characterController>();
         _warmode = this.GetComponent<Warmodes>(); 
-        _kBR = this.GetComponent<playerKamiboost>();
+        _kBR = this.GetComponent<playerKamiboost>(); 
     }
     
     public void getMoveInput(InputAction.CallbackContext context)
@@ -35,6 +35,11 @@ public class InputController : MonoBehaviour
 
     public void getDashInput(InputAction.CallbackContext context)
     {
+        if (_kBR == null)
+        {
+            _kBR = this.GetComponent<playerKamiboost>();
+        }
+
         if (context.performed && _kBR.getKamiboostStatus() == false)
         {
             dashInput = true;
@@ -48,6 +53,9 @@ public class InputController : MonoBehaviour
 
     public void getTriggerPlayerFeatureInput(InputAction.CallbackContext context)
     {
+
+        
+
         if (context.performed)
         {
             triggerPlayerFeatureInput = true;
