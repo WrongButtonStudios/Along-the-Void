@@ -23,6 +23,8 @@ public class fairyController : MonoBehaviour
     private bool _input = false;
     private Vector2 selectInput;
 
+    public int emptycolors = 0;
+
     private LineRenderer lineRenderer;
 
     private void Awake() {

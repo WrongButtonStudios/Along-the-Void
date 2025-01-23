@@ -21,6 +21,8 @@ public class fairy : MonoBehaviour
         public GameObject fairyObject;
     }
 
+    private static int amountOfEmptyColors = 0;
+
     public GameObject shape;
     public SpriteRenderer spriteRenderer;
     public SpriteMask spriteMask;
@@ -53,6 +55,9 @@ public class fairy : MonoBehaviour
         }
         if(colorAmount <= 0.0f && !empty) {
             fairyController.SwitchColorBecauseOfEmptyColorThatsWhy();
+            if(++amountOfEmptyColors == 4) {
+                DeathZone.Instance.Die();
+            }
             empty = true;
         }
     }

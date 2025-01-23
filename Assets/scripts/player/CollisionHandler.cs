@@ -18,9 +18,10 @@ public class CollisionHandler : MonoBehaviour
     private LayerMask _yellowFogLayer; 
     private BluePlatform _plattform;
     private bool _inYellowFog;
-    private byte _yellowFoglayerAsByte; 
-
+    private byte _yellowFoglayerAsByte;
+    private Transform _parent; 
     public bool InYellowFog { get { return _inYellowFog; } }
+    public bool OnBluePlattform { get { return _isOnPlattform; }  }
 
     private void Start()
     {
@@ -30,12 +31,6 @@ public class CollisionHandler : MonoBehaviour
         _warmode = this.GetComponent<Warmodes>();
         _yellowFogLayer = LayerMask.NameToLayer("yellowDustArea");
         _yellowFoglayerAsByte = (byte)_yellowFogLayer;
-    }
-
-    private void FixedUpdate()
-    {
-        if (_isOnPlattform)
-            transform.position += (Vector3)_plattform.GetDeltaPosition();
     }
 
     public RaycastHit2D doGroundedCheck()
@@ -62,7 +57,7 @@ public class CollisionHandler : MonoBehaviour
 
     public bool checkGrounded(out RaycastHit2D hit)
     {
-        hit = Physics2D.Raycast(transform.position, -transform.up * _cc.rb.gravityScale, Mathf.Infinity, _groundLayer);
+        hit = Physics2D.Raycast(transform.position, -transform.up * 1, Mathf.Infinity, _groundLayer);
 
         if (hit.collider != null)
         {
@@ -72,6 +67,7 @@ public class CollisionHandler : MonoBehaviour
             }
             else
             {
+                _cc.Stomp.DealDamage(); 
                 return hit.distance <= _movement.GroundDistance;
             }
         }
@@ -103,10 +99,14 @@ public class CollisionHandler : MonoBehaviour
             Destroy(collision.gameObject); 
         }
 
-        if (stayOnPlattform)
+        if (stayOnPlattform && !_isOnPlattform)
         {
             _isOnPlattform = true;
             _cc.rb.velocity = new Vector2(0, 0);
+            _parent = transform.parent;
+            _cc.rb.gravityScale = 0; 
+            this.transform.parent = _plattform.transform;
+            Debug.Log(this.transform.parent.name); 
         }
 
         if ((byte)collision.gameObject.layer == _yellowFoglayerAsByte)
@@ -125,7 +125,9 @@ public class CollisionHandler : MonoBehaviour
         if (_isOnPlattform)
         {
             _isOnPlattform = false; 
-            _plattform = null; 
+            _plattform = null;
+            _cc.rb.gravityScale = 1;
+            transform.parent = _parent; 
         }
 
         if (collision.gameObject.layer == _yellowFogLayer)
