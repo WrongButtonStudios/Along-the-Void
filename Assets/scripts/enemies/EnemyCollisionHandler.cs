@@ -1,7 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine; 
 public class EnemyCollisionHandler : MonoBehaviour
 {
     [SerializeField] private bool _isSlimeBall = false;
@@ -12,8 +12,8 @@ public class EnemyCollisionHandler : MonoBehaviour
     private BehaviourStateHandler _enemy;
     private Health _health;
     private bool _dealDamage = true;
-    private Rigidbody2D _rb; 
-
+    private Rigidbody2D _rb;
+    private CinemachineImpulseSource _impulse;  
 
     private void Start()
     {
@@ -23,7 +23,8 @@ public class EnemyCollisionHandler : MonoBehaviour
             _enemy = this.GetComponent<BehaviourStateHandler>();
             _health = this.GetComponent<Health>(); 
         }
-        _rb = this.GetComponent<Rigidbody2D>(); 
+        _rb = this.GetComponent<Rigidbody2D>();
+        _impulse = this.GetComponent <CinemachineImpulseSource>();
     }
 
     public void Init(Enemy status, BehaviourStateHandler aI )
@@ -41,7 +42,8 @@ public class EnemyCollisionHandler : MonoBehaviour
             if (player != null)
             {
                 PlayerDamageHandler.GetDamage(0.35f, PlayerUttillitys.GetPlayerColor(player), FindAnyObjectByType<fairyController>()); //this is not final, because with that multiplayer wouldnt work!
-                player.rb.AddForce(transform.right * (_playerPushBackForce * PhysicUttillitys.GetDirectionMofifyer(transform.position, player.transform.position)), ForceMode2D.Impulse); 
+                player.rb.AddForce(transform.right * (_playerPushBackForce * PhysicUttillitys.GetDirectionMofifyer(transform.position, player.transform.position)), ForceMode2D.Impulse);
+                _impulse.GenerateImpulse(5); 
                 StartCoroutine(DamageCooldown(0.25f)); 
             }
         }
