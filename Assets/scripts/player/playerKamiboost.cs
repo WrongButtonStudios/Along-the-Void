@@ -16,7 +16,8 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     private bool doKamiboost = false;
     private Vector2 _dir; 
     public LayerMask layerMask;
-    
+    private GameObject kamiBoostParticelEffect;
+
 
 
 
@@ -28,13 +29,16 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         contactFilter.useTriggers = true;
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = layerMask;
+        kamiBoostParticelEffect = transform.Find("KamiBoost").gameObject;
+        kamiBoostParticelEffect.SetActive(false);
+
     }
 
     public void FixedUpdate()
     {
         if (doKamiboost)
         {
-            characterController.StatusData.isDash = true;
+            
             characterController.StatusData.isAllowedToMove = false;
 
             if (_collisionHandler.InYellowFog == false)
@@ -81,6 +85,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         float yellowColorAmount = PlayerDamageHandler.GetHealth(PlayerUttillitys.GetPlayerColor(characterController), _fairyController);
         if (!characterController.getPlayerStatus().isGrounded && !doKamiboost && yellowColorAmount > 0)
         {
+
             List<Collider2D> colliders = new List<Collider2D>();
             characterController.rb.OverlapCollider(contactFilter, colliders);
 
@@ -89,9 +94,9 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             Debug.Log("doKamiboost = " + doKamiboost);
 
             // Flip Sprite basierend auf Blickrichtung
-            bool isLookingRight = characterMovement.GetCharacterLookingDirection();
-            
+            //bool isLookingRight = characterMovement.GetCharacterLookingDirection();
 
+            kamiBoostParticelEffect.SetActive(true);
             if (input == false)
             {
                 endFeauture();
@@ -104,6 +109,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         characterController.rb.gravityScale = 1;
         characterMovement.enableMovement();
         doKamiboost = false;
+        kamiBoostParticelEffect.SetActive(false);
     }
 
     public void OnTriggerExit2D(Collider2D collider)
