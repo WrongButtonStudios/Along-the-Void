@@ -17,6 +17,8 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     private Vector2 _dir; 
     public LayerMask layerMask;
     private GameObject kamiBoostParticelEffect;
+    private ParticleSystem particleEffect;
+
 
 
 
@@ -31,6 +33,11 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         contactFilter.layerMask = layerMask;
         kamiBoostParticelEffect = transform.Find("KamiBoost").gameObject;
         kamiBoostParticelEffect.SetActive(false);
+        // Existierende Logik...
+        particleEffect = kamiBoostParticelEffect.transform.Find("Flare").GetComponent<ParticleSystem>();
+
+        var main = particleEffect.main;
+        
 
     }
 
@@ -94,7 +101,8 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             Debug.Log("doKamiboost = " + doKamiboost);
 
             // Flip Sprite basierend auf Blickrichtung
-            //bool isLookingRight = characterMovement.GetCharacterLookingDirection();
+            bool isLookingRight = characterMovement.GetCharacterLookingDirection();
+
 
             kamiBoostParticelEffect.SetActive(true);
             if (input == false)
@@ -124,5 +132,4 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     {
         return doKamiboost;
     }
-
 }
