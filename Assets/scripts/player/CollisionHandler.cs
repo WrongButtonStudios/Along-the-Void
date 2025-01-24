@@ -7,15 +7,14 @@ using UnityEngine.SceneManagement;
 
 public class CollisionHandler : MonoBehaviour
 {
+    [SerializeField] private LayerMask _groundLayer;
+    [SerializeField] private LayerMask _yellowFogLayer;
+
     private fairyController _fairyController = null;
     private characterController _cc; 
     private CharacterMovement _movement;
     private Warmodes _warmode;
     private bool _isOnPlattform = false; 
-    [SerializeField]
-    private LayerMask _groundLayer;
-    [SerializeField]
-    private LayerMask _yellowFogLayer; 
     private BluePlatform _plattform;
     private bool _inYellowFog;
     private byte _yellowFoglayerAsByte;

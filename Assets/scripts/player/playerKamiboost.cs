@@ -103,7 +103,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             // Flip Sprite basierend auf Blickrichtung
             bool isLookingRight = characterMovement.GetCharacterLookingDirection();
 
-
+            CameraShake.Instance.ShakeCamera(2.5f); 
             kamiBoostParticelEffect.SetActive(true);
             if (input == false)
             {
