@@ -5,6 +5,7 @@ using UnityEngine;
 public class ColorDrop : MonoBehaviour
 {
     private fairyController _fairyController;
+    private bool _allreadyUsed = false;
     private void Awake()
     {
         _fairyController = FindObjectOfType<fairyController>();
@@ -14,29 +15,28 @@ public class ColorDrop : MonoBehaviour
 
     public void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && !_allreadyUsed)
         {
+            _allreadyUsed = true; 
             HealLowestFairy(); 
         }
     }
     private void HealLowestFairy()
     {
+        int fairyIndexToHeal = 0;
         int i = 0; 
         float lowestHP = float.MaxValue;
-        fairy.fairyData fairyToHeal = new fairy.fairyData(); 
         foreach (fairy.fairyData hp in _fairyController.fairys)
         {
-            if (lowestHP < hp.colorAmount)
+            if (lowestHP > hp.colorAmount)
             {
-                Debug.Log("Bin raus " + i); 
-                continue;
+                fairyIndexToHeal = i; 
+                lowestHP = hp.colorAmount;
             }
-            i++; 
-            lowestHP = hp.colorAmount; 
+            i++;
         }
 
-        _fairyController.fairys[i].colorAmount = 1f;
-        Debug.Log("Habe Fairy: " + _fairyController.fairys[i].color + "Aufgefüllt"); 
+        _fairyController.fairys[fairyIndexToHeal].colorAmount = 1f;
         Destroy(this.gameObject); 
     }
 }
