@@ -24,7 +24,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
     {
         if(characterController.getPlayerStatus().isGrounded)
         {
-            endFeauture();
+            endFeature();
         }
 
         if(doStompAttack)
@@ -35,12 +35,12 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
         }
     }
 
-    public void initFeauture(characterController characterController)
+    public void initFeature(characterController characterController)
     {
         this.characterController = characterController;
     }
 
-    public void triggerFeauture(bool useInput = false, bool input = false)
+    public void triggerFeature(bool useInput = false, bool input = false)
     {
         if(!useInput)
         {
@@ -75,7 +75,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
             enemy.GetDamage(10f);
         }
     }
-    public void endFeauture()
+    public void endFeature()
     {
         doStompAttack = false;
     }

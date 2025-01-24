@@ -79,7 +79,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
 
         if(currentPosOnLine > 1)
         {
-            endFeauture();
+            endFeature();
 
             yield return new WaitForFixedUpdate();
 
@@ -88,7 +88,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
 
         if(currentPosOnLine < 0)
         {
-            endFeauture();
+            endFeature();
 
             yield return new WaitForFixedUpdate();
 
@@ -96,12 +96,12 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
         }
     }
 
-    public void initFeauture(characterController characterController)
+    public void initFeature(characterController characterController)
     {
         this.characterController = characterController;
     }
 
-    public void triggerFeauture(bool useInput = false, bool input = false)
+    public void triggerFeature(bool useInput = false, bool input = false)
     {
         List<Collider2D> colliders = new List<Collider2D>();
 
@@ -129,12 +129,12 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
             }
             else
             {
-                endFeauture();
+                endFeature();
             }
         }
     }
 
-    public void endFeauture()
+    public void endFeature()
     {
         currentBlueSlime = null;
         currentClimbVelocity = 0f;
@@ -145,7 +145,7 @@ public class playerClimbWall : MonoBehaviour, IplayerFeature
     {
         if(LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
         {
-            endFeauture();
+            endFeature();
         }
     }
 

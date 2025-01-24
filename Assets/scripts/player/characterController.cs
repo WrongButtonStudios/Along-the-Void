@@ -75,7 +75,7 @@ public class characterController : MonoBehaviour
 
         foreach (IplayerFeature iplayerFeature in playerFeatures)
         {
-            iplayerFeature.initFeauture(this);
+            iplayerFeature.initFeature(this);
         }
 
         //load in Dependencys
@@ -115,7 +115,7 @@ public class characterController : MonoBehaviour
             case playerStates.green:
                 RaycastHit2D groundHit = Collision.doGroundedCheck();
         
-                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().triggerFeature(true, Input.TriggerPlayerFeatureInput);
         
                 Movement.dash();
                 Movement.baseMovement();
@@ -127,7 +127,7 @@ public class characterController : MonoBehaviour
 
                 if (Input.TriggerPlayerFeatureInput)
                 {
-                    playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().triggerFeauture();
+                    playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().triggerFeature();
 
                     Input.ResetTriggerPlayerFeature();
                 }
@@ -142,7 +142,7 @@ public class characterController : MonoBehaviour
 
                 if (Input.TriggerPlayerFeatureInput)
                 {
-                    playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeauture();
+                    playerFeatures.OfType<playerClimbWall>().FirstOrDefault().triggerFeature();
 
                     Input.ResetTriggerPlayerFeature();
 
@@ -160,7 +160,7 @@ public class characterController : MonoBehaviour
 
                 if (Input.TriggerPlayerFeatureInput)
                 {
-                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeauture(true, Input.TriggerPlayerFeatureInput);
+                    playerFeatures.OfType<playerKamiboost>().FirstOrDefault().triggerFeature(true, Input.TriggerPlayerFeatureInput);
                     //Input.ResetTriggerPlayerFeature();
                 }
 
@@ -206,19 +206,19 @@ public class characterController : MonoBehaviour
                 break;
 
             case playerStates.green:
-                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().endFeauture();
+                playerFeatures.OfType<playerStompAttack>().FirstOrDefault().endFeature();
                 break;
 
             case playerStates.red:
-                playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().endFeauture();
+                playerFeatures.OfType<playerFlipGravity>().FirstOrDefault().endFeature();
                 break;
 
             case playerStates.blue:
-                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeauture();
+                playerFeatures.OfType<playerClimbWall>().FirstOrDefault().endFeature();
                 break;
 
             case playerStates.yellow:
-                playerFeatures.OfType<playerKamiboost>().FirstOrDefault().endFeauture();
+                playerFeatures.OfType<playerKamiboost>().FirstOrDefault().endFeature();
                 break;
 
             case playerStates.burntGreen:
