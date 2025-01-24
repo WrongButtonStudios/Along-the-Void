@@ -65,7 +65,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
         List<Collider2D> colliders = new();
         ContactFilter2D filter = new();
         filter.NoFilter();
-        Physics2D.OverlapCircle(transform.position, 2.5f, filter, colliders);
+        Physics2D.OverlapCircle(transform.position, 5f, filter, colliders);
         foreach (Collider2D col in colliders)
         {
             var enemy = col.gameObject.GetComponent<Health>();
