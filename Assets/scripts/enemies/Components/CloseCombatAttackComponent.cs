@@ -42,18 +42,19 @@ public class CloseCombatAttackComponent : AttackComponent
 
     private void FixedUpdate()
     {
-        bool isJumping = false;
-        if (_doJump) 
+        if (!_doJump)
         {
-            _movement.ZeroVelocityX(); 
-            isJumping = _movement.Jump();
-
-            if (isJumping == false && _doJump)
-            {
-                _doJump = false;
-                _movement.SetGravitiyScale(1);
-                _curPhase = AttackPhases.Attack; 
-            }
+            return;
+        }
+        bool isJumping = false;
+        isJumping = _movement.Jump();
+        Debug.Log("Jumping..."); 
+        if (isJumping == false && _doJump)
+        {
+            _doJump = false;
+            _movement.SetGravitiyScale(1);
+            _curPhase = AttackPhases.Attack;
+            Debug.Log("finnished jumping..."); 
         }
     }
 
@@ -69,12 +70,13 @@ public class CloseCombatAttackComponent : AttackComponent
 
         _chargeDir = _movement.CalculateDirection(transform.position, _player.position); 
         _movement.Move(_chargeDir); 
-        bool isGrounded = _collisionHandler.IsGrounded(1.5f); 
-        if (_chargeDir.sqrMagnitude <= (2.5f * 2.5f) && isGrounded && !_doJump)
+        if (_chargeDir.sqrMagnitude <= (5f * 5f) && _collisionHandler.IsGrounded() && !_doJump)
         {
-            _movement.CalculateMaxJumpHight(); 
-            _doJump = true;
+            _movement.CalculateMaxJumpHight();
+            _movement.SetGravitiyScale(0); 
             _isCoolingDown = false; 
+            _doJump = true;
+            Debug.Log("I should jump now..."); 
         }
     } 
 
@@ -85,7 +87,6 @@ public class CloseCombatAttackComponent : AttackComponent
             _movement.Move(_chargeDir, _bodyCheckSpeed);
             return; 
         }
-        _movement.SetGravitiyScale(1);
         _curPhase = AttackPhases.BackUp;
     }
 
@@ -94,7 +95,8 @@ public class CloseCombatAttackComponent : AttackComponent
         Vector2 backUpDirection = _movement.CalculateDirection(_player.position, transform.position); 
         _movement.Move(backUpDirection); 
         float distanceSqr = backUpDirection.sqrMagnitude;
-        if (distanceSqr >= (5 * 5))
+        float chargeDist = _entity.AttackRange - 2;  
+        if (distanceSqr >= (chargeDist * chargeDist))
         {
             _curPhase = AttackPhases.Charge;
             _isCoolingDown = false;
