@@ -12,7 +12,8 @@ public class EnemyCollisionHandler : MonoBehaviour
     [SerializeField]
     private bool _isSlimeBall = false;
     [SerializeField]
-    private LayerMask _ignoreLayer; 
+    private LayerMask _ignoreLayer;
+    private Rigidbody2D _rb; 
 
 
     private void Start()
@@ -23,6 +24,7 @@ public class EnemyCollisionHandler : MonoBehaviour
             _enemy = this.GetComponent<BehaviourStateHandler>();
             _health = this.GetComponent<Health>(); 
         }
+        _rb = this.GetComponent<Rigidbody2D>(); 
     }
 
     public void Init(Enemy status, BehaviourStateHandler aI )
@@ -40,6 +42,7 @@ public class EnemyCollisionHandler : MonoBehaviour
             if (player != null)
             {
                 PlayerDamageHandler.GetDamage(0.35f, PlayerUttillitys.GetPlayerColor(player), FindAnyObjectByType<fairyController>()); //this is not final, because with that multiplayer wouldnt work!
+                player.rb.AddForce(transform.right * (100f * PhysicUttillitys.GetDirectionMofifyer(transform.position, player.transform.position)), ForceMode2D.Impulse); 
                 StartCoroutine(DamageCooldown(0.25f)); 
             }
         }
