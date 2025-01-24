@@ -66,7 +66,7 @@ public class Menu : MonoBehaviour
         else
         {
             _currentFirstButton = _menuFirstButton;
-            _playerInput.actions.FindActionMap("characterController").Disable();
+           // _playerInput.actions.FindActionMap("characterController").Disable();
             _playerInput.actions.FindActionMap("Menu").Enable();
             _play.SetActive(false);
             _resume.SetActive(true);
@@ -76,6 +76,7 @@ public class Menu : MonoBehaviour
             _credits.SetActive(true);
             _quit.SetActive(true);
         }
+
         _playerInput.actions.FindActionMap("Menukey").Enable();
         Time.timeScale = 1;
     }

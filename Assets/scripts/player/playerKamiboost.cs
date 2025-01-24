@@ -16,6 +16,8 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
     private bool doKamiboost = false;
     private Vector2 _dir; 
     public LayerMask layerMask;
+    private GameObject kamiBoostParticelEffect;
+
 
 
 
@@ -27,39 +29,45 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         contactFilter.useTriggers = true;
         contactFilter.useLayerMask = true;
         contactFilter.layerMask = layerMask;
+        kamiBoostParticelEffect = transform.Find("KamiBoost").gameObject;
+        kamiBoostParticelEffect.SetActive(false);
+
     }
 
     public void FixedUpdate()
     {
-        
-
         if (doKamiboost)
         {
+            
+            characterController.StatusData.isAllowedToMove = false;
+
             if (_collisionHandler.InYellowFog == false)
             {
-               float yellowColorAmount =  PlayerDamageHandler.GetDamage(damagePerSecond * Time.fixedDeltaTime, PlayerUttillitys.GetPlayerColor(characterController), _fairyController);
-                Debug.Log("deale damage..."); 
+                float yellowColorAmount = PlayerDamageHandler.GetDamage(damagePerSecond * Time.fixedDeltaTime, PlayerUttillitys.GetPlayerColor(characterController), _fairyController);
                 if (yellowColorAmount <= 0f)
                 {
                     endFeauture();
-                    return; 
+                    return;
                 }
             }
+
             if (!characterController.Input.TriggerPlayerFeatureInput)
             {
                 endFeauture();
-                return; 
+                return;
             }
+
             characterMovement.disableMovement();
             characterController.rb.gravityScale = 0;
-
-            //Ich muss einfach an die Velocity Diggaaaaaa!!!
             characterController.rb.velocity = new Vector2(characterController.rb.velocity.x, 0);
-            //Ich muss einfach an die Velocity Diggaaaaaa!!!
+
+            // Neue Geschwindigkeitslogik
+            float currentSpeed = Mathf.Abs(characterController.rb.velocity.x);
+            float newSpeed = Mathf.Min(currentSpeed + (kamiBoostSpeed * Time.fixedDeltaTime), kamiBoostSpeed);
+            float direction = characterMovement.GetCharacterLookingDirection() ? 1 : -1;
+
             characterMovement.setMaxSpeed(kamiBoostSpeed);
-            //Muss ?berarbeitet werden!
-            characterController.rb.AddForce(_dir.normalized * kamiBoostSpeed);
-            //Muss ?berarbeitet werden!
+            characterController.rb.velocity = new Vector2(newSpeed * direction, 0);
         }
     }
 
@@ -74,30 +82,21 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
 
     public void triggerFeauture(bool useInput = false, bool input = false)
     {
-        float yellowColorAmount = PlayerDamageHandler.GetHealth(PlayerUttillitys.GetPlayerColor(characterController), _fairyController); 
+        float yellowColorAmount = PlayerDamageHandler.GetHealth(PlayerUttillitys.GetPlayerColor(characterController), _fairyController);
         if (!characterController.getPlayerStatus().isGrounded && !doKamiboost && yellowColorAmount > 0)
         {
-            List<Collider2D> colliders = new List<Collider2D>();
 
+            List<Collider2D> colliders = new List<Collider2D>();
             characterController.rb.OverlapCollider(contactFilter, colliders);
 
-            //if (colliders.Count > 0)
-            //{
-            //Game Design Änderung laut Robin: Kamiboost soll ausserhalb des Gelben nebels Damage dealen, aber aktiviebar sein
-                Debug.Log("Activated Kami boost..."); 
-                doKamiboost = input;
-                Debug.Log("doKamiboost = " + doKamiboost);
-            //}
+            Debug.Log("Activated Kami boost...");
+            doKamiboost = input;
+            Debug.Log("doKamiboost = " + doKamiboost);
 
-            if (characterController.Input.MoveInput.magnitude > 0.1f)
-            {
-                _dir = characterController.Input.MoveInput;
-            }
-            else
-            {
-                _dir = Vector2.right; 
-            }
+            // Flip Sprite basierend auf Blickrichtung
+            //bool isLookingRight = characterMovement.GetCharacterLookingDirection();
 
+            kamiBoostParticelEffect.SetActive(true);
             if (input == false)
             {
                 endFeauture();
@@ -110,6 +109,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         characterController.rb.gravityScale = 1;
         characterMovement.enableMovement();
         doKamiboost = false;
+        kamiBoostParticelEffect.SetActive(false);
     }
 
     public void OnTriggerExit2D(Collider2D collider)
@@ -119,4 +119,10 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
             endFeauture();
         }
     }
+
+    public bool getKamiboostStatus()
+    {
+        return doKamiboost;
+    }
+
 }

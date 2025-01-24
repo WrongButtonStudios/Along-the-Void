@@ -9730,7 +9730,7 @@ GameObject:
   - component: {fileID: 577692907964969577}
   - component: {fileID: 8731463176567505070}
   m_Layer: 0
-  m_Name: Object_Activation
+  m_Name: Object_Activation_Red
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
