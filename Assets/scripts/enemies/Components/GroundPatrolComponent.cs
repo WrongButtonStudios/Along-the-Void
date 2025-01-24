@@ -63,7 +63,8 @@ public class GroundPatrolComponent : PatrolComponent
 
         if (_collsionHandler.CheckForObstacle(GetXDirection()) && _collsionHandler.IsGrounded() && !_doJump)
         {
-            _entity.Movement.RB.gravityScale = 0;
+            _movement.SetGravitiyScale(0); 
+            _movement.CalculateMaxJumpHight();
             _doJump = true;
         }
 
