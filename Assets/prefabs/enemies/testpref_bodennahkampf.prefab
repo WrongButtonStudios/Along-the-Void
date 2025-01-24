@@ -88,6 +88,7 @@ GameObject:
   - component: {fileID: 9010470537840234272}
   - component: {fileID: 4801809971082359312}
   - component: {fileID: 3925752872243349560}
+  - component: {fileID: 7660464740193355357}
   m_Layer: 3
   m_Name: BodenNahkampfGegner
   m_TagString: Untagged
@@ -301,6 +302,7 @@ MonoBehaviour:
   _ignoreLayer:
     serializedVersion: 2
     m_Bits: 8
+  _playerPushBackForce: 50
 --- !u!114 &1824478505125234855
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -315,7 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _jumpForce: 20
   _speed: 25
-  _jumpHight: 3
+  _jumpHight: 2.5
   _rb: {fileID: 1199793457498517285}
 --- !u!114 &3313189544972986478
 MonoBehaviour:
@@ -431,6 +433,59 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2cc95ca48549e06469766f42ca23e971, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &7660464740193355357
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5519794998396204211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 180ecf9b41d478f468eb3e9083753217, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ImpulseDefinition:
+    m_ImpulseChannel: 1
+    m_ImpulseShape: 2
+    m_CustomImpulseShape:
+      serializedVersion: 2
+      m_Curve: []
+      m_PreInfinity: 2
+      m_PostInfinity: 2
+      m_RotationOrder: 4
+    m_ImpulseDuration: 0.2
+    m_ImpulseType: 0
+    m_DissipationRate: 0.25
+    m_RawSignal: {fileID: 0}
+    m_AmplitudeGain: 1
+    m_FrequencyGain: 1
+    m_RepeatMode: 0
+    m_Randomize: 1
+    m_TimeEnvelope:
+      m_AttackShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_DecayShape:
+        serializedVersion: 2
+        m_Curve: []
+        m_PreInfinity: 2
+        m_PostInfinity: 2
+        m_RotationOrder: 4
+      m_AttackTime: 0
+      m_SustainTime: 0.2
+      m_DecayTime: 0.7
+      m_ScaleWithImpact: 1
+      m_HoldForever: 0
+    m_ImpactRadius: 100
+    m_DirectionMode: 0
+    m_DissipationMode: 2
+    m_DissipationDistance: 100
+    m_PropagationSpeed: 343
+  m_DefaultVelocity: {x: 0, y: -1, z: 0}
 --- !u!1 &9138353154541795358
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,19 +1,18 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Cinemachine; 
 public class EnemyCollisionHandler : MonoBehaviour
 {
-
+    [SerializeField] private bool _isSlimeBall = false;
+    [SerializeField] private LayerMask _ignoreLayer;
+    [SerializeField] private float _playerPushBackForce = 50f;
+    [SerializeField] private float _cameraShakeStrength = 5f; 
     private Enemy _entity;
     private BehaviourStateHandler _enemy;
     private Health _health;
     private bool _dealDamage = true;
-    [SerializeField]
-    private bool _isSlimeBall = false;
-    [SerializeField]
-    private LayerMask _ignoreLayer; 
-
+    private Rigidbody2D _rb;  
 
     private void Start()
     {
@@ -23,6 +22,7 @@ public class EnemyCollisionHandler : MonoBehaviour
             _enemy = this.GetComponent<BehaviourStateHandler>();
             _health = this.GetComponent<Health>(); 
         }
+        _rb = this.GetComponent<Rigidbody2D>();
     }
 
     public void Init(Enemy status, BehaviourStateHandler aI )
@@ -40,6 +40,8 @@ public class EnemyCollisionHandler : MonoBehaviour
             if (player != null)
             {
                 PlayerDamageHandler.GetDamage(0.35f, PlayerUttillitys.GetPlayerColor(player), FindAnyObjectByType<fairyController>()); //this is not final, because with that multiplayer wouldnt work!
+                player.rb.AddForce(transform.right * (_playerPushBackForce * PhysicUttillitys.GetDirectionMofifyer(transform.position, player.transform.position)), ForceMode2D.Impulse);
+                CameraShake.Instance.ShakeCamera(_cameraShakeStrength); 
                 StartCoroutine(DamageCooldown(0.25f)); 
             }
         }

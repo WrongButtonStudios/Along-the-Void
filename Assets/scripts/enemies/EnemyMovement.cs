@@ -71,7 +71,11 @@ public class EnemyMovement : MonoBehaviour
     public void CalculateMaxJumpHight() 
     {
         _maxJumpHight = transform.position.y + _jumpHight;
-        Debug.Log(_maxJumpHight); 
+    }
+
+    public void CalculateMaxJumpHight(float jumpHight)
+    {
+        _maxJumpHight = transform.position.y + jumpHight;
     }
 
     public void ZeroVelocityX()

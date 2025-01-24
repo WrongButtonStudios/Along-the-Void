@@ -70,9 +70,9 @@ public class CloseCombatAttackComponent : AttackComponent
 
         _chargeDir = _movement.CalculateDirection(transform.position, _player.position); 
         _movement.Move(_chargeDir); 
-        if (_chargeDir.sqrMagnitude <= (5f * 5f) && _collisionHandler.IsGrounded() && !_doJump)
+        if (_chargeDir.sqrMagnitude <= (3.5f * 3.5f) && _collisionHandler.IsGrounded() && !_doJump)
         {
-            _movement.CalculateMaxJumpHight();
+            _movement.CalculateMaxJumpHight(1.3f);
             _movement.SetGravitiyScale(0); 
             _isCoolingDown = false; 
             _doJump = true;
@@ -95,7 +95,7 @@ public class CloseCombatAttackComponent : AttackComponent
         Vector2 backUpDirection = _movement.CalculateDirection(_player.position, transform.position); 
         _movement.Move(backUpDirection); 
         float distanceSqr = backUpDirection.sqrMagnitude;
-        float chargeDist = _entity.AttackRange - 2;  
+        float chargeDist = _entity.AttackRange-0.5f;  
         if (distanceSqr >= (chargeDist * chargeDist))
         {
             _curPhase = AttackPhases.Charge;

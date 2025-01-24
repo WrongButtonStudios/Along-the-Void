@@ -14,4 +14,9 @@ public class PhysicUttillitys : MonoBehaviour
         }
         return curVel;
     }
+
+    public static float GetDirectionMofifyer(Vector2 start, Vector2 end) 
+    {
+        return Mathf.Sign(end.x - start.x); 
+    } 
 }

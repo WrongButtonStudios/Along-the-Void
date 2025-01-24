@@ -24,7 +24,7 @@ public class MoveSlimeball : MonoBehaviour
 
     private void Fly()
     {
-        _rb.velocity += _startVel; 
+        _rb.velocity += _startVel * PhysicUttillitys.TimeScale; 
     }
 
 
@@ -32,7 +32,7 @@ public class MoveSlimeball : MonoBehaviour
     {
         if (_rb.velocity.magnitude > _maxSpeed)
         {
-            return _rb.velocity.normalized * _maxSpeed; 
+            return _rb.velocity.normalized * _maxSpeed * PhysicUttillitys.TimeScale; 
         }
         return _rb.velocity; 
     }

@@ -10,7 +10,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
     [SerializeField] private float downForce = 300f;
     [SerializeField] private float maxSpeed = 150f;
     [SerializeField] private CharacterMovement _movement;
-
+    [SerializeField] private float _strenght = 2.5f; 
     public bool UseStompAttack { get; private set; }
 
     private bool doStompAttack = false;
@@ -59,12 +59,13 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
         {
             return;
         }
+        CameraShake.Instance.ShakeCamera(_strenght); 
         Debug.Log("Will damage austeilen"); 
         UseStompAttack = false;
         List<Collider2D> colliders = new();
         ContactFilter2D filter = new();
         filter.NoFilter();
-        Physics2D.OverlapCircle(transform.position, 2.5f, filter, colliders);
+        Physics2D.OverlapCircle(transform.position, 5f, filter, colliders);
         foreach (Collider2D col in colliders)
         {
             var enemy = col.gameObject.GetComponent<Health>();

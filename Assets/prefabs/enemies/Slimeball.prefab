@@ -125,6 +125,8 @@ MonoBehaviour:
   _ignoreLayer:
     serializedVersion: 2
     m_Bits: 0
+  _playerPushBackForce: 5
+  _cameraShakeStrength: 1.5
 --- !u!114 &-1436628244153039651
 MonoBehaviour:
   m_ObjectHideFlags: 0
