@@ -4,15 +4,14 @@ using UnityEngine;
 
 public class EnemyCollisionHandler : MonoBehaviour
 {
+    [SerializeField] private bool _isSlimeBall = false;
+    [SerializeField] private LayerMask _ignoreLayer;
+    [SerializeField] private float _playerPushBackForce = 50f; 
 
     private Enemy _entity;
     private BehaviourStateHandler _enemy;
     private Health _health;
     private bool _dealDamage = true;
-    [SerializeField]
-    private bool _isSlimeBall = false;
-    [SerializeField]
-    private LayerMask _ignoreLayer;
     private Rigidbody2D _rb; 
 
 
@@ -42,7 +41,7 @@ public class EnemyCollisionHandler : MonoBehaviour
             if (player != null)
             {
                 PlayerDamageHandler.GetDamage(0.35f, PlayerUttillitys.GetPlayerColor(player), FindAnyObjectByType<fairyController>()); //this is not final, because with that multiplayer wouldnt work!
-                player.rb.AddForce(transform.right * (100f * PhysicUttillitys.GetDirectionMofifyer(transform.position, player.transform.position)), ForceMode2D.Impulse); 
+                player.rb.AddForce(transform.right * (_playerPushBackForce * PhysicUttillitys.GetDirectionMofifyer(transform.position, player.transform.position)), ForceMode2D.Impulse); 
                 StartCoroutine(DamageCooldown(0.25f)); 
             }
         }
