@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -6,8 +7,10 @@ public class EnemyMovement : MonoBehaviour
 {
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _speed;
-    [SerializeField] private float _maxJumpHight = 2.5f;
+    [SerializeField] private float _jumpHight = 2.5f;
     [SerializeField] private Rigidbody2D _rb;
+
+    private float _maxJumpHight; 
 
     public Rigidbody2D RB { get { return _rb; } }
     public float Speed { get { return _speed;  } }
@@ -24,7 +27,7 @@ public class EnemyMovement : MonoBehaviour
 
     public bool Jump()
     {
-        if (transform.position.y < _maxJumpHight)
+        if (transform.position.y <= _maxJumpHight)
         {
             Move(Vector2.up, _jumpForce); 
             return true; 
@@ -63,5 +66,18 @@ public class EnemyMovement : MonoBehaviour
         a.y = 0;
         b.y = 0; 
         return b - a;
+    }
+
+    public void CalculateMaxJumpHight() 
+    {
+        _maxJumpHight = transform.position.y + _jumpHight;
+        Debug.Log(_maxJumpHight); 
+    }
+
+    public void ZeroVelocityX()
+    {
+        Vector2 newVel = _rb.velocity;
+        newVel.x = 0; 
+        _rb.velocity = newVel;
     }
 }

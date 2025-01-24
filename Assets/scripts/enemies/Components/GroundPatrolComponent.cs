@@ -38,8 +38,8 @@ public class GroundPatrolComponent : PatrolComponent
         if (!isJumping && _doJump)
         {
             _doJump = false;
-            _entity.Movement.RB.velocity = Vector2.zero;
-            _entity.Movement.RB.gravityScale = 1;
+            _movement.ZeroVelocity(); 
+            _movement.SetGravitiyScale(1); 
         }
     }
 
@@ -63,7 +63,8 @@ public class GroundPatrolComponent : PatrolComponent
 
         if (_collsionHandler.CheckForObstacle(GetXDirection()) && _collsionHandler.IsGrounded() && !_doJump)
         {
-            _entity.Movement.RB.gravityScale = 0;
+            _movement.SetGravitiyScale(0); 
+            _movement.CalculateMaxJumpHight();
             _doJump = true;
         }
 
