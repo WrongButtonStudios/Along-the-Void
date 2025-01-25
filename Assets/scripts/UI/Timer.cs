@@ -4,10 +4,11 @@ using UnityEngine.SceneManagement;
 public class Timer : MonoBehaviour
 {
 
+    public static float TimeInPercent; 
+
     [SerializeField, Tooltip("max time the player has for the level in minutes")]
     private float _duration = 15;
-    [SerializeField]
-    private Slider _slider; //remove this when color drain effect is finnished
+
 
     [Header("Debugging")]
     [SerializeField]
@@ -20,8 +21,6 @@ public class Timer : MonoBehaviour
         Time.timeScale = _timeScale; 
         _durationInSeconds = _duration * 60f;
         _timeLeft = _durationInSeconds;
-        _slider.maxValue = _durationInSeconds;
-        _slider.minValue = 0;
     }
 
     // Update is called once per frame
@@ -30,7 +29,7 @@ public class Timer : MonoBehaviour
         if (_timeLeft > 0)
         {
             _timeLeft -= Time.fixedDeltaTime;
-            _slider.value = _timeLeft;
+            TimeInPercent = _timeLeft / _durationInSeconds; 
         }
         else
             SceneManager.LoadScene("LosingScreen"); 
