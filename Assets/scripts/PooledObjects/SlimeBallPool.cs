@@ -5,54 +5,40 @@ using UnityEngine;
 public class SlimeBallPool : MonoBehaviour
 {
 
-    public static SlimeBallPool Instance;
+    public static SlimeBallPool Instance; 
 
     [SerializeField]
     private GameObject _slimeBallPref;
-    [SerializeField]
-    private int _slimeBallCount = 30;
-
-    private List<GameObject> _slimeBalls = new();
-
-    // Start is called before the first frame update
-    void Awake()
+    private List<GameObject> _inactiveSlimeball = new();
+    private void Awake()
     {
-        if (SlimeBallPool.Instance == null)
+        if(Instance == null) 
         {
-            SlimeBallPool.Instance = this;
-            DontDestroyOnLoad(this.gameObject);
-        }
-        else if (SlimeBallPool.Instance != null)
+            Instance = this;
+            DontDestroyOnLoad(this); 
+        } else 
         {
-            Destroy(this.gameObject);
-            return; 
-        }
-        InstantiateSlimeBalls();
-    }
-
-    private void InstantiateSlimeBalls()
-    {
-        for (int i = 0; i < _slimeBallCount; ++i)
-        {
-            var slimeball = Instantiate(_slimeBallPref, transform.position, Quaternion.identity);
-            slimeball.SetActive(false);
-            _slimeBalls.Add(slimeball); 
+            Destroy(this); 
         }
     }
-
     public GameObject GetPooledSlimeBall()
     {
-        foreach (GameObject g in _slimeBalls)
+        GameObject slimeball = null; 
+        if(_inactiveSlimeball.Count == 0) 
         {
-            if (g.activeInHierarchy == false)
-            {
-                return g; 
-            }
+             slimeball = Instantiate(_slimeBallPref, transform.position, Quaternion.identity);
+            slimeball.SetActive(false);
+            return slimeball; 
         }
-
-        Debug.LogError("There is currently no slimeball available, or list is empty.");
-        return null; 
+        slimeball = _inactiveSlimeball[0]; 
+        _inactiveSlimeball.Remove(slimeball);
+        return slimeball; 
     }
 
-
+    public void DeactivateSlimeball(GameObject slimeball) 
+    {
+        slimeball.GetComponent<MoveSlimeball>().Deactivate(); 
+        _inactiveSlimeball.Add(slimeball.gameObject);
+        slimeball.gameObject.SetActive(false); 
+    }
 }

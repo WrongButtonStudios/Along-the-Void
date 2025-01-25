@@ -103,8 +103,7 @@ public class FarCombatAttackComponent : AttackComponent
     private IEnumerator CoolDown()
     {
         yield return new WaitForSeconds(1.5f);
-        _slimeball.Deactivate();
-        _attackEffect.gameObject.SetActive(false);
+        SlimeBallPool.Instance.DeactivateSlimeball(_attackEffect);
         _attackEffect = null; 
         _isCoolingDown = false;
         Debug.Log("Finnished Cooldown " + !_isCoolingDown); 
