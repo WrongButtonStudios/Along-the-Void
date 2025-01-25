@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4019824539640525797}
   - component: {fileID: 3069310332892977869}
   m_Layer: 0
-  m_Name: YellowPortal 1
+  m_Name: YellowPortal
   m_TagString: TeleportCollision
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -53,6 +53,7 @@ MonoBehaviour:
   cannonHoldTime: 2
   ejectionForce: 10
   ejectionDirection: {x: 1, y: 0}
+  characterMovement: {fileID: 0}
 --- !u!70 &3069310332892977869
 CapsuleCollider2D:
   m_ObjectHideFlags: 0
