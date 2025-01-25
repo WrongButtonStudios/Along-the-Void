@@ -31,7 +31,7 @@ public class CharacterMovement : MonoBehaviour
     //variable block for dash and falling bs
     [SerializeField] private float deccendGravityMultiplier = 2f;
     [SerializeField] private float dashDistance = 10f;
-    [SerializeField] private float dashDuration = 0.5f;
+    [SerializeField] private float dashDuration = 1f;
     [SerializeField] private float dashMaxSpeed = 100f;
 
     //dependencys 
@@ -41,6 +41,7 @@ public class CharacterMovement : MonoBehaviour
     private InputController _input;
     [SerializeField] private CollisionHandler _collision;
     private float _timeScale = 1f;
+    private bool isDashing;
 
 
     //public Getter
@@ -56,6 +57,12 @@ public class CharacterMovement : MonoBehaviour
         _collision = this.GetComponent<CollisionHandler>();
     }
 
+    private void Update()
+    {
+        if (isDashing)
+            _controller.rb.gravityScale = 0; 
+
+    }
     public void lerpCurrentMaxSpeedToMaxSpeed()
     {
         if (maxSpeed > maxMovementSpeed)
@@ -124,24 +131,27 @@ public class CharacterMovement : MonoBehaviour
             }
 
             _controller.StatusData.isDash = true;
-            setMaxSpeed(dashMaxSpeed * _timeScale);
+            setMaxSpeed(dashMaxSpeed);
 
             if (!_controller.StatusData.wasDash)
             {
-                StartCoroutine(dashAddBoost());
+                StartCoroutine(dashAddBoost(_input.MoveInput));
             }
         }
     }
 
-    public IEnumerator dashAddBoost()
+    public IEnumerator dashAddBoost(Vector2 dir)
     {
-        _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0);
-
-        Vector2 dashVelocity = (_input.MoveInput * dashDistance) / dashDuration;
-
-        yield return new WaitForFixedUpdate();
-
-        _controller.rb.velocity = dashVelocity;
+        isDashing = true; 
+        float baseGravityScale = _controller.rb.gravityScale;
+        _controller.rb.gravityScale = 0;
+        _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0); 
+        _controller.rb.AddForce(dir * dashMaxSpeed, ForceMode2D.Impulse);
+        Debug.Log(_controller.rb.gravityScale); 
+        yield return new WaitForSeconds(dashDuration);
+        _controller.rb.gravityScale = baseGravityScale;
+        Debug.Log("stop dashing..."); 
+        isDashing = false; 
     }
 
     public void hoverAboveGround(RaycastHit2D groundHit)
