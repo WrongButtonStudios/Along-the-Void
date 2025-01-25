@@ -120,7 +120,7 @@ public class CharacterMovement : MonoBehaviour
         {
             foreach (IplayerFeature feature in _controller.GetPlayerFeatures)
             {
-                feature.endFeauture();
+                feature.endFeature();
             }
 
             _controller.StatusData.isDash = true;
