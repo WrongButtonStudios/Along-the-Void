@@ -5,9 +5,9 @@ using UnityEngine;
 
 public interface IplayerFeature
 {
-    public void initFeauture(characterController characterController);
+    public void initFeature(characterController characterController);
 
-    public void triggerFeauture(bool useInput = false, bool input = false);
+    public void triggerFeature(bool useInput = false, bool input = false);
 
-    public void endFeauture();
+    public void endFeature();
 }

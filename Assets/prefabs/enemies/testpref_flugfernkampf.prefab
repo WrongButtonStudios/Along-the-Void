@@ -25,7 +25,7 @@ Transform:
   m_GameObject: {fileID: 1025803917490354771}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 79.42999, y: 6.6429443, z: 0}
+  m_LocalPosition: {x: -178.1, y: -16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -56,7 +56,7 @@ Transform:
   m_GameObject: {fileID: 3675777712972365195}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -44.98001, y: 7.272934, z: 0}
+  m_LocalPosition: {x: -168.1, y: -16, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -106,11 +106,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1749939766418209774, guid: 911a851106f524a0189e214b7499f388, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: -203.8
       objectReference: {fileID: 0}
     - target: {fileID: 1749939766418209774, guid: 911a851106f524a0189e214b7499f388, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: -11.49
       objectReference: {fileID: 0}
     - target: {fileID: 1749939766418209774, guid: 911a851106f524a0189e214b7499f388, type: 3}
       propertyPath: m_LocalPosition.z
@@ -212,6 +212,15 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5720590047967088283, guid: 911a851106f524a0189e214b7499f388, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8982482232961143548}
+    - targetCorrespondingSourceObject: {fileID: 5720590047967088283, guid: 911a851106f524a0189e214b7499f388, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5958451344553922587}
+    - targetCorrespondingSourceObject: {fileID: 5720590047967088283, guid: 911a851106f524a0189e214b7499f388, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 685692004686133239}
+    - targetCorrespondingSourceObject: {fileID: 5720590047967088283, guid: 911a851106f524a0189e214b7499f388, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1953509239236086845}
   m_SourcePrefab: {fileID: 100100000, guid: 911a851106f524a0189e214b7499f388, type: 3}
 --- !u!1 &2785174446620861312 stripped
 GameObject:
@@ -273,10 +282,16 @@ MonoBehaviour:
   _attackRange: 2
   _aggroRange: 7.5
   _entity: {fileID: 2788414285810840492}
-  _wayPoints: []
   _stoppingDistance: 1
   _rb: {fileID: 4730735632186934073}
   _playerTransform: {fileID: 0}
+  _huntPatterns:
+  - {fileID: 5958451344553922587}
+  _patrolPatterns:
+  - {fileID: 685692004686133239}
+  _attackPatterns:
+  - {fileID: 1953509239236086845}
+  _movement: {fileID: 8982482232961143548}
 --- !u!114 &8982482232961143548
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -292,6 +307,53 @@ MonoBehaviour:
   _jumpForce: 0
   _speed: 25
   _maxJumpHight: 1.5
+  _rb: {fileID: 4730735632186934073}
+--- !u!114 &5958451344553922587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2785174446620861312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3628e18c539652f49aacaa18a1a5114f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _movement: {fileID: 8982482232961143548}
+  _player: {fileID: 0}
+--- !u!114 &685692004686133239
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2785174446620861312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d52216f270f166a41ab6fd5ffc49aec5, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entity: {fileID: 8009040606527744940}
+  _movement: {fileID: 8982482232961143548}
+  _wayPoints:
+  - {fileID: 5018841031971074314}
+  - {fileID: 2764737525817882049}
+--- !u!114 &1953509239236086845
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2785174446620861312}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f11e05c4d794c334eaf21090d8c82efe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _entity: {fileID: 8009040606527744940}
+  _movement: {fileID: 8982482232961143548}
+  _player: {fileID: 0}
 --- !u!114 &2788414285810840492 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5726048977837842103, guid: 911a851106f524a0189e214b7499f388, type: 3}

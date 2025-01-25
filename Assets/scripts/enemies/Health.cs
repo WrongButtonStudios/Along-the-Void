@@ -9,11 +9,17 @@ public class Health : MonoBehaviour
 
     public void GetDamage(float damage)
     {
+        if (_health < 0)
+        {
+            return;
+        }
+
         _health -= damage;
         if (_health <= 0)
         {
             Die(); 
         }
+        
     }
 
     private void Die()

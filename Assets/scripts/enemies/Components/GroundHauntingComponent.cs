@@ -1,23 +1,18 @@
 using UnityEngine;
 
 [System.Serializable]
-public class GroundHuntingComponent : MonoBehaviour, IHuntingComponent
+public class GroundHuntingComponent : HuntingComponent
 {
-    private BehaviourStateHandler _entity;
+    [SerializeField] private EnemyMovement _movement; 
+    [SerializeField] private Transform _player;
     
-    public float GetDistanceToTargetSqr(Vector2 dest, Vector2 start)
+    public override float GetDistanceToTargetSqr(Vector2 dest, Vector2 start)
     {
         return (dest - start).sqrMagnitude; 
     }
 
-    public void Hunt(Vector3 target)
+    public override void Hunt()
     {
-        Vector2 dir = (target - transform.position).normalized;
-        _entity.Movement.Move(dir); 
-    }
-
-    public void Init(BehaviourStateHandler entity)
-    {
-        _entity = entity; 
+        _movement.Move(_player.position - transform.position); 
     }
 }

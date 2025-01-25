@@ -3,20 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
-public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
+public class FlyingPatrolComponent : PatrolComponent
 {
-    private BehaviourStateHandler _entity;
+    [SerializeField] private BehaviourStateHandler _entity;
+    [SerializeField] private EnemyMovement _movement;
+    [SerializeField] private List<Transform> _wayPoints = new List<Transform>();
+
     private int _curWayPoint;
     private bool _isOnPoint;
-    private List<Vector2> _wayPoints = new List<Vector2>();
-    private EnemyMovement _movement;
 
-    private void Start()
-    {
-        _movement = this.GetComponent<EnemyMovement>(); 
-    }
-
-    public int GetNextWayPoint()
+    public override int GetNextWayPoint()
     {
         if (_curWayPoint < _wayPoints.Count - 1)
             _curWayPoint++;
@@ -26,61 +22,46 @@ public class FlyingPatrolComponent : MonoBehaviour, IPatrolComponent
         return _curWayPoint;
     }
 
-    public float GetXDirection()
+    public override float GetXDirection()
     {
-        Vector2 dir = _wayPoints[_curWayPoint] - (Vector2)_entity.transform.position;
+        Vector2 dir = _wayPoints[_curWayPoint].position - _entity.transform.position;
         return Mathf.Sign(dir.x);
     }
 
-    public void Init(BehaviourStateHandler entity)
-    {
-        _entity = entity;
-    }
-
-    public void LookAtTarget()
+    public override void LookAtTarget()
     {
         Vector3 newScale = transform.localScale;
         newScale.x = -1 * GetXDirection();
         _entity.transform.localScale = newScale;
     }
 
-    public void Movement(Vector2 target)
+    public override void Movement(Vector2 target)
     {
         LookAtTarget();
-        Vector2 moveDirection = (target - (Vector2)_entity.transform.position).normalized;
-        _entity.Movement.Move(moveDirection);
+        _entity.Movement.Move(_movement.CalculateDirectionX((Vector2)_entity.transform.position, target));
     }
 
-    public void Patrol()
+    public override void Patrol()
     {
         if (_isOnPoint)
             SetUpNewWayPoint();
 
-        float distToWayPoint = (_wayPoints[_curWayPoint] - (Vector2)_entity.transform.position).sqrMagnitude;
+        float distToWayPoint = (_wayPoints[_curWayPoint].position - transform.position).sqrMagnitude;
 
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
-            Movement(_wayPoints[_curWayPoint]);
+            Movement(_wayPoints[_curWayPoint].position);
         else
             _isOnPoint = true;
     }
 
-    public bool ReachedDestination()
+    public override bool ReachedDestination()
     {
         return _isOnPoint; 
     }
 
-    public void SetUpNewWayPoint()
+    public override void SetUpNewWayPoint()
     {
         _curWayPoint = GetNextWayPoint();
         _isOnPoint = false;
-    }
-
-    public void SetWayPoints(List<Transform> wps)
-    {
-        _wayPoints.Clear();
-        foreach (Transform wp in wps)
-        {
-            _wayPoints.Add(wp.position);
-        }
     }
 }

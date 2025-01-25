@@ -1,17 +1,19 @@
 using UnityEngine;
 
 [System.Serializable]
-public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
+public class CloseCombatAttackComponent : AttackComponent
 {
-    private BehaviourStateHandler _entity;
+    [SerializeField] private BehaviourStateHandler _entity;
+    [SerializeField] private EnemyMovement _movement;
+    [SerializeField] private EnemyCollisionHandler _collisionHandler;
+    [SerializeField] private float _bodyCheckSpeed = 150f;
+    [SerializeField] private Transform _player; 
+
     private bool _isCoolingDown = false;
-    private float _bodyCheckSpeed;
     private bool _finnishedAttacking;
     private bool _isAttacking;
     private Vector2 _chargeDir;
     private AttackPhases _curPhase = AttackPhases.Charge;
-    private EnemyMovement _movement;
-    private EnemyCollisionHandler _collisionHandler; 
 
     private bool _doJump; 
 
@@ -22,13 +24,7 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         BackUp
     }
 
-    private void Start()
-    {
-        _movement = this.GetComponent<EnemyMovement>();
-        _collisionHandler = GetComponent<EnemyCollisionHandler>();
-    }
-
-    public void Attack()
+    public override void Attack()
     {
         switch (_curPhase)
         {
@@ -46,25 +42,25 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
 
     private void FixedUpdate()
     {
+        if (!_doJump)
+        {
+            return;
+        }
         bool isJumping = false;
-        if (_doJump)
-            isJumping = _movement.Jump();
+        isJumping = _movement.Jump();
+        Debug.Log("Jumping..."); 
         if (isJumping == false && _doJump)
         {
             _doJump = false;
             _movement.SetGravitiyScale(1);
+            _curPhase = AttackPhases.Attack;
+            Debug.Log("finnished jumping..."); 
         }
     }
 
-    public bool FinnishedAttack()
+    public override bool FinnishedAttack()
     {
         return _finnishedAttacking; 
-    }
-
-    public void Init(BehaviourStateHandler entity)
-    {
-        _entity = entity;
-        _bodyCheckSpeed = _movement.Speed * 13f; 
     }
 
     private void Charge()
@@ -72,13 +68,15 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         _isAttacking = true;
         _finnishedAttacking = false;
 
-        _chargeDir = _movement.CalculateDirection(transform.position, _entity.Player.position); 
+        _chargeDir = _movement.CalculateDirection(transform.position, _player.position); 
         _movement.Move(_chargeDir); 
-        bool isGrounded = _collisionHandler.IsGrounded(); 
-        if (_chargeDir.sqrMagnitude <= (4 * 4) && isGrounded && !_doJump)
+        if (_chargeDir.sqrMagnitude <= (3.5f * 3.5f) && _collisionHandler.IsGrounded() && !_doJump)
         {
-            _doJump = true;
+            _movement.CalculateMaxJumpHight(1.3f);
+            _movement.SetGravitiyScale(0); 
             _isCoolingDown = false; 
+            _doJump = true;
+            Debug.Log("I should jump now..."); 
         }
     } 
 
@@ -89,16 +87,16 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
             _movement.Move(_chargeDir, _bodyCheckSpeed);
             return; 
         }
-        _movement.SetGravitiyScale(1);
         _curPhase = AttackPhases.BackUp;
     }
 
     private void BackUp()
     {
-        Vector2 backUpDirection = _movement.CalculateDirection(_entity.Player.position, transform.position); 
+        Vector2 backUpDirection = _movement.CalculateDirection(_player.position, transform.position); 
         _movement.Move(backUpDirection); 
         float distanceSqr = backUpDirection.sqrMagnitude;
-        if (distanceSqr > (4 * 4))
+        float chargeDist = _entity.AttackRange-0.5f;  
+        if (distanceSqr >= (chargeDist * chargeDist))
         {
             _curPhase = AttackPhases.Charge;
             _isCoolingDown = false;
@@ -107,17 +105,17 @@ public class CloseCombatAttackComponent : MonoBehaviour, IAttackComponent
         }
     }
 
-    public void ResetAttackStatus()
+    public override void ResetAttackStatus()
     {
         _finnishedAttacking = false; 
     }
 
-    public bool IsAttacking()
+    public override bool IsAttacking()
     {
         return _isAttacking; 
     }
 
-    public void Exit()
+    public override void Exit()
     {
         _doJump = false; 
     }

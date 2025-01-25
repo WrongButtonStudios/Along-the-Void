@@ -42,23 +42,23 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
         }
     }
 
-    public void initFeauture(characterController characterController)
+    public void initFeature(characterController characterController)
     {
         this.characterController = characterController;
     }
 
-    public void triggerFeauture(bool useInput = false, bool input = false)
+    public void triggerFeature(bool useInput = false, bool input = false)
     {
         if (!characterController.getPlayerStatus().isGrounded) return;
-        Debug.Log("reverse gravity mf"); 
         List<Collider2D> colliders = new List<Collider2D>();
         characterController.rb.OverlapCollider(contactFilter, colliders);
 
         if (colliders.Count > 0)
         {
+            Debug.Log("we are here");
             if (isActive)
             {
-                endFeauture();
+                endFeature();
             }
             else
             {
@@ -67,12 +67,13 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
 
                 lastFlipTime = Time.time;
                 
+        Debug.Log("reverse gravity mf"); 
                 characterController.rb.gravityScale = -ascendGravityScale;
             }
         }
     }
 
-    public void endFeauture()
+    public void endFeature()
     {
         isActive = false;
         isAscending = false;
@@ -83,7 +84,7 @@ public class playerFlipGravity : MonoBehaviour, IplayerFeature
     {
         if (LayerMask.LayerToName(collider.gameObject.layer) == defaultLayerName)
         {
-            endFeauture();
+            endFeature();
         }
     }
 }

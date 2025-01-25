@@ -10,7 +10,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
     [SerializeField] private float downForce = 300f;
     [SerializeField] private float maxSpeed = 150f;
     [SerializeField] private CharacterMovement _movement;
-
+    [SerializeField] private float _strenght = 2.5f; 
     public bool UseStompAttack { get; private set; }
 
     private bool doStompAttack = false;
@@ -24,7 +24,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
     {
         if(characterController.getPlayerStatus().isGrounded)
         {
-            endFeauture();
+            endFeature();
         }
 
         if(doStompAttack)
@@ -35,12 +35,12 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
         }
     }
 
-    public void initFeauture(characterController characterController)
+    public void initFeature(characterController characterController)
     {
         this.characterController = characterController;
     }
 
-    public void triggerFeauture(bool useInput = false, bool input = false)
+    public void triggerFeature(bool useInput = false, bool input = false)
     {
         if(!useInput)
         {
@@ -59,12 +59,13 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
         {
             return;
         }
+        CameraShake.Instance.ShakeCamera(_strenght); 
         Debug.Log("Will damage austeilen"); 
         UseStompAttack = false;
         List<Collider2D> colliders = new();
         ContactFilter2D filter = new();
         filter.NoFilter();
-        Physics2D.OverlapCircle(transform.position, 2.5f, filter, colliders);
+        Physics2D.OverlapCircle(transform.position, 5f, filter, colliders);
         foreach (Collider2D col in colliders)
         {
             var enemy = col.gameObject.GetComponent<Health>();
@@ -75,7 +76,7 @@ public class playerStompAttack : MonoBehaviour, IplayerFeature
             enemy.GetDamage(10f);
         }
     }
-    public void endFeauture()
+    public void endFeature()
     {
         doStompAttack = false;
     }
