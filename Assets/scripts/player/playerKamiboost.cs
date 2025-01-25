@@ -108,7 +108,7 @@ public class playerKamiboost : MonoBehaviour, IplayerFeature
         {
             List<Collider2D> colliders = new List<Collider2D>();
             characterController.rb.OverlapCollider(contactFilter, colliders);
-
+            CameraShake.Instance.ShakeCamera(2.5f); 
             Debug.Log("Activated Kami boost...");
             doKamiboost = input;
             Debug.Log("doKamiboost = " + doKamiboost);
