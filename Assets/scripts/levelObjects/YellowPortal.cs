@@ -12,11 +12,10 @@ public class YellowPortal : MonoBehaviour
     [Header("Cannon Portal Settings")]
     [SerializeField] private float cannonHoldTime = 2f;
     [SerializeField] private float ejectionForce = 10f;
-    [SerializeField] private Vector2 ejectionDirection = Vector2.right;
+    [SerializeField] private Vector2 ejectionDirection;
 
     private bool canTeleport = true;
     private Rigidbody2D playerRb;
-    private SpriteRenderer spriteRenderer;
     private Vector3 originalPlayerScale;
     private characterController playerController;
 
@@ -37,8 +36,6 @@ public class YellowPortal : MonoBehaviour
                 linkedScript.linkedPortal = gameObject;
             }
         }
-
-        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     private bool IsPlayerYellow(GameObject player)
@@ -51,8 +48,8 @@ public class YellowPortal : MonoBehaviour
         if (playerController != null)
         {
             var playerStatus = playerController.getPlayerStatus();
-            return playerStatus.currentState == characterController.playerStates.yellow ||
-                   playerStatus.currentState == characterController.playerStates.burntYellow;
+            return playerStatus.currentState == characterController.playerStates.yellow 
+               /* || playerStatus.currentState == characterController.playerStates.burntYellow*/;
         }
 
         return false;
