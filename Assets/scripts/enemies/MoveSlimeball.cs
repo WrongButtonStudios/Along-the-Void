@@ -30,7 +30,7 @@ public class MoveSlimeball : MonoBehaviour
 
     private Vector2 ClampVelocity()
     {
-        if (_rb.velocity.magnitude > _maxSpeed)
+        if (_rb.velocity.magnitude >= (_maxSpeed * PhysicUttillitys.TimeScale))
         {
             return _rb.velocity.normalized * _maxSpeed * PhysicUttillitys.TimeScale; 
         }

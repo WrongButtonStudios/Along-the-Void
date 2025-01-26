@@ -10,7 +10,8 @@ public class ColorColliderHandler : MonoBehaviour
     [SerializeField] private Collider2D _collider;
     [SerializeField] private Material _deactivated;
     [SerializeField] private Material _activated;
-    [SerializeField] private SpriteRenderer _renderer; 
+    [SerializeField] private SpriteRenderer _renderer;
+    [SerializeField] private ActivatonVfxHandler _vfxHandler;
     private PlayerColor _currentPlayerColor;
 
     private void Start()
@@ -32,6 +33,7 @@ public class ColorColliderHandler : MonoBehaviour
         _currentPlayerColor = pC;
         if (pC == _colorToInteract)
         {
+            _vfxHandler.PlayActivationVfx(_colorToInteract); 
             _collider.isTrigger = false;
             _renderer.material = _activated;
         }
