@@ -64,7 +64,8 @@ public class EnemyCollisionHandler : MonoBehaviour
 
         if (collision.gameObject.GetComponent<GreenBullet>())
         {
-            _health.GetDamage(0.5f);
+            Debug.Log("Enemy Gets Damage");
+            _health.GetDamage(100f);
         }
     }
 

@@ -13,6 +13,7 @@ public class GreenWarMode : MonoBehaviour
     [SerializeField]
     private GameObject _greenBullet;
     private bool _coolingDown;
+    private bool _isActive = false;
 
     private enum FireMode
     {
@@ -23,15 +24,17 @@ public class GreenWarMode : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        switch (_fireMode)
+        if (_isActive == false)
         {
-            case FireMode.AnyDirection:
-                ShootInAnydirection();
-                break;
-            case FireMode.ShootOnSight:
-                ShootAtEnemyNearby();
-                break;
+            return;
         }
+        ShootInAnydirection();
+    }
+
+
+    public void SetIsActive(bool var)
+    {
+        _isActive = var;
     }
 
     private void ShootInAnydirection()

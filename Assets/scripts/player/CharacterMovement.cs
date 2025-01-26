@@ -146,7 +146,7 @@ public class CharacterMovement : MonoBehaviour
         float baseGravityScale = _controller.rb.gravityScale;
         _controller.rb.gravityScale = 0;
         _controller.rb.velocity = new Vector2(_controller.rb.velocity.x, 0); 
-        _controller.rb.AddForce(dir * dashMaxSpeed, ForceMode2D.Impulse);
+        _controller.rb.AddForce(dir * dashMaxSpeed/4, ForceMode2D.Impulse);
         Debug.Log(_controller.rb.gravityScale); 
         yield return new WaitForSeconds(dashDuration);
         _controller.rb.gravityScale = baseGravityScale;

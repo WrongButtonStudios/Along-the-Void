@@ -42,7 +42,7 @@ Material:
     - _CenterMaskSize: 0.064
     - _Framerate: 10
     - _Frames: 5
-    - _LineDensity: 0.000000009187552
+    - _LineDensity: 0.000786432
     - _LineFalloff: 2
     - _SpeedlinesAmount: 30
     - _SpeedlinesON: 1
