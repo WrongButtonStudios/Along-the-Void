@@ -208,4 +208,9 @@ public class CharacterMovement : MonoBehaviour
     {
         return isLookingRight;
     }
+
+    public float GetSpeedInPercent() 
+    {
+        return _controller.rb.velocity.magnitude / dashMaxSpeed; 
+    }
 }
