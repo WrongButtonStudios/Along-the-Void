@@ -60,7 +60,11 @@ public class Warmodes : MonoBehaviour
             case characterController.playerStates.yellow:
                 Debug.Log("yellow war mode");
                 YellowWarMode();
-                break; 
+                break;
+            case characterController.playerStates.green:
+                Debug.Log("green war mode");
+                GreenWarMode();
+                break;
             default:
                 Debug.LogWarning("Other stuff needs to be implemented/Or allready in warmode");
                 break; 
@@ -100,7 +104,14 @@ public class Warmodes : MonoBehaviour
 
     private void GreenWarMode()
     {
-        throw new System.NotImplementedException(); 
+        if (_isActive == false)
+        {
+            _isActive = true;
+            _cc.StatusData.currentState = characterController.playerStates.burntGreen;
+            _curWarMode = _cc.StatusData.currentState;
+            _activeGreenBullet = Instantiate(_greenBulletPref, transform.position, Quaternion.identity);
+            //Codelogik für Grünen Colorburnmode
+        }
     }
 
     private void DeactivateWarmode()
@@ -117,10 +128,11 @@ public class Warmodes : MonoBehaviour
                 var enemys = FindObjectsOfType<BehaviourStateHandler>();
                 PhysicUttillitys.TimeScale = _normalTimeScale;
                 break;
+            //case characterController.playerStates.burntGreen:
+            //break;
             default:
                 Debug.LogWarning("Other stuff is not implemented, does not need specific stuff to be done to deactivate");
                 break;
         }
     }
-
 }

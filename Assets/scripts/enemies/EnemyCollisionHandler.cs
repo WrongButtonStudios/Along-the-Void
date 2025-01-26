@@ -61,6 +61,11 @@ public class EnemyCollisionHandler : MonoBehaviour
             _entity.Debuffs.AddDebuff(Debuffs.Frozen, 3.0f);
             _health.GetDamage(0.1f); 
         }
+
+        if (collision.gameObject.GetComponent<GreenBullet>())
+        {
+            _health.GetDamage(0.5f);
+        }
     }
 
     private IEnumerator DamageCooldown(float time)
