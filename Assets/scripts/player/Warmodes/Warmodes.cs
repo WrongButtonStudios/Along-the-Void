@@ -12,17 +12,17 @@ public class Warmodes : MonoBehaviour
     [SerializeField, Range(0, 1)]
     private float _normalTimeScale;
     private bool _isActive = false;
-    private CharacterDebuffs _characterDebuffs;
+    private CharacterDebuffs _characterDebuffs; 
     private characterController _cc;
     private float _curHP;
     private GameObject _activeTurret;
-    private GameObject _activeGreenBullet;
 
     [SerializeField, Tooltip("Defines the amount of the color/hp loss per second. Max Coloramount/Fairry = 1")]
     private float _colorLossAmount = 0.05f;
     [SerializeField, Tooltip("The Ice Shooting turret for the Bluewarmode")]
     private GameObject _turretPref;
-    private GameObject _greenBulletPref;
+    [SerializeField] private GreenWarMode _greenWarMode;
+    private GreenBullet _greenBullet;
 
     private characterController.playerStates _curWarMode;
 
@@ -106,12 +106,14 @@ public class Warmodes : MonoBehaviour
 
     private void GreenWarMode()
     {
+
+        
         if (_isActive == false)
         {
+            _greenWarMode.SetIsActive(true);
             _isActive = true;
             _cc.StatusData.currentState = characterController.playerStates.burntGreen;
             _curWarMode = _cc.StatusData.currentState;
-            _activeGreenBullet = Instantiate(_greenBulletPref, transform.position, Quaternion.identity);
             //Codelogik für Grünen Colorburnmode
         }
     }
@@ -130,8 +132,9 @@ public class Warmodes : MonoBehaviour
                 var enemys = FindObjectsOfType<BehaviourStateHandler>();
                 PhysicUttillitys.TimeScale = _normalTimeScale;
                 break;
-            //case characterController.playerStates.burntGreen:
-            //break;
+            case characterController.playerStates.burntGreen:
+                _greenWarMode.SetIsActive(false);
+                break;
             default:
                 Debug.LogWarning("Other stuff is not implemented, does not need specific stuff to be done to deactivate");
                 break;

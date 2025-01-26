@@ -20,8 +20,7 @@ public class GreenBullet : MonoBehaviour
     // Update is called once per frame
     void FixedUpdate()
     {
-        if (this.isActiveAndEnabled == false)
-            return;
+        
         _timePassed += Time.fixedDeltaTime;
         if (_timePassed >= _lifeDuration)
         {
@@ -31,6 +30,7 @@ public class GreenBullet : MonoBehaviour
         }
 
         _rb.AddForce(this.transform.right * _force * Time.fixedDeltaTime);
+        Debug.Log("we are here");
         //kommentar um n neuen push mit dem namen "currently not merge ready" zu machen 
     }
 }
