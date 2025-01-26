@@ -7,11 +7,37 @@ public class CannonPortal : MonoBehaviour
     [SerializeField] private float ejectionForce = 10f;
     [SerializeField] private Vector2 ejectionDirection;
     [SerializeField] private float cooldown = 1f;
+    [SerializeField]private characterController playerController;
+    private GameObject ps_YellowPortal_Startup_Star;
+    private GameObject ps_YellowPortal_FizzleOut;
 
     private bool canTeleport = true;
     private Rigidbody2D playerRb;
     private Vector3 originalPlayerScale;
-    private characterController playerController;
+
+
+
+    void Awake()
+    {
+        ps_YellowPortal_Startup_Star = transform.Find("PS_YellowPortal_Startup_Star").gameObject;
+        ps_YellowPortal_FizzleOut = transform.Find("PS_YellowPortal_FizzleOut").gameObject;
+    }
+
+    void Update()
+    {
+        if (PlayerUttillitys.GetPlayerColor(playerController) == PlayerColor.yellow)
+        {
+            this.GetComponent<Collider2D>().enabled = true;
+            ps_YellowPortal_Startup_Star.SetActive(true);
+            ps_YellowPortal_FizzleOut.SetActive(false);
+        }
+        else
+        {
+            this.GetComponent<Collider2D>().enabled = false;
+            ps_YellowPortal_Startup_Star.SetActive(false);
+            ps_YellowPortal_FizzleOut.SetActive(true);
+        }
+    }
 
     private bool IsPlayerYellow(GameObject player)
     {
