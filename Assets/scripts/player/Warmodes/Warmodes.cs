@@ -16,17 +16,19 @@ public class Warmodes : MonoBehaviour
     private characterController _cc;
     private float _curHP;
     private GameObject _activeTurret;
+    private GameObject _activeGreenBullet;
 
     [SerializeField, Tooltip("Defines the amount of the color/hp loss per second. Max Coloramount/Fairry = 1")]
     private float _colorLossAmount = 0.05f;
     [SerializeField, Tooltip("The Ice Shooting turret for the Bluewarmode")]
     private GameObject _turretPref;
+    private GameObject _greenBulletPref;
 
     private characterController.playerStates _curWarMode;
 
     public bool IsActive { get { return _isActive; } }
     public fairyController FairyController { get { return _fairyController; } }
-    public characterController.playerStates CurWarMode { get { return _curWarMode;  } }
+    public characterController.playerStates CurWarMode { get { return _curWarMode; } }
 
     private void Start()
     {
@@ -40,10 +42,10 @@ public class Warmodes : MonoBehaviour
         if (!_isActive)
             return;
 
-        _curHP = PlayerDamageHandler.GetDamage(_colorLossAmount*Time.deltaTime, PlayerUttillitys.GetPlayerColor(_curWarMode), _fairyController);
+        _curHP = PlayerDamageHandler.GetDamage(_colorLossAmount * Time.deltaTime, PlayerUttillitys.GetPlayerColor(_curWarMode), _fairyController);
         if (_curHP <= 0)
         {
-            DeactivateWarmode(); 
+            DeactivateWarmode();
         }
     }
 
@@ -52,10 +54,10 @@ public class Warmodes : MonoBehaviour
         switch (color)
         {
             case characterController.playerStates.blue:
-                BlueWarMode(); 
+                BlueWarMode();
                 break;
             case characterController.playerStates.red:
-                RedWarMode(); 
+                RedWarMode();
                 break;
             case characterController.playerStates.yellow:
                 Debug.Log("yellow war mode");
@@ -67,7 +69,7 @@ public class Warmodes : MonoBehaviour
                 break;
             default:
                 Debug.LogWarning("Other stuff needs to be implemented/Or allready in warmode");
-                break; 
+                break;
         }
     }
 
@@ -85,7 +87,7 @@ public class Warmodes : MonoBehaviour
         {
             _isActive = true;
             _cc.StatusData.currentState = characterController.playerStates.burntBlue;
-            _curWarMode = _cc.StatusData.currentState; 
+            _curWarMode = _cc.StatusData.currentState;
             _activeTurret = Instantiate(_turretPref, transform.position, Quaternion.identity);
         }
     }
@@ -94,11 +96,11 @@ public class Warmodes : MonoBehaviour
     {
         if (_isActive == false)
         {
-            _isActive = true; 
+            _isActive = true;
             _cc.StatusData.currentState = characterController.playerStates.burntYellow;
             _curWarMode = _cc.StatusData.currentState;
             PhysicUttillitys.TimeScale = _bulletTimeScale;
-            Debug.Log(PhysicUttillitys.TimeScale); 
+            Debug.Log(PhysicUttillitys.TimeScale);
         }
     }
 
@@ -116,8 +118,8 @@ public class Warmodes : MonoBehaviour
 
     private void DeactivateWarmode()
     {
-        _isActive = false; 
-        _fairyController.debugSetPlayerState(); 
+        _isActive = false;
+        _fairyController.debugSetPlayerState();
         switch (_curWarMode)
         {
             case characterController.playerStates.burntBlue:
