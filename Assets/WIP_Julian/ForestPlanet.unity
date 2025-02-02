@@ -5823,7 +5823,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3475207977389643724, guid: 7797320ede7f5d84397479747bde2064, type: 3}
       propertyPath: ejectionForce
-      value: 20
+      value: 33
       objectReference: {fileID: 0}
     - target: {fileID: 3475207977389643724, guid: 7797320ede7f5d84397479747bde2064, type: 3}
       propertyPath: playerController
