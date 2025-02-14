@@ -3,6 +3,7 @@ using UnityEngine;
 public class PlayerRedShrinkZone : MonoBehaviour
 {
     [SerializeField] private Transform player;
+    [SerializeField] private characterController characterController;
     public float shrinkFactor = 0.1f;
     private Vector3 originalScale;
 
@@ -19,7 +20,7 @@ public class PlayerRedShrinkZone : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.CompareTag("Player"))
+        if (collision.CompareTag("Player") && PlayerUttillitys.GetPlayerColor(characterController) == PlayerColor.red)
         {
             player.localScale = originalScale * shrinkFactor;
         }
