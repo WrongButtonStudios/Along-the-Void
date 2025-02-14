@@ -47,21 +47,26 @@ public class FarCombatAttackComponent : AttackComponent
 
     private void Charge()
     {
-        Vector2 direction = new Vector2(_player.position.x, 0) - new Vector2(transform.position.x, 0); //y = 0 so that the opponent does not land on the ground
+        Vector2 direction = _movement.CalculateDirection(transform.position, _entity.Player.position, 5f); 
 
         if (direction.sqrMagnitude >= _fireRangeSQR)
         {
             _movement.Move(direction);
             return;
         }
+        if (Mathf.Abs(_movement.CalculateYMovement(2.5f, transform.position.y)) >= 0.02f)
+        {
+            direction = new Vector2(0, _movement.CalculateYMovement(2.5f, transform.position.y));
+            _movement.Move(direction);
+            return; 
+        }
         _curPhase = AttackPhases.Attack;
         _movement.ZeroVelocity(); 
     }
 
-    //To-Do: Hier drin passiert eindeutig zu viel stuff
     private void Shoot()
     {
-        Vector2 direction = _movement.CalculateDirectionX(transform.position, _entity.Player.position); 
+        Vector2 direction = _movement.CalculateDirection(transform.position, _entity.Player.position, 5f);
         if (direction.sqrMagnitude <= _fireRangeSQR)
         {
             if (!_isCoolingDown)
