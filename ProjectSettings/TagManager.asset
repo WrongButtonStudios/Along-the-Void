@@ -15,6 +15,7 @@ TagManager:
   - CheckpointDetector
   - Checkpoint
   - Blue
+  - CollectZone
   layers:
   - Default
   - TransparentFX
