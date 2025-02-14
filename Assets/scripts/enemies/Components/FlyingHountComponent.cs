@@ -10,7 +10,7 @@ public class FlyingHuntComponent : HuntingComponent
 
     public override void Hunt()
     {
-        _movement.Move(_movement.CalculateDirectionX(transform.position, _player.position)); //ignore y so that the Enemy doesnt fly onto the ground
+        _movement.Move(_movement.CalculateDirection(transform.position, _player.position, 5f)); 
     }
 
     public override float GetDistanceToTargetSqr(Vector2 dest, Vector2 start) 

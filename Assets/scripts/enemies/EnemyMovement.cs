@@ -8,6 +8,7 @@ public class EnemyMovement : MonoBehaviour
     [SerializeField] private float _jumpForce;
     [SerializeField] private float _speed;
     [SerializeField] private float _jumpHight = 2.5f;
+    [SerializeField] private LayerMask _groundLayer; 
     [SerializeField] private Rigidbody2D _rb;
 
     private float _maxJumpHight; 
@@ -61,11 +62,12 @@ public class EnemyMovement : MonoBehaviour
         return b - a; 
     }
 
-    public Vector2 CalculateDirectionX(Vector2 a, Vector2 b)
+    public Vector2 CalculateDirection(Vector2 a, Vector2 b, float desiredHeight)
     {
-        a.y = 0;
-        b.y = 0; 
-        return b - a;
+        Vector2 dir;
+        dir.x = b.x - a.x;
+        dir.y = CalculateYMovement(desiredHeight, a.y);
+        return dir; 
     }
 
     public void CalculateMaxJumpHight() 
@@ -84,4 +86,33 @@ public class EnemyMovement : MonoBehaviour
         newVel.x = 0; 
         _rb.velocity = newVel;
     }
+
+    public float CalculateYMovement(float desiredHeight, float currentY)
+    {
+        RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, _groundLayer);
+        if (hit)
+        {
+            float groundYPos = hit.point.y;
+            float currentHeight = currentY - groundYPos;
+            Debug.Log("Current height: " + currentHeight);
+
+            float moveSpeed = 2f;
+
+            if (currentHeight < desiredHeight)
+            {
+                Debug.Log("Moving up with y vel: " + moveSpeed);
+                return moveSpeed;
+            }
+            else if (currentHeight > desiredHeight)
+            {
+                Debug.Log("Moving down with y vel: " + -moveSpeed);
+                return -moveSpeed;
+            }
+
+            return 0;
+        }
+
+        throw new System.Exception("Enemies and WayPoints should be placed above ground!");
+    }
+
 }
