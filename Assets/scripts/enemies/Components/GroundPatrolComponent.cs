@@ -61,13 +61,6 @@ public class GroundPatrolComponent : PatrolComponent
         temp.y = transform.position.y; 
         float distToWayPoint = (temp - (Vector2)_entity.transform.position).sqrMagnitude;
 
-        if (_collsionHandler.CheckForObstacle(GetXDirection()) && _collsionHandler.IsGrounded() && !_doJump)
-        {
-            _movement.SetGravitiyScale(0); 
-            _movement.CalculateMaxJumpHight();
-            _doJump = true;
-        }
-
         if (distToWayPoint > (_entity.StoppingDistance * _entity.StoppingDistance))
         {
             Movement(_wayPoints[_curWayPoint].position);
