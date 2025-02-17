@@ -29,9 +29,11 @@ public class Collectable : MonoBehaviour, ICollectable
     }
 
 
+
     public void Collect()
     {
-        Debug.Log("Collected!");
+        Debug.Log("Collect() wurde aufgerufen!");
+        GameInstance.Instance.AddStar(1);
         Destroy(gameObject);
     }
 }
