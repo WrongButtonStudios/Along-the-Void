@@ -90,29 +90,33 @@ public class EnemyMovement : MonoBehaviour
     public float CalculateYMovement(float desiredHeight, float currentY)
     {
         RaycastHit2D hit = Physics2D.Raycast(transform.position, Vector2.down, Mathf.Infinity, _groundLayer);
-        if (hit)
+
+        if (hit.collider != null)
         {
             float groundYPos = hit.point.y;
             float currentHeight = currentY - groundYPos;
-            Debug.Log("Current height: " + currentHeight);
-
             float moveSpeed = 2f;
+            float deadZone = 0.1f; // Toleranz für Rundungsfehler
 
-            if (currentHeight < desiredHeight)
+            Debug.Log($"Current Height: {currentHeight}, Desired Height: {desiredHeight}");
+
+            // Überprüfung mit Dead Zone
+            float heightDifference = currentHeight - desiredHeight;
+
+            if (Mathf.Abs(heightDifference) > deadZone)
             {
-                Debug.Log("Moving up with y vel: " + moveSpeed);
-                return moveSpeed;
-            }
-            else if (currentHeight > desiredHeight)
-            {
-                Debug.Log("Moving down with y vel: " + -moveSpeed);
-                return -moveSpeed;
+                float direction = Mathf.Sign(heightDifference); // +1 = zu hoch, -1 = zu niedrig
+                float velocity = -direction * moveSpeed; // Negativ weil wir in Richtung der gewünschten Höhe gehen
+                Debug.Log($"Adjusting height: {velocity}");
+                return velocity;
             }
 
-            return 0;
+            return 0; // In der Dead Zone, also keine Bewegung notwendig
         }
 
-        throw new System.Exception("Enemies and WayPoints should be placed above ground!");
+        Debug.LogWarning("No ground detected! Keeping current Y position.");
+        return 0; // Falls kein Boden erkannt wird, nicht bewegen
     }
+
 
 }
